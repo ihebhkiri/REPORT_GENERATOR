@@ -1,0 +1,243 @@
+<div class="export-page">
+  <header class="export-topbar">
+    <div class="export-topbar__inner">
+      <p-button
+        label="ReportGen Pro"
+        icon="pi pi-database"
+        [text]="true"
+        (onClick)="startNewReport()"
+      />
+    </div>
+  </header>
+
+  <main class="export-main">
+    <section class="export-intro" aria-labelledby="page-title">
+      <div class="export-intro__copy">
+        <h1 id="page-title" class="export-intro__title">Préparer et exporter le rapport</h1>
+        <p class="export-intro__subtitle">Suivez les étapes jusqu’au téléchargement de votre rapport.</p>
+      </div>
+
+      <app-report-steps [stepValue]="3" />
+    </section>
+
+    @if (networkInterrupted()) {
+      <p-message severity="warn" icon="pi pi-wifi" role="status">
+        Connexion interrompue. Le suivi reprend automatiquement.
+      </p-message>
+    }
+    @if (errorMessage(); as exportErrorMessage) {
+      <p-message severity="error" icon="pi pi-exclamation-circle" role="alert">
+        {{ exportErrorMessage }}
+      </p-message>
+    }
+
+    @if (reportGeneration(); as reportGeneration) {
+      <p-timeline [value]="workflowSteps" class="export-timeline">
+        <ng-template #marker let-step>
+          @let stepState = workflowState(step.id);
+          <span
+            class="export-timeline__marker"
+            [class.export-timeline__marker--completed]="stepState === 'completed'"
+            [class.export-timeline__marker--active]="stepState === 'active'"
+            [class.export-timeline__marker--error]="stepState === 'error'"
+          >
+            @if (stepState === 'completed') {
+              <i class="pi pi-check" aria-hidden="true"></i>
+            } @else if (stepState === 'error') {
+              <i class="pi pi-exclamation-circle" aria-hidden="true"></i>
+            } @else {
+              {{ step.number }}
+            }
+          </span>
+        </ng-template>
+
+        <ng-template #content let-step>
+          @switch (step.id) {
+            @case ('preparation') {
+              <p-card class="export-workflow-card" data-testid="workflow-preparation">
+                <ng-template #title>
+                  <div class="export-workflow-card__heading">
+                    <span>Préparation</span>
+                  </div>
+                </ng-template>
+                <ng-template #subtitle>{{ preparationSummary() }}</ng-template>
+
+                @if (reportGeneration.status === 'FAILED') {
+                  <p-message severity="error" icon="pi pi-exclamation-circle">
+                    La préparation du rapport a échoué. Vérifiez la configuration puis relancez le traitement.
+                  </p-message>
+                  @if (reportGeneration.unavailableElements?.length) {
+                    <div class="unavailable-elements" role="alert">
+                      <strong>Éléments devenus indisponibles</strong>
+                      <ul>
+                        @for (element of reportGeneration.unavailableElements; track element.kind + '-' + element.id) {
+                          <li>{{ element.displayName }}</li>
+                        }
+                      </ul>
+                    </div>
+                  }
+                  <div class="export-card-actions">
+                    <p-button label="Revenir et réessayer" severity="danger" (onClick)="returnToConfiguration()"/>
+                  </div>
+                } @else if (reportGeneration.status !== 'READY') {
+                  <div class="export-preparation-progress">
+                    <span>{{ reportGeneration.processedRowCount ?? 0 }} ligne(s) traitée(s)</span>
+                    <strong>{{ reportGeneration.progress }} %</strong>
+                  </div>
+                  <p-progressbar
+                    role="progressbar"
+                    [value]="reportGeneration.progress"
+                    [showValue]="false"
+                  />
+                }
+              </p-card>
+            }
+            @case ('formats') {
+              @let availableOptions = availableExportOptions();
+              <p-card class="export-workflow-card" data-testid="workflow-formats">
+                <ng-template #title>
+                  <div class="export-workflow-card__heading">
+                    <span>Formats</span>
+
+                  </div>
+                </ng-template>
+                <ng-template #subtitle>{{ formatsSummary() }}</ng-template>
+
+                @if (reportGeneration.status !== 'READY') {
+                  <p-message severity="secondary">Les formats seront disponibles après la préparation.</p-message>
+                } @else {
+                  <div class="export-format-grid" aria-label="Formats disponibles">
+                    @for (definition of availableOptions; track definition.format) {
+                      <ng-container
+                        [ngTemplateOutlet]="formatCard"
+                        [ngTemplateOutletContext]="{ $implicit: definition, location: 'formats' }"
+                      />
+                    }
+                  </div>
+                }
+              </p-card>
+            }
+            @case ('download') {
+              @let selectedOptions = selectedExportOptions();
+              <p-card class="export-workflow-card" data-testid="workflow-download">
+                <ng-template #title>
+                  <div class="export-workflow-card__heading">
+                    <span>Téléchargement</span>
+                  </div>
+                </ng-template>
+                <ng-template #subtitle>{{ downloadSummary() }}</ng-template>
+
+                @if (selectedOptions.length === 0) {
+                  <p-message severity="secondary" icon="pi pi-info-circle">
+                    Sélectionnez un format pour commencer son export.
+                  </p-message>
+                } @else {
+                  <div class="export-format-grid" aria-label="Formats en téléchargement">
+                    @for (definition of selectedOptions; track definition.format) {
+                      <ng-container
+                        [ngTemplateOutlet]="formatCard"
+                        [ngTemplateOutletContext]="{ $implicit: definition, location: 'download' }"
+                      />
+                    }
+                  </div>
+                }
+              </p-card>
+            }
+          }
+        </ng-template>
+      </p-timeline>
+    } @else {
+      <p-card class="export-loading" aria-live="polite">
+        <i class="pi pi-spin pi-spinner" aria-hidden="true"></i>
+        <span>Chargement de la génération…</span>
+      </p-card>
+    }
+
+    <footer class="export-page-actions" aria-label="Actions du rapport">
+      <p-button
+        label="Modifier la configuration"
+        icon="pi pi-arrow-left"
+        [text]="true"
+        (onClick)="returnToConfiguration()"
+      />
+      <p-button
+        label="Créer un nouveau rapport"
+        icon="pi pi-plus"
+        severity="secondary"
+        [outlined]="true"
+        (onClick)="startNewReport()"
+      />
+    </footer>
+  </main>
+
+  <ng-template #formatCard let-definition let-location="location">
+    @let reportExport = reportExportFor(definition.format);
+    @let exportError = formatError(definition.format);
+    @let formatCreationInProgress = isCreatingFormat(definition.format);
+    <p-card
+      class="export-format-card"
+      [attr.data-testid]="location + '-card-' + definition.format"
+    >
+      @if (location === 'download' &&
+      !exportError &&
+      (
+        formatCreationInProgress ||
+        reportExport?.status === 'PENDING' ||
+        reportExport?.status === 'RUNNING'
+      )) {
+        <ng-template #header>
+          <p-progressbar
+            role="progressbar"
+            [mode]="formatProgressMode(definition.format)"
+            [value]="reportExport?.progress ?? 0"
+            [showValue]="false"
+          />
+        </ng-template>
+      }
+
+      <div class="export-format-card__row">
+        <p-avatar
+          [icon]="definition.icon"
+          size="large"
+          shape="square"
+          [ariaLabel]="'Format ' + definition.title"
+        />
+
+        <div class="export-format-card__copy">
+          <div class="export-format-card__title-line">
+            <strong>{{ definition.title }}</strong>
+            @if (location === 'download' &&
+            reportExport?.status !== 'READY') {
+            }
+          </div>
+
+          @if (location === 'formats') {
+            <span>{{ definition.description }}</span>
+          } @else if (exportError) {
+            <p-message severity="error" variant="simple" size="small">
+              {{ exportError }}
+            </p-message>
+          } @else if (reportExport?.status === 'READY') {
+            <p-message severity="success" variant="simple" size="small" icon="pi pi-check-circle">
+              Fichier prêt
+            </p-message>
+          } @else {
+            <p-message severity="info" variant="simple" size="small" icon="pi pi-clock">
+              Prêt dans quelques secondes…
+            </p-message>
+          }
+        </div>
+
+        <p-button
+          [attr.data-testid]="location + '-action-' + definition.format"
+          [label]="location === 'formats' ? definition.exportLabel : formatActionLabel(definition)"
+          [icon]="reportExport?.status === 'READY' ? 'pi pi-download' : 'pi pi-file-export'"
+          [loading]="location === 'download' && formatCreationInProgress"
+          [disabled]="location === 'download' && isFormatActionDisabled(definition.format)"
+          [fluid]="true"
+          (onClick)="exportOrDownloadFormat(definition.format)"
+        />
+      </div>
+    </p-card>
+  </ng-template>
+</div>

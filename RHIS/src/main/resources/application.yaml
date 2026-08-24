@@ -1,0 +1,43 @@
+spring:
+  application:
+    name: RHIS
+    jwt :
+      secret : sqflkjslkfjsldkjfimlkjakljdlmfs45
+  datasource:
+    url: jdbc:postgresql://localhost:5432/reportdb?createDatabaseIfNotExists=true
+    username: postgres
+    password: postgres
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: create
+  security:
+    user:
+      name: user
+      password: user
+
+refresh :
+  token :
+    expiration : 518400 # 6 j
+access :
+  token :
+    expiration : 900000   # 15 min ---> ms
+
+rhis:
+  report:
+    jobs:
+      core-pool-size: 2
+      max-pool-size: 4
+      queue-capacity: 25
+      max-active-per-user: 2
+      fetch-size: 500
+      query-timeout-seconds: 120
+      progress-batch-size: 100
+      xlsx-row-window: 100
+      jasper-virtualizer-max-pages: 50
+      expiration: 30m
+      heartbeat-timeout: 5m
+      metadata-retention: 24h
+      cleanup-interval: 1m
+      storage-root: ${java.io.tmpdir}/rhis-report-artifacts
+

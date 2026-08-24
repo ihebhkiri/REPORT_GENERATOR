@@ -1,0 +1,129 @@
+<main class="exposure-page">
+  <header class="page-heading">
+    <div>
+      <h1>Exposition des données</h1>
+    </div>
+    <div class="save-panel" aria-live="polite">
+      <span class="change-indicator">
+        @if (dirty()) {
+          {{ changeCount() }} table(s) modifiée(s)
+        } @else {
+          Aucune modification
+        }
+      </span>
+      <p-button
+        label="Enregistrer"
+        icon="pi pi-save"
+        [loading]="saving()"
+        [disabled]="!dirty() || saving()"
+        (onClick)="save()"
+      />
+    </div>
+  </header>
+
+  @if (loadError()) {
+    <p-message severity="error" [text]="loadError()!" />
+    <p-button label="Réessayer" icon="pi pi-refresh" severity="secondary" (onClick)="load()" />
+  } @else {
+    <section class="registry" aria-labelledby="registry-title">
+      <div class="registry-toolbar">
+        <div>
+          <h2 id="registry-title">Tables disponibles</h2>
+          <p>Les champs conservent leur état lorsqu’une table devient non exposée.</p>
+        </div>
+        <label class="search-control">
+          <span class="sr-only">Rechercher une table ou un champ</span>
+          <i class="pi pi-search" aria-hidden="true"></i>
+          <input
+            pInputText
+            type="search"
+            placeholder="Rechercher une table ou un champ"
+            [value]="searchTerm()"
+            (input)="updateSearch($event)"
+          />
+        </label>
+      </div>
+
+      @if (saveError()) {
+        <p-message severity="error" [text]="saveError()!" />
+      }
+      @if (successMessage()) {
+        <p-message severity="success" [text]="successMessage()!" />
+      }
+
+      @if (loading()) {
+        <div class="skeleton-list" aria-label="Chargement de la configuration">
+          <p-skeleton height="5rem" />
+          <p-skeleton height="5rem" />
+          <p-skeleton height="5rem" />
+        </div>
+      } @else if (draft().length === 0) {
+        <div class="empty-state">
+          <i class="pi pi-database" aria-hidden="true"></i>
+          <h3>Aucune table disponible</h3>
+          <p>La synchronisation des métadonnées n’a retourné aucune table.</p>
+        </div>
+      } @else if (filteredDatasets().length === 0) {
+        <div class="empty-state">
+          <i class="pi pi-search" aria-hidden="true"></i>
+          <h3>Aucun résultat</h3>
+          <p>Modifiez la recherche pour retrouver une table ou un champ.</p>
+        </div>
+      } @else {
+        <p-accordion [multiple]="true" class="dataset-list">
+          @for (dataset of filteredDatasets(); track dataset.id) {
+            <p-accordion-panel [value]="dataset.id">
+              <p-accordion-header>
+                <span class="dataset-summary">
+                  <span class="dataset-name">{{ dataset.displayName }}</span>
+                  @if (!dataset.active) {
+                    <span class="status-badge unavailable">Indisponible</span>
+                  } @else {
+                    <span class="status-badge">{{ modeLabel(exposureMode(dataset)) }}</span>
+                  }
+                  <span class="field-count">{{ visibleFieldCount(dataset) }} champ(s) exposé(s)</span>
+                </span>
+              </p-accordion-header>
+              <p-accordion-content>
+                <div class="dataset-controls">
+                  <label [for]="'mode-' + dataset.id">Mode d’exposition</label>
+                  <p-select
+                    [inputId]="'mode-' + dataset.id"
+                    [options]="modeOptions"
+                    optionLabel="label"
+                    optionValue="value"
+                    [ngModel]="exposureMode(dataset)"
+                    [disabled]="!dataset.active"
+                    (ngModelChange)="updateMode(dataset.id, $event)"
+                  />
+                </div>
+
+                <div class="field-grid" role="list" [attr.aria-label]="'Champs de ' + dataset.displayName">
+                  @for (field of dataset.fields; track field.id) {
+                    <label class="field-row" [class.inactive]="!field.active" role="listitem">
+                      <span>
+                        <strong>{{ field.displayName }}</strong>
+                        @if (!field.active) {
+                          <small>Indisponible</small>
+                        }
+                      </span>
+                      <p-checkbox
+                        [inputId]="'field-' + field.id"
+                        [binary]="true"
+                        [ngModel]="field.visible"
+                        [disabled]="fieldsDisabled(dataset) || !field.active"
+                        (ngModelChange)="updateField(dataset.id, field.id, $event)"
+                      />
+                    </label>
+                  } @empty {
+                    <p class="no-fields">Aucun champ pour cette table.</p>
+                  }
+                </div>
+              </p-accordion-content>
+            </p-accordion-panel>
+          }
+        </p-accordion>
+      }
+    </section>
+  }
+</main>

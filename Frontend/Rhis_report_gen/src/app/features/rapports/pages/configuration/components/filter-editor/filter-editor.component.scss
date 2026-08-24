@@ -1,0 +1,239 @@
+:host {
+  container-name: filter-editor;
+  container-type: inline-size;
+  display: block;
+}
+
+.filter-expression-list {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+}
+
+.filter-context {
+  margin: 0 0 0.5rem;
+  color: #64748b;
+  font-size: 0.75rem;
+}
+
+.filter-conjunction {
+  margin: 0.4rem 0 0.4rem 0.75rem;
+  color: #94a3b8;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.filter-condition {
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.filter-condition-controls {
+  display: grid;
+  min-width: 0;
+  grid-template-areas: 'field operator value delete';
+  grid-template-columns:
+    clamp(7.5rem, 24%, 10rem)
+    clamp(9rem, 30%, 12rem)
+    minmax(0, 1fr)
+    2.75rem;
+  align-items: stretch;
+  overflow: hidden;
+  border: 1px solid #cbd5e1;
+  border-radius: 0.75rem;
+  background: #fff;
+  transition:
+    border-color 150ms ease,
+    box-shadow 150ms ease;
+}
+
+.filter-condition-controls--no-value {
+  grid-template-areas: 'field operator delete';
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.4fr) 2.75rem;
+}
+
+.filter-condition-controls:hover {
+  border-color: #94a3b8;
+}
+
+.filter-condition-controls:focus-within {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgb(37 99 235 / 16%);
+}
+
+.filter-condition-controls:has([aria-invalid='true']) {
+  border-color: #b91c1c;
+}
+
+.field-control,
+.operator-control,
+.value-segment,
+.delete-control {
+  min-width: 0;
+}
+
+.field-control {
+  grid-area: field;
+}
+
+.operator-control {
+  grid-area: operator;
+  border-left: 1px solid #e2e8f0;
+}
+
+.value-segment {
+  display: flex;
+  min-width: 0;
+  grid-area: value;
+  align-items: stretch;
+  border-left: 1px solid #e2e8f0;
+}
+
+.value-segment--between {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+}
+
+.range-conjunction {
+  display: inline-flex;
+  align-items: center;
+  padding: 0 0.35rem;
+  color: #64748b;
+  font-size: 0.75rem;
+}
+
+.value-control {
+  min-width: 0;
+  width: 100%;
+}
+
+.filter-value-input {
+  height: 2.75rem;
+  border: 0;
+  background: transparent;
+  padding: 0 0.75rem;
+  color: #1e293b;
+  font-size: 0.875rem;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+  outline: none;
+  transition: background-color 150ms ease;
+}
+
+.filter-value-input:hover {
+  background: #f8fafc;
+}
+
+.filter-value-input:focus-visible {
+  background: #eff6ff;
+}
+
+.filter-value-input[aria-invalid='true'] {
+  background: #fef2f2;
+}
+
+.delete-control {
+  display: inline-flex;
+  grid-area: delete;
+  border-left: 1px solid #e2e8f0;
+  touch-action: manipulation;
+}
+
+:host ::ng-deep :is(.field-control, .operator-control, .boolean-control).p-select {
+  min-width: 0;
+  min-height: 2.75rem;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  touch-action: manipulation;
+  transition: background-color 150ms ease;
+}
+
+:host ::ng-deep :is(.field-control, .operator-control, .boolean-control).p-select:hover {
+  background: #f8fafc;
+}
+
+:host ::ng-deep :is(.field-control, .operator-control, .boolean-control).p-select.p-focus {
+  background: #eff6ff;
+  box-shadow: none;
+}
+
+:host ::ng-deep :is(.field-control, .operator-control, .boolean-control) .p-select-label {
+  min-width: 0;
+  overflow: hidden;
+  padding: 0.7rem 0.2rem 0.7rem 0.75rem;
+  color: #334155;
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+:host ::ng-deep .field-control .p-select-label {
+  color: #4338ca;
+  font-weight: 650;
+}
+
+:host ::ng-deep :is(.field-control, .operator-control, .boolean-control) .p-select-dropdown {
+  width: 2rem;
+  color: #64748b;
+}
+
+:host ::ng-deep .boolean-control.p-select {
+  width: 100%;
+}
+
+:host ::ng-deep .value-control[aria-invalid='true'].p-select {
+  background: #fef2f2;
+}
+
+:host ::ng-deep .delete-control .p-button {
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 0;
+  color: #64748b;
+}
+
+:host ::ng-deep .delete-control .p-button:hover {
+  background: #fef2f2;
+  color: #b91c1c;
+}
+
+@container filter-editor (max-width: 24rem) {
+  .filter-condition-controls {
+    grid-template-areas:
+      'field operator operator'
+      'value value delete';
+    grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr) 2.75rem;
+  }
+
+  .filter-condition-controls--no-value {
+    grid-template-areas: 'field operator delete';
+    grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr) 2.75rem;
+  }
+
+  .value-segment {
+    border-top: 1px solid #e2e8f0;
+    border-left: 0;
+  }
+
+  .delete-control {
+    border-top: 1px solid #e2e8f0;
+  }
+
+  .filter-condition-controls--no-value .delete-control {
+    border-top: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .filter-condition-controls,
+  .filter-value-input,
+  :host ::ng-deep :is(.field-control, .operator-control, .boolean-control).p-select {
+    transition: none;
+  }
+}

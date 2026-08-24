@@ -1,0 +1,192 @@
+:host {
+  container-name: sort-editor;
+  container-type: inline-size;
+  display: block;
+}
+
+.sort-expression-list {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+}
+
+.sort-context {
+  margin: 0 0 0.5rem;
+  color: #64748b;
+  font-size: 0.75rem;
+}
+
+.sort-conjunction {
+  margin: 0.4rem 0 0.4rem 0.75rem;
+  color: #94a3b8;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.sort-condition {
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.sort-condition-controls {
+  display: grid;
+  min-width: 0;
+  grid-template-areas: 'field direction priority delete';
+  grid-template-columns: minmax(0, 1fr) minmax(6.75rem, 7.5rem) 5.5rem 2.75rem;
+  align-items: stretch;
+  overflow: hidden;
+  border: 1px solid #cbd5e1;
+  border-radius: 0.75rem;
+  background: #fff;
+  transition:
+    border-color 150ms ease,
+    box-shadow 150ms ease;
+}
+
+.sort-condition-controls:hover {
+  border-color: #94a3b8;
+}
+
+.sort-condition-controls:focus-within {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgb(37 99 235 / 16%);
+}
+
+.field-control,
+.direction-control,
+.priority-control,
+.delete-control {
+  min-width: 0;
+}
+
+.field-control {
+  grid-area: field;
+}
+
+.direction-control {
+  grid-area: direction;
+  border-left: 1px solid #e2e8f0;
+}
+
+.priority-control {
+  display: grid;
+  min-width: 0;
+  grid-area: priority;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  border-left: 1px solid #e2e8f0;
+}
+
+.priority-control > p-button:first-child {
+  border-right: 1px solid #e2e8f0;
+}
+
+.delete-control {
+  display: inline-flex;
+  grid-area: delete;
+  border-left: 1px solid #e2e8f0;
+  touch-action: manipulation;
+}
+
+:host ::ng-deep :is(.field-control, .direction-control).p-select {
+  min-width: 0;
+  min-height: 2.75rem;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  touch-action: manipulation;
+  transition: background-color 150ms ease;
+}
+
+:host ::ng-deep :is(.field-control, .direction-control).p-select:hover {
+  background: #f8fafc;
+}
+
+:host ::ng-deep :is(.field-control, .direction-control).p-select.p-focus {
+  background: #eff6ff;
+  box-shadow: none;
+}
+
+:host ::ng-deep :is(.field-control, .direction-control) .p-select-label {
+  min-width: 0;
+  overflow: hidden;
+  padding: 0.7rem 0.2rem 0.7rem 0.75rem;
+  color: #334155;
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+:host ::ng-deep .field-control .p-select-label {
+  color: #4338ca;
+  font-weight: 650;
+}
+
+:host ::ng-deep :is(.field-control, .direction-control) .p-select-dropdown {
+  width: 2rem;
+  color: #64748b;
+}
+
+:host ::ng-deep .priority-control .p-button,
+:host ::ng-deep .delete-control .p-button {
+  width: 100%;
+  height: 2.75rem;
+  border-radius: 0;
+  color: #64748b;
+}
+
+:host ::ng-deep .priority-control .p-button:hover:not(:disabled) {
+  background: #f8fafc;
+  color: #334155;
+}
+
+:host ::ng-deep .priority-control .p-button:focus-visible,
+:host ::ng-deep .delete-control .p-button:focus-visible {
+  background: #eff6ff;
+  box-shadow: inset 0 0 0 2px #2563eb;
+}
+
+:host ::ng-deep .priority-control .p-button:disabled {
+  color: #cbd5e1;
+}
+
+:host ::ng-deep .delete-control .p-button:hover {
+  background: #fef2f2;
+  color: #b91c1c;
+}
+
+@container sort-editor (max-width: 24rem) {
+  .sort-section {
+    padding: 0.75rem;
+  }
+
+  .sort-condition-controls {
+    grid-template-columns: minmax(0, 1fr) 6.25rem 4rem 2.5rem;
+  }
+
+  :host ::ng-deep :is(.field-control, .direction-control) .p-select-label {
+    padding-right: 0.125rem;
+    padding-left: 0.625rem;
+    font-size: 0.8125rem;
+  }
+
+  :host ::ng-deep :is(.field-control, .direction-control) .p-select-dropdown {
+    width: 1.75rem;
+  }
+
+  :host ::ng-deep .priority-control .p-button,
+  :host ::ng-deep .delete-control .p-button {
+    height: 2.5rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sort-condition-controls,
+  :host ::ng-deep :is(.field-control, .direction-control).p-select {
+    transition: none;
+  }
+}

@@ -1,0 +1,275 @@
+:host {
+  display: block;
+  min-height: 100%;
+}
+
+.export-page {
+  min-height: 100dvh;
+  color: var(--p-text-color);
+  background: var(--p-surface-50);
+}
+
+.export-topbar {
+  position: sticky;
+  z-index: 50;
+  top: 0;
+  height: 64px;
+  background: var(--p-surface-0);
+  border-bottom: 1px solid var(--p-surface-200);
+}
+
+.export-topbar__inner {
+  display: flex;
+  width: 100%;
+  max-width: 1440px;
+  height: 100%;
+  margin: 0 auto;
+  padding: 0 40px;
+  align-items: center;
+}
+
+.export-main {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: 32px 40px 28px;
+}
+
+.export-intro {
+  display: flex;
+  align-items: stretch;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.export-intro__copy {
+  min-width: 0;
+}
+
+.export-intro__title {
+  margin: 0;
+  color: #020617;
+  font-size: 36px;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  line-height: 1.15;
+}
+
+.export-intro__subtitle {
+  margin: 8px 0 0;
+  color: #64748b;
+  line-height: 1.5;
+}
+
+.report-stepper {
+  width: 100%;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.export-timeline {
+  display: block;
+  width: 100%;
+  max-width: none;
+  margin: 28px auto 0;
+}
+
+.export-timeline__marker {
+  display: inline-flex;
+  width: 32px;
+  height: 32px;
+  align-items: center;
+  justify-content: center;
+  color: var(--p-surface-600);
+  background: var(--p-surface-0);
+  border: 1px solid var(--p-surface-300);
+  border-radius: 50%;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.export-timeline__marker--completed {
+  color: var(--p-primary-contrast-color);
+  background: var(--p-primary-color);
+  border-color: var(--p-primary-color);
+}
+
+.export-timeline__marker--active {
+  color: var(--p-primary-color);
+  background: var(--p-primary-50);
+  border-color: var(--p-primary-color);
+}
+
+.export-timeline__marker--error {
+  color: var(--p-red-50);
+  background: var(--p-red-600);
+  border-color: var(--p-red-600);
+}
+
+.export-workflow-card,
+.export-format-card,
+.export-format-card__copy {
+  min-width: 0;
+}
+
+.export-workflow-card {
+  display: block;
+  margin-bottom: 14px;
+}
+
+.export-workflow-card__heading,
+.export-preparation-progress,
+.export-format-card__title-line,
+.export-card-actions,
+.export-page-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.export-preparation-progress {
+  margin-bottom: 8px;
+  color: var(--p-text-muted-color);
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+}
+
+.export-card-actions {
+  margin-top: 16px;
+  justify-content: flex-end;
+}
+
+.export-format-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.export-format-card {
+  display: block;
+  height: 100%;
+}
+
+.export-format-card__row {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: start;
+  gap: 12px;
+}
+
+.export-format-card__copy {
+  overflow-wrap: anywhere;
+}
+
+.export-format-card__copy > span {
+  display: block;
+  margin-top: 4px;
+  color: var(--p-text-muted-color);
+  font-size: 13px;
+}
+
+.export-format-card__title-line {
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.export-format-card__row > p-button {
+  display: block;
+  min-width: 0;
+  grid-column: 1 / -1;
+}
+
+.export-page-actions {
+  width: 100%;
+  max-width: none;
+  margin: 8px auto 0;
+  padding-top: 18px;
+  border-top: 1px solid var(--p-surface-200);
+}
+
+.export-loading {
+  display: block;
+  width: 100%;
+  max-width: none;
+  margin: 28px auto 0;
+  text-align: center;
+}
+
+.export-loading .pi {
+  margin-right: 8px;
+  color: var(--p-primary-color);
+}
+
+.unavailable-elements {
+  margin-top: 12px;
+  padding: 12px 14px;
+  color: var(--p-red-800);
+  background: var(--p-red-50);
+  border: 1px solid var(--p-red-200);
+  border-radius: var(--p-border-radius-md);
+}
+
+.unavailable-elements ul {
+  margin: 6px 0 0;
+  padding-left: 20px;
+}
+
+:host ::ng-deep .export-timeline .p-timeline-event {
+  min-width: 0;
+}
+
+:host ::ng-deep .export-timeline .p-timeline-event-opposite {
+  display: none;
+  padding: 0;
+}
+
+:host ::ng-deep .export-timeline .p-timeline-event-content {
+  min-width: 0;
+  padding: 0 0 20px 16px;
+  flex: 1 1 auto;
+}
+
+:host ::ng-deep .export-format-card > .p-card {
+  height: 100%;
+}
+
+:host ::ng-deep .p-progressbar {
+  height: 8px;
+  overflow: hidden;
+  background: #e5eaf0;
+  border-radius: 999px;
+}
+
+:host ::ng-deep .p-progressbar-value {
+  background: #2563eb;
+}
+
+@media (max-width: 760px) {
+  .export-main,
+  .export-topbar__inner {
+    padding-right: 16px;
+    padding-left: 16px;
+  }
+
+  .export-main {
+    padding-top: 24px;
+    padding-bottom: 20px;
+  }
+
+  .export-intro__title {
+    font-size: 30px;
+  }
+
+  .export-format-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .export-page-actions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+}

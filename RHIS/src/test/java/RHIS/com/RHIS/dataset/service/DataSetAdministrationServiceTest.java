@@ -1,0 +1,129 @@
+package RHIS.com.RHIS.dataset.service;
+
+import RHIS.com.RHIS.dataset.controller.dto.DataSetExposureConfigurationResponse;
+import RHIS.com.RHIS.dataset.controller.dto.UpdateDataSetExposureRequest;
+import RHIS.com.RHIS.dataset.entity.DataSetEntity;
+import RHIS.com.RHIS.dataset.entity.DataSetField;
+import RHIS.com.RHIS.dataset.exception.DataSetConfigurationException;
+import RHIS.com.RHIS.dataset.repository.DataSetFieldRepository;
+import RHIS.com.RHIS.dataset.repository.DataSetRepository;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+
+import java.util.List;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
+@ExtendWith(MockitoExtension.class)
+class DataSetAdministrationServiceTest {
+
+    @Mock
+    private DataSetRepository dataSetRepository;
+
+    @Mock
+    private DataSetFieldRepository dataSetFieldRepository;
+
+    private DataSetAdministrationService service;
+
+    @BeforeEach
+    void setUp() {
+        service = new DataSetAdministrationService(dataSetRepository, dataSetFieldRepository);
+    }
+
+    @Test
+    void updatesTheCompleteValidBatchAndReturnsDisplayNamesOnly() {
+        DataSetEntity dataSet = dataSet(1L, "Employés", "rhis_employee");
+        DataSetField field = field(11L, "Nom", "employee_name", dataSet);
+        dataSet.getDataSetFieldSet().add(field);
+
+        when(dataSetRepository.findAllById(any())).thenReturn(List.of(dataSet));
+        when(dataSetFieldRepository.findAllById(any())).thenReturn(List.of(field));
+        when(dataSetRepository.findAllByOrderByDisplayNameAsc()).thenReturn(List.of(dataSet));
+
+        DataSetExposureConfigurationResponse response = service.updateConfiguration(
+                new UpdateDataSetExposureRequest(List.of(
+                        new UpdateDataSetExposureRequest.DataSetUpdate(
+                                1L,
+                                false,
+                                true,
+                                List.of(new UpdateDataSetExposureRequest.FieldUpdate(11L, false))
+                        )
+                ))
+        );
+
+        assertThat(dataSet.isDisplayMain()).isFalse();
+        assertThat(dataSet.isDisplayRelated()).isTrue();
+        assertThat(field.isVisible()).isFalse();
+        assertThat(response.datasets()).singleElement().satisfies(saved -> {
+            assertThat(saved.displayName()).isEqualTo("Employés");
+            assertThat(saved.visibleFieldCount()).isZero();
+            assertThat(saved.fields()).singleElement()
+                    .extracting(DataSetExposureConfigurationResponse.FieldExposure::displayName)
+                    .isEqualTo("Nom");
+        });
+        verify(dataSetFieldRepository).flush();
+        verify(dataSetRepository).flush();
+    }
+
+    @Test
+    void rejectsAFieldAssignedToTheWrongDatasetBeforeAnyMutation() {
+        DataSetEntity requestedDataSet = dataSet(1L, "Employés", "rhis_employee");
+        DataSetEntity actualDataSet = dataSet(2L, "Contrats", "rhis_contract");
+        DataSetField field = field(11L, "Type", "contract_type", actualDataSet);
+
+        when(dataSetRepository.findAllById(any())).thenReturn(List.of(requestedDataSet));
+        when(dataSetFieldRepository.findAllById(any())).thenReturn(List.of(field));
+
+        UpdateDataSetExposureRequest request = new UpdateDataSetExposureRequest(List.of(
+                new UpdateDataSetExposureRequest.DataSetUpdate(
+                        1L,
+                        false,
+                        false,
+                        List.of(new UpdateDataSetExposureRequest.FieldUpdate(11L, false))
+                )
+        ));
+
+        assertThatThrownBy(() -> service.updateConfiguration(request))
+                .isInstanceOf(DataSetConfigurationException.class)
+                .hasMessageContaining("n'appartient pas");
+        assertThat(requestedDataSet.isDisplayMain()).isTrue();
+        assertThat(field.isVisible()).isTrue();
+        verify(dataSetFieldRepository, never()).flush();
+        verify(dataSetRepository, never()).flush();
+    }
+
+    @Test
+    void rejectsDuplicateDatasetUpdates() {
+        UpdateDataSetExposureRequest.DataSetUpdate update =
+                new UpdateDataSetExposureRequest.DataSetUpdate(1L, true, false, List.of());
+
+        assertThatThrownBy(() -> service.updateConfiguration(
+                new UpdateDataSetExposureRequest(List.of(update, update))
+        ))
+                .isInstanceOf(DataSetConfigurationException.class)
+                .hasMessageContaining("table ne peut être modifiée qu'une fois");
+
+        verify(dataSetRepository, never()).findAllById(any());
+    }
+
+    private DataSetEntity dataSet(Long id, String displayName, String sourceName) {
+        DataSetEntity dataSet = new DataSetEntity(displayName, sourceName);
+        dataSet.setId(id);
+        dataSet.setActive(true);
+        return dataSet;
+    }
+
+    private DataSetField field(Long id, String displayName, String sourceName, DataSetEntity dataSet) {
+        DataSetField field = new DataSetField(displayName, sourceName, 1, dataSet);
+        field.setId(id);
+        return field;
+    }
+}

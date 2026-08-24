@@ -1,0 +1,95 @@
+<style>
+  .flow { display:grid; grid-template-columns:repeat(4,minmax(220px,1fr)); gap:14px; margin-top:22px; }
+  .state { background:#fff; border:1px solid #dce3ef; border-radius:16px; overflow:hidden; box-shadow:0 7px 22px rgba(29,48,85,.06); }
+  .state-head { padding:12px 14px; background:#f7f8fc; border-bottom:1px solid #e5e9f1; font-size:12px; color:#647188; }
+  .state-head strong { display:block; color:#23324b; font-size:14px; margin-top:3px; }
+  .state-body { min-height:285px; padding:16px; }
+  .filter-header { display:flex; justify-content:space-between; align-items:center; font-size:15px; font-weight:750; margin-bottom:14px; }
+  .add-btn { border:0; background:#5b5cf6; color:#fff; border-radius:9px; padding:8px 10px; font-size:12px; font-weight:700; }
+  .empty { border:1px dashed #cfd7e5; border-radius:11px; padding:32px 15px; text-align:center; color:#7c879a; font-size:13px; line-height:1.5; }
+  .popover { border:1px solid #d3dbea; border-radius:11px; box-shadow:0 10px 26px rgba(33,48,78,.12); overflow:hidden; }
+  .search { padding:10px; border-bottom:1px solid #e8ebf1; color:#7d8799; font-size:12px; }
+  .group { padding:8px 10px 5px; font-size:10px; text-transform:uppercase; color:#929bad; font-weight:750; }
+  .field { padding:9px 10px; display:flex; justify-content:space-between; align-items:center; font-size:12px; }
+  .field.active { background:#efefff; color:#4142ce; font-weight:700; }
+  .type { color:#929bad; font-size:10px; font-weight:500; }
+  .sentence-box { border:1px solid #dce3ef; border-radius:12px; padding:12px; background:#fbfcfe; }
+  .prefix { color:#647188; font-size:12px; margin-bottom:8px; }
+  .sentence { display:flex; flex-wrap:wrap; gap:6px; align-items:center; }
+  .token { border:1px solid #d7d8ff; background:#f0f0ff; color:#3f40ca; border-radius:8px; padding:8px; font-size:12px; font-weight:700; }
+  .input { border:1px solid #aebbd0; background:white; color:#24334e; border-radius:8px; padding:8px; min-width:65px; font-size:12px; }
+  .input.focus { border-color:#5b5cf6; box-shadow:0 0 0 3px #e6e6ff; }
+  .delete { color:#a7afbc; margin-left:auto; }
+  .hint { color:#7d8799; font-size:11px; line-height:1.4; margin-top:9px; }
+  .success { color:#23834f; font-size:11px; margin-top:9px; }
+  .and { width:26px; height:20px; display:grid; place-items:center; margin:7px 0 7px 9px; border-radius:999px; background:#edf0f5; color:#647188; font-size:9px; font-weight:800; }
+  .mini-row { border:1px solid #dce3ef; border-radius:9px; padding:9px; font-size:11px; color:#384761; background:#fff; }
+  .principles { margin-top:20px; display:grid; grid-template-columns:repeat(3,1fr); gap:12px; }
+  .principle { border:1px solid #e0e5ee; border-radius:12px; padding:13px; background:#fff; font-size:13px; color:#657188; }
+  .principle strong { display:block; color:#26354f; margin-bottom:5px; }
+  .decision { margin-top:18px; padding:15px 17px; border:1px solid #d8d9ff; background:#f2f3ff; border-radius:12px; color:#363875; }
+  @media (max-width:1050px) { .flow { grid-template-columns:repeat(2,1fr); } }
+</style>
+
+<div class="label">Option A · Phrase guidée</div>
+<h2>Le filtre se construit sans formulaire vide</h2>
+<p class="subtitle">L’utilisateur ne voit que les contrôles nécessaires, au moment utile.</p>
+
+<div class="flow">
+  <section class="state">
+    <div class="state-head">État 1<strong>Aucun filtre</strong></div>
+    <div class="state-body">
+      <div class="filter-header"><span>Filtres</span><button class="add-btn">+ Ajouter</button></div>
+      <div class="empty">Aucun filtre appliqué.<br>Les résultats ne sont pas restreints.</div>
+    </div>
+  </section>
+
+  <section class="state">
+    <div class="state-head">État 2<strong>Choisir l’information</strong></div>
+    <div class="state-body">
+      <div class="filter-header"><span>Filtres</span><span style="color:#5b5cf6;font-size:12px">Fermer</span></div>
+      <div class="popover">
+        <div class="search">⌕ Rechercher un champ…</div>
+        <div class="group">Rhis Contrat</div>
+        <div class="field"><span>Type de contrat</span><span class="type">Texte</span></div>
+        <div class="field active"><span>Salaire</span><span class="type">Nombre</span></div>
+        <div class="field"><span>Date de début</span><span class="type">Date</span></div>
+      </div>
+      <div class="hint">Une seule liste recherchable, groupée par dataset.</div>
+    </div>
+  </section>
+
+  <section class="state">
+    <div class="state-head">État 3<strong>Compléter la phrase</strong></div>
+    <div class="state-body">
+      <div class="filter-header"><span>Filtres <small>(1)</small></span><button class="add-btn">+ Ajouter</button></div>
+      <div class="sentence-box">
+        <div class="prefix">Afficher les résultats où</div>
+        <div class="sentence"><span class="token">Salaire ▾</span><span class="token">est égal à ▾</span><span class="input focus">2 500</span><span class="delete">×</span></div>
+        <div class="hint">Opérateur conseillé automatiquement et valeur adaptée au type.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="state">
+    <div class="state-head">État 4<strong>Filtre actif</strong></div>
+    <div class="state-body">
+      <div class="filter-header"><span>Filtres <small>(2)</small></span><button class="add-btn">+ Ajouter</button></div>
+      <div class="sentence-box">
+        <div class="sentence"><span class="token">Salaire ▾</span><span class="token">est supérieur à ▾</span><span class="input">2 500</span><span class="delete">×</span></div>
+        <div class="success">✓ Aperçu mis à jour</div>
+      </div>
+      <div class="and">ET</div>
+      <div class="mini-row">Type de contrat · contient · CDI &nbsp; ×</div>
+      <div class="hint">Les filtres restent reliés par ET.</div>
+    </div>
+  </section>
+</div>
+
+<div class="principles">
+  <div class="principle"><strong>Pas d’erreur prématurée</strong>Le brouillon incomplet n’est pas envoyé à l’API.</div>
+  <div class="principle"><strong>Mise à jour automatique</strong>L’aperçu se recharge après une courte pause de saisie.</div>
+  <div class="principle"><strong>Contrôle adapté</strong>Texte, nombre, date et oui/non ont chacun une saisie appropriée.</div>
+</div>
+
+<div class="decision"><strong>Option A :</strong> liste de champs recherchable, phrase compacte, opérateur suggéré et saisie typée — sans bouton « Appliquer » supplémentaire.</div>

@@ -1,0 +1,17 @@
+spring:
+  application:
+    jwt:
+      secret: test-secret-key-that-is-long-enough-for-hmac
+  datasource:
+    url: jdbc:h2:mem:rhis;MODE=PostgreSQL;DATABASE_TO_LOWER=TRUE;DB_CLOSE_DELAY=-1
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: create-drop
+
+access:
+  token:
+    expiration: 900000

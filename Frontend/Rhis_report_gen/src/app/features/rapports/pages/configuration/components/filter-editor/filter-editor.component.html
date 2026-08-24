@@ -1,0 +1,337 @@
+<section
+  class="rounded-xl border border-slate-200 bg-white p-5 shadow-sm"
+  aria-labelledby="filters-title"
+>
+  <header class="flex items-center justify-between border-b border-slate-200 pb-3">
+    <h2 id="filters-title" class="flex items-center gap-2 text-xl font-semibold text-slate-900">
+      <span class="icon-filled material-symbols-outlined text-blue-700" aria-hidden="true">
+        filter_alt
+      </span>
+      Filtres
+    </h2>
+    <button
+      id="add-filter-button"
+      type="button"
+      class="inline-flex min-h-10 items-center gap-1 rounded-lg px-3 py-2 text-sm font-semibold text-blue-700 transition hover:bg-blue-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:text-slate-400"
+      [disabled]="!canAddFilter()"
+      (click)="startAddingFilter()"
+    >
+      <span aria-hidden="true">+</span>
+      Ajouter
+    </button>
+  </header>
+
+  @if (addingFilter()) {
+    <div class="mt-4 rounded-lg border border-blue-200 bg-blue-50/60 p-3">
+      <label id="new-filter-field-label" class="mb-2 block text-sm font-semibold text-slate-800">
+        Choisir le champ à filtrer
+      </label>
+      <p-select
+        #fieldPicker
+        inputId="new-filter-field"
+        styleClass="w-full"
+        [formControl]="pendingFieldId"
+        [options]="filterFieldGroups()"
+        [group]="true"
+        optionGroupLabel="label"
+        optionGroupChildren="items"
+        optionLabel="label"
+        optionValue="value"
+        [filter]="true"
+        filterBy="label,datasetLabel"
+        filterPlaceholder="Rechercher un champ"
+        [autofocusFilter]="true"
+        [resetFilterOnHide]="true"
+        appendTo="body"
+        panelStyleClass="filter-expression-panel max-w-[calc(100vw-2rem)] sm:max-w-sm"
+        placeholder="Sélectionner un champ"
+        ariaLabelledBy="new-filter-field-label"
+        emptyFilterMessage="Aucun champ ne correspond à cette recherche."
+        (onChange)="confirmPendingField()"
+        (onHide)="cancelAddingFilter()"
+      >
+        <ng-template #group let-group>
+          <span class="text-xs font-bold uppercase tracking-wide text-slate-500">
+            {{ group.label }}
+          </span>
+        </ng-template>
+        <ng-template #item let-option>
+          <span class="block truncate py-0.5 font-medium text-slate-800">{{ option.label }}</span>
+        </ng-template>
+      </p-select>
+    </div>
+  }
+
+  @if (rows.length > 0) {
+    <form class="mt-4" [formGroup]="form" novalidate>
+      <div formArrayName="rows" class="filter-expression-list">
+        <p class="filter-context">Afficher les résultats où</p>
+
+        @for (row of rows.controls; track row; let index = $index) {
+          @if (index > 0) {
+            <span class="filter-conjunction">ET</span>
+          }
+
+          <fieldset class="filter-condition" [formGroupName]="index">
+            <legend class="sr-only">Filtre {{ index + 1 }}</legend>
+            <div
+              class="filter-condition-controls"
+              [class.filter-condition-controls--no-value]="valueCount(row) === 0"
+              [class.filter-condition-controls--between]="valueCount(row) === 2"
+            >
+              <label class="sr-only" [for]="'filter-field-' + index">
+                Champ du filtre {{ index + 1 }}
+              </label>
+              <p-select
+                class="field-control"
+                [inputId]="'filter-field-' + index"
+                styleClass="w-full"
+                formControlName="fieldId"
+                [options]="filterFieldGroups()"
+                [group]="true"
+                optionGroupLabel="label"
+                optionGroupChildren="items"
+                optionLabel="label"
+                optionValue="value"
+                [filter]="true"
+                filterBy="label,datasetLabel"
+                filterPlaceholder="Rechercher un champ"
+                [resetFilterOnHide]="true"
+                appendTo="body"
+                panelStyleClass="filter-expression-panel max-w-[calc(100vw-2rem)] sm:max-w-sm"
+                [ariaLabel]="'Champ du filtre ' + (index + 1)"
+                emptyFilterMessage="Aucun champ ne correspond à cette recherche."
+                (onChange)="onFieldChange(index)"
+              >
+                <ng-template #group let-group>
+                  <span class="text-xs font-bold uppercase tracking-wide text-slate-500">
+                    {{ group.label }}
+                  </span>
+                </ng-template>
+              </p-select>
+
+              <label class="sr-only" [for]="'filter-operator-' + index">
+                Opérateur du filtre {{ index + 1 }}
+              </label>
+              <p-select
+                class="operator-control"
+                [inputId]="'filter-operator-' + index"
+                styleClass="w-full"
+                formControlName="operator"
+                [options]="operatorOptions(row)"
+                optionLabel="label"
+                optionValue="value"
+                appendTo="body"
+                panelStyleClass="filter-expression-panel max-w-[calc(100vw-2rem)] sm:max-w-sm"
+                [ariaLabel]="'Opérateur du filtre ' + (index + 1)"
+                (onChange)="onOperatorChange(index)"
+              />
+
+              @if (valueCount(row) > 0) {
+                <div
+                  class="value-segment"
+                  [class.value-segment--between]="valueCount(row) === 2"
+                >
+                  @if (isBoolean(row)) {
+                    <label class="sr-only" [for]="'filter-value-1-' + index">
+                      Valeur du filtre {{ index + 1 }}
+                    </label>
+                    <p-select
+                      class="value-control boolean-control"
+                      [inputId]="'filter-value-1-' + index"
+                      styleClass="w-full"
+                      formControlName="value1"
+                      [options]="[
+                        { label: 'Oui', value: 'true' },
+                        { label: 'Non', value: 'false' },
+                      ]"
+                      optionLabel="label"
+                      optionValue="value"
+                      placeholder="Choisir Oui ou Non"
+                      appendTo="body"
+                      panelStyleClass="filter-expression-panel max-w-[calc(100vw-2rem)] sm:max-w-sm"
+                      [ariaLabel]="'Valeur du filtre ' + (index + 1)"
+                      [attr.aria-invalid]="shouldShowError(row.controls.value1)"
+                      [attr.aria-describedby]="
+                        shouldShowError(row.controls.value1)
+                          ? 'filter-value-1-error-' + index
+                          : null
+                      "
+                    />
+                  } @else if (usesDatePicker(row)) {
+                    <label class="sr-only" [for]="'filter-value-1-' + index">
+                      Valeur du filtre {{ index + 1 }}
+                    </label>
+                    <p-datepicker
+                      class="value-control"
+                      styleClass="w-full"
+                      [inputStyle]="datePickerInputStyle"
+                      [inputId]="'filter-value-1-' + index"
+                      formControlName="value1"
+                      dataType="string"
+                      dateFormat="yy-mm-dd"
+                      appendTo="body"
+                      panelStyleClass="filter-expression-panel max-w-[calc(100vw-2rem)]"
+                      [ariaLabel]="'Valeur du filtre ' + (index + 1)"
+                      [attr.aria-invalid]="shouldShowError(row.controls.value1)"
+                      [attr.aria-describedby]="
+                        shouldShowError(row.controls.value1)
+                          ? 'filter-value-1-error-' + index
+                          : null
+                      "
+                    />
+                  } @else if (usesTimePicker(row)) {
+                    <label class="sr-only" [for]="'filter-value-1-' + index">
+                      Valeur du filtre {{ index + 1 }}
+                    </label>
+                    <p-datepicker
+                      class="value-control"
+                      styleClass="w-full"
+                      [inputStyle]="datePickerInputStyle"
+                      [inputId]="'filter-value-1-' + index"
+                      formControlName="value1"
+                      dataType="string"
+                      [timeOnly]="true"
+                      hourFormat="24"
+                      [showSeconds]="true"
+                      appendTo="body"
+                      panelStyleClass="filter-expression-panel max-w-[calc(100vw-2rem)]"
+                      [ariaLabel]="'Valeur du filtre ' + (index + 1)"
+                      [attr.aria-invalid]="shouldShowError(row.controls.value1)"
+                      [attr.aria-describedby]="
+                        shouldShowError(row.controls.value1)
+                          ? 'filter-value-1-error-' + index
+                          : null
+                      "
+                    />
+                  } @else {
+                    <label class="sr-only" [for]="'filter-value-1-' + index">
+                      Valeur du filtre {{ index + 1 }}
+                    </label>
+                    <input
+                      class="value-control filter-value-input"
+                      [id]="'filter-value-1-' + index"
+                      [attr.name]="'filter-value-1-' + index"
+                      [type]="inputType(row)"
+                      [attr.inputmode]="inputMode(row)"
+                      [attr.step]="inputStep(row)"
+                      [placeholder]="valuePlaceholder(row)"
+                      [attr.aria-invalid]="shouldShowError(row.controls.value1)"
+                      [attr.aria-describedby]="
+                        shouldShowError(row.controls.value1)
+                          ? 'filter-value-1-error-' + index
+                          : null
+                      "
+                      autocomplete="off"
+                      formControlName="value1"
+                    />
+                  }
+
+                  @if (valueCount(row) === 2) {
+                    <span class="range-conjunction">et</span>
+                    <label class="sr-only" [for]="'filter-value-2-' + index">
+                      Seconde valeur du filtre {{ index + 1 }}
+                    </label>
+                    @if (usesDatePicker(row)) {
+                      <p-datepicker
+                        class="value-control"
+                        styleClass="w-full"
+                        [inputStyle]="datePickerInputStyle"
+                        [inputId]="'filter-value-2-' + index"
+                        formControlName="value2"
+                        dataType="string"
+                        dateFormat="yy-mm-dd"
+                        appendTo="body"
+                        panelStyleClass="filter-expression-panel max-w-[calc(100vw-2rem)]"
+                        [ariaLabel]="'Seconde valeur du filtre ' + (index + 1)"
+                        [attr.aria-invalid]="shouldShowError(row.controls.value2)"
+                        [attr.aria-describedby]="
+                          shouldShowError(row.controls.value2)
+                            ? 'filter-value-2-error-' + index
+                            : null
+                        "
+                      />
+                    } @else if (usesTimePicker(row)) {
+                      <p-datepicker
+                        class="value-control"
+                        styleClass="w-full"
+                        [inputStyle]="datePickerInputStyle"
+                        [inputId]="'filter-value-2-' + index"
+                        formControlName="value2"
+                        dataType="string"
+                        [timeOnly]="true"
+                        hourFormat="24"
+                        [showSeconds]="true"
+                        appendTo="body"
+                        panelStyleClass="filter-expression-panel max-w-[calc(100vw-2rem)]"
+                        [ariaLabel]="'Seconde valeur du filtre ' + (index + 1)"
+                        [attr.aria-invalid]="shouldShowError(row.controls.value2)"
+                        [attr.aria-describedby]="
+                          shouldShowError(row.controls.value2)
+                            ? 'filter-value-2-error-' + index
+                            : null
+                        "
+                      />
+                    } @else {
+                      <input
+                        class="value-control filter-value-input"
+                        [id]="'filter-value-2-' + index"
+                        [attr.name]="'filter-value-2-' + index"
+                        [type]="inputType(row)"
+                        [attr.inputmode]="inputMode(row)"
+                        [attr.step]="inputStep(row)"
+                        [placeholder]="valuePlaceholder(row)"
+                        [attr.aria-invalid]="shouldShowError(row.controls.value2)"
+                        [attr.aria-describedby]="
+                          shouldShowError(row.controls.value2)
+                            ? 'filter-value-2-error-' + index
+                            : null
+                        "
+                        autocomplete="off"
+                        formControlName="value2"
+                      />
+                    }
+                  }
+                </div>
+              }
+
+              <p-button
+                class="delete-control"
+                [rounded]="true"
+                [text]="true"
+                severity="danger"
+                [ariaLabel]="'Supprimer le filtre ' + (index + 1)"
+                (onClick)="removeFilter(index)"
+              >
+                <span class="material-symbols-outlined text-lg" aria-hidden="true">delete</span>
+              </p-button>
+            </div>
+
+            @if (shouldShowError(row.controls.value1)) {
+              <p
+                [id]="'filter-value-1-error-' + index"
+                class="mt-2 flex items-center gap-1 text-xs font-medium text-red-700"
+                role="alert"
+              >
+                <span class="material-symbols-outlined text-sm" aria-hidden="true">error</span>
+                {{ valueErrorMessage(row) }}
+              </p>
+            }
+            @if (shouldShowError(row.controls.value2)) {
+              <p
+                [id]="'filter-value-2-error-' + index"
+                class="mt-2 flex items-center gap-1 text-xs font-medium text-red-700"
+                role="alert"
+              >
+                <span class="material-symbols-outlined text-sm" aria-hidden="true">error</span>
+                {{ valueErrorMessage(row, true) }}
+              </p>
+            }
+          </fieldset>
+        }
+      </div>
+    </form>
+  } @else if (!addingFilter()) {
+    <p class="mt-4 text-center text-sm text-slate-500">Aucun filtre appliqué</p>
+  }
+</section>

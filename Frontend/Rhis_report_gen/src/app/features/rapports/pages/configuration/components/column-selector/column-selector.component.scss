@@ -1,0 +1,39 @@
+:host {
+  display: block;
+}
+
+.icon-filled,
+.icon-filled .material-symbols-outlined {
+  font-variation-settings:
+    "FILL" 1,
+    "wght" 500,
+    "GRAD" 0,
+    "opsz" 24;
+}
+
+.field-list {
+  scrollbar-color: #cbd5e1 transparent;
+  scrollbar-width: thin;
+}
+
+.selected-field.cdk-drag-preview {
+  border-radius: 0.5rem;
+  background: #fff;
+  box-shadow: 0 12px 24px rgb(15 23 42 / 16%);
+}
+
+.cdk-drag-placeholder {
+  opacity: 0.25;
+}
+
+.cdk-drag-animating,
+.cdk-drop-list-dragging .selected-field:not(.cdk-drag-placeholder) {
+  transition: transform 180ms ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cdk-drag-animating,
+  .cdk-drop-list-dragging .selected-field:not(.cdk-drag-placeholder) {
+    transition: none;
+  }
+}

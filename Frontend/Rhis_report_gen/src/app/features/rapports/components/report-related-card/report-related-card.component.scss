@@ -1,0 +1,112 @@
+:host {
+  display: block;
+  min-width: 0;
+}
+
+.report-related-card {
+  display: grid;
+  grid-template-columns: 36px minmax(0, 1fr) 18px;
+  height: 100%;
+  min-width: 0;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  color: #0f172a;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  transition:
+    border-color 160ms ease,
+    box-shadow 160ms ease,
+    background-color 160ms ease;
+}
+
+.report-related-card:hover {
+  background: #f8fafc;
+  border-color: #a5b4fc;
+  box-shadow: 0 2px 8px rgb(15 23 42 / 7%);
+}
+
+.report-related-card:has(p-checkbox:focus-within) {
+  border-color: #6366f1;
+  outline: 2px solid #6366f1;
+  outline-offset: 2px;
+}
+
+.report-related-card--selected {
+  background: #eef2ff;
+  border-color: #818cf8;
+  box-shadow: inset 3px 0 0 #4f46e5;
+}
+
+.report-related-card--selected:hover {
+  background: #eef2ff;
+  border-color: #6366f1;
+}
+
+.report-related-card p-checkbox {
+  grid-column: 3;
+  grid-row: 1;
+  align-self: center;
+  justify-self: end;
+}
+
+.report-related-card__data-icon {
+  display: inline-flex;
+  grid-column: 1;
+  grid-row: 1;
+  width: 36px;
+  height: 36px;
+  align-items: center;
+  justify-content: center;
+  color: #4f46e5;
+  background: #eef2ff;
+  border: 1px solid #e0e7ff;
+  border-radius: 9px;
+}
+
+.report-related-card__data-icon .material-symbols-outlined {
+  font-size: 20px;
+}
+
+.report-related-card__content {
+  display: block;
+  grid-column: 2;
+  grid-row: 1;
+  min-width: 0;
+  cursor: pointer;
+}
+
+.report-related-card__title {
+  margin: 0;
+  overflow: hidden;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 20px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@media (max-width: 640px) {
+  .report-related-card {
+    grid-template-columns: 32px minmax(0, 1fr) 18px;
+    gap: 10px;
+    padding: 10px 12px;
+  }
+
+  .report-related-card__data-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+  }
+
+  .report-related-card__data-icon .material-symbols-outlined {
+    font-size: 18px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .report-related-card {
+    transition: none;
+  }
+}

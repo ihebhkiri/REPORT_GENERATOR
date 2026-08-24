@@ -1,0 +1,19 @@
+<article
+  class="report-related-card"
+  [class.report-related-card--selected]="selected()"
+>
+  <p-checkbox
+    [inputId]="inputId()"
+    [binary]="true"
+    [ngModel]="selected()"
+    (ngModelChange)="selectedChange.emit($event)"
+  />
+
+  <span class="report-related-card__data-icon" aria-hidden="true">
+    <span class="material-symbols-outlined">{{ icon() }}</span>
+  </span>
+
+  <label class="report-related-card__content" [for]="inputId()">
+    <h4 class="report-related-card__title" [title]="title()">{{ title() }}</h4>
+  </label>
+</article>

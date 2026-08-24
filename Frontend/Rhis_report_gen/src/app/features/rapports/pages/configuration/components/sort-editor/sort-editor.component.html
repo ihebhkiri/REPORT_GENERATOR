@@ -1,0 +1,138 @@
+<section
+  class="sort-section rounded-xl border border-slate-200 bg-white p-5 shadow-sm"
+  aria-labelledby="sort-title"
+>
+  <header class="flex items-center justify-between border-b border-slate-200 pb-3">
+    <h2 id="sort-title" class="flex items-center gap-2 text-xl font-semibold text-slate-900">
+      <span class="material-symbols-outlined text-blue-700" aria-hidden="true">sort</span>
+      Ordre de tri
+    </h2>
+    <button
+      id="add-sort-button"
+      type="button"
+      class="inline-flex min-h-10 items-center gap-1 rounded-lg px-3 py-2 text-sm font-semibold text-blue-700 transition hover:bg-blue-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:text-slate-400"
+      [disabled]="!canAddSort()"
+      (click)="addSort()"
+    >
+      <span aria-hidden="true">+</span>
+      Ajouter
+    </button>
+  </header>
+
+  @if (sorts().length > 0) {
+    <div class="sort-expression-list mt-4">
+      <p class="sort-context">Trier les résultats par</p>
+
+      @for (
+        sort of sorts();
+        track sort.fieldId;
+        let index = $index;
+        let first = $first;
+        let last = $last
+      ) {
+        @if (index > 0) {
+          <span class="sort-conjunction">PUIS</span>
+        }
+
+        <fieldset class="sort-condition">
+          <legend class="sr-only">Tri {{ index + 1 }}</legend>
+          <div class="sort-condition-controls">
+            <label class="sr-only" [for]="'sort-field-' + index">
+              Champ du tri {{ index + 1 }}
+            </label>
+            <p-select
+              class="field-control"
+              [inputId]="'sort-field-' + index"
+              styleClass="w-full"
+              [ngModel]="sort.fieldId"
+              (ngModelChange)="updateField(index, $event)"
+              [options]="fieldOptionGroups(index)"
+              [group]="true"
+              optionGroupLabel="label"
+              optionGroupChildren="items"
+              optionLabel="label"
+              optionValue="value"
+              [filter]="true"
+              filterBy="label,datasetLabel"
+              filterPlaceholder="Rechercher un champ"
+              [resetFilterOnHide]="true"
+              appendTo="body"
+              panelStyleClass="filter-expression-panel max-w-[calc(100vw-2rem)] sm:max-w-sm"
+              [ariaLabel]="'Champ du tri ' + (index + 1)"
+              emptyFilterMessage="Aucun champ ne correspond à cette recherche."
+            >
+              <ng-template #group let-group>
+                <span class="text-xs font-bold uppercase tracking-wide text-slate-500">
+                  {{ group.label }}
+                </span>
+              </ng-template>
+              <ng-template #item let-option>
+                <span class="block truncate py-0.5 font-medium text-slate-800">
+                  {{ option.label }}
+                </span>
+              </ng-template>
+            </p-select>
+
+            <label class="sr-only" [for]="'sort-direction-' + index">
+              Direction du tri {{ index + 1 }}
+            </label>
+            <p-select
+              class="direction-control"
+              [inputId]="'sort-direction-' + index"
+              styleClass="w-full"
+              [ngModel]="sort.direction"
+              (ngModelChange)="updateDirection(index, $event)"
+              [options]="directionOptions"
+              optionLabel="label"
+              optionValue="value"
+              appendTo="body"
+              panelStyleClass="filter-expression-panel max-w-[calc(100vw-2rem)] sm:max-w-sm"
+              [ariaLabel]="'Direction du tri ' + (index + 1)"
+            />
+
+            <div
+              class="priority-control"
+              role="group"
+              [attr.aria-label]="'Priorité du tri ' + (index + 1)"
+            >
+              <p-button
+                [text]="true"
+                severity="secondary"
+                [disabled]="first"
+                [ariaLabel]="'Monter le tri ' + (index + 1)"
+                (onClick)="moveSort(index, -1)"
+              >
+                <span class="material-symbols-outlined text-lg" aria-hidden="true">
+                  keyboard_arrow_up
+                </span>
+              </p-button>
+              <p-button
+                [text]="true"
+                severity="secondary"
+                [disabled]="last"
+                [ariaLabel]="'Descendre le tri ' + (index + 1)"
+                (onClick)="moveSort(index, 1)"
+              >
+                <span class="material-symbols-outlined text-lg" aria-hidden="true">
+                  keyboard_arrow_down
+                </span>
+              </p-button>
+            </div>
+
+            <p-button
+              class="delete-control"
+              [text]="true"
+              severity="danger"
+              [ariaLabel]="'Supprimer le tri ' + (index + 1)"
+              (onClick)="removeSort(index)"
+            >
+              <span class="material-symbols-outlined text-lg" aria-hidden="true">delete</span>
+            </p-button>
+          </div>
+        </fieldset>
+      }
+    </div>
+  } @else {
+    <p class="mt-4 text-center text-sm text-slate-500">Aucun tri configuré</p>
+  }
+</section>

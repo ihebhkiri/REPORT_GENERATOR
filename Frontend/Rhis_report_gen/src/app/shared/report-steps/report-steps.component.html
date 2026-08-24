@@ -1,0 +1,9 @@
+<p-stepper [value]="stepValue()" class="report-stepper">
+  <p-step-list>
+    @for (step of reportWizardSteps; track step.value) {
+      <p-step [value]="step.value" [disabled]="true">
+        {{ step.label }}
+      </p-step>
+    }
+  </p-step-list>
+</p-stepper>

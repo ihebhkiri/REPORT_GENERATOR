@@ -1,0 +1,181 @@
+<div class="min-h-dvh bg-slate-50 text-slate-900">
+  <header class="sticky top-0 z-50 border-b border-slate-200 bg-white/95 backdrop-blur">
+    <div class="mx-auto flex h-16 w-full max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-10">
+      <a href="/rapports"
+         class="rounded text-xl font-bold text-blue-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2">
+        ReportGen Pro
+      </a>
+
+      <div class="flex items-center gap-2 sm:gap-3">
+        <button
+          type="button"
+          disabled
+          aria-label="Aide bientôt disponible"
+          title="Aide bientôt disponible"
+          class="rounded-full p-2 text-slate-500 disabled:cursor-not-allowed disabled:opacity-60"
+        >
+          <svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+               aria-hidden="true">
+            <circle cx="12" cy="12" r="9"></circle>
+            <path d="M9.8 9a2.3 2.3 0 1 1 3.1 2.2c-.9.4-.9 1-.9 1.8M12 17h.01"></path>
+          </svg>
+        </button>
+
+        <button
+          type="button"
+          disabled
+          aria-label="Paramètres bientôt disponibles"
+          title="Paramètres bientôt disponibles"
+          class="rounded-full p-2 text-slate-500 disabled:cursor-not-allowed disabled:opacity-60"
+        >
+          <svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+               aria-hidden="true">
+            <circle cx="12" cy="12" r="3"></circle>
+            <path
+              d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1-2.8 2.8-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.6v.2h-4V21a1.7 1.7 0 0 0-1-1.6 1.7 1.7 0 0 0-1.9.3l-.1.1L4.2 17l.1-.1a1.7 1.7 0 0 0 .3-1.9A1.7 1.7 0 0 0 3 14H2.8v-4H3a1.7 1.7 0 0 0 1.6-1 1.7 1.7 0 0 0-.3-1.9L4.2 7 7 4.2l.1.1a1.7 1.7 0 0 0 1.9.3A1.7 1.7 0 0 0 10 3v-.2h4V3a1.7 1.7 0 0 0 1 1.6 1.7 1.7 0 0 0 1.9-.3l.1-.1L19.8 7l-.1.1a1.7 1.7 0 0 0-.3 1.9 1.7 1.7 0 0 0 1.6 1h.2v4H21a1.7 1.7 0 0 0-1.6 1Z"></path>
+          </svg>
+        </button>
+
+        <div
+          class="flex size-9 items-center justify-center rounded-full border border-slate-200 bg-slate-100 text-slate-600"
+          role="img"
+          aria-label="Profil utilisateur"
+        >
+          <svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+               aria-hidden="true">
+            <circle cx="12" cy="8" r="3.5"></circle>
+            <path d="M5 20c.6-3.5 3.2-5.5 7-5.5s6.4 2 7 5.5"></path>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="mx-auto flex w-full max-w-6xl flex-col px-4 py-8 sm:px-6 sm:py-10 lg:px-10 lg:py-12">
+    <section class="mx-auto w-full max-w-4xl" >
+      <div class="text-center">
+        <h1 id="page-title" class="text-3xl font-bold tracking-tight text-slate-950 sm:text-4xl">
+          Créer un rapport dynamique
+        </h1>
+        <p class="mx-auto mt-3 max-w-2xl text-base leading-7 text-slate-600 sm:text-lg">
+          Sélectionnez une source de données, configurez les colonnes et exportez votre rapport.
+        </p>
+      </div>
+      <app-report-steps [stepValue]="1"></app-report-steps>
+    </section>
+
+    <section class="mt-10" aria-labelledby="datasets-title">
+      <div class="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm sm:p-5">
+        <div>
+          <div>
+            <h2 id="datasets-title" class="text-lg font-semibold text-slate-900">Sources de données</h2>
+            <p class="mt-1 text-sm text-slate-500">Choisissez le dataset utilisé pour construire le rapport.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-6" aria-live="polite">
+        @if (isLoading()) {
+          <div
+            class="flex min-h-48 flex-col items-center justify-center rounded-2xl border border-slate-200 bg-white p-8 text-slate-600">
+            <p-progress-spinner ariaLabel="Chargement des sources de données" [style]="{ width: '2rem', height: '2rem' }" />
+            <p class="mt-3 font-medium">Chargement des sources de données…</p>
+          </div>
+        } @else if (errorMessage(); as message) {
+          <div
+            class="flex min-h-48 flex-col items-center justify-center rounded-2xl border border-red-200 bg-red-50 p-8 text-center"
+            role="alert">
+            <svg class="size-9 text-red-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                 aria-hidden="true">
+              <circle cx="12" cy="12" r="9"></circle>
+              <path d="M12 7.5v5M12 16.5h.01"></path>
+            </svg>
+            <p class="mt-3 max-w-lg text-sm font-medium text-red-800">{{ message }}</p>
+            <p-button class="mt-5" label="Réessayer" severity="danger" (onClick)="loadReportSources()" />
+          </div>
+        } @else if (datasets().length === 0) {
+          <div
+            class="flex min-h-48 flex-col items-center justify-center rounded-2xl border border-dashed border-slate-300 bg-white p-8 text-center text-slate-600">
+            <p class="font-semibold text-slate-800">Aucune source de données active</p>
+            <p class="mt-2 text-sm">Les datasets actifs apparaîtront ici lorsqu’ils seront disponibles.</p>
+          </div>
+        } @else {
+          <div class="dataset-accordion-list" aria-label="Tables disponibles">
+            @for (item of datasetAccordions(); track item.dataset.id) {
+              <p-accordion
+                class="dataset-accordion"
+                [class.dataset-accordion--selected]="selectedDatasetId() === item.dataset.id"
+                [value]="selectedDatasetId() === item.dataset.id ? item.dataset.id : null"
+                (onOpen)="openDataset(item.dataset.id)"
+                (onClose)="closeDataset(item.dataset.id)"
+              >
+                <p-accordion-panel [value]="item.dataset.id">
+                  <p-accordion-header>
+                    <span class="dataset-accordion__identity">
+                      <span class="dataset-accordion__main-icon" aria-hidden="true">
+                        <span class="material-symbols-outlined">{{ item.icon }}</span>
+                      </span>
+
+                      <span class="dataset-accordion__title-group">
+                        <span class="dataset-accordion__title">{{ item.dataset.displayName }}</span>
+                      </span>
+                    </span>
+                  </p-accordion-header>
+
+                  <p-accordion-content>
+                    <div class="dataset-accordion__content">
+                    @if (item.relatedDatasets.length > 0) {
+                      <div class="dataset-accordion__cards">
+                        @for (relatedDataset of item.relatedDatasets; track relatedDataset.datasetId) {
+                          <app-report-related-card
+                            [inputId]="'related-dataset-' + item.dataset.id + '-' + relatedDataset.datasetId"
+                            [title]="relatedDataset.title"
+                            [icon]="relatedDataset.icon"
+                            [selected]="isRelatedDatasetSelected(relatedDataset.datasetId)"
+                            (selectedChange)="toggleRelatedDataset(relatedDataset.datasetId, $event)"
+                          />
+                        }
+                      </div>
+                    } @else {
+                      <p class="dataset-accordion__empty">
+                        Aucune relation directe avec une autre table visible.
+                      </p>
+                    }
+                    </div>
+                  </p-accordion-content>
+                </p-accordion-panel>
+              </p-accordion>
+            }
+          </div>
+        }
+      </div>
+    </section>
+
+    <section class="selected-datasets-summary" aria-labelledby="selected-datasets-title">
+      <h2 id="selected-datasets-title" class="selected-datasets-summary__title">
+        Tables sélectionnées
+      </h2>
+
+      @if (selectedDatasetSummary().length > 0) {
+        <ul class="selected-datasets-summary__list">
+          @for (dataset of selectedDatasetSummary(); track dataset.id) {
+            <li class="selected-datasets-summary__chip">
+              <span>{{ dataset.displayName }}</span>
+            </li>
+          }
+        </ul>
+      } @else {
+        <p class="selected-datasets-summary__empty">Aucune table sélectionnée.</p>
+      }
+    </section>
+
+    <div class="mt-10 flex flex-col-reverse gap-3 border-t border-slate-200 pt-6 sm:flex-row sm:justify-end">
+      <p-button label="Annuler" severity="secondary" [outlined]="true" />
+      <p-button
+        label="Suivant"
+        [disabled]="selectedDatasetId() === null"
+        (onClick)="continueToConfiguration()"
+      />
+    </div>
+  </main>
+</div>

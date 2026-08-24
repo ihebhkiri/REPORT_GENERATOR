@@ -1,0 +1,101 @@
+<style>
+  .ux-grid { display:grid; grid-template-columns:repeat(3,minmax(260px,1fr)); gap:20px; margin-top:24px; }
+  .ux-card { background:#fff; border:1px solid #dce3ef; border-radius:18px; overflow:hidden; cursor:pointer; box-shadow:0 8px 28px rgba(21,42,82,.07); transition:.18s ease; }
+  .ux-card:hover { transform:translateY(-2px); box-shadow:0 12px 32px rgba(21,42,82,.12); }
+  .ux-card.selected { outline:3px solid #5b5cf6; border-color:#5b5cf6; }
+  .ux-card.recommended { border-color:#8586ff; }
+  .ux-head { padding:18px 18px 14px; border-bottom:1px solid #edf0f6; }
+  .ux-head-row { display:flex; align-items:center; justify-content:space-between; gap:10px; }
+  .ux-head h3 { margin:0; font-size:19px; }
+  .badge { background:#eeeeff; color:#4d4ee8; border-radius:999px; padding:5px 9px; font-size:12px; font-weight:700; }
+  .ux-head p { margin:8px 0 0; color:#657087; font-size:14px; line-height:1.45; }
+  .mini-app { background:#f7f9fc; padding:18px; min-height:310px; }
+  .filter-title { display:flex; align-items:center; justify-content:space-between; font-weight:750; color:#13233f; margin-bottom:14px; }
+  .add { color:#5657eb; font-size:13px; }
+  .filter-shell { background:#fff; border:1px solid #dce3ef; border-radius:13px; padding:14px; }
+  .sentence { display:flex; flex-wrap:wrap; align-items:center; gap:8px; font-size:15px; line-height:1.4; }
+  .token { background:#f2f3ff; color:#3738c9; border:1px solid #d9d9ff; border-radius:9px; padding:9px 10px; font-weight:650; }
+  .value { min-width:86px; background:#fff; color:#24324a; border:1px solid #aebbd0; border-radius:9px; padding:9px 10px; }
+  .close { margin-left:auto; color:#a0a8b5; font-size:18px; }
+  .hint { margin-top:10px; color:#758198; font-size:12px; }
+  .step { display:flex; gap:11px; align-items:flex-start; margin:0 0 14px; }
+  .step-dot { width:25px; height:25px; border-radius:50%; display:grid; place-items:center; background:#5b5cf6; color:#fff; font-size:12px; flex:none; }
+  .step-body { width:100%; }
+  .step-label { font-size:12px; color:#77839a; margin-bottom:6px; }
+  .select-box { border:1px solid #cbd4e2; border-radius:9px; padding:9px 11px; background:#fff; font-size:14px; color:#25344f; }
+  .chips { display:flex; flex-wrap:wrap; gap:7px; }
+  .chip { border:1px solid #ccd5e4; border-radius:999px; padding:7px 9px; background:#fff; font-size:12px; }
+  .chip.active { border-color:#5b5cf6; background:#eeeeff; color:#4142d4; }
+  .table { background:#fff; border:1px solid #dce3ef; border-radius:10px; overflow:hidden; }
+  .tr { display:grid; grid-template-columns:1fr 1fr; }
+  .cell { padding:9px; border-right:1px solid #edf0f5; border-bottom:1px solid #edf0f5; font-size:12px; }
+  .th { background:#f4f6fa; font-weight:700; color:#344159; }
+  .column-filter { border:1px solid #9697ff; background:#f7f7ff; border-radius:7px; padding:7px; margin-top:7px; color:#4647cc; font-weight:500; }
+  .card-foot { padding:16px 18px 18px; font-size:13px; }
+  .card-foot strong { color:#1d2c46; }
+  .card-foot ul { margin:8px 0 0 18px; padding:0; color:#66738a; line-height:1.5; }
+  .recommendation { margin-top:22px; padding:16px 18px; background:#f2f3ff; border:1px solid #d8d9ff; border-radius:13px; color:#33356f; }
+  @media (max-width:900px) { .ux-grid { grid-template-columns:1fr; } }
+</style>
+
+<h2>Quel parcours rend les filtres vraiment simples ?</h2>
+<p class="subtitle">Clique sur la proposition que tu préfères. Les trois conservent les mêmes capacités techniques.</p>
+
+<div class="ux-grid">
+  <div class="ux-card recommended" data-choice="a_phrase_guidee" onclick="toggleSelect(this)">
+    <div class="ux-head">
+      <div class="ux-head-row"><h3>A · Phrase guidée</h3><span class="badge">Recommandé</span></div>
+      <p>Un filtre se lit comme une phrase naturelle, sur une seule ligne.</p>
+    </div>
+    <div class="mini-app">
+      <div class="filter-title"><span>⌁ Filtres <small style="color:#8792a7">(1)</small></span><span class="add">+ Ajouter</span></div>
+      <div class="filter-shell">
+        <div class="sentence">
+          <span>Afficher si</span>
+          <span class="token">Salaire ▾</span>
+          <span class="token">est supérieur à ▾</span>
+          <span class="value">2 500 €</span>
+          <span class="close">×</span>
+        </div>
+        <div class="hint">Le clavier numérique et le format € sont choisis automatiquement.</div>
+      </div>
+    </div>
+    <div class="card-foot"><strong>Pourquoi ça marche</strong><ul><li>Peu d’espace et lecture immédiate</li><li>Opérateur proposé selon le type</li><li>Validation seulement après interaction</li></ul></div>
+  </div>
+
+  <div class="ux-card" data-choice="b_assistant_progressif" onclick="toggleSelect(this)">
+    <div class="ux-head">
+      <div class="ux-head-row"><h3>B · Assistant progressif</h3></div>
+      <p>Une décision à la fois, avec les choix suivants révélés progressivement.</p>
+    </div>
+    <div class="mini-app">
+      <div class="filter-title"><span>⌁ Nouveau filtre</span><span class="add">Annuler</span></div>
+      <div class="filter-shell">
+        <div class="step"><span class="step-dot">1</span><div class="step-body"><div class="step-label">Sur quelle information ?</div><div class="select-box">Salaire</div></div></div>
+        <div class="step"><span class="step-dot">2</span><div class="step-body"><div class="step-label">Quelle condition ?</div><div class="chips"><span class="chip">égal à</span><span class="chip active">supérieur à</span><span class="chip">entre</span></div></div></div>
+        <div class="step"><span class="step-dot">3</span><div class="step-body"><div class="step-label">Quelle valeur ?</div><div class="select-box">2 500 €</div></div></div>
+      </div>
+    </div>
+    <div class="card-foot"><strong>Quand le choisir</strong><ul><li>Excellent pour débutants</li><li>Explications très visibles</li><li>Mais demande plus de clics et de hauteur</li></ul></div>
+  </div>
+
+  <div class="ux-card" data-choice="c_filtre_colonne" onclick="toggleSelect(this)">
+    <div class="ux-head">
+      <div class="ux-head-row"><h3>C · Depuis la colonne</h3></div>
+      <p>Le filtre démarre directement dans l’en-tête du tableau de prévisualisation.</p>
+    </div>
+    <div class="mini-app">
+      <div class="filter-title"><span>Aperçu du rapport</span><span class="add">2 filtres</span></div>
+      <div class="table">
+        <div class="tr"><div class="cell th">Nom ↕</div><div class="cell th">Salaire ⏷<div class="column-filter">Supérieur à 2 500 €</div></div></div>
+        <div class="tr"><div class="cell">A. Martin</div><div class="cell">3 200 €</div></div>
+        <div class="tr"><div class="cell">N. Bernard</div><div class="cell">2 850 €</div></div>
+        <div class="tr"><div class="cell">S. Leroy</div><div class="cell">2 620 €</div></div>
+      </div>
+      <div class="hint">Cliquer sur ⏷ ouvre les conditions adaptées à la colonne.</div>
+    </div>
+    <div class="card-foot"><strong>Quand le choisir</strong><ul><li>Très direct dans un tableau</li><li>Contexte visuel fort</li><li>Moins adapté aux champs non affichés</li></ul></div>
+  </div>
+</div>
+
+<div class="recommendation"><strong>Ma recommandation : A · Phrase guidée.</strong> Elle réduit les étapes sans cacher la logique. On peut garder C comme raccourci futur depuis le tableau, mais pas comme seul parcours.</div>

@@ -1,0 +1,75 @@
+<label>name</label>
+<input type="text" [(ngModel)]="name">
+<label>LastName</label>
+<input type="text" [(ngModel)]="lastName">
+<button >send</button>
+
+<main class="page-container">
+  <details class="employee-accordion" open>
+    <summary class="employee-accordion__header">
+        <span class="employee-accordion__identity">
+          <span class="employee-accordion__main-icon" aria-hidden="true">
+            <span class="material-symbols-outlined">badge</span>
+          </span>
+
+          <span class="employee-accordion__title-group">
+            <span class="employee-accordion__title">Employés</span>
+            <span class="employee-accordion__description">
+              Données démographiques et statuts actifs
+            </span>
+          </span>
+        </span>
+
+      <span class="material-symbols-outlined employee-accordion__chevron" aria-hidden="true">
+          expand_more
+        </span>
+    </summary>
+
+    <div class="employee-accordion__content">
+      <div class="related-data-list">
+        <label class="related-data-card">
+          <input class="related-data-card__checkbox" type="checkbox" checked>
+
+          <span class="material-symbols-outlined related-data-card__check-icon" aria-hidden="true">
+              check_box
+            </span>
+
+          <span class="related-data-card__icon" aria-hidden="true">
+              <span class="material-symbols-outlined">contract</span>
+            </span>
+
+          <span class="related-data-card__content">
+              <span class="related-data-card__title">Contrats</span>
+              <span class="related-data-card__description">
+                Liez les données collaborateurs à leurs conditions d'embauche.
+              </span>
+            </span>
+
+          <span class="related-data-card__badge">Recommandé</span>
+        </label>
+
+        <label class="related-data-card">
+          <input class="related-data-card__checkbox" type="checkbox" checked>
+
+          <span class="material-symbols-outlined related-data-card__check-icon" aria-hidden="true">
+              check_box
+            </span>
+
+          <span class="related-data-card__icon" aria-hidden="true">
+              <span class="material-symbols-outlined">schedule</span>
+            </span>
+
+          <span class="related-data-card__content">
+              <span class="related-data-card__title">Pointages</span>
+              <span class="related-data-card__description">
+                Croisez les profils avec les présences et les horaires réels.
+              </span>
+            </span>
+
+          <span class="related-data-card__badge">Recommandé</span>
+        </label>
+      </div>
+    </div>
+  </details>
+</main>
+<p-progressbar mode="indeterminate" [style]="{ height: '6px' }"></p-progressbar>
