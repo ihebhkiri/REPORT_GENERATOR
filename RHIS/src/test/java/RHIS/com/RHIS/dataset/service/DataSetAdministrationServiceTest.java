@@ -114,6 +114,63 @@ class DataSetAdministrationServiceTest {
         verify(dataSetRepository, never()).findAllById(any());
     }
 
+    @Test
+    void rejectsDuplicateFieldsAcrossDatasetsBeforeLoadingFieldsOrMutating() {
+        DataSetEntity employees = dataSet(1L, "Employés", "rhis_employee");
+        DataSetEntity contracts = dataSet(2L, "Contrats", "rhis_contract");
+        when(dataSetRepository.findAllById(any())).thenReturn(List.of(employees, contracts));
+        var repeatedField = new UpdateDataSetExposureRequest.FieldUpdate(11L, false);
+        var request = new UpdateDataSetExposureRequest(List.of(
+                new UpdateDataSetExposureRequest.DataSetUpdate(1L, false, false, List.of(repeatedField)),
+                new UpdateDataSetExposureRequest.DataSetUpdate(2L, false, false, List.of(repeatedField))
+        ));
+
+        assertThatThrownBy(() -> service.updateConfiguration(request))
+                .isInstanceOf(DataSetConfigurationException.class)
+                .hasMessage("Un champ ne peut être modifié qu'une fois.");
+        assertThat(employees.isDisplayMain()).isTrue();
+        assertThat(contracts.isDisplayMain()).isTrue();
+        verify(dataSetFieldRepository, never()).findAllById(any());
+    }
+
+    @Test
+    void rejectsUnknownDatasetBeforeLoadingFieldsOrMutatingKnownDataset() {
+        DataSetEntity employees = dataSet(1L, "Employés", "rhis_employee");
+        when(dataSetRepository.findAllById(any())).thenReturn(List.of(employees));
+        var request = new UpdateDataSetExposureRequest(List.of(
+                new UpdateDataSetExposureRequest.DataSetUpdate(1L, false, false, List.of()),
+                new UpdateDataSetExposureRequest.DataSetUpdate(2L, false, false, List.of())
+        ));
+
+        assertThatThrownBy(() -> service.updateConfiguration(request))
+                .isInstanceOf(DataSetConfigurationException.class)
+                .hasMessage("Au moins une table demandée est inconnue.");
+        assertThat(employees.isDisplayMain()).isTrue();
+        verify(dataSetFieldRepository, never()).findAllById(any());
+    }
+
+    @Test
+    void rejectsUnknownFieldBeforeMutatingDatasetOrKnownField() {
+        DataSetEntity employees = dataSet(1L, "Employés", "rhis_employee");
+        DataSetField name = field(11L, "Nom", "employee_name", employees);
+        when(dataSetRepository.findAllById(any())).thenReturn(List.of(employees));
+        when(dataSetFieldRepository.findAllById(any())).thenReturn(List.of(name));
+        var request = new UpdateDataSetExposureRequest(List.of(
+                new UpdateDataSetExposureRequest.DataSetUpdate(1L, false, false, List.of(
+                        new UpdateDataSetExposureRequest.FieldUpdate(11L, false),
+                        new UpdateDataSetExposureRequest.FieldUpdate(12L, false)
+                ))
+        ));
+
+        assertThatThrownBy(() -> service.updateConfiguration(request))
+                .isInstanceOf(DataSetConfigurationException.class)
+                .hasMessage("Au moins un champ demandé est inconnu.");
+        assertThat(employees.isDisplayMain()).isTrue();
+        assertThat(name.isVisible()).isTrue();
+        verify(dataSetFieldRepository, never()).flush();
+        verify(dataSetRepository, never()).flush();
+    }
+
     private DataSetEntity dataSet(Long id, String displayName, String sourceName) {
         DataSetEntity dataSet = new DataSetEntity(displayName, sourceName);
         dataSet.setId(id);

@@ -1,0 +1,37 @@
+<a class="skip-link" href="#page-content">Aller au contenu</a>
+<header class="shared-header">
+  <div class="header-top">
+    <div class="brand">
+      <img src="/Logo.svg" alt="RHIS" width="120" height="32" />
+      <span>{{ isDatasets ? 'Administration' : 'Rapports' }}</span>
+    </div>
+    <nav aria-label="Navigation principale">
+      <a routerLink="/rapports" >
+        <span class="pi pi-file" aria-hidden="true"></span>Rapports
+      </a>
+      @if (isAdmin()) {
+        <a routerLink="/administration/datasets" [attr.aria-current]="isDatasets ? 'page' : null">
+          <span class="pi pi-database" aria-hidden="true"></span>Données
+        </a>
+      }
+    </nav>
+    <div class="header-actions">
+      @if (user()) {
+        <span>
+          <span></span>
+        </span>
+      }
+    </div>
+  </div>
+  <div class="page-heading">
+    <p class="breadcrumb">{{ isDatasets ? 'Administration' : 'Rapports' }}
+      <span class="pi pi-angle-right" aria-hidden="true"></span>
+      {{ isDatasets ? 'Données' : 'Source de données' }}
+    </p>
+    <h1 id="page-title">{{ isDatasets ? 'Exposition des données' : 'Créer un rapport dynamique' }}</h1>
+    <p class="description">{{ isDatasets
+      ? 'Choisissez les tables et les champs proposés lors de la création des rapports.'
+      : 'Sélectionnez une source de données, configurez les colonnes et exportez votre rapport.' }}</p>
+  </div>
+</header>
+<div id="page-content" tabindex="-1"><router-outlet /></div>
