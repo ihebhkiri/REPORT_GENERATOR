@@ -8,6 +8,7 @@ import {provideAnimationsAsync} from '@angular/platform-browser/animations/async
 import {provideHttpClient} from '@angular/common/http';
 import {definePreset} from '@primeuix/themes';
 import Aura from '@primeuix/themes/aura';
+import {MessageService} from 'primeng/api';
 import {providePrimeNG} from 'primeng/config';
 
 import {routes} from './app.routes';
@@ -37,6 +38,7 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideHttpClient(),
     provideAnimationsAsync(),
+    MessageService,
     providePrimeNG({
       theme: {
         preset: RhisPreset,

@@ -3,8 +3,19 @@ import { Routes } from '@angular/router';
 export const routes: Routes = [
   {
     path: '',
+    pathMatch: 'full',
+    data: {page: 'reports'},
     loadComponent: () =>
-      import('./pages/source_de_donnes/rapports.component').then((m) => m.RapportsComponent),
+      import('../../shared/page-layout/shared-page-layout.component').then(
+        (m) => m.SharedPageLayoutComponent,
+      ),
+    children: [
+      {
+        path: '',
+        loadComponent: () =>
+          import('./pages/source_de_donnes/rapports.component').then((m) => m.RapportsComponent),
+      },
+    ],
   },
   {
     path: 'configuration/:datasetId',

@@ -1,19 +1,24 @@
 import {HttpErrorResponse} from '@angular/common/http';
 import {
+  afterNextRender,
   ChangeDetectionStrategy,
   Component,
   DestroyRef,
+  ElementRef,
+  HostListener,
+  Injector,
   computed,
   inject,
   signal,
+  viewChild,
+  viewChildren,
 } from '@angular/core';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 import {FormsModule} from '@angular/forms';
-import {AccordionModule} from 'primeng/accordion';
+import {MessageService} from 'primeng/api';
 import {ButtonModule} from 'primeng/button';
 import {CheckboxModule} from 'primeng/checkbox';
 import {InputTextModule} from 'primeng/inputtext';
-import {MessageModule} from 'primeng/message';
 import {SelectModule} from 'primeng/select';
 import {SkeletonModule} from 'primeng/skeleton';
 
@@ -21,6 +26,7 @@ import {
   DatasetExposure,
   DatasetExposureMode,
   DatasetExposureUpdate,
+  FieldExposure,
   fromExposureMode,
   toExposureMode,
 } from './dataset-exposure.model';
@@ -35,12 +41,10 @@ interface ExposureModeOption {
   selector: 'app-dataset-exposure',
   standalone: true,
   imports: [
-    AccordionModule,
     ButtonModule,
     CheckboxModule,
     FormsModule,
     InputTextModule,
-    MessageModule,
     SelectModule,
     SkeletonModule,
   ],
@@ -50,7 +54,14 @@ interface ExposureModeOption {
 })
 export class DatasetExposureComponent {
   private readonly exposureService = inject(DatasetExposureService);
+  private readonly messageService = inject(MessageService);
   private readonly destroyRef = inject(DestroyRef);
+  private readonly injector = inject(Injector);
+  private readonly hostElement = inject<ElementRef<HTMLElement>>(ElementRef);
+  private readonly tablesHeading = viewChild<ElementRef<HTMLElement>>('tablesHeading');
+  private readonly saveFailed = signal(false);
+  private readonly detailHeading = viewChild<ElementRef<HTMLElement>>('detailHeading');
+  private readonly tableOptions = viewChildren<ElementRef<HTMLButtonElement>>('tableOption');
 
   readonly modeOptions: ExposureModeOption[] = [
     {label: 'Non exposée', value: 'NONE'},
@@ -61,34 +72,39 @@ export class DatasetExposureComponent {
 
   readonly baseline = signal<readonly DatasetExposure[]>([]);
   readonly draft = signal<readonly DatasetExposure[]>([]);
-  readonly searchTerm = signal('');
+  readonly selectedDatasetId = signal<number | null>(null);
+  readonly tableSearchTerm = signal('');
+  readonly fieldSearchTerm = signal('');
+  readonly mobileDetailVisible = signal(false);
   readonly loading = signal(true);
   readonly saving = signal(false);
   readonly loadError = signal<string | null>(null);
-  readonly saveError = signal<string | null>(null);
-  readonly successMessage = signal<string | null>(null);
 
   readonly changes = computed<readonly DatasetExposureUpdate[]>(() => this.buildChanges());
   readonly changeCount = computed(() => this.changes().length);
   readonly dirty = computed(() => this.changeCount() > 0);
-  readonly filteredDatasets = computed(() => {
-    const search = this.searchTerm().trim().toLocaleLowerCase('fr');
-    if (!search) {
-      return this.draft();
-    }
-    return this.draft()
-      .map((dataset) => {
-        if (dataset.displayName.toLocaleLowerCase('fr').includes(search)) {
-          return dataset;
-        }
-        return {
-          ...dataset,
-          fields: dataset.fields.filter((field) =>
-            field.displayName.toLocaleLowerCase('fr').includes(search),
-          ),
-        };
-      })
-      .filter((dataset) => dataset.fields.length > 0);
+  readonly saveError = computed(() => this.dirty() && this.saveFailed()
+    ? 'Vos modifications sont conservées. Réessayez.' : null);
+  readonly dirtyDatasetIds = computed<ReadonlySet<number>>(
+    () => new Set(this.changes().map((dataset) => dataset.id)),
+  );
+  readonly selectedDataset = computed<DatasetExposure | null>(() =>
+    this.draft().find((dataset) => dataset.id === this.selectedDatasetId()) ?? null,
+  );
+  readonly filteredDatasets = computed<readonly DatasetExposure[]>(() => {
+    const search = this.normalizeSearch(this.tableSearchTerm());
+    return search
+      ? this.draft().filter((dataset) =>
+          this.normalizeSearch(dataset.displayName).includes(search),
+        )
+      : this.draft();
+  });
+  readonly filteredFields = computed<readonly FieldExposure[]>(() => {
+    const fields = this.selectedDataset()?.fields ?? [];
+    const search = this.normalizeSearch(this.fieldSearchTerm());
+    return search
+      ? fields.filter((field) => this.normalizeSearch(field.displayName).includes(search))
+      : fields;
   });
 
   constructor() {
@@ -107,14 +123,44 @@ export class DatasetExposureComponent {
           this.loading.set(false);
         },
         error: (error: HttpErrorResponse) => {
-          this.loadError.set(this.errorMessage(error, 'La configuration ne peut pas être chargée.'));
+          console.error('Dataset exposure configuration load failed.', error);
+          this.loadError.set('Impossible de charger la configuration des données.');
           this.loading.set(false);
         },
       });
   }
 
-  updateSearch(event: Event): void {
-    this.searchTerm.set((event.target as HTMLInputElement).value);
+  selectDataset(datasetId: number): void {
+    if (!this.draft().some((dataset) => dataset.id === datasetId)) {
+      return;
+    }
+    if (this.selectedDatasetId() !== datasetId) {
+      this.fieldSearchTerm.set('');
+    }
+    this.selectedDatasetId.set(datasetId);
+    this.mobileDetailVisible.set(true);
+    this.focusDetailOnMobile();
+  }
+
+  showTableList(): void {
+    this.mobileDetailVisible.set(false);
+    if (!this.isMobileLayout()) {
+      return;
+    }
+    afterNextRender(() => {
+      const selectedId = String(this.selectedDatasetId());
+      this.tableOptions()
+        .find((option) => option.nativeElement.dataset['datasetId'] === selectedId)
+        ?.nativeElement.focus();
+    }, {injector: this.injector});
+  }
+
+  updateTableSearch(event: Event): void {
+    this.tableSearchTerm.set((event.target as HTMLInputElement).value);
+  }
+
+  updateFieldSearch(event: Event): void {
+    this.fieldSearchTerm.set((event.target as HTMLInputElement).value);
   }
 
   exposureMode(dataset: DatasetExposure): DatasetExposureMode {
@@ -132,7 +178,7 @@ export class DatasetExposureComponent {
         dataset.id === datasetId && dataset.active ? {...dataset, ...exposure} : dataset,
       ),
     );
-    this.clearSaveFeedback();
+    if (!this.dirty()) this.saveFailed.set(false);
   }
 
   updateField(datasetId: number, fieldId: number, visible: boolean): void {
@@ -148,7 +194,7 @@ export class DatasetExposureComponent {
           : dataset,
       ),
     );
-    this.clearSaveFeedback();
+    if (!this.dirty()) this.saveFailed.set(false);
   }
 
   visibleFieldCount(dataset: DatasetExposure): number {
@@ -159,28 +205,62 @@ export class DatasetExposureComponent {
     return !dataset.active || this.exposureMode(dataset) === 'NONE';
   }
 
+  resetDraft(): void {
+    if (this.saving()) {
+      return;
+    }
+    this.restoreActionFocus();
+    this.saveFailed.set(false);
+    this.draft.set(this.baseline());
+  }
+
   save(): void {
     const datasets = this.changes();
     if (datasets.length === 0 || this.saving()) {
       return;
     }
+    const restoreFocus = !!this.hostElement.nativeElement.ownerDocument.activeElement
+      ?.closest('[data-testid="action-bar"]');
+    this.saveFailed.set(false);
     this.saving.set(true);
-    this.saveError.set(null);
-    this.successMessage.set(null);
     this.exposureService
       .updateConfiguration({datasets})
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
         next: (configuration) => {
+          this.restoreActionFocus(restoreFocus);
           this.setConfiguration(configuration.datasets);
-          this.successMessage.set('Configuration enregistrée.');
           this.saving.set(false);
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Enregistrement réussi',
+            detail: 'La configuration a été enregistrée.',
+          });
         },
         error: (error: HttpErrorResponse) => {
-          this.saveError.set(this.errorMessage(error, 'Les modifications ne peuvent pas être enregistrées.'));
+          console.error('Dataset exposure configuration save failed.', error);
+          this.saveFailed.set(true);
           this.saving.set(false);
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Échec de l’enregistrement',
+            detail: 'Vos modifications sont conservées. Réessayez.',
+          });
         },
       });
+  }
+
+  hasUnsavedChanges(): boolean {
+    return this.dirty();
+  }
+
+  @HostListener('window:beforeunload', ['$event'])
+  handleBeforeUnload(event: BeforeUnloadEvent): void {
+    if (!this.dirty()) {
+      return;
+    }
+    event.preventDefault();
+    event.returnValue = '';
   }
 
   private buildChanges(): readonly DatasetExposureUpdate[] {
@@ -212,21 +292,50 @@ export class DatasetExposureComponent {
   }
 
   private setConfiguration(datasets: readonly DatasetExposure[]): void {
-    const snapshot = datasets.map((dataset) => ({
-      ...dataset,
-      fields: dataset.fields.map((field) => ({...field})),
-    }));
-    this.baseline.set(snapshot);
-    this.draft.set(snapshot.map((dataset) => ({...dataset, fields: dataset.fields.map((field) => ({...field}))})));
+    this.baseline.set(datasets);
+    this.draft.set(datasets);
+
+    const selectedDatasetId = this.selectedDatasetId();
+    if (
+      selectedDatasetId !== null &&
+      !datasets.some((dataset) => dataset.id === selectedDatasetId)
+    ) {
+      this.selectedDatasetId.set(null);
+      this.mobileDetailVisible.set(false);
+      this.fieldSearchTerm.set('');
+    }
   }
 
-  private clearSaveFeedback(): void {
-    this.saveError.set(null);
-    this.successMessage.set(null);
+  private normalizeSearch(value: string): string {
+    return value.trim().toLocaleLowerCase('fr');
   }
 
-  private errorMessage(error: HttpErrorResponse, fallback: string): string {
-    const detail = error.error?.detail;
-    return typeof detail === 'string' && detail.trim() ? detail : fallback;
+  private focusDetailOnMobile(): void {
+    if (!this.isMobileLayout()) {
+      return;
+    }
+    afterNextRender(() => this.detailHeading()?.nativeElement.focus(), {injector: this.injector});
+  }
+
+  private restoreActionFocus(wasActionFocused = false): void {
+    const activeElement = this.hostElement.nativeElement.ownerDocument.activeElement;
+    if (!activeElement?.closest('[data-testid="action-bar"]') &&
+        !(wasActionFocused && activeElement === this.hostElement.nativeElement.ownerDocument.body)) {
+      return;
+    }
+    afterNextRender(() => {
+      if (this.isMobileLayout() && !this.mobileDetailVisible()) {
+        const selected = this.tableOptions().find(
+          (option) => option.nativeElement.dataset['datasetId'] === String(this.selectedDatasetId()),
+        );
+        (selected ?? this.tablesHeading())?.nativeElement.focus();
+      } else {
+        (this.detailHeading() ?? this.tablesHeading())?.nativeElement.focus();
+      }
+    }, {injector: this.injector});
+  }
+
+  private isMobileLayout(): boolean {
+    return window.matchMedia('(max-width: 63.999rem)').matches;
   }
 }

@@ -122,7 +122,11 @@ Le backend conserve un unique endpoint `GET /datasets/{id}/fields`. Sa JPQL appl
 
 La route Angular lazy `/administration/datasets`, protégée par `adminGuard`, charge `GET /api/v1/admin/dataset-exposure`. Le backend exige `ROLE_ADMIN` au niveau URL et méthode. La réponse contient toutes les tables et tous leurs champs, y compris inactifs, mais seulement leurs identifiants, `displayName` et états d'exposition : aucun `sourceName` n'est fourni à cet écran.
 
-L'administrateur choisit l'un des quatre modes dérivés de `displayMain/displayRelated`, modifie la visibilité des champs et envoie un seul `PUT` explicite contenant uniquement le delta. Le service valide tout le lot avant mutation, flush dans la transaction et retourne la configuration complète. Le mode « Non exposée » désactive les contrôles de champs dans l'UI sans effacer leurs préférences.
+L'interface utilise un master-detail : la liste des tables et sa recherche sont indépendantes du détail et de la recherche de champs. Aucune table n'est présélectionnée après le premier chargement. Sur un écran étroit, la sélection ouvre le détail et `Retour aux tables` restaure la liste et le focus sans perdre le brouillon. Les tables et champs inactifs restent visibles mais non modifiables.
+
+L'administrateur choisit l'un des quatre modes dérivés de `displayMain/displayRelated`, modifie la visibilité des champs et envoie un seul `PUT` explicite contenant uniquement le delta global. Il peut parcourir et modifier plusieurs tables avant l'enregistrement ; `Annuler les modifications` restaure localement la dernière configuration chargée sans requête HTTP. Le service backend valide tout le lot avant mutation, flush dans la transaction et retourne la configuration complète. Le mode « Non exposée » désactive les contrôles de champs dans l'UI sans effacer leurs préférences.
+
+Un unique `p-toast` PrimeNG est rendu à la racine de l'application. Le succès et l'échec du `PUT` y utilisent des messages fonctionnels ; un détail technique backend est seulement journalisé. En revanche, l'échec du `GET` initial reste affiché dans la page avec `Réessayer`, car il empêche l'utilisation complète de l'écran. Un `CanDeactivateFn` protège les navigations Angular et `beforeunload` protège le rechargement ou la fermeture tant que le brouillon contient des changements.
 
 ## Transformation des données
 

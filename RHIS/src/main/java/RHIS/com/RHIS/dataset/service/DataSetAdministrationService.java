@@ -16,7 +16,6 @@ import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -38,30 +37,28 @@ public class DataSetAdministrationService {
 
     @Transactional
     public DataSetExposureConfigurationResponse updateConfiguration(UpdateDataSetExposureRequest request) {
+        List<Long> requestedDataSetIds = request.datasets().stream()
+                .map(UpdateDataSetExposureRequest.DataSetUpdate::id)
+                .toList();
         rejectDuplicates(
-                request.datasets().stream().map(UpdateDataSetExposureRequest.DataSetUpdate::id).toList(),
+                requestedDataSetIds,
                 "Une table ne peut être modifiée qu'une fois."
         );
 
-        Set<Long> requestedDataSetIds = request.datasets().stream()
-                .map(UpdateDataSetExposureRequest.DataSetUpdate::id)
-                .collect(Collectors.toSet());
         Map<Long, DataSetEntity> dataSetsById = dataSetRepository.findAllById(requestedDataSetIds).stream()
                 .collect(Collectors.toMap(DataSetEntity::getId, Function.identity()));
         if (dataSetsById.size() != requestedDataSetIds.size()) {
             throw new DataSetConfigurationException("Au moins une table demandée est inconnue.");
         }
 
-        List<UpdateDataSetExposureRequest.FieldUpdate> requestedFields = request.datasets().stream()
+        List<Long> requestedFieldIds = request.datasets().stream()
                 .flatMap(dataSet -> dataSet.fields().stream())
+                .map(UpdateDataSetExposureRequest.FieldUpdate::id)
                 .toList();
         rejectDuplicates(
-                requestedFields.stream().map(UpdateDataSetExposureRequest.FieldUpdate::id).toList(),
+                requestedFieldIds,
                 "Un champ ne peut être modifié qu'une fois."
         );
-        Set<Long> requestedFieldIds = requestedFields.stream()
-                .map(UpdateDataSetExposureRequest.FieldUpdate::id)
-                .collect(Collectors.toSet());
         Map<Long, DataSetField> fieldsById = dataSetFieldRepository.findAllById(requestedFieldIds).stream()
                 .collect(Collectors.toMap(DataSetField::getId, Function.identity()));
         if (fieldsById.size() != requestedFieldIds.size()) {
