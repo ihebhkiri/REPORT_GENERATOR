@@ -24,6 +24,9 @@ access :
     expiration : 900000   # 15 min ---> ms
 
 rhis:
+  bot:
+    max-message-length: 2000
+    llm-timeout-seconds: 30
   report:
     jobs:
       core-pool-size: 2
