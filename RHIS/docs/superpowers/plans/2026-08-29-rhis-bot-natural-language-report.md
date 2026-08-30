@@ -1402,7 +1402,7 @@ Depuis `RHIS` :
 mvn '-Dtest=BotAiPropertiesTest,ReportCatalogProviderTest,BotReportPlannerTest,BotReportServiceTest,BotReportControllerSecurityTest' test
 ```
 
-Attendu : 16/16 PASS (2+2+4+5+4). Tout échec ici se corrige avant de continuer.
+Attendu : 17/17 PASS (2+2+4+5+4). Tout échec ici se corrige avant de continuer.
 
 - [ ] **Step 2 : suite backend complète et comparaison aux baselines**
 
@@ -1494,17 +1494,3 @@ git commit -m "docs(bot): flux 07 et progression ponytail rhis_bot"
 - `mvn test` : aucun nouvel échec par rapport aux baselines documentées.
 - Docs flows 07 + progression Ponytail à jour ; commits par milestone sur `rhis_bot`,
   aucun push ni merge.
-
-
-
-
-
-
-
-
-
-
-
-
-
-

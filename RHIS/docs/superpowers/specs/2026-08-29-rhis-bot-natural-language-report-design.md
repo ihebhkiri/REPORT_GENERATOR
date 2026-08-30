@@ -265,5 +265,3 @@ antérieur. La branche `rhis_bot` permet de ne pas toucher `main`.
   phase 2 ; aucun `.git` imbriqué actif à gérer.
 - 2026-08-29 — Le format d'export est indicatif (porté par la réponse) : le snapshot
   existant étant indépendant du format, le bot ne duplique aucune logique d'export.
-
-
