@@ -15,6 +15,13 @@ spring:
     user:
       name: user
       password: user
+  ai:
+    mistralai:
+      api-key: ${MISTRAL_API_KEY:}
+      chat:
+        options:
+          model: mistral-small-latest
+          temperature: 0.0
 
 refresh :
   token :
@@ -43,4 +50,3 @@ rhis:
       metadata-retention: 24h
       cleanup-interval: 1m
       storage-root: ${java.io.tmpdir}/rhis-report-artifacts
-
