@@ -64,7 +64,10 @@
             [value]="tableRows()"
             [scrollable]="true"
             scrollHeight="flex"
-            styleClass="p-datatable-sm p-datatable-gridlines"
+            size="small"
+            [showGridlines]="true"
+            [stripedRows]="true"
+            [rowHover]="true"
           >
             <ng-template #header>
               <tr>

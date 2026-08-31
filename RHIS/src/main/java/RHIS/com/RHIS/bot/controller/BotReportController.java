@@ -6,6 +6,7 @@ import RHIS.com.RHIS.bot.controller.dto.BotReportRequest;
 import RHIS.com.RHIS.bot.controller.dto.BotReportResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -36,7 +37,7 @@ public class BotReportController {
             case "READY" -> ResponseEntity.accepted()
                     .location(URI.create("/api/v1/report-generations/" + response.generationId()))
                     .body(response);
-            case "FAILED" -> ResponseEntity.unprocessableEntity().body(response);
+            case "FAILED" -> ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(response);
             default -> ResponseEntity.ok(response);
         };
 
