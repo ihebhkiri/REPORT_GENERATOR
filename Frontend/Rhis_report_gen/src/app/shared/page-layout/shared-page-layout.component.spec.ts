@@ -6,7 +6,7 @@ import {CurrentUser} from '../../features/auth/auth.model';
 import {SharedPageLayoutComponent} from './shared-page-layout.component';
 
 describe('SharedPageLayoutComponent', () => {
-  for (const page of ['reports', 'datasets']) {
+  for (const page of ['reports', 'datasets', 'assistant', 'configuration', 'export']) {
     it('renders one header and role-aware navigation on ' + page, async () => {
       const response = new Subject<CurrentUser>();
       await TestBed.configureTestingModule({
@@ -22,12 +22,13 @@ describe('SharedPageLayoutComponent', () => {
       const element = fixture.nativeElement as HTMLElement;
       expect(element.querySelectorAll('header').length).toBe(1);
       expect(element.querySelector('a[href="/rapports"]')).not.toBeNull();
+      expect(element.querySelector('a[href="/assistant"]')).not.toBeNull();
       expect(element.querySelector('a[href="/administration/datasets"]')).toBeNull();
       response.next({email: 'demo@example.test', roles: ['ROLE_ADMIN']});
       fixture.detectChanges();
       expect(element.querySelector('a[href="/administration/datasets"]')).not.toBeNull();
       expect(element.querySelector('a[aria-current="page"]')?.textContent)
-        .toContain(page === 'datasets' ? 'Données' : 'Rapports');
+        .toContain(page === 'datasets' ? 'Données' : page === 'assistant' ? 'Assistant' : 'Rapports');
       response.next({email: 'demo@example.test', roles: ['ROLE_USER']});
       fixture.detectChanges();
       expect(element.querySelector('a[href="/administration/datasets"]')).toBeNull();

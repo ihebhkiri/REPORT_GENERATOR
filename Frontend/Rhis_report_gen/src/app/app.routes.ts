@@ -19,6 +19,21 @@ export const routes: Routes = [
     loadChildren: () => import('./features/rapports/rapports.routes').then((m) => m.routes),
   },
   {
+    path: 'assistant',
+    data: {page: 'assistant'},
+    loadComponent: () =>
+      import('./shared/page-layout/shared-page-layout.component').then(
+        (m) => m.SharedPageLayoutComponent,
+      ),
+    children: [{
+      path: '',
+      loadComponent: () =>
+        import('./features/report-assistant/report-assistant.component').then(
+          (m) => m.ReportAssistantComponent,
+        ),
+    }],
+  },
+  {
     path: 'administration/datasets',
     canActivate: [adminGuard],
     data: {page: 'datasets'},

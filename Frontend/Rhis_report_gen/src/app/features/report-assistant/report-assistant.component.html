@@ -1,0 +1,58 @@
+<section class="assistant-shell" aria-labelledby="assistant-title">
+  <h2 id="assistant-title">Conversation</h2>
+
+  <ol class="conversation">
+    @for (message of messages(); track message.id) {
+      <li [class]="'message message--' + message.author">
+        <span class="message-author">{{ message.author === 'user' ? 'Vous' : 'Assistant' }}</span>
+        <p>{{ message.text }}</p>
+      </li>
+    }
+    @if (isSubmitting()) {
+      <li class="message message--assistant message--thinking">
+        <span class="message-author">Assistant</span>
+        <p>Réflexion <span class="thinking-dots" aria-hidden="true"><span></span><span></span><span></span></span></p>
+      </li>
+    }
+  </ol>
+
+  @if (readyGeneration(); as ready) {
+    <div class="ready-panel">
+      <p>{{ ready.summary }}</p>
+      <a pButton [routerLink]="['/rapports/export', ready.generationId]">
+        Vérifier et exporter
+      </a>
+    </div>
+  }
+
+  @if (errorMessage()) {
+    <div class="error-panel" role="alert">
+      <p>{{ errorMessage() }}</p>
+      @if (sessionExpired()) {
+        <a routerLink="/login">Se reconnecter</a>
+      }
+    </div>
+  }
+
+  <form class="composer" (submit)="$event.preventDefault(); submit()">
+    <label class="sr-only" for="assistant-message">Votre demande</label>
+    <textarea
+      #messageInput
+      id="assistant-message"
+      maxlength="2000"
+      rows="1"
+      [value]="draftMessage()"
+      (input)="draftMessage.set(messageInput.value)"
+      (keydown)="handleComposerKeydown($event)"
+      placeholder="Envoyer un message…"
+    ></textarea>
+    <p-button
+      type="submit"
+      icon="pi pi-send"
+      ariaLabel="Envoyer"
+      [rounded]="true"
+      [loading]="isSubmitting()"
+      [disabled]="isSubmitting() || draftMessage().trim().length === 0"
+    />
+  </form>
+</section>

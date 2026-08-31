@@ -1,43 +1,43 @@
-# Graph Report - RHIS  (2026-08-24)
+# Graph Report - RHIS  (2026-08-31)
 
 ## Corpus Check
-- 250 files · ~104,912 words
+- 335 files · ~167,566 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 2065 nodes · 4391 edges · 129 communities (105 shown, 24 thin omitted)
-- Extraction: 94% EXTRACTED · 6% INFERRED · 0% AMBIGUOUS · INFERRED: 278 edges (avg confidence: 0.8)
+- 2788 nodes · 5899 edges · 190 communities (158 shown, 32 thin omitted)
+- Extraction: 93% EXTRACTED · 7% INFERRED · 0% AMBIGUOUS · INFERRED: 422 edges (avg confidence: 0.8)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `ac7aa17f`
+- Built from commit: `6eacd759`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
 ## Community Hubs (Navigation)
 - org.springframework.data.jpa.repository.JpaRepository
-- lombok.RequiredArgsConstructor
-- ReportControllerSecurityTest
+- org.springframework.http.ResponseEntity
+- BotReportControllerSecurityTest.java
 - ExportComponent
 - ReportJobProperties
-- ReportPreviewColumnResponse
+- ReportControllerSecurityTest
 - AuthController
 - DESIGN.md
-- ReportSnapshotReader
+- org.springframework.stereotype.Component
 - FilterEditorComponent
 - DataSetField
-- ReportGenerationEntity
+- ReportGenerationService
 - ReportSqlBuilder
-- Dataset
+- configuration.component.spec.ts
 - Administration des données du Report Builder — spécification Figma
 - PdfReportExportWriter
 - UserService
 - ReportSnapshotStorageTest
-- ReportExportWriterTest
-- ReportExportFormat
-- ReportJobCleanupService
-- org.springframework.stereotype.Component
-- GenericCrudServiceImpl
+- ReportSnapshotMetadata
+- org.springframework.stereotype.Service
+- .updateConfiguration
+- ReportPreviewResponse
+- DataSetServiceImpl
 - TableRelationProjection
 - dependencies
 - devDependencies
@@ -46,24 +46,24 @@
 - ConfigurationComponent
 - RHIS — génération asynchrone et export temporaire des rapports
 - JwtService
-- SecurityConfig.java
+- SecurityConfig
 - UserEntity
 - DataSetEntity
 - Administration des tables et champs — spécification UI/UX
-- SortEditorComponent
+- DataSetFieldType
 - XlsxReportExportWriter
 - auth.service.ts
 - Refactoring KISS du workflow Export front et back
 - DataSetInitializer
-- RefreshTokenEntity
-- ReportExportWorkerTest
+- AuthServiceImpl
+- ReportArtifactStorage
 - RapportsComponent
 - RHIS — simplification du parcours de configuration des rapports
-- DataSetFieldType
+- ReportPreviewPostgresIntegrationTest.java
 - ReportExportService
 - Refactoring ciblé de la page Export
-- org.springframework.http.ResponseEntity
-- ReportGenerationController
+- export.component.ts
+- UserPrincipal
 - 02 — Définition du rapport : fields, filters, sorts et brouillon local
 - options
 - 04 — Génération complète asynchrone
@@ -75,13 +75,13 @@
 - production
 - @schematics/angular:component
 - package.json
-- ReportConfigurationLoader
+- Intégrer un aperçu automatique à la configuration des rapports
 - 06 — Authentification par cookies et refresh token
 - development
 - scripts
 - architect
 - RhisApplication
-- org.junit.jupiter.api.Test
+- ReportPreviewRequest
 - Verified current behavior
 - IhebComponent
 - InvalidTokenException
@@ -97,7 +97,7 @@
 - CreateUserResponse.java
 - UserResponse.java
 - RHIS.com:RHIS
-- org.springframework.stereotype.Service
+- org.springframework.transaction.annotation.Transactional
 - Report export vertical stepper design
 - File Map
 - Global Constraints
@@ -107,7 +107,7 @@
 - Étapes détaillées
 - Global Constraints
 - XLSX Temporal Snapshot Compatibility Design
-- .write
+- Research: configuration des rapports et aperçu existant
 - Global Constraints
 - Global Constraints
 - Global Constraints
@@ -122,81 +122,137 @@
 - typescript
 - Implémenter l'exposition administrative des datasets et de leurs champs
 - Required sections
-- ReportPreviewPostgresIntegrationTest.java
+- org.junit.jupiter.api.Test
 - Codex Project Workflow Design
-- AuthServiceImpl
+- lombok.RequiredArgsConstructor
 - <Action-oriented plan title>
 - RoleEntity
 - Research: <topic>
-- org.springframework.transaction.annotation.Transactional
-- PasswordResetTokenEntity
+- DatasetExposureComponent
+- report-generation.service.ts
 - .getUserStats
 - Frontend and UI guidelines
 - RHIS Frontend Agent Instructions
 - RHIS Backend Agent Instructions
 - UserService.java
 - File Structure
-- AuthServiceImpl.java
-- UserPrincipal
+- dataset-exposure.component.ts
+- Bot Report Ponytail Refactor Implementation Plan
 - Global Constraints
-- BaseEntity
-- build
+- Research: refonte master-detail de l’exposition des datasets
+- Bot Report Ponytail Refactor Research
 - plans/README.md
 - progress/README.md
 - research/README.md
+- report-assistant.component.ts
+- rhis_bot — Interface Angular de l'assistant de rapports
+- rhis_bot — Rapport généré à partir d'une phrase naturelle (Spring AI + Mistral)
+- .configure
+- File Map
+- RHIS Bot — Rapports multi-datasets reliés
+- 07 — Rapport à partir d'une phrase naturelle
+- Remplacer les accordéons d’exposition par un master-detail
+- RHIS shared header and dataset UI — Implementation Plan
+- File Map
+- RHIS Bot Multi-Dataset Reports Research
+- RHIS Bot — Clarification structurée sans répétition
+- app.routes.ts
+- Bot Report — Refactoring Ponytail chirurgical
+- Angular Composer, Preview and Shared Layout Implementation Plan
+- File Map
+- Administration UI — progression
+- rhis_bot — progression
+- app.config.ts
+- RHIS — Modernisation du composer et repli de l’aperçu
+- Milestone 1: Installer l’unique Toast global
+- Milestone 2: Introduire l’état master-detail, le feedback fonctionnel et la protection dirty
+- Milestone 3: Remplacer l’accordéon par l’interface master-detail accessible et responsive
+- Milestone 4: Vérifier la régression, l’accessibilité et documenter le flux réel
+- Global Constraints
+- Progress — exposition administrative des datasets et champs
+- RHIS Bot Related Datasets — Progress
+- Administration UI — analyse avant aperçu
+- Étapes détaillées
+- Dataset exposure Ponytail — plan approuvé
+- Dataset exposure Ponytail — progrès
+- ReportGenerationService.java
+- Proposed approach
+- Dataset exposure Ponytail — research
+- RHIS — direction et maquette de l’administration
+- DataSetAdministrationService
+- RHIS — validation Angular, 28 août 2026
+- RHIS Bot Structured Clarification — Progress
+- ReportRelatedCardComponent
+- Affected files and symbols
+- environment.development.ts
+- progress/2026-08-30-rhis-bot-angular-interface.md
+- ReportConfigurationLoader
+- BaseEntity
+- build
+- ResolvedReportDefinition
+- ReportExportFormat
+- RoleService
+- RefreshTokenEntity
+- TestTableRelation
+- AuthServiceImpl.java
+- SortEditorComponent
+- JwtCookieFilter
+- GenericCrudService
+- Qualité visuelle du tableau d’aperçu
+- .write
+- LoginComponent
+- ReportQueryTimeoutException
+- Global Constraints
+- .createUser
 
 ## God Nodes (most connected - your core abstractions)
-1. `DataSetField` - 46 edges
-2. `ReportJobProperties` - 41 edges
-3. `DataSetEntity` - 39 edges
-4. `ReportPreviewRequest` - 37 edges
-5. `ExportComponent` - 36 edges
-6. `UserEntity` - 36 edges
-7. `FilterEditorComponent` - 33 edges
-8. `DataSetFieldType` - 33 edges
-9. `UserRepository` - 29 edges
-10. `ReportGenerationEntity` - 28 edges
+1. `DataSetField` - 54 edges
+2. `DataSetEntity` - 53 edges
+3. `UserEntity` - 43 edges
+4. `ReportPreviewRequest` - 42 edges
+5. `ReportJobProperties` - 41 edges
+6. `ReportDefinitionResolver` - 40 edges
+7. `ExportComponent` - 37 edges
+8. `FilterEditorComponent` - 34 edges
+9. `DataSetFieldType` - 34 edges
+10. `ReportExportFormat` - 34 edges
 
 ## Surprising Connections (you probably didn't know these)
 - `ReportPreviewColumn` --references--> `DatasetFieldType`  [EXTRACTED]
   Frontend/Rhis_report_gen/src/app/features/rapports/models/report-preview.model.ts → Frontend/Rhis_report_gen/src/app/features/rapports/models/dataset-field.model.ts
+- `ExportFormatDefinition` --references--> `ReportExportFormat`  [EXTRACTED]
+  Frontend/Rhis_report_gen/src/app/features/rapports/pages/export/export.component.ts → Frontend/Rhis_report_gen/src/app/features/rapports/models/report-generation.model.ts
 - `supportedOperators()` --references--> `FilterOperator`  [EXTRACTED]
   RHIS/src/main/java/RHIS/com/RHIS/dataset/model/DataSetFieldType.java → RHIS/src/main/java/RHIS/com/RHIS/dataset/model/FilterOperator.java
+- `ExposureModeOption` --references--> `DatasetExposureMode`  [EXTRACTED]
+  Frontend/Rhis_report_gen/src/app/features/administration/dataset-exposure/dataset-exposure.component.ts → Frontend/Rhis_report_gen/src/app/features/administration/dataset-exposure/dataset-exposure.model.ts
 - `ReportFilterRequest` --references--> `FilterOperator`  [EXTRACTED]
   Frontend/Rhis_report_gen/src/app/features/rapports/models/report-preview.model.ts → Frontend/Rhis_report_gen/src/app/features/rapports/models/dataset-field.model.ts
-- `OperatorOption` --references--> `FilterOperator`  [EXTRACTED]
-  Frontend/Rhis_report_gen/src/app/features/rapports/pages/configuration/components/filter-editor/filter-editor.component.ts → Frontend/Rhis_report_gen/src/app/features/rapports/models/dataset-field.model.ts
-- `ReportField` --inherits--> `DatasetField`  [EXTRACTED]
-  Frontend/Rhis_report_gen/src/app/features/rapports/pages/configuration/configuration.models.ts → Frontend/Rhis_report_gen/src/app/features/rapports/models/dataset-field.model.ts
 
 ## Import Cycles
 - None detected.
 
-## Communities (129 total, 24 thin omitted)
+## Communities (190 total, 32 thin omitted)
 
 ### Community 0 - "org.springframework.data.jpa.repository.JpaRepository"
-Cohesion: 0.11
-Nodes (26): jakarta.persistence.Entity, jakarta.persistence.MappedSuperclass, jakarta.persistence.PrePersist, jakarta.persistence.Table, lombok.Getter, lombok.NoArgsConstructor, org.springframework.context.annotation.Profile, org.springframework.core.annotation.Order (+18 more)
+Cohesion: 0.06
+Nodes (39): jakarta.persistence.Entity, jakarta.persistence.MappedSuperclass, jakarta.persistence.PrePersist, jakarta.persistence.Table, lombok.Getter, lombok.NoArgsConstructor, lombok.Setter, org.springframework.context.annotation.Profile (+31 more)
 
-### Community 1 - "lombok.RequiredArgsConstructor"
-Cohesion: 0.13
-Nodes (16): InputStreamResource, lombok.RequiredArgsConstructor, org.springframework.core.io.InputStreamResource, org.springframework.web.bind.annotation.DeleteMapping, org.springframework.web.bind.annotation.GetMapping, org.springframework.web.bind.annotation.PostMapping, org.springframework.web.bind.annotation.PutMapping, org.springframework.web.bind.annotation.RequestMapping (+8 more)
+### Community 1 - "org.springframework.http.ResponseEntity"
+Cohesion: 0.22
+Nodes (11): org.springframework.http.converter.HttpMessageNotReadableException, org.springframework.http.HttpStatus, org.springframework.http.ProblemDetail, org.springframework.http.ResponseEntity, org.springframework.web.bind.annotation.ExceptionHandler, org.springframework.web.bind.annotation.RestControllerAdvice, org.springframework.web.bind.MethodArgumentNotValidException, BotExceptionHandler (+3 more)
 
-### Community 2 - "ReportControllerSecurityTest"
-Cohesion: 0.25
-Nodes (4): org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest, org.springframework.context.annotation.Import, org.springframework.test.web.servlet.MockMvc, ReportControllerSecurityTest
+### Community 2 - "BotReportControllerSecurityTest.java"
+Cohesion: 0.23
+Nodes (8): org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest, org.springframework.context.annotation.Import, org.springframework.security.authentication.UsernamePasswordAuthenticationToken, org.springframework.security.core.userdetails.UserDetailsService, org.springframework.test.web.servlet.MockMvc, CustomUserDetailService, BotReportControllerSecurityTest, UsernamePasswordAuthenticationToken
 
 ### Community 3 - "ExportComponent"
-Cohesion: 0.05
-Nodes (29): App, appConfig, RhisPreset, routes, Component, ReportDraft, ReportExport, ReportExportFormat (+21 more)
+Cohesion: 0.16
+Nodes (3): ReportExportFormat, ExportComponent, Component
 
 ### Community 4 - "ReportJobProperties"
 Cohesion: 0.20
 Nodes (7): org.springframework.boot.context.properties.ConfigurationProperties, ReportJobProperties, FileSystemReportArtifactStorage, Override, StorageDeleteException, ArtifactWriter, FunctionalInterface
-
-### Community 5 - "ReportPreviewColumnResponse"
-Cohesion: 0.14
-Nodes (9): java.sql.PreparedStatement, java.sql.ResultSet, ReportPreviewColumnResponse, ReportPreviewResponse, ReportQueryTimeoutException, ReportPreviewResponse, ReportPreviewExecutor, PreparedReportQuery (+1 more)
 
 ### Community 6 - "AuthController"
 Cohesion: 0.14
@@ -206,65 +262,61 @@ Nodes (11): org.springframework.http.ResponseCookie, AuthController, GetMapping,
 Cohesion: 0.08
 Nodes (25): Accessibilité, Actions, Affordance, Charge cognitive, Couleurs, Densité, Espacement, Feedback (+17 more)
 
-### Community 8 - "ReportSnapshotReader"
-Cohesion: 0.31
-Nodes (3): com.fasterxml.jackson.core.type.TypeReference, com.fasterxml.jackson.databind.ObjectMapper, ReportSnapshotReader
+### Community 8 - "org.springframework.stereotype.Component"
+Cohesion: 0.25
+Nodes (5): com.fasterxml.jackson.core.type.TypeReference, com.fasterxml.jackson.databind.ObjectMapper, com.lowagie.text.pdf.PdfReader, org.springframework.stereotype.Component, ReportSnapshotReader
 
 ### Community 9 - "FilterEditorComponent"
 Cohesion: 0.14
 Nodes (3): DatasetFieldType, FilterEditorComponent, Component
 
 ### Community 10 - "DataSetField"
-Cohesion: 0.16
-Nodes (6): DataSetField, Entity, Table, ReportResourceNotFoundException, ReportValidationException, ReportDefinitionResolver
-
-### Community 11 - "ReportGenerationEntity"
-Cohesion: 0.11
-Nodes (19): lombok.Setter, org.springframework.data.jpa.repository.Lock, org.springframework.data.jpa.repository.Query, org.springframework.scheduling.annotation.Scheduled, Entity, Table, ReportGenerationEntity, ReportGenerationPhase (+11 more)
-
-### Community 12 - "ReportSqlBuilder"
-Cohesion: 0.18
-Nodes (8): PreparedCountQuery, ResolvedFilter, ResolvedJoin, ResolvedJoinColumn, ResolvedReportDefinition, ResolvedSort, ReportSqlBuilder, ReportSqlBuilderTest
-
-### Community 13 - "Dataset"
 Cohesion: 0.14
-Nodes (13): ReportRelatedCardComponent, Component, DatasetField, Dataset, TableRelation, DatasetSelectionResult, DATASET_ICONS, DatasetAccordionView (+5 more)
+Nodes (9): DataSetField, Entity, Table, ReportValidationException, PathStep, RelationEdge, RelationKey, ReportDefinitionResolver (+1 more)
+
+### Community 11 - "ReportGenerationService"
+Cohesion: 0.16
+Nodes (6): ReportGenerationResponse, Entity, Table, ReportGenerationEntity, ReportGenerationService, ReportJobDispatcher
+
+### Community 13 - "configuration.component.spec.ts"
+Cohesion: 0.17
+Nodes (11): DatasetField, Dataset, TableRelation, DatasetSelectionResult, DATASET_ICONS, DatasetAccordionView, RelatedDatasetAccumulator, RelatedDatasetView (+3 more)
 
 ### Community 14 - "Administration des données du Report Builder — spécification Figma"
 Cohesion: 0.06
 Nodes (34): `01 — Dataset active`, `02 — Dataset inactive`, `03 — Search & filters`, `04 — Unsaved changes`, `05 — Save feedback`, 10. Frames Figma attendues, 11. Composants Figma, 12. Design system et iconographie (+26 more)
 
 ### Community 15 - "PdfReportExportWriter"
-Cohesion: 0.12
+Cohesion: 0.11
 Nodes (9): java.util.function.IntConsumer, net.sf.jasperreports.engine.JasperPrint, net.sf.jasperreports.engine.JRDataSource, net.sf.jasperreports.engine.JRField, Override, PdfReportExportWriter, SnapshotDataSource, Override (+1 more)
 
 ### Community 16 - "UserService"
-Cohesion: 0.10
-Nodes (13): org.springframework.security.access.prepost.PreAuthorize, PatchMapping, BulkStatusRequest, CreateUserRequest, UpdateUserRequest, UserDataResponse, DeleteMapping, PostMapping (+5 more)
+Cohesion: 0.12
+Nodes (12): org.springframework.security.access.prepost.PreAuthorize, PatchMapping, BulkStatusRequest, UserDataResponse, DeleteMapping, GetMapping, PostMapping, PutMapping (+4 more)
 
 ### Community 17 - "ReportSnapshotStorageTest"
-Cohesion: 0.19
+Cohesion: 0.18
 Nodes (6): java.io.FilterInputStream, ObjectMapper, SnapshotConsumer, CloseTrackingInputStream, Override, ReportSnapshotStorageTest
 
-### Community 18 - "ReportExportWriterTest"
-Cohesion: 0.17
-Nodes (8): PdfReader, Column, ReportSnapshotWriter, CloseTrackingOutputStream, FunctionalInterface, Override, ReportExportWriterTest, ThrowingRunnable
-
-### Community 19 - "ReportExportFormat"
+### Community 18 - "ReportSnapshotMetadata"
 Cohesion: 0.18
-Nodes (12): Entity, Table, ReportExportEntity, ReportExportFormat, PDF, XLSX, ReportExportStatus, FAILED (+4 more)
+Nodes (9): PdfReader, Column, ReportSnapshotMetadata, ReportSnapshotWriter, CloseTrackingOutputStream, FunctionalInterface, Override, ReportExportWriterTest (+1 more)
 
-### Community 21 - "org.springframework.stereotype.Component"
+### Community 19 - "org.springframework.stereotype.Service"
 Cohesion: 0.12
-Nodes (12): Connection, org.slf4j.Logger, org.springframework.stereotype.Component, ReportExportWriter, ReportExportWorker, FunctionalInterface, PreparedStatement, ResultSet (+4 more)
+Nodes (16): org.springframework.scheduling.annotation.Scheduled, org.springframework.stereotype.Service, ReportExportStatus, FAILED, PENDING, READY, RUNNING, ReportGenerationStatus (+8 more)
 
-### Community 22 - "GenericCrudServiceImpl"
-Cohesion: 0.12
-Nodes (4): RessourceNotFoundException, GenericCrudService, GenericCrudServiceImpl, Override
+### Community 20 - ".updateConfiguration"
+Cohesion: 0.44
+Nodes (4): DataSetUpdate, FieldUpdate, UpdateDataSetExposureRequest, DataSetAdministrationServiceTest
 
-### Community 23 - "TableRelationProjection"
+### Community 21 - "ReportPreviewResponse"
 Cohesion: 0.12
-Nodes (3): TableRelationProjection, Override, TestTableRelation
+Nodes (15): Connection, java.sql.PreparedStatement, java.sql.ResultSet, ReportPreviewColumnResponse, ReportPreviewResponse, ReportExecutionException, FunctionalInterface, PreparedStatement (+7 more)
+
+### Community 22 - "DataSetServiceImpl"
+Cohesion: 0.13
+Nodes (12): DataSetController, GetMapping, RequestMapping, RestController, DataSetMapper, DataSetFieldResponse, DataSetResponse, JoinInfoProjection (+4 more)
 
 ### Community 24 - "dependencies"
 Cohesion: 0.09
@@ -280,10 +332,10 @@ Nodes (11): FilterOperator, ColumnSelectorComponent, Component, FilterFieldOptio
 
 ### Community 27 - "configuration.component.ts"
 Cohesion: 0.11
-Nodes (19): ApiProblem, ReportFilterRequest, ReportPreviewCell, ReportPreviewColumn, ReportPreviewRequest, ReportPreviewResponse, ReportPreviewRow, ReportSortRequest (+11 more)
+Nodes (22): ApiProblem, ReportFilterRequest, ReportPreviewCell, ReportPreviewColumn, ReportPreviewRequest, ReportPreviewResponse, ReportPreviewRow, ReportSortRequest (+14 more)
 
 ### Community 28 - "ConfigurationComponent"
-Cohesion: 0.16
+Cohesion: 0.14
 Nodes (3): ConfigurationComponent, Component, ReportConfigurationLoadResult
 
 ### Community 29 - "RHIS — génération asynchrone et export temporaire des rapports"
@@ -291,72 +343,80 @@ Cohesion: 0.07
 Nodes (29): 10. Sécurité et erreurs, 11. Frontend Angular, 12. Tests et critères d’acceptation, 13. Hors périmètre, 14. Ordre de réalisation recommandé, 1. Objectif, 2. Principes retenus, 3.1 Depuis Configuration (+21 more)
 
 ### Community 30 - "JwtService"
-Cohesion: 0.19
-Nodes (9): io.jsonwebtoken.Claims, jakarta.servlet.FilterChain, jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, javax.crypto.SecretKey, org.springframework.web.filter.OncePerRequestFilter, Override, JwtCookieFilter (+1 more)
+Cohesion: 0.33
+Nodes (3): io.jsonwebtoken.Claims, javax.crypto.SecretKey, JwtService
 
-### Community 31 - "SecurityConfig.java"
-Cohesion: 0.12
-Nodes (16): org.springframework.boot.context.properties.EnableConfigurationProperties, org.springframework.context.annotation.Bean, org.springframework.context.annotation.Configuration, org.springframework.core.task.TaskExecutor, org.springframework.scheduling.annotation.EnableAsync, org.springframework.security.authentication.AuthenticationManager, org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration, org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity (+8 more)
+### Community 31 - "SecurityConfig"
+Cohesion: 0.15
+Nodes (15): org.springframework.boot.context.properties.EnableConfigurationProperties, org.springframework.context.annotation.Bean, org.springframework.context.annotation.Configuration, org.springframework.core.task.TaskExecutor, org.springframework.scheduling.annotation.EnableAsync, org.springframework.security.authentication.AuthenticationManager, org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration, org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity (+7 more)
 
 ### Community 32 - "UserEntity"
-Cohesion: 0.29
-Nodes (8): org.springframework.data.domain.Page, org.springframework.data.domain.Pageable, Entity, Getter, Setter, Table, UserEntity, UserRepository
+Cohesion: 0.18
+Nodes (11): org.springframework.data.domain.Page, org.springframework.data.domain.Pageable, org.springframework.data.jpa.repository.Lock, org.springframework.data.jpa.repository.Query, Entity, Getter, Setter, Table (+3 more)
 
 ### Community 33 - "DataSetEntity"
-Cohesion: 0.07
-Nodes (26): org.springframework.data.jpa.repository.EntityGraph, DataSetController, GetMapping, RequestMapping, RestController, DataSetMapper, DataSetFieldResponse, DataSetResponse (+18 more)
+Cohesion: 0.22
+Nodes (7): org.springframework.data.jpa.repository.EntityGraph, DataSetEntity, Entity, Table, DataSetFieldRepository, DataSetRepository, ReportCatalogProviderTest
 
 ### Community 34 - "Administration des tables et champs — spécification UI/UX"
 Cohesion: 0.06
 Nodes (34): 10. Sauvegarde groupée, 11. États à représenter, 12. Données mockées, 13. Direction visuelle, 14. Responsive, 15. Accessibilité visuelle, 16. Écart technique observé, 17. Hors périmètre (+26 more)
 
+### Community 35 - "DataSetFieldType"
+Cohesion: 0.14
+Nodes (13): DataSetFieldType, BOOLEAN, DATE, DATE_TIME, DECIMAL, INTEGER, OFFSET_DATE_TIME, TEXT (+5 more)
+
 ### Community 36 - "XlsxReportExportWriter"
-Cohesion: 0.24
+Cohesion: 0.22
 Nodes (5): Cell, CellStyle, Override, XlsxReportExportWriter, Workbook
 
 ### Community 37 - "auth.service.ts"
-Cohesion: 0.22
-Nodes (6): LoginCredentials, LoginComponent, Component, AuthService, Injectable, environment
+Cohesion: 0.20
+Nodes (10): CurrentUser, LoginCredentials, adminGuard(), runGuard(), AuthService, Injectable, LayoutPage, PAGE_COPY (+2 more)
 
 ### Community 38 - "Refactoring KISS du workflow Export front et back"
 Cohesion: 0.07
 Nodes (27): 10. Validation, 11. Risques, 12. Critère de fin, 1. Objectif, 2. Périmètre, 3. État actuel vérifié, 4.1 Reprise réseau du polling frontend, 4.2 Authentification backend (+19 more)
 
 ### Community 39 - "DataSetInitializer"
-Cohesion: 0.18
-Nodes (8): lombok.extern.slf4j.Slf4j, org.springframework.boot.ApplicationArguments, org.springframework.boot.ApplicationRunner, org.springframework.security.crypto.password.PasswordEncoder, RoleRepository, ColumnInfo, DataSetInitializer, Override
+Cohesion: 0.27
+Nodes (6): lombok.extern.slf4j.Slf4j, org.springframework.boot.ApplicationArguments, org.springframework.boot.ApplicationRunner, org.springframework.security.crypto.password.PasswordEncoder, ColumnInfo, DataSetInitializer
 
-### Community 40 - "RefreshTokenEntity"
-Cohesion: 0.20
-Nodes (9): AllArgsConstructor, Builder, Entity, Getter, NoArgsConstructor, Setter, Table, RefreshTokenEntity (+1 more)
+### Community 40 - "AuthServiceImpl"
+Cohesion: 0.32
+Nodes (5): org.springframework.security.core.userdetails.UserDetails, AuthServiceImpl, Override, RefreshTokenService, Override
+
+### Community 41 - "ReportArtifactStorage"
+Cohesion: 0.23
+Nodes (6): org.slf4j.Logger, ReportExportWriter, ReportExportWorker, ReportExportWork, ReportArtifactStorage, ReportExportWorkerTest
 
 ### Community 43 - "RHIS — simplification du parcours de configuration des rapports"
 Cohesion: 0.10
 Nodes (20): 10. Impact backend, 1. Présentation des colonnes, 2. Champs filtrables, 3. Opérateurs visibles, 4. Valeurs temporelles PrimeNG, 5. Page de configuration, 6. Page source de données, 7. Flux d’état (+12 more)
 
-### Community 44 - "DataSetFieldType"
+### Community 44 - "ReportPreviewPostgresIntegrationTest.java"
 Cohesion: 0.10
-Nodes (19): com.lowagie.text.pdf.PdfReader, net.sf.jasperreports.engine.design.JasperDesign, DataSetFieldType, BOOLEAN, DATE, DATE_TIME, DECIMAL, INTEGER (+11 more)
+Nodes (19): org.springframework.boot.test.context.SpringBootTest, org.springframework.jdbc.core.JdbcTemplate, org.springframework.test.annotation.DirtiesContext, org.springframework.test.context.ActiveProfiles, org.testcontainers.junit.jupiter.Testcontainers, org.testcontainers.postgresql.PostgreSQLContainer, FilterOperator, BETWEEN (+11 more)
 
 ### Community 45 - "ReportExportService"
-Cohesion: 0.27
-Nodes (4): ReportExportResponse, ReportConflictException, DownloadPayload, ReportExportService
+Cohesion: 0.17
+Nodes (7): ReportExportResponse, Entity, Table, ReportExportEntity, ReportConflictException, DownloadPayload, ReportExportService
 
 ### Community 46 - "Refactoring ciblé de la page Export"
 Cohesion: 0.10
 Nodes (19): Changements explicitement rejetés, Design validé, Diagnostic, Mutualisation RxJS, Naming ciblé, Nettoyage SCSS, Objectif, Ordre d’implémentation et risques (+11 more)
 
-### Community 47 - "org.springframework.http.ResponseEntity"
-Cohesion: 0.24
-Nodes (10): org.springframework.http.converter.HttpMessageNotReadableException, org.springframework.http.HttpStatus, org.springframework.http.ProblemDetail, org.springframework.http.ResponseEntity, org.springframework.web.bind.annotation.ExceptionHandler, org.springframework.web.bind.annotation.RestControllerAdvice, org.springframework.web.bind.MethodArgumentNotValidException, PutMapping (+2 more)
+### Community 47 - "export.component.ts"
+Cohesion: 0.13
+Nodes (15): ReportDraft, ReportExportStatus, ReportGenerationPhase, ReportGenerationStatus, UnavailableReportElement, EXPORT_FORMATS, EXPORT_WORKFLOW_STEPS, ExportFormatDefinition (+7 more)
 
-### Community 48 - "ReportGenerationController"
-Cohesion: 0.20
-Nodes (7): CreateReportExportRequest, DeleteMapping, GetMapping, PostMapping, RequestMapping, RestController, ReportGenerationController
+### Community 48 - "UserPrincipal"
+Cohesion: 0.17
+Nodes (8): Override, UserPrincipal, DeleteMapping, GetMapping, PostMapping, RequestMapping, RestController, ReportGenerationController
 
 ### Community 49 - "02 — Définition du rapport : fields, filters, sorts et brouillon local"
 Cohesion: 0.11
-Nodes (18): 02 — Définition du rapport : fields, filters, sorts et brouillon local, Brouillon local et restauration, Cas d'erreur, Chaîne complète, Colonnes, Construction de l'état frontend, Diagramme de séquence, Déclencheurs utilisateur (+10 more)
+Nodes (18): 02 — Définition du rapport : fields, filters, sorts et brouillon local, Actualisation de la preview, Brouillon local et restauration, Cas d'erreur, Chaîne complète, Colonnes, Construction de l'état frontend, Diagramme de séquence (+10 more)
 
 ### Community 50 - "options"
 Cohesion: 0.25
@@ -383,8 +443,8 @@ Cohesion: 0.33
 Nodes (6): mvnw script, clean(), die(), exec_maven(), set_java_home(), verbose()
 
 ### Community 56 - "01 — Sélection des datasets et chargement de la configuration"
-Cohesion: 0.12
-Nodes (17): 01 — Sélection des datasets et chargement de la configuration, 1. Chargement initial parallèle, 2. Lecture des datasets, 3. Découverte des relations, 4. Sélection UI et navigation, 5. Résolution de la route et chargement des fields, Cas d'erreur, Chaîne complète (+9 more)
+Cohesion: 0.18
+Nodes (11): 01 — Sélection des datasets et chargement de la configuration, Cas d'erreur, Chaîne complète, Diagramme de séquence, Déclencheur utilisateur, En langage métier, Participants du flow, Points importants à retenir (+3 more)
 
 ### Community 57 - "production"
 Cohesion: 0.25
@@ -398,9 +458,9 @@ Nodes (8): schematics, skipTests, style, type, skipTests, type, @schematics/angu
 Cohesion: 0.25
 Nodes (7): name, prettier, overrides, printWidth, singleQuote, private, version
 
-### Community 60 - "ReportConfigurationLoader"
-Cohesion: 0.46
-Nodes (3): SelectedDataset, ReportConfigurationLoader, Injectable
+### Community 60 - "Intégrer un aperçu automatique à la configuration des rapports"
+Cohesion: 0.07
+Nodes (27): Affected files and symbols, Baseline réelle avant toute modification de sources, Chargement, génération, retry et déduplication, Commandes reproductibles, Critères de clôture observables, Current behavior, Decision Log, Exécution manuelle du 2026-08-29 (+19 more)
 
 ### Community 61 - "06 — Authentification par cookies et refresh token"
 Cohesion: 0.13
@@ -422,9 +482,9 @@ Nodes (5): extract-i18n, test, builder, architect, builder
 Cohesion: 0.60
 Nodes (3): org.springframework.boot.autoconfigure.SpringBootApplication, org.springframework.scheduling.annotation.EnableScheduling, RhisApplication
 
-### Community 66 - "org.junit.jupiter.api.Test"
-Cohesion: 0.24
-Nodes (6): org.junit.jupiter.api.Test, ReportFilterRequest, ReportPreviewRequest, DataSetFieldTypeTest, ReportJobConfigurationTest, ReportPreviewServiceTest
+### Community 66 - "ReportPreviewRequest"
+Cohesion: 0.26
+Nodes (4): ReportFilterRequest, ReportPreviewRequest, ReportSortRequest, ReportPreviewServiceTest
 
 ### Community 67 - "Verified current behavior"
 Cohesion: 0.06
@@ -446,9 +506,9 @@ Nodes (10): Cartes de format, Composition générale, Correction ciblée du layo
 Cohesion: 0.18
 Nodes (10): Async Report Generation and Export Implementation Plan, Global Constraints, Task 1: Shared definition resolution and SQL variants, Task 2: Job persistence, public contracts, and owner security, Task 3: Bounded execution and streamed snapshot, Task 4: XLSX and PDF export workers, Task 5: Expiration, cancellation, abandoned jobs, and download, Task 6: Angular API, draft persistence, and generation submission (+2 more)
 
-### Community 82 - "org.springframework.stereotype.Service"
-Cohesion: 0.27
-Nodes (4): org.springframework.stereotype.Service, ReportGenerationResponse, ReportExecutionException, ReportGenerationService
+### Community 82 - "org.springframework.transaction.annotation.Transactional"
+Cohesion: 0.17
+Nodes (6): org.springframework.transaction.annotation.Transactional, InProcessReportJobDispatcher, Override, ReportGenerationWorker, ReportJobStateService, ReportJobStateServiceTest
 
 ### Community 83 - "Report export vertical stepper design"
 Cohesion: 0.20
@@ -486,9 +546,9 @@ Nodes (6): Global Constraints, Task 1: Reproduce legacy temporal values through 
 Cohesion: 0.29
 Nodes (6): Context, Decision, Error handling, Scope, Verification, XLSX Temporal Snapshot Compatibility Design
 
-### Community 92 - ".write"
-Cohesion: 0.38
-Nodes (3): FunctionalInterface, RowSink, RowsSource
+### Community 92 - "Research: configuration des rapports et aperçu existant"
+Cohesion: 0.07
+Nodes (26): Ancien comportement à remplacer explicitement, Aperçu manuel, Chargement et propriété de l’état, Chargement initial et erreurs de configuration, Commandes réellement exécutées, Conclusions for planning, Couverture et limites, Data and control flow (+18 more)
 
 ### Community 93 - "Global Constraints"
 Cohesion: 0.33
@@ -520,43 +580,43 @@ Nodes (14): 1. Research, 2. Plan, 3. Implement, 4. Verify and review, Angular an
 
 ### Community 105 - "Implémenter l'exposition administrative des datasets et de leurs champs"
 Cohesion: 0.07
-Nodes (29): 1. API d'administration minimale, 2. Deux contextes explicites pour les champs publics, 3. Corriger le graphe et centraliser l'enforcement, 4. Preview, génération et exports existants, 5. Page Angular administrative, Affected files and symbols, Backend, Catalogue et résolution actuels (+21 more)
+Nodes (29): 1. API d'administration minimale, 2. Une extraction unique des champs, indépendante du mode de table, 3. Corriger le graphe et centraliser l'enforcement, 4. Preview, génération et exports existants, 5. Page Angular administrative, Affected files and symbols, Backend, Catalogue et résolution actuels (+21 more)
 
 ### Community 106 - "Required sections"
 Cohesion: 0.08
 Nodes (23): Affected files and symbols, Approval, Change discipline, Completion, Current behavior, Decision Log, Draft, Executable plans (+15 more)
 
-### Community 107 - "ReportPreviewPostgresIntegrationTest.java"
-Cohesion: 0.11
-Nodes (15): org.junit.jupiter.api.BeforeEach, org.junit.jupiter.api.extension.ExtendWith, org.mockito.junit.jupiter.MockitoExtension, org.springframework.boot.test.context.SpringBootTest, org.springframework.jdbc.core.JdbcTemplate, org.springframework.test.annotation.DirtiesContext, org.springframework.test.context.ActiveProfiles, org.testcontainers.junit.jupiter.Testcontainers (+7 more)
+### Community 107 - "org.junit.jupiter.api.Test"
+Cohesion: 0.05
+Nodes (33): CallResponseSpec, ChatClientRequestSpec, org.junit.jupiter.api.BeforeEach, org.junit.jupiter.api.extension.ExtendWith, org.junit.jupiter.api.Test, org.mockito.junit.jupiter.MockitoExtension, org.springframework.ai.chat.client.ChatClient, BotReportPlanner (+25 more)
 
 ### Community 108 - "Codex Project Workflow Design"
 Cohesion: 0.11
 Nodes (17): Acceptance Criteria, Backend `AGENTS.md`, Codex Project Workflow Design, Complex or cross-repository task, Constraints, Deliberately Excluded Mechanisms, Files and Responsibilities, Frontend `AGENTS.md` (+9 more)
 
-### Community 109 - "AuthServiceImpl"
-Cohesion: 0.24
-Nodes (7): org.springframework.security.core.userdetails.UserDetails, org.springframework.security.core.userdetails.UserDetailsService, AuthServiceImpl, Override, RefreshTokenService, CustomUserDetailService, Override
+### Community 109 - "lombok.RequiredArgsConstructor"
+Cohesion: 0.21
+Nodes (14): InputStreamResource, lombok.RequiredArgsConstructor, org.springframework.core.io.InputStreamResource, org.springframework.web.bind.annotation.GetMapping, org.springframework.web.bind.annotation.PostMapping, org.springframework.web.bind.annotation.PutMapping, org.springframework.web.bind.annotation.RequestMapping, org.springframework.web.bind.annotation.RestController (+6 more)
 
 ### Community 110 - "<Action-oriented plan title>"
 Cohesion: 0.13
 Nodes (14): <Action-oriented plan title>, Affected files and symbols, Current behavior, Decision Log, Milestone 1: <coherent result>, Milestone 2: <coherent result>, Outcomes & Retrospective, Progress (+6 more)
 
 ### Community 111 - "RoleEntity"
-Cohesion: 0.18
-Nodes (9): org.springframework.security.core.GrantedAuthority, AllArgsConstructor, Builder, Entity, Getter, NoArgsConstructor, Setter, Table (+1 more)
+Cohesion: 0.15
+Nodes (10): org.springframework.security.core.GrantedAuthority, AllArgsConstructor, Builder, Entity, Getter, NoArgsConstructor, Setter, Table (+2 more)
 
 ### Community 112 - "Research: <topic>"
 Cohesion: 0.17
 Nodes (11): Conclusions for planning, Data and control flow, Existing tests and validation commands, Invariants and constraints, Open questions, Question, Relevant files and symbols, Research: <topic> (+3 more)
 
-### Community 113 - "org.springframework.transaction.annotation.Transactional"
-Cohesion: 0.30
-Nodes (3): org.springframework.transaction.annotation.Transactional, ReportJobStateService, ReportJobStateServiceTest
+### Community 113 - "DatasetExposureComponent"
+Cohesion: 0.13
+Nodes (4): DatasetExposureComponent, Component, DatasetExposure, HostListener
 
-### Community 114 - "PasswordResetTokenEntity"
-Cohesion: 0.20
-Nodes (9): AllArgsConstructor, Builder, Entity, Getter, NoArgsConstructor, Setter, Table, PasswordResetTokenEntity (+1 more)
+### Community 114 - "report-generation.service.ts"
+Cohesion: 0.18
+Nodes (5): ReportExport, ReportGeneration, ReportGenerationService, Injectable, environment
 
 ### Community 116 - "Frontend and UI guidelines"
 Cohesion: 0.18
@@ -571,48 +631,256 @@ Cohesion: 0.18
 Nodes (10): Completion Standard, Java and Spring Rules, Operating Rules, PostgreSQL and SQL Rules, Project Map and Sources of Truth, Proportional Workflow, RHIS Backend Agent Instructions, Scope (+2 more)
 
 ### Community 119 - "UserService.java"
-Cohesion: 0.25
-Nodes (3): RoleNotFoundException, UserAlreadyExistsException, UserNotFoundException
+Cohesion: 0.21
+Nodes (4): UpdateUserRequest, RoleNotFoundException, UserAlreadyExistsException, UserNotFoundException
 
 ### Community 120 - "File Structure"
 Cohesion: 0.20
 Nodes (9): Completion Criteria, Data Administration UI Prototype Implementation Plan, File Structure, Global Constraints, Task 1: Define the administration model and realistic fixtures, Task 2: Implement synchronous page state and draft behavior, Task 3: Build the desktop master-detail interface, Task 4: Complete empty, loading, save feedback and responsive states (+1 more)
 
-### Community 121 - "AuthServiceImpl.java"
-Cohesion: 0.27
-Nodes (3): InvalidRefreshTokenException, RefreshTokenExpiredException, RefreshTokenNotFoundException
+### Community 121 - "dataset-exposure.component.ts"
+Cohesion: 0.19
+Nodes (11): ExposureModeOption, DatasetExposureConfiguration, DatasetExposureMode, DatasetExposureUpdate, FieldExposure, FieldExposureUpdate, fromExposureMode(), toExposureMode() (+3 more)
+
+### Community 122 - "Bot Report Ponytail Refactor Implementation Plan"
+Cohesion: 0.12
+Nodes (15): Affected files and symbols, Bot Report Ponytail Refactor Implementation Plan, Current behavior, Decision Log, Global Constraints, Milestone 1: Apply the surgical simplifications, Milestone 2: Repair and run focused tests, Milestone 3: Integrated build and final scope review (+7 more)
 
 ### Community 123 - "Global Constraints"
 Cohesion: 0.29
 Nodes (6): Codex Project Workflow Implementation Plan, Global Constraints, Task 1: Backend root instructions, Task 2: Reusable workflow documents, Task 3: Frontend root instructions, Task 4: Final verification
 
-### Community 124 - "BaseEntity"
+### Community 124 - "Research: refonte master-detail de l’exposition des datasets"
+Cohesion: 0.09
+Nodes (22): Conclusions for planning, Contrat et règles métier, Data and control flow, Erreurs et notifications, Invariants and constraints, Lecture et sélection proposées, Modification et navigation interne, Open questions (+14 more)
+
+### Community 125 - "Bot Report Ponytail Refactor Research"
+Cohesion: 0.17
+Nodes (11): Bot Report Ponytail Refactor Research, Existing Contracts, Facts, Human Review Gate, Options, Question, Recommendation, Relevant Execution Path (+3 more)
+
+### Community 129 - "report-assistant.component.ts"
+Cohesion: 0.20
+Nodes (10): BotReportService, Injectable, AssistantMessage, ClarificationContext, ReadyGeneration, ReportAssistantComponent, Component, BotReportRequest (+2 more)
+
+### Community 130 - "rhis_bot — Interface Angular de l'assistant de rapports"
+Cohesion: 0.09
+Nodes (21): Approche retenue, Clarification, Composant, Contraintes du dépôt, Contrats TypeScript et service HTTP, Critères d'acceptation, Envoi initial, Erreurs et états (+13 more)
+
+### Community 131 - "rhis_bot — Rapport généré à partir d'une phrase naturelle (Spring AI + Mistral)"
+Cohesion: 0.13
+Nodes (14): Approche retenue, Architecture et modules, Comportement actuel vérifié (faits du dépôt au 29/08/2026), Configuration (application.yaml), Contrat API (nouveau, unique endpoint de la phase 1), Design du prompt (system, en français), Fichiers attendus (chemins relatifs au backend `RHIS/`), Journal des décisions (+6 more)
+
+### Community 132 - ".configure"
+Cohesion: 0.26
+Nodes (4): net.sf.jasperreports.engine.design.JasperDesign, JasperDynamicTableConfigurer, JasperDynamicTableConfigurerTest, JasperDesign
+
+### Community 133 - "File Map"
+Cohesion: 0.14
+Nodes (13): Baselines préexistantes (à ne pas « corriger »), Completion Criteria, File Map, Global Constraints, rhis_bot — Plan d'implémentation (phase 1 backend), Rollback, Task 0 : empreintes Ponytail (baseline, aucun commit), Task 1 : dépendances Spring AI + configuration rhis.bot (+5 more)
+
+### Community 134 - "RHIS Bot — Rapports multi-datasets reliés"
+Cohesion: 0.15
+Nodes (12): Catalogue LLM, Contrats préservés, Erreurs, Hors périmètre, Objectif, Plan LLM et prompt, RHIS Bot — Rapports multi-datasets reliés, Règles métier (+4 more)
+
+### Community 135 - "07 — Rapport à partir d'une phrase naturelle"
+Cohesion: 0.17
+Nodes (11): 07 — Rapport à partir d'une phrase naturelle, Chaîne complète, Contrat HTTP, Diagramme de séquence, Données envoyées au LLM, Déclencheur utilisateur, En langage métier, Participants du flow (+3 more)
+
+### Community 136 - "Remplacer les accordéons d’exposition par un master-detail"
+Cohesion: 0.17
+Nodes (11): Current behavior, Decision Log, Global constraints, Outcomes & Retrospective, Progress, Purpose and observable outcome, Remplacer les accordéons d’exposition par un master-detail, Risks and rollback (+3 more)
+
+### Community 137 - "RHIS shared header and dataset UI — Implementation Plan"
+Cohesion: 0.17
+Nodes (11): 1. Header partagé, 2. Datasets fidèle à la maquette, 3. Integrated Validation, Decision Log, File Map, Global Constraints, Outcomes & Retrospective, Progress (+3 more)
+
+### Community 138 - "File Map"
+Cohesion: 0.17
+Nodes (11): Completion Criteria, File Map, Global Constraints, Integrated Validation, RHIS Bot Related Datasets Implementation Plan, Rollback, Task 1: Catalogue multi-datasets compact, Task 2: Structured output et validation autoritative du Bot (+3 more)
+
+### Community 139 - "RHIS Bot Multi-Dataset Reports Research"
+Cohesion: 0.17
+Nodes (11): Existing Contracts, Facts, Human Review Gate, Options, Question, Recommendation, Relevant Execution Path, RHIS Bot Multi-Dataset Reports Research (+3 more)
+
+### Community 140 - "RHIS Bot — Clarification structurée sans répétition"
+Cohesion: 0.17
+Nodes (11): Backend et prompt, Contraintes de livraison, Contrat HTTP, Fichiers concernés, Frontend, Hors périmètre, Objectif, Problème (+3 more)
+
+### Community 141 - "app.routes.ts"
+Cohesion: 0.29
+Nodes (4): pendingDatasetExposureChangesGuard(), runGuard(), ReportStepsComponent, Component
+
+### Community 142 - "Bot Report — Refactoring Ponytail chirurgical"
+Cohesion: 0.17
+Nodes (11): Architecture et flux préservés, Backend, Bot Report — Refactoring Ponytail chirurgical, Contraintes de livraison, Frontend, Hors périmètre, Modifications retenues, Objectif (+3 more)
+
+### Community 143 - "Angular Composer, Preview and Shared Layout Implementation Plan"
+Cohesion: 0.20
+Nodes (9): Angular Composer, Preview and Shared Layout Implementation Plan, Completion Criteria, File Map, Global Constraints, Integrated Validation, Rollback, Task 1: Composer RHIS Bot et attente assistant, Task 2: Aperçu replié et transition accessible (+1 more)
+
+### Community 144 - "File Map"
+Cohesion: 0.20
+Nodes (9): Completion Criteria, File Map, Global Constraints, rhis_bot Angular Interface Implementation Plan, Task 0: Baseline Ponytail et état du worktree, Task 1: Contrats bot et service HTTP, Task 2: Composant conversationnel standalone, Task 3: Route `/assistant` et layout partagé (+1 more)
+
+### Community 145 - "Administration UI — progression"
+Cohesion: 0.20
+Nodes (9): Administration UI — progression, Historique de phase 1, Objectif et limites, Phase 2 — état courant (prioritaire sur l'historique ci-dessous), Prochaine action sûre, Précisions de validation, Travail effectué et décisions, État de validation (+1 more)
+
+### Community 146 - "rhis_bot — progression"
+Cohesion: 0.20
+Nodes (9): Blockers and Risks, Completed, Decisions, Intended Outcome, Next Safe Action, Remaining Work, Repository State, rhis_bot — progression (+1 more)
+
+### Community 147 - "app.config.ts"
+Cohesion: 0.31
+Nodes (5): App, appConfig, RhisPreset, routes, Component
+
+### Community 148 - "RHIS — Modernisation du composer et repli de l’aperçu"
+Cohesion: 0.22
+Nodes (8): Aperçu de configuration, Contraintes, Hors périmètre, Layout partagé de configuration et d’export, Objectif, RHIS Bot, RHIS — Modernisation du composer et repli de l’aperçu, Validation
+
+### Community 149 - "Milestone 1: Installer l’unique Toast global"
+Cohesion: 0.25
+Nodes (8): Exact changes, Files, Milestone 1: Installer l’unique Toast global, Objective, Preserved behavior, Success criteria, Tests, Validation
+
+### Community 150 - "Milestone 2: Introduire l’état master-detail, le feedback fonctionnel et la protection dirty"
+Cohesion: 0.25
+Nodes (8): Exact changes, Files, Milestone 2: Introduire l’état master-detail, le feedback fonctionnel et la protection dirty, Objective, Preserved behavior, Success criteria, Tests, Validation
+
+### Community 151 - "Milestone 3: Remplacer l’accordéon par l’interface master-detail accessible et responsive"
+Cohesion: 0.25
+Nodes (8): Exact changes, Files, Milestone 3: Remplacer l’accordéon par l’interface master-detail accessible et responsive, Objective, Preserved behavior, Success criteria, Tests, Validation
+
+### Community 152 - "Milestone 4: Vérifier la régression, l’accessibilité et documenter le flux réel"
+Cohesion: 0.25
+Nodes (8): Exact changes, Files, Milestone 4: Vérifier la régression, l’accessibilité et documenter le flux réel, Objective, Preserved behavior, Success criteria, Tests, Validation
+
+### Community 153 - "Global Constraints"
+Cohesion: 0.25
+Nodes (7): Completion Criteria, Global Constraints, RHIS Bot Structured Clarification Implementation Plan, Task 1: Contrat et prompt backend structurés, Task 2: Validation et garde-fou backend, Task 3: Frontend non récursif, Task 4: Documentation et validation
+
+### Community 154 - "Progress — exposition administrative des datasets et champs"
+Cohesion: 0.25
+Nodes (7): Blockers, Completed, Current validation state, Decisions, Exact next action, Pre-existing dirty files, Progress — exposition administrative des datasets et champs
+
+### Community 155 - "RHIS Bot Related Datasets — Progress"
+Cohesion: 0.25
+Nodes (7): Completed, Dirty Files Owned by This Task, Full-suite Failures, Next Action, Preserved Unrelated Changes, RHIS Bot Related Datasets — Progress, Validation
+
+### Community 156 - "Administration UI — analyse avant aperçu"
+Cohesion: 0.25
+Nodes (7): Administration UI — analyse avant aperçu, Direction proposée, à approuver, Faits observés, Périmètre et sources, Révision après aperçu — 2026-08-28, Validation et limites, Validation humaine requise
+
+### Community 157 - "Étapes détaillées"
+Cohesion: 0.29
+Nodes (7): 1. Chargement initial parallèle, 2. Lecture des datasets, 3. Découverte des relations, 4. Sélection UI et navigation, 5. Résolution de la route et chargement des fields, 6. Administration de l'exposition, Étapes détaillées
+
+### Community 158 - "Dataset exposure Ponytail — plan approuvé"
+Cohesion: 0.29
+Nodes (6): Commandes de validation, Contraintes et fichiers, Dataset exposure Ponytail — plan approuvé, Décisions, risques et rollback, Outcomes, Progress
+
+### Community 159 - "Dataset exposure Ponytail — progrès"
+Cohesion: 0.29
+Nodes (6): Changements livrés, Dataset exposure Ponytail — progrès, Limites et anomalies hors périmètre, Prochaine action, Validation, État et décisions
+
+### Community 160 - "ReportGenerationService.java"
+Cohesion: 0.17
+Nodes (8): ReportDefinitionUnavailableException, ReportResourceNotFoundException, UnavailableReportElement, ReportGenerationPhase, COUNTING, FINALIZING, READING_ROWS, VALIDATING
+
+### Community 161 - "Proposed approach"
+Cohesion: 0.33
+Nodes (6): 1. Une infrastructure Toast globale, sans wrapper, 2. Un état master-detail local dérivé du draft, 3. Un layout CSS master-detail, sans `p-splitter`, 4. Deux protections complémentaires contre la sortie, 5. Réutilisabilité volontairement limitée, Proposed approach
+
+### Community 162 - "Dataset exposure Ponytail — research"
+Cohesion: 0.33
+Nodes (5): Anomalies préexistantes séparées, Contrats et exclusions, Dataset exposure Ponytail — research, Décision, Faits et flux
+
+### Community 163 - "RHIS — direction et maquette de l’administration"
+Cohesion: 0.33
+Nodes (5): Accord reçu, Artefact et validation, Design proposé, RHIS — direction et maquette de l’administration, Suite après validation explicite
+
+### Community 164 - "DataSetAdministrationService"
+Cohesion: 0.19
+Nodes (5): DataSetExposure, DataSetExposureConfigurationResponse, FieldExposure, DataSetConfigurationException, DataSetAdministrationService
+
+### Community 165 - "RHIS — validation Angular, 28 août 2026"
+Cohesion: 0.40
+Nodes (4): Commandes et résultats, Livré, Navigateur et limites, RHIS — validation Angular, 28 août 2026
+
+### Community 166 - "RHIS Bot Structured Clarification — Progress"
+Cohesion: 0.40
+Nodes (4): Completed, Preserved Work, RHIS Bot Structured Clarification — Progress, Validation
+
+### Community 168 - "Affected files and symbols"
+Cohesion: 0.50
+Nodes (4): Affected files and symbols, Documentation, Feature dataset exposure, Infrastructure globale frontend
+
+### Community 172 - "ReportConfigurationLoader"
+Cohesion: 0.46
+Nodes (3): SelectedDataset, ReportConfigurationLoader, Injectable
+
+### Community 173 - "BaseEntity"
 Cohesion: 0.60
 Nodes (3): jakarta.persistence.EntityListeners, org.springframework.data.jpa.domain.support.AuditingEntityListener, BaseEntity
 
-### Community 125 - "build"
+### Community 174 - "build"
 Cohesion: 0.50
 Nodes (4): build, builder, configurations, defaultConfiguration
 
+### Community 175 - "ResolvedReportDefinition"
+Cohesion: 0.44
+Nodes (6): ResolvedFilter, ResolvedJoin, ResolvedJoinColumn, ResolvedReportDefinition, ResolvedSort, ReportSqlBuilderTest
+
+### Community 176 - "ReportExportFormat"
+Cohesion: 0.18
+Nodes (5): BotReportResponse, CreateReportExportRequest, ReportExportFormat, PDF, XLSX
+
+### Community 177 - "RoleService"
+Cohesion: 0.21
+Nodes (3): org.springframework.web.bind.annotation.DeleteMapping, RoleResponse, RoleService
+
+### Community 178 - "RefreshTokenEntity"
+Cohesion: 0.20
+Nodes (9): AllArgsConstructor, Builder, Entity, Getter, NoArgsConstructor, Setter, Table, RefreshTokenEntity (+1 more)
+
+### Community 180 - "AuthServiceImpl.java"
+Cohesion: 0.27
+Nodes (3): InvalidRefreshTokenException, RefreshTokenExpiredException, RefreshTokenNotFoundException
+
+### Community 182 - "JwtCookieFilter"
+Cohesion: 0.39
+Nodes (6): jakarta.servlet.FilterChain, jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, org.springframework.web.filter.OncePerRequestFilter, Override, JwtCookieFilter
+
+### Community 184 - "Qualité visuelle du tableau d’aperçu"
+Cohesion: 0.29
+Nodes (6): Conception validée, Décision Ponytail, Objectif, Périmètre, Qualité visuelle du tableau d’aperçu, Vérification
+
+### Community 185 - ".write"
+Cohesion: 0.38
+Nodes (3): FunctionalInterface, RowSink, RowsSource
+
+### Community 188 - "Global Constraints"
+Cohesion: 0.50
+Nodes (3): Global Constraints, Preview Table Visual Quality Implementation Plan, Task 1: Tableau de preview
+
 ## Knowledge Gaps
-- **647 isolated node(s):** `$schema`, `version`, `newProjectRoot`, `projectType`, `style` (+642 more)
+- **991 isolated node(s):** `$schema`, `version`, `newProjectRoot`, `projectType`, `style` (+986 more)
   These have ≤1 connection - possible missing edges or undocumented components.
-- **24 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **32 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `ReportJobProperties` connect `ReportJobProperties` to `org.springframework.data.jpa.repository.JpaRepository`, `XlsxReportExportWriter`, `ReportSnapshotReader`, `ReportExportWorkerTest`, `ReportGenerationEntity`, `DataSetFieldType`, `PdfReportExportWriter`, `org.springframework.transaction.annotation.Transactional`, `org.springframework.stereotype.Service`, `ReportExportWriterTest`, `ReportJobCleanupService`, `org.springframework.stereotype.Component`, `ReportExportFormat`, `ReportSnapshotStorageTest`, `SecurityConfig.java`?**
-  _High betweenness centrality (0.015) - this node is a cross-community bridge._
-- **Why does `XlsxReportExportWriter` connect `XlsxReportExportWriter` to `ReportJobProperties`, `ReportSnapshotReader`, `DataSetFieldType`, `ReportSnapshotStorageTest`, `org.springframework.stereotype.Component`?**
-  _High betweenness centrality (0.015) - this node is a cross-community bridge._
-- **Why does `UserEntity` connect `UserEntity` to `ReportControllerSecurityTest`, `DataSetInitializer`, `RefreshTokenEntity`, `ReportGenerationEntity`, `ReportPreviewPostgresIntegrationTest.java`, `AuthServiceImpl`, `RoleEntity`, `UserService`, `ReportGenerationController`, `PasswordResetTokenEntity`, `org.springframework.stereotype.Service`, `UserPrincipal`, `BaseEntity`?**
-  _High betweenness centrality (0.013) - this node is a cross-community bridge._
-- **Are the 4 inferred relationships involving `ReportJobProperties` (e.g. with `.storage()` and `.keepsExportProgressMonotonicWhenWriterCallbacksDecreaseOrExceedTheMaximum()`) actually correct?**
-  _`ReportJobProperties` has 4 INFERRED edges - model-reasoned connections that need verification._
+- **Why does `UserEntity` connect `UserEntity` to `org.springframework.data.jpa.repository.JpaRepository`, `ReportGenerationService.java`, `BotReportControllerSecurityTest.java`, `ReportControllerSecurityTest`, `DataSetInitializer`, `org.junit.jupiter.api.Test`, `ReportGenerationService`, `BaseEntity`, `ReportPreviewPostgresIntegrationTest.java`, `RoleEntity`, `UserService`, `UserPrincipal`, `RefreshTokenEntity`, `.createUser`?**
+  _High betweenness centrality (0.014) - this node is a cross-community bridge._
+- **Why does `DataSetEntity` connect `DataSetEntity` to `org.springframework.data.jpa.repository.JpaRepository`, `ReportGenerationService.java`, `ReportPreviewRequest`, `DataSetAdministrationService`, `DataSetInitializer`, `DataSetField`, `org.junit.jupiter.api.Test`, `ReportPreviewPostgresIntegrationTest.java`, `ResolvedReportDefinition`, `.updateConfiguration`, `DataSetServiceImpl`?**
+  _High betweenness centrality (0.011) - this node is a cross-community bridge._
+- **Why does `DataSetFieldType` connect `DataSetFieldType` to `org.springframework.data.jpa.repository.JpaRepository`, `ReportGenerationService.java`, `DataSetEntity`, `ReportPreviewRequest`, `XlsxReportExportWriter`, `.configure`, `ReportJobProperties`, `DataSetInitializer`, `org.springframework.stereotype.Component`, `DataSetField`, `ReportPreviewPostgresIntegrationTest.java`, `ResolvedReportDefinition`, `ReportSnapshotMetadata`, `ReportPreviewResponse`, `DataSetServiceImpl`?**
+  _High betweenness centrality (0.011) - this node is a cross-community bridge._
 - **What connects `$schema`, `version`, `newProjectRoot` to the rest of the system?**
-  _647 weakly-connected nodes found - possible documentation gaps or missing edges._
+  _991 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `org.springframework.data.jpa.repository.JpaRepository` be split into smaller, more focused modules?**
-  _Cohesion score 0.10913461538461539 - nodes in this community are weakly interconnected._
-- **Should `lombok.RequiredArgsConstructor` be split into smaller, more focused modules?**
-  _Cohesion score 0.12878787878787878 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.06245710363761153 - nodes in this community are weakly interconnected._
+- **Should `AuthController` be split into smaller, more focused modules?**
+  _Cohesion score 0.13538461538461538 - nodes in this community are weakly interconnected._
+- **Should `DESIGN.md` be split into smaller, more focused modules?**
+  _Cohesion score 0.07692307692307693 - nodes in this community are weakly interconnected._

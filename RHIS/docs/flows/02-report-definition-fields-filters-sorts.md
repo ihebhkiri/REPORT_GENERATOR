@@ -7,9 +7,9 @@ Sur `/rapports/configuration/:datasetId`, l'utilisateur :
 - ajoute, retire ou réordonne des colonnes ;
 - ajoute des filtres et saisit leurs valeurs ;
 - ajoute et priorise des tris ;
-- déclenche ensuite une preview ou une génération.
+- consulte la preview automatique et peut ensuite déclencher une génération.
 
-L'édition elle-même reste locale. Le backend ne reçoit la définition qu'au clic « Aperçu » ou « Générer ».
+L'édition reste la source de vérité locale. Une définition valide est envoyée automatiquement à l'endpoint de preview après 300 ms sans nouvelle modification ; « Générer » envoie séparément la définition courante.
 
 ## Chaîne complète
 
@@ -26,7 +26,7 @@ SortEditorComponent
   → Signals selectedFields / filters / sorts
   → createPreviewRequest(rootDataset)
   → ReportPreviewRequest TypeScript
-  → (preview HTTP ou génération HTTP)
+  → preview HTTP automatique après debounce, ou génération HTTP explicite
   → ReportPreviewRequest record Java
   → ReportDefinitionResolver.resolve()
   → ResolvedReportDefinition
@@ -39,7 +39,7 @@ SortEditorComponent
 | [`ColumnSelectorComponent`](../../../Frontend/Rhis_report_gen/src/app/features/rapports/pages/configuration/components/column-selector/column-selector.component.ts) | Angular Component — UI/transformation | Filtre les options, ajoute/retire et réordonne les `ReportField`. |
 | [`FilterEditorComponent`](../../../Frontend/Rhis_report_gen/src/app/features/rapports/pages/configuration/components/filter-editor/filter-editor.component.ts) | Angular Component — UI/validation | Gère un `FormArray` typé, les validators par type et émet seulement les filtres valides. |
 | [`SortEditorComponent`](../../../Frontend/Rhis_report_gen/src/app/features/rapports/pages/configuration/components/sort-editor/sort-editor.component.ts) | Angular Component — UI | Limite les tris aux fields sélectionnés, empêche les doublons et conserve leur priorité. |
-| [`ConfigurationComponent`](../../../Frontend/Rhis_report_gen/src/app/features/rapports/pages/configuration/configuration.component.ts) | Angular Component — source d'état | Conserve les Signals canoniques, nettoie les références devenues invalides et construit le payload. |
+| [`ConfigurationComponent`](../../../Frontend/Rhis_report_gen/src/app/features/rapports/pages/configuration/configuration.component.ts) | Angular Component — source d'état/orchestration | Conserve les Signals canoniques, nettoie les références devenues invalides, construit le payload et orchestre la preview automatique. |
 | [`ReportDraftStorageService`](../../../Frontend/Rhis_report_gen/src/app/features/rapports/services/report-draft-storage.service.ts) | Angular Service — persistance navigateur | Sérialise/restaure le brouillon et les IDs d'export dans `sessionStorage`. |
 | [`ReportPreviewRequest`](../../src/main/java/RHIS/com/RHIS/report/controller/dto/ReportPreviewRequest.java) | Record DTO backend — transport/validation structurelle | Normalise `filters`/`sorts` nuls en listes vides et impose racine + sélection non vide. |
 | `ReportFilterRequest`, `ReportSortRequest`, `SortDirection` | DTO/enums — transport | Portent IDs, opérateur, valeurs texte et direction. |
@@ -75,9 +75,11 @@ Les options viennent de `supportedOperators` fourni par le backend, puis sont in
 
 `SortEditorComponent` ne propose que les fields sélectionnés. Chaque field ne peut être utilisé qu'une fois. L'ordre du tableau `sorts` représente la priorité SQL; `moveSort()` le modifie explicitement. La direction est limitée à `ASC | DESC`.
 
-### Invalidation de la preview
+### Actualisation de la preview
 
-Chaque modification appelle `markPreviewAsPrevious()`. Une preview réussie reste visible mais `previewStale = true`; aucune requête n'est envoyée automatiquement. La nouvelle configuration ne devient visible qu'après un nouveau clic « Aperçu ».
+Chaque modification complète des colonnes, filtres ou tris appelle `schedulePreview()`. Le flux attend 300 ms, déduplique les définitions identiques et utilise `switchMap` pour annuler le timer ou la souscription HTTP devenus obsolètes. Une preview réussie reste visible et marquée précédente pendant l'attente, le nouvel appel ou une erreur.
+
+Sans colonne ou pendant un brouillon de filtre invalide, aucune requête ne part. Le dernier tableau `filters` valide et le dernier résultat de preview restent conservés, mais ne sont pas présentés comme correspondant à la saisie courante.
 
 ## Passage au contrat backend
 
@@ -142,7 +144,7 @@ La résolution ne lit aucune donnée métier de rapport et ne construit encore a
 
 ## Cas d'erreur
 
-- Formulaire de filtre invalide : boutons preview/génération désactivés; le dernier tableau `filters` valide est conservé.
+- Formulaire de filtre invalide : preview automatique suspendue et génération désactivée ; le dernier tableau `filters` valide est conservé.
 - Field retiré : filtres et tris correspondants supprimés localement.
 - Payload forgé avec table ou field devenu indisponible : `ReportDefinitionUnavailableException`, avec une liste structurée `kind/id/displayName/reason` ; la réponse synchrone est un `409`.
 - Type non supporté, opérateur incompatible, mauvaise arité ou valeur invalide : `ReportValidationException`.
@@ -170,11 +172,12 @@ sequenceDiagram
     Fil-->>C: configurationChange(filters, valid)
     U->>Sort: Ajouter/réordonner les tris
     Sort-->>C: sortsChange(sorts)
-    C->>C: createPreviewRequest(root)
+    C->>C: debounce 300 ms + createPreviewRequest(root)
+    C->>API: preview automatique
     opt Cliquer « Générer »
         C->>Store: save(draft)
+        C->>API: génération explicite
     end
-    C->>API: JSON ReportPreviewRequest
     API->>R: resolve(request)
     R->>Repo: datasets, fields, PK, relations
     Repo-->>R: métadonnées visibles

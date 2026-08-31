@@ -54,6 +54,7 @@ class ReportSqlBuilderTest {
                 List.of(),
                 List.of(),
                 List.of(new ResolvedJoin(
+                        root,
                         employee,
                         List.of(new ResolvedJoinColumn("employee_fk_id", "emp_pk_id"))
                 )),
@@ -106,6 +107,7 @@ class ReportSqlBuilderTest {
                 List.of(new ResolvedFilter(employeeName, FilterOperator.EQUALS, List.of("Durand"))),
                 List.of(new ResolvedSort(rootId, SortDirection.DESC)),
                 List.of(new ResolvedJoin(
+                        root,
                         employee,
                         List.of(new ResolvedJoinColumn("employee_fk_id", "emp_pk_id"))
                 )),
@@ -120,6 +122,29 @@ class ReportSqlBuilderTest {
                 .contains("t1.\"nom\" = ?")
                 .doesNotContain("ORDER BY", "LIMIT", "field_10", "field_20");
         assertThat(query.parameters()).containsExactly("Durand");
+    }
+
+    @Test
+    void buildsIndirectJoinsFromEachValidatedSourceWithoutDistinct() {
+        DataSetEntity root = dataSet(1L, "employees");
+        DataSetEntity restaurant = dataSet(2L, "restaurants");
+        DataSetEntity contract = dataSet(3L, "contracts");
+        DataSetField salary = field(30L, "salary", DataSetFieldType.DECIMAL, contract);
+        ResolvedReportDefinition definition = new ResolvedReportDefinition(
+                root, List.of(salary), List.of(), List.of(),
+                List.of(
+                        new ResolvedJoin(root, restaurant,
+                                List.of(new ResolvedJoinColumn("restaurant_id", "id"))),
+                        new ResolvedJoin(restaurant, contract,
+                                List.of(new ResolvedJoinColumn("id", "restaurant_id")))
+                ), List.of());
+
+        PreparedReportQuery query = builder.buildFull(definition);
+
+        assertThat(query.sql())
+                .contains("ON t0.\"restaurant_id\" = t1.\"id\"")
+                .contains("ON t1.\"id\" = t2.\"restaurant_id\"")
+                .doesNotContain("DISTINCT");
     }
 
     private DataSetEntity dataSet(Long id, String sourceName) {

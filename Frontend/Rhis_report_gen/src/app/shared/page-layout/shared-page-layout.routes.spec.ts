@@ -57,11 +57,27 @@ describe('Shared page layout routes', () => {
     expect(harness.routeNativeElement?.querySelector('a[href="/rapports"]')).not.toBeNull();
   });
 
-  it('does not add the shared header to login or report configuration', async () => {
+  it('does not add the shared header to login and uses it once on report configuration', async () => {
     const harness = await RouterTestingHarness.create('/login');
     expect(harness.routeNativeElement?.querySelector('.shared-header')).toBeNull();
     await harness.navigateByUrl('/rapports/configuration/invalid');
-    expect(harness.routeNativeElement?.querySelector('.shared-header')).toBeNull();
+    expect(harness.routeNativeElement?.querySelectorAll('.shared-header').length).toBe(1);
+    expect(harness.routeNativeElement?.querySelectorAll('h1').length).toBe(1);
     expect(TestBed.inject(Router).url).toBe('/rapports/configuration/invalid');
+  });
+
+  it('uses one shared header and title on report export', async () => {
+    const harness = await RouterTestingHarness.create('/rapports/export/generation-1');
+    expect(harness.routeNativeElement?.querySelectorAll('.shared-header').length).toBe(1);
+    expect(harness.routeNativeElement?.querySelectorAll('h1').length).toBe(1);
+    expect(TestBed.inject(Router).url).toBe('/rapports/export/generation-1');
+  });
+
+  it('loads the report assistant inside the shared layout', async () => {
+    const harness = await RouterTestingHarness.create('/assistant');
+    expect(TestBed.inject(Router).url).toBe('/assistant');
+    expect(harness.routeNativeElement?.querySelectorAll('.shared-header').length).toBe(1);
+    expect(harness.routeNativeElement?.querySelector('app-report-assistant')).not.toBeNull();
+    expect(harness.routeNativeElement?.textContent).toContain('Assistant de rapports');
   });
 });

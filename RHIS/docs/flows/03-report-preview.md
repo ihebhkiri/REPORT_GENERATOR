@@ -2,15 +2,15 @@
 
 ## Déclencheur utilisateur
 
-L'utilisateur clique sur « Aperçu » dans `ConfigurationComponent`. Le bouton n'est actif que si au moins un field est sélectionné, tous les filtres sont valides, aucune preview n'est en cours et aucune génération n'est démarrée.
+Une modification valide des colonnes, filtres ou tris programme automatiquement une preview dans `ConfigurationComponent`. L'appel part après 300 ms de stabilité. Sans colonne, avec un filtre invalide, pendant le chargement initial ou pendant le démarrage d'une génération, aucun appel ne part. Après une erreur, « Réessayer » relance immédiatement la définition courante si elle reste valide.
 
 ## Chaîne complète
 
 ```text
-Utilisateur
-  → configuration.component.html (onClick openPreview)
-  → ConfigurationComponent.openPreview()
-  → loadPreview()
+Utilisateur modifie une définition valide
+  → ConfigurationComponent.schedulePreview()
+  → Subject d'intentions + déduplication
+  → switchMap (annulation immédiate) + timer(300 ms)
   → createPreviewRequest()
   → ReportPreviewService.preview(request)
   → POST /api/v1/reports/preview
@@ -29,7 +29,7 @@ Utilisateur
   → HTTP 200 JSON
   → Observable<ReportPreviewResponse>
   → Signals previewResult/previewStale/previewLoading
-  → PreviewDialogComponent → p-table
+  → PreviewPanelComponent → p-table intégré
   → Utilisateur
 ```
 
@@ -37,9 +37,9 @@ Utilisateur
 
 | Participant | Type / responsabilité | Rôle réel |
 | --- | --- | --- |
-| [`ConfigurationComponent`](../../../Frontend/Rhis_report_gen/src/app/features/rapports/pages/configuration/configuration.component.ts) | Angular Component — UI/orchestration | Ouvre le dialogue, construit la requête et maintient résultat, stale state et erreurs. |
+| [`ConfigurationComponent`](../../../Frontend/Rhis_report_gen/src/app/features/rapports/pages/configuration/configuration.component.ts) | Angular Component — UI/orchestration | Construit/déduplique les requêtes, annule les demandes obsolètes et maintient résultat, stale state et erreurs. |
 | [`ReportPreviewService` Angular](../../../Frontend/Rhis_report_gen/src/app/features/rapports/services/report-preview.service.ts) | Angular Service — transport | `POST` typé avec `withCredentials`. |
-| [`PreviewDialogComponent`](../../../Frontend/Rhis_report_gen/src/app/features/rapports/pages/configuration/components/preview-dialog/preview-dialog.component.ts) | Angular Component — présentation | Affiche l'ancien/nouveau résultat, les erreurs et les cellules formatées. |
+| [`PreviewPanelComponent`](../../../Frontend/Rhis_report_gen/src/app/features/rapports/pages/configuration/components/preview-panel/preview-panel.component.ts) | Angular Component — présentation | Affiche le résultat intégré, les états, le retry et les cellules formatées, sans appel HTTP. |
 | `ReportPreviewRequest/Response`, `ApiProblem` TypeScript | Modèles transport | Décrivent JSON et erreurs RFC 9457/`ProblemDetail` utilisées par l'UI. |
 | [`JwtCookieFilter`](../../src/main/java/RHIS/com/RHIS/auth/JwtCookieFilter.java) | Spring Security filter — sécurité | Tente d'établir le `SecurityContext` à partir du cookie `accessToken`. |
 | [`ReportController`](../../src/main/java/RHIS/com/RHIS/report/controller/ReportController.java) | REST Controller — HTTP/validation | Désérialise, applique `@Valid`, délègue et renvoie `200`. |
@@ -55,19 +55,19 @@ Utilisateur
 
 ### 1. Départ et état Angular
 
-`openPreview()` rend le dialogue visible avant l'appel. `loadPreview()` trouve le dataset `main`, construit le payload, puis :
+Les mutateurs de la définition appellent `schedulePreview()`. Une intention nulle annule l'attente ou la souscription active sans lancer HTTP. Pour une intention valide, le pipeline :
 
 - `previewLoading = true` ;
 - efface `previewError` ;
 - conserve un résultat précédent et pose `previewStale = true` s'il existe.
 
-La souscription est liée au cycle de vie par `takeUntilDestroyed`; `finalize` remet toujours `previewLoading` à `false`.
+Un `switchMap` externe annule immédiatement l'ancienne intention, y compris pendant les 300 ms précédant le prochain appel. Le `switchMap` HTTP interne empêche une réponse annulée de remplacer la définition plus récente. Les définitions consécutives identiques sont ignorées ; retry contourne cette déduplication. La souscription est liée au cycle de vie par `takeUntilDestroyed`; `finalize` remet `previewLoading` à `false` uniquement pour l'intention courante.
 
 ### 2. Frontière HTTP et sécurité effective
 
 `ReportPreviewService.preview()` poste vers `${environment.apiBaseUrl}/reports/preview`. En développement, cela correspond à `http://localhost:8080/api/v1/reports/preview`.
 
-Le filtre JWT recherche `accessToken`, charge le user et ses rôles, puis crée une `UsernamePasswordAuthenticationToken` si le JWT est valide. Cependant, le `SecurityConfig` courant marque `/api/v1/reports/**` en `permitAll`. La preview n'utilise pas le principal : elle fonctionne donc actuellement sans cookie. C'est confirmé par le test de sécurité qui attendait `401` mais reçoit `200`.
+Le filtre JWT recherche `accessToken`, charge le user et ses rôles, puis crée une `UsernamePasswordAuthenticationToken` si le JWT est valide. Le `SecurityConfig` courant exige une authentification pour `/api/v1/reports/**`; `ReportControllerSecurityTest.rejectsUnauthenticatedPreview` vérifie le retour `401`. Le service Angular conserve `withCredentials: true`.
 
 ### 3. Controller et validation structurelle
 
@@ -168,26 +168,26 @@ Les clés de row (`field_10`, etc.) sont calculées par le backend et répétée
 
 ## Chemin retour et erreurs UI
 
-Au succès, `previewResult` est remplacé et `previewStale` repasse à `false`. Le dialogue :
+Au succès, `previewResult` est remplacé et `previewStale` repasse à `false`. Le panneau intégré :
 
 - affiche les headers selon `columns` ;
 - affiche les rows dans le même ordre ;
 - rend `null` par un tiret et les booléens par Oui/Non ;
 - affiche un état « Aucune donnée » si la liste est vide.
 
-Après une erreur de rafraîchissement, l'ancien résultat reste affiché et identifié comme ancien. Sans ancien résultat, le dialogue montre l'erreur et « Réessayer ».
+Après une erreur de rafraîchissement, l'ancien résultat reste affiché et identifié comme ancien. Sans ancien résultat, le panneau montre l'erreur et « Réessayer ». Le panneau est ancré dans le layout à partir de 48rem et partage une instance unique avec l'onglet mobile « Aperçu ». Réduire le panneau ou changer d'onglet ne déclenche aucune requête et ne détruit aucun état.
 
 ## Cas d'erreur
 
 | Cause réelle | Exception / statut | Retour UI |
 | --- | --- | --- |
-| JSON/validation Jakarta invalide | `400`, `ProblemDetail` « Requête de preview invalide » | `detail` si présent, sinon message générique |
-| Dataset/field devenu inactif, masqué ou non exposé | `ReportDefinitionUnavailableException` → `409` avec `unavailableElements` | Libellés `displayName` concernés |
-| Définition, type, relation, filtre ou tri invalide | `ReportValidationException` → `400` | Détail backend |
+| JSON/validation Jakarta invalide | `400`, `ProblemDetail` « Requête de preview invalide » | Message local invitant à vérifier colonnes, filtres et tris |
+| Dataset/field devenu inactif, masqué ou non exposé | `ReportDefinitionUnavailableException` → `409` avec `unavailableElements` | Message local invitant à recharger la configuration |
+| Définition, type, relation, filtre ou tri invalide | `ReportValidationException` → `400` | Message local de validation |
 | Timeout JDBC après 5 s | `ReportQueryTimeoutException` → `504` | Message nettoyé, SQL non exposé |
 | Autre `DataAccessException` | `ReportExecutionException` → `500` | Message métier générique |
 | Réseau Angular (`status = 0`) | aucun appel backend exploitable | Message de connexion |
-| `401` | possible si la sécurité est corrigée/protégée | Message de session expirée; aucun refresh automatique |
+| `401` | session absente ou expirée | Message de session expirée ; retry manuel possible après reconnexion |
 
 Le handler est limité aux trois controllers report; il ne couvre pas les controllers auth/dataset.
 
@@ -204,10 +204,11 @@ sequenceDiagram
     participant B as ReportSqlBuilder
     participant E as ReportPreviewExecutor
     participant DB as PostgreSQL
-    participant D as PreviewDialogComponent
+    participant D as PreviewPanelComponent
 
-    U->>C: Cliquer « Aperçu »
-    C->>C: createPreviewRequest()
+    U->>C: Modifier une définition valide
+    C->>C: Annuler l'intention précédente
+    C->>C: Attendre 300 ms + createPreviewRequest()
     C->>A: preview(request)
     A->>RC: POST /api/v1/reports/preview
     RC->>S: preview(request)
@@ -229,7 +230,7 @@ sequenceDiagram
 
 ## En langage métier
 
-1. L'utilisateur demande un aperçu explicite.
+1. L'utilisateur modifie sa définition ; l'aperçu se programme automatiquement.
 2. L'application envoie les IDs de données choisis et les conditions, jamais du SQL.
 3. Le backend vérifie le catalogue, les types et les relations.
 4. Il construit une requête paramétrée et lit une ligne supplémentaire pour savoir si la liste continue.
@@ -249,4 +250,4 @@ sequenceDiagram
 - `ReportPreviewService` existe des deux côtés, Angular et Spring.
 - `returnedRowCount` est la taille de cette page de preview, pas le total métier.
 - `hasMore` ne fournit ni offset ni cursor : aucun endpoint de page suivante n'existe.
-- La configuration de sécurité effective contredit les tests et les messages UI relatifs au `401`.
+- Annuler la souscription Angular neutralise une réponse obsolète côté UI, sans garantir l'arrêt immédiat du traitement PostgreSQL déjà commencé.

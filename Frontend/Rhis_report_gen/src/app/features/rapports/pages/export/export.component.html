@@ -1,22 +1,6 @@
 <div class="export-page">
-  <header class="export-topbar">
-    <div class="export-topbar__inner">
-      <p-button
-        label="ReportGen Pro"
-        icon="pi pi-database"
-        [text]="true"
-        (onClick)="startNewReport()"
-      />
-    </div>
-  </header>
-
   <main class="export-main">
     <section class="export-intro" aria-labelledby="page-title">
-      <div class="export-intro__copy">
-        <h1 id="page-title" class="export-intro__title">Préparer et exporter le rapport</h1>
-        <p class="export-intro__subtitle">Suivez les étapes jusqu’au téléchargement de votre rapport.</p>
-      </div>
-
       <app-report-steps [stepValue]="3" />
     </section>
 

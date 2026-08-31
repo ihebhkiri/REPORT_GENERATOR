@@ -15,6 +15,13 @@ spring:
     user:
       name: user
       password: user
+  ai:
+    mistralai:
+      api-key: d7aSk76rKwkLhRgep3RQ18NpRfF1kvsd
+      chat:
+        options:
+          model: mistral-small-latest
+          temperature: 0.0
 
 refresh :
   token :
@@ -24,6 +31,9 @@ access :
     expiration : 900000   # 15 min ---> ms
 
 rhis:
+  bot:
+    max-message-length: 2000
+    llm-timeout-seconds: 30
   report:
     jobs:
       core-pool-size: 2
@@ -40,4 +50,3 @@ rhis:
       metadata-retention: 24h
       cleanup-interval: 1m
       storage-root: ${java.io.tmpdir}/rhis-report-artifacts
-
