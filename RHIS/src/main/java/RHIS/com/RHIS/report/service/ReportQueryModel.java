@@ -40,6 +40,7 @@ record ResolvedSort(
 
 /** Jointure directe validée vers un dataset cible, avec ses colonnes dans l’ordre du catalogue. */
 record ResolvedJoin(
+        DataSetEntity sourceDataset,
         DataSetEntity targetDataset,
         List<ResolvedJoinColumn> columns
 ) {

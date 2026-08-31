@@ -17,6 +17,9 @@ public interface DataSetRepository extends JpaRepository<DataSetEntity, Long> {
     List<DataSetEntity> findByActiveTrueAndDisplayMainTrue();
 
     @EntityGraph(attributePaths = "dataSetFieldSet")
+    List<DataSetEntity> findByActiveTrueAndDisplayRelatedTrue();
+
+    @EntityGraph(attributePaths = "dataSetFieldSet")
     List<DataSetEntity> findAllByOrderByDisplayNameAsc();
 
 
@@ -54,7 +57,7 @@ public interface DataSetRepository extends JpaRepository<DataSetEntity, Long> {
         JOIN datasets target_dataset
             ON target_dataset.source_name = target_kcu.table_name
             AND target_dataset.active = true
-            AND target_dataset.display_related = true
+            AND target_dataset.display_related = true 
         WHERE tc.constraint_type = 'FOREIGN KEY'
             AND tc.table_schema = 'public'
             AND source_kcu.table_schema = 'public'

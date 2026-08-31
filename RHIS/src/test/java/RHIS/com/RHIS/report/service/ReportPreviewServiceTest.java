@@ -247,16 +247,22 @@ class ReportPreviewServiceTest {
     }
 
     @Test
-    void rejectsIncomingRelation() {
+    void acceptsRelationInForeignKeyReverseDirection() {
         DataSetEntity root = dataSet(1L, "Rhis Employee", "rhis_employee");
         DataSetEntity shift = dataSet(2L, "Rhis Shift", "rhis_shift");
         DataSetField employeeName = field(11L, "Nom", "nom", DataSetFieldType.TEXT, root);
         DataSetField shiftDate = field(21L, "Date", "date_journee", DataSetFieldType.DATE, shift);
         TableRelationProjection incoming = relation(2L, 1L);
+        PreparedReportQuery preparedQuery = new PreparedReportQuery("SELECT 1", List.of(), List.of());
 
         when(dataSetRepository.findById(1L)).thenReturn(Optional.of(root));
         when(dataSetFieldRepository.findByIdIn(any())).thenReturn(List.of(employeeName, shiftDate));
         when(dataSetRepository.findVisibleTableRelations()).thenReturn(List.of(incoming));
+        when(dataSetFieldRepository.findByDataset_IdAndActiveTrueOrderByPositionAsc(1L))
+                .thenReturn(List.of());
+        when(reportSqlBuilder.buildPreview(any())).thenReturn(preparedQuery);
+        when(reportPreviewExecutor.execute(preparedQuery))
+                .thenReturn(new ReportPreviewResponse(List.of(), List.of(), false, 0));
 
         ReportPreviewRequest request = new ReportPreviewRequest(
                 1L,
@@ -265,12 +271,20 @@ class ReportPreviewServiceTest {
                 List.of()
         );
 
-        assertThatThrownBy(() -> service.preview(request))
-                .isInstanceOf(ReportDefinitionUnavailableException.class);
+        service.preview(request);
+
+        ArgumentCaptor<ResolvedReportDefinition> captor =
+                ArgumentCaptor.forClass(ResolvedReportDefinition.class);
+        verify(reportSqlBuilder).buildPreview(captor.capture());
+        ResolvedJoin join = captor.getValue().joins().get(0);
+        assertThat(join.sourceDataset().getId()).isEqualTo(1L);
+        assertThat(join.targetDataset().getId()).isEqualTo(2L);
+        assertThat(join.columns().get(0).sourceColumn()).isEqualTo("emp_pk_id");
+        assertThat(join.columns().get(0).targetColumn()).isEqualTo("employee_fk_id");
     }
 
     @Test
-    void rejectsMultiLevelRelation() {
+    void acceptsIndirectRelationThroughAuthorizedIntermediate() {
         DataSetEntity root = dataSet(1L, "Rhis Shift", "rhis_shift");
         DataSetEntity intermediate = dataSet(2L, "Rhis Employee", "rhis_employee");
         DataSetEntity target = dataSet(3L, "Rhis Contrat", "rhis_contrat");
@@ -283,6 +297,13 @@ class ReportPreviewServiceTest {
                 relation("fk_shift_employee", 1L, 2L),
                 relation("fk_employee_contract", 2L, 3L)
         ));
+        when(dataSetRepository.findAllById(any())).thenReturn(List.of(intermediate));
+        when(dataSetFieldRepository.findByDataset_IdAndActiveTrueOrderByPositionAsc(1L))
+                .thenReturn(List.of());
+        PreparedReportQuery preparedQuery = new PreparedReportQuery("SELECT 1", List.of(), List.of());
+        when(reportSqlBuilder.buildPreview(any())).thenReturn(preparedQuery);
+        when(reportPreviewExecutor.execute(preparedQuery))
+                .thenReturn(new ReportPreviewResponse(List.of(), List.of(), false, 0));
 
         ReportPreviewRequest request = new ReportPreviewRequest(
                 1L,
@@ -291,8 +312,14 @@ class ReportPreviewServiceTest {
                 List.of()
         );
 
-        assertThatThrownBy(() -> service.preview(request))
-                .isInstanceOf(ReportDefinitionUnavailableException.class);
+        service.preview(request);
+
+        ArgumentCaptor<ResolvedReportDefinition> captor =
+                ArgumentCaptor.forClass(ResolvedReportDefinition.class);
+        verify(reportSqlBuilder).buildPreview(captor.capture());
+        assertThat(captor.getValue().joins())
+                .extracting(join -> join.targetDataset().getId())
+                .containsExactly(2L, 3L);
     }
 
     @Test
@@ -318,7 +345,7 @@ class ReportPreviewServiceTest {
 
         assertThatThrownBy(() -> service.preview(request))
                 .isInstanceOf(ReportValidationException.class)
-                .hasMessageContaining("Plusieurs relations directes");
+                .hasMessageContaining("Plusieurs chemins");
     }
 
     @Test
@@ -445,7 +472,6 @@ class ReportPreviewServiceTest {
         when(dataSetFieldRepository.findByIdIn(any())).thenReturn(
                 java.util.stream.Stream.concat(java.util.stream.Stream.of(selected), typedFields.stream()).toList()
         );
-        when(dataSetRepository.findVisibleTableRelations()).thenReturn(List.of());
         when(dataSetFieldRepository.findByDataset_IdAndActiveTrueOrderByPositionAsc(1L))
                 .thenReturn(List.of());
         when(reportSqlBuilder.buildPreview(any())).thenReturn(preparedQuery);
@@ -478,6 +504,7 @@ class ReportPreviewServiceTest {
         dataSet.setId(id);
         dataSet.setActive(true);
         dataSet.setDisplayMain(true);
+        dataSet.setDisplayRelated(true);
         return dataSet;
     }
 

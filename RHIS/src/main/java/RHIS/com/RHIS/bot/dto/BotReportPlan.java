@@ -11,9 +11,11 @@ public record BotReportPlan(
         String question,
         String summary,
         Long rootDatasetId,
+        List<Long> relatedDatasetIds,
         List<Long> selectedFieldIds,
         List<PlanFilter> filters,
-        List<PlanSort> sorts
+        List<PlanSort> sorts,
+        List<String> errors
 ) {
     public record PlanFilter(Long fieldId, String operator, List<String> values) {
     }
@@ -27,5 +29,9 @@ public record BotReportPlan(
 
     public boolean needsClarification() {
         return "NEEDS_CLARIFICATION".equalsIgnoreCase(status);
+    }
+
+    public boolean isFailed() {
+        return "FAILED".equalsIgnoreCase(status);
     }
 }

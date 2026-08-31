@@ -552,6 +552,6 @@ describe('ExportComponent', () => {
   it('is registered with a generation id route', async () => {
     const exportRoute = routes.find((route) => route.path === 'export/:generationId');
     expect(exportRoute).toBeDefined();
-    expect(await exportRoute?.loadComponent?.()).toBe(ExportComponent);
+    expect(await exportRoute?.children?.[0].loadComponent?.()).toBe(ExportComponent);
   });
 });

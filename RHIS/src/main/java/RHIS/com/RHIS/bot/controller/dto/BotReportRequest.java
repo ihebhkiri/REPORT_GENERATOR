@@ -5,6 +5,8 @@ import jakarta.validation.constraints.NotBlank;
 
 public record BotReportRequest(
         @NotBlank String message,
-        ReportExportFormat format
+        ReportExportFormat format,
+        String clarificationQuestion,
+        String clarificationAnswer
 ) {
 }

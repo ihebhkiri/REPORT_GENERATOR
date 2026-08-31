@@ -124,10 +124,11 @@ class ReportSqlBuilder {
             Map<Long, String> aliases
     ) {
         for (ResolvedJoin join : definition.joins()) {
+            String sourceAlias = aliases.get(join.sourceDataset().getId());
             String targetAlias = aliases.get(join.targetDataset().getId());
             StringJoiner conditions = new StringJoiner(" AND ");
             for (ResolvedJoinColumn column : join.columns()) {
-                conditions.add("t0." + quoteIdentifier(column.sourceColumn())
+                conditions.add(sourceAlias + "." + quoteIdentifier(column.sourceColumn())
                         + " = " + targetAlias + "." + quoteIdentifier(column.targetColumn()));
             }
 

@@ -1,0 +1,127 @@
+:host {
+  display: block;
+  padding: 2rem 0 3rem;
+}
+
+.assistant-shell {
+  width: min(56rem, calc(100% - 2rem));
+  margin: auto;
+  padding: 1.5rem;
+  border: 1px solid var(--p-surface-200);
+  border-radius: 1rem;
+  background: var(--p-surface-0);
+}
+
+h2 { margin: 0 0 1rem; }
+
+.conversation {
+  display: flex;
+  flex-direction: column;
+  gap: .75rem;
+  max-height: 24rem;
+  margin: 0;
+  padding: 0;
+  overflow-y: auto;
+  list-style: none;
+}
+
+.message {
+  max-width: 75%;
+  padding: .75rem 1rem;
+  border-radius: .875rem;
+  background: var(--p-surface-100);
+}
+
+.message--user {
+  align-self: flex-end;
+  background: var(--p-primary-50);
+}
+
+.message-author { font-size: .75rem; font-weight: 700; }
+.message p, .ready-panel p, .error-panel p { margin: .25rem 0 0; white-space: pre-wrap; }
+
+.ready-panel, .error-panel {
+  margin-top: 1rem;
+  padding: 1rem;
+  border-radius: .75rem;
+}
+.ready-panel { background: var(--p-primary-50); }
+.error-panel { background: var(--p-red-50); color: var(--p-red-800); }
+.ready-panel a, .error-panel a { display: inline-flex; margin-top: .75rem; }
+
+.composer {
+  display: flex;
+  align-items: flex-end;
+  gap: .5rem;
+  margin-top: 1.5rem;
+  padding: .5rem;
+  border: 1px solid var(--p-surface-300);
+  border-radius: 1.5rem;
+  background: var(--p-surface-0);
+}
+
+.composer:focus-within {
+  border-color: var(--p-primary-color);
+  box-shadow: 0 0 0 2px var(--p-primary-100);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+textarea {
+  field-sizing: content;
+  min-height: 2.75rem;
+  max-height: 10rem;
+  flex: 1;
+  min-width: 0;
+  padding: .75rem;
+  overflow-y: auto;
+  resize: none;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+}
+
+textarea:focus-visible { outline: 0; }
+a:focus-visible {
+  outline: 3px solid var(--p-primary-color);
+  outline-offset: 2px;
+}
+
+.thinking-dots {
+  display: inline-flex;
+  gap: .2rem;
+}
+
+.thinking-dots span {
+  width: .3rem;
+  height: .3rem;
+  border-radius: 50%;
+  background: currentColor;
+  animation: thinking-dot 900ms infinite alternate;
+}
+
+.thinking-dots span:nth-child(2) { animation-delay: 150ms; }
+.thinking-dots span:nth-child(3) { animation-delay: 300ms; }
+
+@keyframes thinking-dot {
+  to { transform: translateY(-.2rem); opacity: .35; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .thinking-dots span { animation: none; }
+}
+
+@media (max-width: 48rem) {
+  .message { max-width: 90%; }
+}

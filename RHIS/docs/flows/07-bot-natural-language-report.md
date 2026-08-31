@@ -14,7 +14,7 @@ POST /api/v1/bot/reports {message, format?}
   → BotReportController : principal + Idempotency-Key optionnel
   → BotReportService.generate()
   → ReportCatalogProvider.buildCatalog()
-  → JSON : datasets principaux actifs + champs visibles supportés
+  → JSON : rootDatasets + relatedDatasets + relations autorisées
   → BotReportPlanner.plan() : phrase + catalogue + date du jour
       ├─ NEEDS_CLARIFICATION → 200, aucune génération
       └─ READY
@@ -48,13 +48,17 @@ Requête :
 ```json
 {
   "message": "Liste des employés avec leur date d'embauche, triée par nom",
-  "format": "XLSX"
+  "format": "XLSX",
+  "clarificationQuestion": null,
+  "clarificationAnswer": null
 }
 ```
 
 - `message` est obligatoire, non blanc et limité par `rhis.bot.max-message-length`
   (2000 par défaut).
 - `format` accepte `PDF` ou `XLSX`. S'il est absent, le backend choisit `XLSX`.
+- `clarificationQuestion` et `clarificationAnswer` sont optionnels mais doivent être
+  fournis ensemble. `message` reste toujours la demande initiale.
 - Le format n'est actuellement pas déduit du texte de `message`.
 - `Idempotency-Key` est un UUID optionnel ; le controller en génère un s'il manque.
 
@@ -73,22 +77,39 @@ Le premier appel contient :
 
 - le system prompt avec les règles d'IDs, d'opérateurs, de valeurs et de tri ;
 - la date locale du serveur (`LocalDate.now()`) ;
-- le catalogue JSON : `datasetId`, `displayName`, puis pour chaque champ
-  `fieldId`, `displayName`, `type` et `operators` ;
+- le catalogue JSON séparant `rootDatasets` (`active=true`, `displayMain=true`) et
+  `relatedDatasets` (`active=true`, `displayRelated=true`) : `datasetId`, `displayName`,
+  puis pour chaque champ `fieldId`, `displayName`, `type` et `operators` ;
+- les relations visibles réduites aux couples `sourceDatasetId`/`targetDatasetId` ;
 - la phrase utilisateur.
 
 Si la validation backend rejette le premier plan, le second appel reçoit en plus les
 erreurs de validation. Il n'existe pas de troisième appel. Aucune ligne métier, aucun
-résultat de rapport et aucun SQL ne sont envoyés au modèle. Le SQL reste construit par
+résultat de rapport, nom physique SQL et aucun SQL ne sont envoyés au modèle. Le SQL reste construit par
 le pipeline report existant.
 
 ## Validation et génération
 
-Le structured output ne constitue pas une frontière de confiance. Le service convertit
-les noms d'enum avec `FilterOperator.valueOf()` et `SortDirection.valueOf()`, puis appelle
+Le structured output porte `rootDatasetId`, `relatedDatasetIds` dans l'ordre métier et les
+fields demandés. Il ne constitue pas une frontière de confiance. Le service vérifie d'abord
+les rôles d'exposition, l'appartenance des fields et la connectivité non orientée de la racine
+vers chaque associé. Il convertit ensuite les noms d'enum avec `FilterOperator.valueOf()` et
+`SortDirection.valueOf()`, puis appelle
 `ReportDefinitionResolver.resolve()` avant toute génération. Le resolver vérifie le
 catalogue courant ; un ID inventé, un champ masqué, un opérateur incompatible, une mauvaise
 arité ou un tri invalide est rejeté.
+
+Le resolver groupe les relations visibles par contrainte et recherche un plus court chemin.
+Une clé étrangère peut être parcourue dans les deux sens et un chemin peut utiliser plusieurs
+segments. Le SQL builder joint chaque segment depuis l'alias du dataset déjà joint. Aucun
+`DISTINCT` n'est ajouté pour masquer une éventuelle multiplication métier des lignes.
+
+Lors d'une clarification, le backend rend séparément au modèle la demande initiale, la
+question déjà posée et la réponse utilisateur. Une réponse complète la demande et ne devient
+pas une nouvelle demande. Si le modèle répète la même question après normalisation de la casse
+et des espaces, l'unique passe de correction lui signale que cette question a déjà reçu une
+réponse. Une deuxième répétition retourne `FAILED` sans créer de génération. Le serveur ne
+stocke aucun historique de conversation.
 
 Après validation, `ReportGenerationService.create()` conserve ses règles existantes :
 ownership, idempotence, capacité par utilisateur, persistance `PENDING` et dispatch après

@@ -1,8 +1,9 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { HttpErrorResponse } from '@angular/common/http';
 import { provideNoopAnimations } from '@angular/platform-browser/animations';
+import { By } from '@angular/platform-browser';
 import { ActivatedRoute, convertToParamMap, provideRouter, Router } from '@angular/router';
-import { of, Subject, throwError } from 'rxjs';
+import { Observable, of, Subject, throwError } from 'rxjs';
 
 import { Dataset } from '../../models/dataset.model';
 import { DatasetField } from '../../models/dataset-field.model';
@@ -12,6 +13,7 @@ import { ReportPreviewService } from '../../services/report-preview.service';
 import { ReportGenerationService } from '../../services/report-generation.service';
 import { ReportDraftStorageService } from '../../services/report-draft-storage.service';
 import { ConfigurationComponent } from './configuration.component';
+import { FilterEditorComponent } from './components/filter-editor/filter-editor.component';
 
 describe('ConfigurationComponent', () => {
   let fixture: ComponentFixture<ConfigurationComponent>;
@@ -121,6 +123,29 @@ describe('ConfigurationComponent', () => {
     expect(component.fieldGroups().length).toBe(3);
   });
 
+  it('automatically previews one restored valid draft after configuration loading', fakeAsync(() => {
+    reportDraftStorage.load.and.returnValue({
+      version: 1,
+      relatedDatasetIds: [2, 3],
+      definition: {
+        rootDatasetId: 1,
+        selectedFieldIds: [11],
+        filters: [{ fieldId: 11, operator: 'EQUALS', values: ['42'] }],
+        sorts: [{ fieldId: 11, direction: 'ASC' }],
+      },
+    });
+
+    createComponent();
+    tick(300);
+
+    expect(reportPreviewService.preview).toHaveBeenCalledOnceWith({
+      rootDatasetId: 1,
+      selectedFieldIds: [11],
+      filters: [{ fieldId: 11, operator: 'EQUALS', values: ['42'] }],
+      sorts: [{ fieldId: 11, direction: 'ASC' }],
+    });
+  }));
+
   it('keeps the final field selection received from the column selector', () => {
     createComponent();
 
@@ -158,7 +183,48 @@ describe('ConfigurationComponent', () => {
     expect(navigateSpy).toHaveBeenCalledOnceWith(['/rapports/export', 'generation-id']);
   });
 
-  it('builds the ordered preview request from columns, filters and sorts', () => {
+  it('generates from the current definition while a newer preview is waiting', fakeAsync(() => {
+    createComponent();
+    const employeeId = component.fieldGroups()[0].fields[0];
+    component.updateSelectedFields([employeeId]);
+    tick(300);
+    component.updateFilters({
+      filters: [{ fieldId: employeeId.id, operator: 'EQUALS', values: ['42'] }],
+      count: 1,
+      valid: true,
+    });
+
+    component.continueToExport();
+    tick(300);
+
+    expect(reportGenerationService.startReportGeneration).toHaveBeenCalledOnceWith(
+      jasmine.objectContaining({
+        selectedFieldIds: [11],
+        filters: [{ fieldId: 11, operator: 'EQUALS', values: ['42'] }],
+      }),
+      jasmine.any(String),
+    );
+    expect(reportPreviewService.preview).toHaveBeenCalledTimes(1);
+    expect(navigateSpy).toHaveBeenCalledOnceWith(['/rapports/export', 'generation-id']);
+  }));
+
+  it('resumes automatic preview after generation fails', fakeAsync(() => {
+    createComponent();
+    component.updateSelectedFields([component.fieldGroups()[0].fields[0]]);
+    tick(300);
+    reportGenerationService.startReportGeneration.and.returnValue(
+      throwError(() => new HttpErrorResponse({ status: 500 })),
+    );
+
+    component.continueToExport();
+    tick(300);
+
+    expect(component.generationError()).toContain('Impossible de démarrer');
+    expect(reportPreviewService.preview).toHaveBeenCalledTimes(2);
+    expect(navigateSpy).not.toHaveBeenCalled();
+  }));
+
+  it('builds the ordered preview request from columns, filters and sorts', fakeAsync(() => {
     createComponent();
     const employeeId = component.fieldGroups()[0].fields[0];
     const contractId = component.fieldGroups()[1].fields[0];
@@ -173,7 +239,7 @@ describe('ConfigurationComponent', () => {
       { fieldId: employeeId.id, direction: 'ASC' },
     ]);
 
-    component.openPreview();
+    tick(300);
 
     expect(reportPreviewService.preview).toHaveBeenCalledOnceWith({
       rootDatasetId: 1,
@@ -184,11 +250,10 @@ describe('ConfigurationComponent', () => {
         { fieldId: 11, direction: 'ASC' },
       ],
     });
-    expect(component.previewVisible()).toBeTrue();
     expect(component.previewResult()?.returnedRowCount).toBe(0);
-  });
+  }));
 
-  it('never calls preview automatically when columns, filters or sorts change', () => {
+  it('automatically previews only the last valid definition after the debounce', fakeAsync(() => {
     createComponent();
     const employeeId = component.fieldGroups()[0].fields[0];
 
@@ -201,10 +266,19 @@ describe('ConfigurationComponent', () => {
     component.updateSorts([{ fieldId: employeeId.id, direction: 'ASC' }]);
     component.updateFilters({ filters: [], count: 0, valid: true });
 
+    tick(299);
     expect(reportPreviewService.preview).not.toHaveBeenCalled();
-  });
 
-  it('keeps the last valid filters and preview while an invalid draft is corrected', () => {
+    tick(1);
+    expect(reportPreviewService.preview).toHaveBeenCalledOnceWith({
+      rootDatasetId: 1,
+      selectedFieldIds: [11],
+      filters: [],
+      sorts: [{ fieldId: 11, direction: 'ASC' }],
+    });
+  }));
+
+  it('keeps the last valid filters and preview while an invalid draft is corrected', fakeAsync(() => {
     createComponent();
     const employeeId = component.fieldGroups()[0].fields[0];
     const validFilter = { fieldId: employeeId.id, operator: 'EQUALS' as const, values: ['42'] };
@@ -221,7 +295,7 @@ describe('ConfigurationComponent', () => {
 
     component.updateSelectedFields([employeeId]);
     component.updateFilters({ filters: [validFilter], count: 1, valid: true });
-    component.openPreview();
+    tick(300);
 
     expect(component.previewResult()?.rows).toEqual([{ c0: 42 }]);
     expect(component.previewStale()).toBeFalse();
@@ -230,13 +304,13 @@ describe('ConfigurationComponent', () => {
 
     expect(component.filters()).toEqual([validFilter]);
     expect(component.filtersValid()).toBeFalse();
-    expect(component.canPreview()).toBeFalse();
+    expect(component.canRetryPreview()).toBeFalse();
     expect(component.previewResult()?.rows).toEqual([{ c0: 42 }]);
     expect(component.previewStale()).toBeTrue();
     expect(reportPreviewService.preview).toHaveBeenCalledTimes(1);
-  });
+  }));
 
-  it('keeps the previous preview when refreshing it fails with an API problem', () => {
+  it('keeps the previous preview when refreshing fails and hides the technical detail', fakeAsync(() => {
     createComponent();
     const employeeId = component.fieldGroups()[0].fields[0];
     reportPreviewService.preview.and.returnValue(
@@ -250,22 +324,144 @@ describe('ConfigurationComponent', () => {
       }),
     );
     component.updateSelectedFields([employeeId]);
-    component.openPreview();
+    tick(300);
 
     reportPreviewService.preview.and.returnValue(
       throwError(() => new HttpErrorResponse({
-        status: 400,
-        error: { detail: 'Le filtre est invalide.' },
+        status: 500,
+        error: { detail: 'internal stack trace' },
       })),
     );
-    component.openPreview();
+    component.updateSorts([{ fieldId: employeeId.id, direction: 'ASC' }]);
+    tick(300);
 
     expect(component.previewResult()?.rows).toEqual([{ c0: 42 }]);
-    expect(component.previewError()).toBe('Le filtre est invalide.');
+    expect(component.previewError()).toBe(
+      'Impossible de charger l’aperçu du rapport. Réessayez dans quelques instants.',
+    );
     expect(component.previewStale()).toBeTrue();
-  });
+  }));
 
-  it('removes filters and sorts whose selected column is removed', () => {
+  it('cancels an obsolete request so its response cannot replace the latest preview', fakeAsync(() => {
+    createComponent();
+    const employeeId = component.fieldGroups()[0].fields[0];
+    const obsoleteResponse = new Subject<{
+      columns: readonly [];
+      rows: readonly { c0: number }[];
+      hasMore: boolean;
+      returnedRowCount: number;
+    }>();
+    let obsoleteRequestCancelled = false;
+    const latestResponse = {
+      columns: [],
+      rows: [{ c0: 2 }],
+      hasMore: false,
+      returnedRowCount: 1,
+    };
+    reportPreviewService.preview.and.returnValues(
+      new Observable((subscriber) => {
+        const subscription = obsoleteResponse.subscribe(subscriber);
+        return () => {
+          obsoleteRequestCancelled = true;
+          subscription.unsubscribe();
+        };
+      }),
+      of(latestResponse),
+    );
+
+    component.updateSelectedFields([employeeId]);
+    tick(300);
+    component.updateSorts([{ fieldId: employeeId.id, direction: 'ASC' }]);
+
+    expect(obsoleteRequestCancelled).toBeTrue();
+
+    obsoleteResponse.next({ columns: [], rows: [{ c0: 1 }], hasMore: false, returnedRowCount: 1 });
+    tick(300);
+
+    expect(component.previewResult()).toEqual(latestResponse);
+    expect(reportPreviewService.preview).toHaveBeenCalledTimes(2);
+  }));
+
+  it('cancels an in-flight request when the current filter becomes invalid', fakeAsync(() => {
+    createComponent();
+    const employeeId = component.fieldGroups()[0].fields[0];
+    const response = new Subject<{
+      columns: readonly [];
+      rows: readonly { c0: number }[];
+      hasMore: boolean;
+      returnedRowCount: number;
+    }>();
+    let cancelled = false;
+    reportPreviewService.preview.and.returnValue(new Observable((subscriber) => {
+      const subscription = response.subscribe(subscriber);
+      return () => {
+        cancelled = true;
+        subscription.unsubscribe();
+      };
+    }));
+
+    component.updateSelectedFields([employeeId]);
+    tick(300);
+    component.updateFilters({ filters: [], count: 1, valid: false });
+    response.next({ columns: [], rows: [{ c0: 1 }], hasMore: false, returnedRowCount: 1 });
+
+    expect(cancelled).toBeTrue();
+    expect(component.previewLoading()).toBeFalse();
+    expect(component.previewResult()).toBeNull();
+    expect(reportPreviewService.preview).toHaveBeenCalledTimes(1);
+  }));
+
+  it('retries the last valid request immediately after an error', fakeAsync(() => {
+    createComponent();
+    const employeeId = component.fieldGroups()[0].fields[0];
+    reportPreviewService.preview.and.returnValue(
+      throwError(() => new HttpErrorResponse({ status: 504 })),
+    );
+    component.updateSelectedFields([employeeId]);
+    tick(300);
+
+    expect(component.previewError()).toContain('trop de temps');
+
+    reportPreviewService.preview.and.returnValue(
+      of({ columns: [], rows: [], hasMore: false, returnedRowCount: 0 }),
+    );
+    component.retryPreview();
+
+    expect(reportPreviewService.preview).toHaveBeenCalledTimes(2);
+    expect(component.previewError()).toBeNull();
+  }));
+
+  it('does not request a preview without columns, with an invalid filter, or for an identical definition', fakeAsync(() => {
+    createComponent();
+    const employeeId = component.fieldGroups()[0].fields[0];
+
+    tick(300);
+    component.updateSelectedFields([employeeId]);
+    component.updateFilters({ filters: [], count: 1, valid: false });
+    tick(300);
+    expect(reportPreviewService.preview).not.toHaveBeenCalled();
+
+    component.updateFilters({ filters: [], count: 0, valid: true });
+    tick(300);
+    component.updateSelectedFields([employeeId]);
+    tick(300);
+
+    expect(reportPreviewService.preview).toHaveBeenCalledTimes(1);
+  }));
+
+  it('allows the same valid definition again after an invalid intermediate state', fakeAsync(() => {
+    createComponent();
+    const employeeId = component.fieldGroups()[0].fields[0];
+    component.updateSelectedFields([employeeId]);
+    tick(300);
+    component.updateFilters({ filters: [], count: 1, valid: false });
+    component.updateFilters({ filters: [], count: 0, valid: true });
+    tick(300);
+
+    expect(reportPreviewService.preview).toHaveBeenCalledTimes(2);
+  }));
+
+  it('removes filters and sorts whose selected column is removed', fakeAsync(() => {
     createComponent();
     const employeeId = component.fieldGroups()[0].fields[0];
     const contractId = component.fieldGroups()[1].fields[0];
@@ -287,8 +483,14 @@ describe('ConfigurationComponent', () => {
     expect(component.filterFieldGroups().flatMap((group) => group.fields)).toEqual([
       employeeId,
     ]);
-    expect(reportPreviewService.preview).not.toHaveBeenCalled();
-  });
+    tick(300);
+    expect(reportPreviewService.preview).toHaveBeenCalledOnceWith({
+      rootDatasetId: 1,
+      selectedFieldIds: [11],
+      filters: [],
+      sorts: [{ fieldId: 11, direction: 'ASC' }],
+    });
+  }));
 
   it('removes the page summary and renders one full-width action bar', () => {
     createComponent();
@@ -296,6 +498,169 @@ describe('ConfigurationComponent', () => {
 
     expect(element.querySelector('#summary-title')).toBeNull();
     expect(element.querySelectorAll('[aria-label="Actions du rapport"]').length).toBe(1);
+  });
+
+  it('removes the manual preview action and dialog while mounting one preview panel', () => {
+    createComponent();
+    const element = fixture.nativeElement as HTMLElement;
+    const actionLabels = Array.from(
+      element.querySelectorAll<HTMLElement>('[aria-label="Actions du rapport"] button'),
+    ).map((button) => button.textContent?.trim());
+
+    expect(actionLabels).toEqual(['Générer']);
+    expect(element.querySelector('p-dialog')).toBeNull();
+    expect(element.querySelectorAll('app-preview-panel').length).toBe(1);
+  });
+
+  it('starts collapsed and expands the preview through a native button without another request', () => {
+    createComponent();
+    fixture.detectChanges();
+
+    const element = fixture.nativeElement as HTMLElement;
+    const button = element.querySelector<HTMLButtonElement>(
+      'button[aria-controls="report-preview-body"]',
+    );
+
+    expect(component.previewCollapsed()).toBeTrue();
+    expect(button).not.toBeNull();
+    expect(button?.getAttribute('aria-expanded')).toBe('false');
+    expect(reportPreviewService.preview).not.toHaveBeenCalled();
+
+    button?.click();
+    fixture.detectChanges();
+
+    expect(component.previewCollapsed()).toBeFalse();
+    expect(button?.getAttribute('aria-expanded')).toBe('true');
+    expect(element.querySelector('#report-preview-body')?.classList)
+      .toContain('preview-content--expanded');
+    expect(reportPreviewService.preview).not.toHaveBeenCalled();
+  });
+
+  it('switches mobile tabs without resetting state or requesting another preview', fakeAsync(() => {
+    createComponent();
+    const employeeId = component.fieldGroups()[0].fields[0];
+    component.updateSelectedFields([employeeId]);
+    tick(300);
+
+    component.selectMobileTab('preview');
+    fixture.detectChanges();
+
+    const element = fixture.nativeElement as HTMLElement;
+    expect(component.selectedFields()).toEqual([employeeId]);
+    expect(element.querySelector('#configuration-panel')?.classList).toContain('mobile-hidden');
+    expect(element.querySelector('#preview-panel')?.classList).not.toContain('mobile-hidden');
+    expect(element.querySelector('#preview-tab')?.getAttribute('aria-selected')).toBe('true');
+    expect(reportPreviewService.preview).toHaveBeenCalledTimes(1);
+
+    component.selectMobileTab('configuration');
+    fixture.detectChanges();
+    expect(component.selectedFields()).toEqual([employeeId]);
+    expect(reportPreviewService.preview).toHaveBeenCalledTimes(1);
+  }));
+
+  it('keeps the same invalid FilterEditor row across tabs and breakpoint changes', () => {
+    createComponent();
+    const employeeId = component.fieldGroups()[0].fields[0];
+    component.updateSelectedFields([employeeId]);
+    fixture.detectChanges();
+    const editor = fixture.debugElement.query(By.directive(FilterEditorComponent))
+      .componentInstance as FilterEditorComponent;
+    editor.startAddingFilter();
+    editor.pendingFieldId.setValue(employeeId.id);
+    editor.confirmPendingField();
+    editor.rows.at(0).controls.value1.markAsTouched();
+
+    const row = editor.rows.at(0);
+    expect(row.invalid).toBeTrue();
+    expect(row.controls.value1.touched).toBeTrue();
+
+    component.selectMobileTab('preview');
+    component.isMobile.set(false);
+    component.isMobile.set(true);
+    component.selectMobileTab('configuration');
+    fixture.detectChanges();
+
+    const sameEditor = fixture.debugElement.query(By.directive(FilterEditorComponent))
+      .componentInstance as FilterEditorComponent;
+    expect(sameEditor).toBe(editor);
+    expect(sameEditor.rows.at(0)).toBe(row);
+    expect(row.invalid).toBeTrue();
+    expect(row.controls.value1.touched).toBeTrue();
+  });
+
+  it('supports cyclic arrow navigation and Home/End in the mobile tab list', () => {
+    createComponent();
+    const element = fixture.nativeElement as HTMLElement;
+    const configurationTab = element.querySelector<HTMLButtonElement>('#configuration-tab')!;
+    const previewTab = element.querySelector<HTMLButtonElement>('#preview-tab')!;
+
+    configurationTab.focus();
+    const previewFocus = spyOn(previewTab, 'focus');
+    const configurationFocus = spyOn(configurationTab, 'focus');
+    configurationTab.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowRight' }));
+    fixture.detectChanges();
+    expect(component.mobileTab()).toBe('preview');
+    expect(previewFocus).toHaveBeenCalled();
+
+    previewTab.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowRight' }));
+    fixture.detectChanges();
+    expect(component.mobileTab()).toBe('configuration');
+    expect(configurationFocus).toHaveBeenCalled();
+
+    configurationTab.dispatchEvent(new KeyboardEvent('keydown', { key: 'End' }));
+    expect(component.mobileTab()).toBe('preview');
+    previewTab.dispatchEvent(new KeyboardEvent('keydown', { key: 'Home' }));
+    expect(component.mobileTab()).toBe('configuration');
+  });
+
+  it('keeps automatic updates active while the desktop panel is collapsed', fakeAsync(() => {
+    createComponent();
+    component.updateSelectedFields([component.fieldGroups()[0].fields[0]]);
+    tick(300);
+    fixture.detectChanges();
+
+    const element = fixture.nativeElement as HTMLElement;
+    expect(component.previewResult()?.returnedRowCount).toBe(0);
+    expect(element.querySelector('app-preview-panel')?.classList).toContain('preview-collapsed');
+    expect(element.querySelector('#report-preview-body')?.classList)
+      .not.toContain('preview-content--expanded');
+    expect(element.textContent).toContain('À jour');
+  }));
+
+  it('tracks the responsive breakpoint and removes its listener on destroy', () => {
+    let changeListener: ((event: MediaQueryListEvent) => void) | undefined;
+    const mediaQuery = {
+      matches: false,
+      media: '(max-width: 47.999rem)',
+      onchange: null,
+      addListener: jasmine.createSpy(),
+      removeListener: jasmine.createSpy(),
+      addEventListener: jasmine.createSpy().and.callFake(
+        (_type: string, listener: (event: MediaQueryListEvent) => void) => {
+          changeListener = listener;
+        },
+      ),
+      removeEventListener: jasmine.createSpy(),
+      dispatchEvent: jasmine.createSpy(),
+    } as unknown as MediaQueryList;
+    spyOn(globalThis, 'matchMedia').and.returnValue(mediaQuery);
+
+    createComponent();
+    expect(component.isMobile()).toBeFalse();
+    expect((fixture.nativeElement as HTMLElement).querySelector('#configuration-panel')?.getAttribute('role'))
+      .toBeNull();
+
+    changeListener?.({ matches: true } as MediaQueryListEvent);
+    fixture.detectChanges();
+    expect(component.isMobile()).toBeTrue();
+    expect((fixture.nativeElement as HTMLElement).querySelector('#configuration-panel')?.getAttribute('role'))
+      .toBe('tabpanel');
+
+    fixture.destroy();
+    expect(mediaQuery.removeEventListener).toHaveBeenCalledWith(
+      'change',
+      jasmine.any(Function),
+    );
   });
 
   it('excludes unsupported fields from configuration', () => {
@@ -492,7 +857,7 @@ describe('ConfigurationComponent', () => {
     expect(component.isLoading()).toBeFalse();
   });
 
-  it('resets the report definition and preview after a successful reload', () => {
+  it('resets the report definition and preview after a successful reload', fakeAsync(() => {
     createComponent();
     const employeeId = component.fieldGroups()[0].fields[0];
     component.updateSelectedFields([employeeId]);
@@ -502,7 +867,7 @@ describe('ConfigurationComponent', () => {
       valid: true,
     });
     component.updateSorts([{ fieldId: employeeId.id, direction: 'ASC' }]);
-    component.openPreview();
+    tick(300);
 
     component.loadConfiguration();
 
@@ -513,7 +878,7 @@ describe('ConfigurationComponent', () => {
     expect(component.previewResult()).toBeNull();
     expect(component.previewError()).toBeNull();
     expect(component.previewStale()).toBeFalse();
-  });
+  }));
 
   function field(
     id: number,

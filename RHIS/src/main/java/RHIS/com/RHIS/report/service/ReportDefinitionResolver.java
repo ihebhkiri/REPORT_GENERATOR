@@ -26,11 +26,13 @@ import java.time.LocalTime;
 import java.time.OffsetDateTime;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.ArrayDeque;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -244,11 +246,6 @@ public class ReportDefinitionResolver {
         return List.copyOf(referenced.values());
     }
 
-    /**
-     * Résout chaque dataset référencé hors racine par une relation directe sortante et trie les cibles
-     * par identifiant afin de stabiliser l’ordre des jointures et des alias SQL.
-     */
-
     private List<ResolvedJoin> resolveJoins(
             DataSetEntity rootDataset,
             List<DataSetField> referencedFields
@@ -261,46 +258,161 @@ public class ReportDefinitionResolver {
                         Function.identity(),
                         (left, right) -> left
                 ));
-        List<TableRelationProjection> relations = dataSetRepository.findVisibleTableRelations();
-        return targetDataSets.values().stream()
+        targetDataSets.values().stream()
+                .filter(dataSet -> !dataSet.isDisplayRelated())
+                .findFirst()
+                .ifPresent(dataSet -> {
+                    throw unavailable("DATASET", dataSet, "RELATED_NOT_AVAILABLE");
+                });
+        if (targetDataSets.isEmpty()) {
+            return List.of();
+        }
+
+        List<RelationEdge> edges = relationEdges(dataSetRepository.findVisibleTableRelations());
+        Map<Long, DataSetEntity> dataSets = new HashMap<>();
+        dataSets.put(rootDataset.getId(), rootDataset);
+        dataSets.putAll(targetDataSets);
+        Set<Long> relationDataSetIds = edges.stream()
+                .flatMap(edge -> java.util.stream.Stream.of(edge.sourceDatasetId(), edge.targetDatasetId()))
+                .collect(Collectors.toSet());
+        dataSetRepository.findAllById(relationDataSetIds)
+                .forEach(dataSet -> dataSets.put(dataSet.getId(), dataSet));
+
+        Map<Long, ResolvedJoin> joinsByTarget = new LinkedHashMap<>();
+        targetDataSets.values().stream()
                 .sorted(Comparator.comparing(DataSetEntity::getId))
-                .map(target -> resolveJoin(rootDataset, target, relations))
+                .forEach(target -> addPathJoins(rootDataset, target, edges, dataSets, joinsByTarget));
+        return List.copyOf(joinsByTarget.values());
+    }
+
+    private List<RelationEdge> relationEdges(List<TableRelationProjection> relations) {
+        return relations.stream()
+                .collect(Collectors.groupingBy(
+                        relation -> new RelationKey(
+                                relation.getConstraintName(),
+                                relation.getSourceDatasetId(),
+                                relation.getTargetDatasetId()),
+                        LinkedHashMap::new,
+                        Collectors.toList()))
+                .entrySet().stream()
+                .map(entry -> new RelationEdge(
+                        entry.getKey().sourceDatasetId(),
+                        entry.getKey().targetDatasetId(),
+                        entry.getValue().stream()
+                                .sorted(Comparator.comparing(TableRelationProjection::getPosition))
+                                .map(relation -> new ResolvedJoinColumn(
+                                        relation.getSourceColumn(), relation.getTargetColumn()))
+                                .toList()))
                 .toList();
     }
 
-    /**
-     * Résout une contrainte de clé étrangère sortante vers le jeu de données cible. Les colonnes
-     * d’une clé composite conservent l’ordre de position du catalogue ; l’absence de contrainte ou
-     * plusieurs contraintes correspondantes sont rejetées comme ambiguës.
-     */
-    private ResolvedJoin resolveJoin(
+    private void addPathJoins(
             DataSetEntity rootDataset,
             DataSetEntity targetDataset,
-            List<TableRelationProjection> relations
+            List<RelationEdge> edges,
+            Map<Long, DataSetEntity> dataSets,
+            Map<Long, ResolvedJoin> joinsByTarget
     ) {
-        Map<String, List<TableRelationProjection>> candidates = relations.stream()
-                .filter(relation -> rootDataset.getId().equals(relation.getSourceDatasetId()))
-                .filter(relation -> targetDataset.getId().equals(relation.getTargetDatasetId()))
-                .collect(Collectors.groupingBy(TableRelationProjection::getConstraintName));
-
-        if (candidates.isEmpty()) {
+        List<PathStep> path = shortestPath(rootDataset.getId(), targetDataset.getId(), edges);
+        if (path.isEmpty()) {
             throw unavailable("DATASET", targetDataset, "RELATION_NOT_AVAILABLE");
         }
-        if (candidates.size() > 1) {
+        for (PathStep step : path) {
+            if (joinsByTarget.containsKey(step.toDatasetId())) {
+                continue;
+            }
+            DataSetEntity source = dataSets.get(step.fromDatasetId());
+            DataSetEntity target = dataSets.get(step.toDatasetId());
+            if (source == null || target == null) {
+                throw new ReportValidationException("Les métadonnées d'une relation sont indisponibles.");
+            }
+            List<ResolvedJoinColumn> columns = step.forward()
+                    ? step.edge().columns()
+                    : step.edge().columns().stream()
+                            .map(column -> new ResolvedJoinColumn(
+                                    column.targetColumn(), column.sourceColumn()))
+                            .toList();
+            joinsByTarget.put(target.getId(), new ResolvedJoin(source, target, columns));
+        }
+    }
+
+    private List<PathStep> shortestPath(Long rootId, Long targetId, List<RelationEdge> edges) {
+        Map<Long, List<RelationEdge>> graph = new HashMap<>();
+        edges.forEach(edge -> {
+            graph.computeIfAbsent(edge.sourceDatasetId(), ignored -> new ArrayList<>()).add(edge);
+            graph.computeIfAbsent(edge.targetDatasetId(), ignored -> new ArrayList<>()).add(edge);
+        });
+        graph.values().forEach(list -> list.sort(Comparator
+                .comparing(RelationEdge::sourceDatasetId)
+                .thenComparing(RelationEdge::targetDatasetId)));
+
+        Map<Long, Integer> distance = new HashMap<>();
+        Map<Long, Integer> pathCount = new HashMap<>();
+        Map<Long, PathStep> previous = new HashMap<>();
+        ArrayDeque<Long> queue = new ArrayDeque<>();
+        distance.put(rootId, 0);
+        pathCount.put(rootId, 1);
+        queue.add(rootId);
+        while (!queue.isEmpty()) {
+            Long current = queue.remove();
+            for (RelationEdge edge : graph.getOrDefault(current, List.of())) {
+                Long next = edge.other(current);
+                int candidateDistance = distance.get(current) + 1;
+                if (!distance.containsKey(next)) {
+                    distance.put(next, candidateDistance);
+                    pathCount.put(next, pathCount.get(current));
+                    previous.put(next, new PathStep(current, next, edge,
+                            current.equals(edge.sourceDatasetId())));
+                    queue.add(next);
+                } else if (distance.get(next) == candidateDistance) {
+                    pathCount.put(next, Math.min(2,
+                            pathCount.get(next) + pathCount.get(current)));
+                }
+            }
+        }
+        if (!distance.containsKey(targetId)) {
+            return List.of();
+        }
+        if (pathCount.get(targetId) > 1) {
             throw new ReportValidationException(
-                    "Plusieurs relations directes existent vers "
-                            + targetDataset.getDisplayName() + "."
-            );
+                    "Plusieurs chemins de relations existent vers le dataset demandé.");
         }
 
-        List<ResolvedJoinColumn> columns = candidates.values().iterator().next().stream()
-                .sorted(Comparator.comparing(TableRelationProjection::getPosition))
-                .map(relation -> new ResolvedJoinColumn(
-                        relation.getSourceColumn(),
-                        relation.getTargetColumn()
-                ))
-                .toList();
-        return new ResolvedJoin(targetDataset, columns);
+        List<PathStep> reversed = new ArrayList<>();
+        for (Long current = targetId; !current.equals(rootId);) {
+            PathStep step = previous.get(current);
+            reversed.add(step);
+            current = step.fromDatasetId();
+        }
+        java.util.Collections.reverse(reversed);
+        return reversed;
+    }
+
+    private record RelationKey(String constraintName, Long sourceDatasetId, Long targetDatasetId) {
+    }
+
+    private record RelationEdge(
+            Long sourceDatasetId,
+            Long targetDatasetId,
+            List<ResolvedJoinColumn> columns
+    ) {
+        Long other(Long datasetId) {
+            if (sourceDatasetId.equals(datasetId)) {
+                return targetDatasetId;
+            }
+            if (targetDatasetId.equals(datasetId)) {
+                return sourceDatasetId;
+            }
+            return null;
+        }
+    }
+
+    private record PathStep(
+            Long fromDatasetId,
+            Long toDatasetId,
+            RelationEdge edge,
+            boolean forward
+    ) {
     }
 
     /**

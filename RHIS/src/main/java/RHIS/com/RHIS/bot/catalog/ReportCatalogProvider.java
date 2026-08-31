@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.LinkedHashSet;
 import java.util.List;
 
 /**
@@ -22,11 +23,20 @@ public class ReportCatalogProvider {
     private final DataSetFieldRepository dataSetFieldRepository;
 
     @Transactional(readOnly = true)
-    public List<CatalogDataset> buildCatalog() {
-        return dataSetRepository.findByActiveTrueAndDisplayMainTrue().stream()
-                .map(dataset -> new CatalogDataset(
-                        dataset.getId(),
-                        dataset.getDisplayName(),
+    public ReportCatalog buildCatalog() {
+        List<CatalogDataset> roots = catalogDatasets(
+                dataSetRepository.findByActiveTrueAndDisplayMainTrue());
+        List<CatalogDataset> related = catalogDatasets(
+                dataSetRepository.findByActiveTrueAndDisplayRelatedTrue());
+        LinkedHashSet<CatalogRelation> relations = new LinkedHashSet<>();
+        dataSetRepository.findVisibleTableRelations().forEach(relation -> relations.add(
+                new CatalogRelation(relation.getSourceDatasetId(), relation.getTargetDatasetId())));
+        return new ReportCatalog(roots, related, List.copyOf(relations));
+    }
+
+    private List<CatalogDataset> catalogDatasets(List<DataSetEntity> datasets) {
+        return datasets.stream()
+                .map(dataset -> new CatalogDataset(dataset.getId(), dataset.getDisplayName(),
                         visibleFields(dataset.getId())))
                 .toList();
     }

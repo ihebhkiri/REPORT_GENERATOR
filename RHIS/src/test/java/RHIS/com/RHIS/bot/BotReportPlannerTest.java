@@ -1,6 +1,7 @@
 package RHIS.com.RHIS.bot;
 
 import RHIS.com.RHIS.bot.config.BotAiProperties;
+import RHIS.com.RHIS.bot.controller.dto.BotReportRequest;
 import RHIS.com.RHIS.bot.dto.BotReportPlan;
 import RHIS.com.RHIS.bot.exception.BotLlmException;
 import org.junit.jupiter.api.BeforeEach;
@@ -47,7 +48,8 @@ class BotReportPlannerTest {
     }
 
     private BotReportPlan readyPlan() {
-        return new BotReportPlan("READY", null, "Rapport", 1L, List.of(10L), List.of(), List.of());
+        return new BotReportPlan("READY", null, "Rapport", 1L, List.of(),
+                List.of(10L), List.of(), List.of(), List.of());
     }
 
     @Test
@@ -56,7 +58,8 @@ class BotReportPlannerTest {
         BotReportPlan plan = readyPlan();
         when(callSpec.entity(BotReportPlan.class)).thenReturn(plan);
 
-        BotReportPlan result = planner.plan("[]", "rapport employés", null);
+        BotReportPlan result = planner.plan("[]",
+                new BotReportRequest("rapport employés", null, null, null), null);
 
         assertSame(plan, result);
     }
@@ -66,7 +69,8 @@ class BotReportPlannerTest {
         stubChain();
         when(callSpec.entity(BotReportPlan.class)).thenReturn(readyPlan());
 
-        planner.plan("[]", "rapport", List.of("L'opérateur BETWEEN attend 2 valeur(s)."));
+        planner.plan("[]", new BotReportRequest("rapport", null, null, null),
+                List.of("L'opérateur BETWEEN attend 2 valeur(s)."));
 
         ArgumentCaptor<String> captor = ArgumentCaptor.forClass(String.class);
         verify(requestSpec).user(captor.capture());
@@ -74,11 +78,34 @@ class BotReportPlannerTest {
     }
 
     @Test
+    void promptDefinesMultiDatasetRules() {
+        assertTrue(BotReportPlanner.SYSTEM_PROMPT.contains("d’apparition"));
+        assertTrue(BotReportPlanner.SYSTEM_PROMPT.contains("relatedDatasetIds"));
+        assertTrue(BotReportPlanner.SYSTEM_PROMPT.contains("dans les deux sens"));
+    }
+
+    @Test
+    void includesStructuredClarificationInUserText() {
+        stubChain();
+        when(callSpec.entity(BotReportPlan.class)).thenReturn(readyPlan());
+
+        planner.plan("[]", new BotReportRequest("Liste des contrats", null,
+                "Contrats actifs ou tous ?", "Tous les contrats"), null);
+
+        ArgumentCaptor<String> captor = ArgumentCaptor.forClass(String.class);
+        verify(requestSpec).user(captor.capture());
+        assertTrue(captor.getValue().contains("Demande initiale : Liste des contrats"));
+        assertTrue(captor.getValue().contains("Question déjà posée : Contrats actifs ou tous ?"));
+        assertTrue(captor.getValue().contains("Réponse utilisateur : Tous les contrats"));
+    }
+
+    @Test
     void wrapsModelFailureInBotLlmException() {
         stubChain();
         when(callSpec.entity(BotReportPlan.class)).thenThrow(new IllegalStateException("json"));
 
-        assertThrows(BotLlmException.class, () -> planner.plan("[]", "x", null));
+        assertThrows(BotLlmException.class, () -> planner.plan("[]",
+                new BotReportRequest("x", null, null, null), null));
     }
 
     @Test
@@ -89,6 +116,7 @@ class BotReportPlannerTest {
             return readyPlan();
         });
 
-        assertThrows(BotLlmException.class, () -> planner.plan("[]", "x", null));
+        assertThrows(BotLlmException.class, () -> planner.plan("[]",
+                new BotReportRequest("x", null, null, null), null));
     }
 }

@@ -19,14 +19,30 @@ export const routes: Routes = [
   },
   {
     path: 'configuration/:datasetId',
+    data: {page: 'configuration'},
     loadComponent: () =>
-      import('./pages/configuration/configuration.component').then(
-        (m) => m.ConfigurationComponent,
+      import('../../shared/page-layout/shared-page-layout.component').then(
+        (m) => m.SharedPageLayoutComponent,
       ),
+    children: [{
+      path: '',
+      loadComponent: () =>
+        import('./pages/configuration/configuration.component').then(
+          (m) => m.ConfigurationComponent,
+        ),
+    }],
   },
   {
     path: 'export/:generationId',
+    data: {page: 'export'},
     loadComponent: () =>
-      import('./pages/export/export.component').then((m) => m.ExportComponent),
+      import('../../shared/page-layout/shared-page-layout.component').then(
+        (m) => m.SharedPageLayoutComponent,
+      ),
+    children: [{
+      path: '',
+      loadComponent: () =>
+        import('./pages/export/export.component').then((m) => m.ExportComponent),
+    }],
   },
 ];

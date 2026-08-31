@@ -6,8 +6,11 @@
       <span>{{ isDatasets ? 'Administration' : 'Rapports' }}</span>
     </div>
     <nav aria-label="Navigation principale">
-      <a routerLink="/rapports" >
+      <a routerLink="/rapports" [attr.aria-current]="isReports ? 'page' : null">
         <span class="pi pi-file" aria-hidden="true"></span>Rapports
+      </a>
+      <a routerLink="/assistant" [attr.aria-current]="page === 'assistant' ? 'page' : null">
+        <span class="pi pi-sparkles" aria-hidden="true"></span>Assistant
       </a>
       @if (isAdmin()) {
         <a routerLink="/administration/datasets" [attr.aria-current]="isDatasets ? 'page' : null">
@@ -24,14 +27,9 @@
     </div>
   </div>
   <div class="page-heading">
-    <p class="breadcrumb">{{ isDatasets ? 'Administration' : 'Rapports' }}
-      <span class="pi pi-angle-right" aria-hidden="true"></span>
-      {{ isDatasets ? 'Données' : 'Source de données' }}
-    </p>
-    <h1 id="page-title">{{ isDatasets ? 'Exposition des données' : 'Créer un rapport dynamique' }}</h1>
-    <p class="description">{{ isDatasets
-      ? 'Choisissez les tables et les champs proposés lors de la création des rapports.'
-      : 'Sélectionnez une source de données, configurez les colonnes et exportez votre rapport.' }}</p>
+    <p class="breadcrumb">{{ pageCopy.breadcrumb }}</p>
+    <h1 id="page-title">{{ pageCopy.title }}</h1>
+    <p class="description">{{ pageCopy.description }}</p>
   </div>
 </header>
 <div id="page-content" tabindex="-1"><router-outlet /></div>

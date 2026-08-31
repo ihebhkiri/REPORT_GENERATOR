@@ -11,7 +11,16 @@ import {HttpErrorResponse} from '@angular/common/http';
 import {ActivatedRoute, Router, RouterLink} from '@angular/router';
 import {ButtonModule} from 'primeng/button';
 import {ProgressSpinnerModule} from 'primeng/progressspinner';
-import {finalize} from 'rxjs';
+import {
+  EMPTY,
+  Subject,
+  catchError,
+  distinctUntilChanged,
+  finalize,
+  of,
+  switchMap,
+  timer,
+} from 'rxjs';
 
 import {ReportPreviewService} from '../../services/report-preview.service';
 import {
@@ -26,7 +35,10 @@ import {
   FilterEditorComponent,
   FilterEditorState,
 } from './components/filter-editor/filter-editor.component';
-import {PreviewDialogComponent} from './components/preview-dialog/preview-dialog.component';
+import {
+  PreviewPanelComponent,
+  PreviewStatus,
+} from './components/preview-panel/preview-panel.component';
 import {SortEditorComponent} from './components/sort-editor/sort-editor.component';
 import {
   DatasetFieldGroup,
@@ -45,11 +57,22 @@ interface ReportStep {
   readonly state: 'completed' | 'active' | 'pending';
 }
 
+interface PreviewIntent {
+  readonly key: string;
+  readonly request: ReportPreviewRequest | null;
+  readonly immediate: boolean;
+}
+
+type MobileTab = 'configuration' | 'preview';
+
+const PREVIEW_DEBOUNCE_MS = 300;
+const MOBILE_MEDIA_QUERY = '(max-width: 47.999rem)';
+
 /**
  * Gère la définition locale du rapport et le cycle de vie de l’aperçu pour cette page.
  * La résolution des jeux de données et le chargement des champs restent confiés à
  * `ReportConfigurationLoader`, tandis que ce composant conserve l’état de référence des éditeurs
- * enfants et déclenche explicitement les demandes d’aperçu.
+ * enfants et orchestre l’actualisation automatique de l’aperçu.
  */
 @Component({
   selector: 'app-configuration',
@@ -58,7 +81,7 @@ interface ReportStep {
     ButtonModule,
     ColumnSelectorComponent,
     FilterEditorComponent,
-    PreviewDialogComponent,
+    PreviewPanelComponent,
     ProgressSpinnerModule,
     RouterLink,
     SortEditorComponent,
@@ -76,6 +99,17 @@ export class ConfigurationComponent {
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
   private readonly destroyRef = inject(DestroyRef);
+  private readonly previewIntents = new Subject<PreviewIntent>();
+  private readonly mobileMediaQuery = typeof globalThis.matchMedia === 'function'
+    ? globalThis.matchMedia(MOBILE_MEDIA_QUERY)
+    : null;
+  private readonly handleMobileMediaChange = (event: MediaQueryListEvent): void => {
+    this.isMobile.set(event.matches);
+    if (event.matches) {
+      queueMicrotask(() => this.moveFocusOutOfHiddenMobilePanel());
+    }
+  };
+  private previewRequestRevision = 0;
 
   readonly steps: readonly ReportStep[] = [
     {number: 1, label: 'Source de données', state: 'completed'},
@@ -92,11 +126,13 @@ export class ConfigurationComponent {
   readonly filterResetRevision = signal(0);
   readonly isLoading = signal(false);
   readonly errorMessage = signal<string | null>(null);
-  readonly previewVisible = signal(false);
   readonly previewLoading = signal(false);
   readonly previewResult = signal<ReportPreviewResponse | null>(null);
   readonly previewError = signal<string | null>(null);
   readonly previewStale = signal(false);
+  readonly previewCollapsed = signal(true);
+  readonly isMobile = signal(this.mobileMediaQuery?.matches ?? false);
+  readonly mobileTab = signal<MobileTab>('configuration');
   readonly isGenerating = signal(false);
   readonly generationError = signal<string | null>(null);
   readonly restoredMessage = signal<string | null>(
@@ -115,17 +151,46 @@ export class ConfigurationComponent {
       }))
       .filter((group) => group.fields.length > 0);
   });
-  readonly canPreview = computed(
-    () => this.selectedFields().length > 0
+  readonly canRetryPreview = computed(
+    () => this.selectedDatasets().some((dataset) => dataset.main)
+      && this.selectedFields().length > 0
       && this.filtersValid()
       && !this.previewLoading()
+      && !this.isLoading()
+      && !this.errorMessage()
       && !this.isGenerating(),
   );
   readonly canGenerate = computed(
     () => this.selectedFields().length > 0 && this.filtersValid() && !this.isGenerating(),
   );
+  readonly previewStatus = computed<PreviewStatus>(() => {
+    if (this.selectedFields().length === 0 || !this.filtersValid()) {
+      return 'Configuration incomplète';
+    }
+    if (this.previewLoading()) {
+      return 'Mise à jour…';
+    }
+    if (this.previewError()) {
+      return 'Erreur';
+    }
+    if (this.previewStale()) {
+      return 'Aperçu précédent';
+    }
+    return this.previewResult() ? 'À jour' : 'En attente';
+  });
+  readonly previewIncompleteMessage = computed(() => {
+    if (this.selectedFields().length === 0) {
+      return 'Sélectionnez au moins une colonne.';
+    }
+    return this.filtersValid() ? null : 'Terminez ou corrigez les filtres.';
+  });
 
   constructor() {
+    this.mobileMediaQuery?.addEventListener('change', this.handleMobileMediaChange);
+    this.destroyRef.onDestroy(() =>
+      this.mobileMediaQuery?.removeEventListener('change', this.handleMobileMediaChange),
+    );
+    this.observePreviewIntents();
     this.loadConfiguration();
   }
 
@@ -149,12 +214,16 @@ export class ConfigurationComponent {
 
     this.isLoading.set(true);
     this.errorMessage.set(null);
+    this.schedulePreview();
 
     this.reportConfigurationLoader
       .load(mainDatasetId, relatedDatasetIds)
       .pipe(
         takeUntilDestroyed(this.destroyRef),
-        finalize(() => this.isLoading.set(false)),
+        finalize(() => {
+          this.isLoading.set(false);
+          this.schedulePreview();
+        }),
       )
       .subscribe({
         next: (result) => this.applyConfigurationLoadResult(result),
@@ -169,7 +238,7 @@ export class ConfigurationComponent {
 
   /**
    * Remplace la sélection, retire les filtres et tris qui ne ciblent plus une colonne sélectionnée,
-   * puis signale que l’aperçu existant ne correspond plus à la définition courante.
+   * puis programme l’actualisation correspondant à la définition courante.
    */
   updateSelectedFields(fields: readonly ReportField[]): void {
     this.selectedFields.set(fields);
@@ -178,7 +247,7 @@ export class ConfigurationComponent {
       filters.filter((filter) => selectedIds.has(filter.fieldId)),
     );
     this.sorts.update((sorts) => sorts.filter((sort) => selectedIds.has(sort.fieldId)));
-    this.markPreviewAsPrevious();
+    this.schedulePreview();
   }
 
   /**
@@ -190,32 +259,47 @@ export class ConfigurationComponent {
     if (state.valid) {
       this.filters.set(state.filters);
     }
-    this.markPreviewAsPrevious();
+    this.schedulePreview();
   }
 
   updateSorts(sorts: readonly ReportSortRequest[]): void {
     this.sorts.set(sorts);
-    this.markPreviewAsPrevious();
-  }
-
-  openPreview(): void {
-    if (!this.canPreview()) {
-      return;
-    }
-
-    this.previewVisible.set(true);
-    this.loadPreview();
+    this.schedulePreview();
   }
 
   retryPreview(): void {
     if (this.previewLoading()) {
       return;
     }
-    this.loadPreview();
+    this.schedulePreview(true);
   }
 
-  setPreviewVisible(visible: boolean): void {
-    this.previewVisible.set(visible);
+  togglePreview(): void {
+    this.previewCollapsed.update((collapsed) => !collapsed);
+  }
+
+  selectMobileTab(tab: MobileTab): void {
+    this.mobileTab.set(tab);
+  }
+
+  handleMobileTabKeydown(event: KeyboardEvent, currentTab: MobileTab): void {
+    const nextTab = event.key === 'Home'
+      ? 'configuration'
+      : event.key === 'End'
+        ? 'preview'
+        : event.key === 'ArrowRight'
+          ? currentTab === 'configuration' ? 'preview' : 'configuration'
+          : event.key === 'ArrowLeft'
+            ? currentTab === 'preview' ? 'configuration' : 'preview'
+            : null;
+    if (!nextTab) {
+      return;
+    }
+
+    event.preventDefault();
+    this.selectMobileTab(nextTab);
+    const tabList = (event.currentTarget as HTMLElement).closest('[role="tablist"]');
+    tabList?.querySelector<HTMLElement>(`#${nextTab}-tab`)?.focus();
   }
 
   continueToExport(): void {
@@ -236,12 +320,18 @@ export class ConfigurationComponent {
     this.reportDraftStorage.save({ version: 1, definition, relatedDatasetIds });
     this.isGenerating.set(true);
     this.generationError.set(null);
+    this.schedulePreview();
 
     this.reportGenerationService
       .startReportGeneration(definition, globalThis.crypto.randomUUID())
       .pipe(
         takeUntilDestroyed(this.destroyRef),
-        finalize(() => this.isGenerating.set(false)),
+        finalize(() => {
+          this.isGenerating.set(false);
+          if (this.generationError()) {
+            this.schedulePreview();
+          }
+        }),
       )
       .subscribe({
         next: (generation) => {
@@ -296,6 +386,7 @@ export class ConfigurationComponent {
     this.sorts.set(draft.definition.sorts);
     this.filterResetRevision.update((revision) => revision + 1);
     this.clearPreview();
+    this.schedulePreview();
     return true;
   }
 
@@ -365,37 +456,76 @@ export class ConfigurationComponent {
     this.sorts.set([]);
     this.filterResetRevision.update((revision) => revision + 1);
     this.clearPreview();
+    this.schedulePreview();
   }
 
-  /**
-   * Exécute une demande explicite d’aperçu. Un résultat précédent reste affichable et marqué comme
-   * ancien pendant le rafraîchissement ou après une erreur, puis est remplacé uniquement au succès.
-   */
-  private loadPreview(): void {
-    const rootDataset = this.selectedDatasets().find((dataset) => dataset.main);
-    if (!rootDataset || !this.canPreview()) {
-      return;
-    }
-
-    const request = this.createPreviewRequest(rootDataset);
-
-    this.previewLoading.set(true);
-    this.previewError.set(null);
-    this.previewStale.set(this.previewResult() !== null);
-
-    this.reportPreviewService
-      .preview(request)
+  private observePreviewIntents(): void {
+    this.previewIntents
       .pipe(
+        distinctUntilChanged(
+          (previous, current) => !current.immediate && previous.key === current.key,
+        ),
+        switchMap((intent) => {
+          const revision = ++this.previewRequestRevision;
+          if (!intent.request) {
+            this.previewLoading.set(false);
+            this.previewStale.set(this.previewResult() !== null);
+            return EMPTY;
+          }
+
+          this.previewLoading.set(true);
+          this.previewError.set(null);
+          this.previewStale.set(this.previewResult() !== null);
+
+          return (intent.immediate ? of(0) : timer(PREVIEW_DEBOUNCE_MS)).pipe(
+            switchMap(() => this.reportPreviewService.preview(intent.request!)),
+            catchError((error: HttpErrorResponse) => {
+              this.previewError.set(this.previewErrorMessage(error));
+              this.previewStale.set(this.previewResult() !== null);
+              return EMPTY;
+            }),
+            finalize(() => {
+              if (revision === this.previewRequestRevision) {
+                this.previewLoading.set(false);
+              }
+            }),
+          );
+        }),
         takeUntilDestroyed(this.destroyRef),
-        finalize(() => this.previewLoading.set(false)),
       )
-      .subscribe({
-        next: (response) => {
-          this.previewResult.set(response);
-          this.previewStale.set(false);
-        },
-        error: (error: HttpErrorResponse) => this.previewError.set(this.previewErrorMessage(error)),
+      .subscribe((response) => {
+        this.previewResult.set(response);
+        this.previewStale.set(false);
       });
+  }
+
+  private schedulePreview(immediate = false): void {
+    const rootDataset = this.selectedDatasets().find((dataset) => dataset.main);
+    const request = rootDataset
+      && this.selectedFields().length > 0
+      && this.filtersValid()
+      && !this.isLoading()
+      && !this.errorMessage()
+      && !this.isGenerating()
+      ? this.createPreviewRequest(rootDataset)
+      : null;
+
+    this.previewIntents.next({
+      request,
+      immediate,
+      key: request ? this.previewRequestKey(request) : 'invalid',
+    });
+  }
+
+  private moveFocusOutOfHiddenMobilePanel(): void {
+    const activeElement = globalThis.document?.activeElement as HTMLElement | null;
+    const activeTab = this.mobileTab();
+    const focusIsHidden = activeTab === 'preview'
+      ? Boolean(activeElement?.closest('#configuration-panel'))
+      : Boolean(activeElement?.closest('#preview-panel'));
+    if (focusIsHidden) {
+      globalThis.document?.getElementById(`${activeTab}-tab`)?.focus();
+    }
   }
 
   private createPreviewRequest(rootDataset: SelectedDataset): ReportPreviewRequest {
@@ -407,11 +537,13 @@ export class ConfigurationComponent {
     };
   }
 
-  private markPreviewAsPrevious(): void {
-    if (this.previewResult() !== null) {
-      this.previewStale.set(true);
-    }
-    this.previewError.set(null);
+  private previewRequestKey(request: ReportPreviewRequest): string {
+    return JSON.stringify([
+      request.rootDatasetId,
+      request.selectedFieldIds,
+      request.filters.map(({fieldId, operator, values}) => [fieldId, operator, values]),
+      request.sorts.map(({fieldId, direction}) => [fieldId, direction]),
+    ]);
   }
 
   private clearPreview(): void {
@@ -420,22 +552,26 @@ export class ConfigurationComponent {
     this.previewStale.set(false);
   }
 
-  /**
-   * Privilégie le détail métier renvoyé par l’API, puis applique les messages dédiés à l’expiration
-   * de session et à l’indisponibilité réseau avant le message générique.
-   */
+  /** Retourne uniquement des messages locaux sûrs pour l’affichage persistant. */
   private previewErrorMessage(error: HttpErrorResponse): string {
-    const problem = error.error as ApiProblem | null;
-    if (problem && typeof problem === 'object' && typeof problem.detail === 'string') {
-      return problem.detail;
-    }
-
     if (error.status === 401) {
       return 'Votre session a expiré. Reconnectez-vous avant de demander un aperçu.';
+    }
+    if (error.status === 403) {
+      return 'Vous n’avez pas accès à cet aperçu.';
+    }
+    if (error.status === 400) {
+      return 'La configuration du rapport n’a pas pu être validée. Vérifiez les colonnes, filtres et tris.';
+    }
+    if (error.status === 409) {
+      return 'Certaines données de la configuration ne sont plus disponibles. Rechargez la configuration.';
+    }
+    if (error.status === 504) {
+      return 'L’aperçu a pris trop de temps. Réessayez ou précisez les filtres.';
     }
     if (error.status === 0) {
       return 'Le serveur est momentanément inaccessible. Vérifiez votre connexion puis réessayez.';
     }
-    return 'Impossible de charger l’aperçu du rapport.';
+    return 'Impossible de charger l’aperçu du rapport. Réessayez dans quelques instants.';
   }
 }

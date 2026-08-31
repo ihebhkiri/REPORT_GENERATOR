@@ -1174,7 +1174,7 @@ import RHIS.com.RHIS.auth.JwtService;
 import RHIS.com.RHIS.auth.SecurityConfig;
 import RHIS.com.RHIS.auth.UserPrincipal;
 import RHIS.com.RHIS.auth.user.UserEntity;
-import RHIS.com.RHIS.bot.controller.dto.BotReportRequest;
+import RHIS.com.RHIS.bot.controller.BotReportController;
 import RHIS.com.RHIS.bot.controller.dto.BotReportResponse;
 import RHIS.com.RHIS.report.model.ReportExportFormat;
 import org.junit.jupiter.api.Test;

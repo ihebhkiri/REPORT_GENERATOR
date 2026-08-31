@@ -17,7 +17,7 @@ spring:
       password: user
   ai:
     mistralai:
-      api-key: ${MISTRAL_API_KEY:}
+      api-key: d7aSk76rKwkLhRgep3RQ18NpRfF1kvsd
       chat:
         options:
           model: mistral-small-latest
