@@ -20,14 +20,16 @@ describe('SharedPageLayoutComponent', () => {
       const fixture = TestBed.createComponent(SharedPageLayoutComponent);
       fixture.detectChanges();
       const element = fixture.nativeElement as HTMLElement;
+      expect(element.querySelectorAll('aside').length).toBe(1);
       expect(element.querySelectorAll('header').length).toBe(1);
+      expect(element.querySelectorAll('main').length).toBe(1);
       expect(element.querySelector('a[href="/rapports"]')).not.toBeNull();
       expect(element.querySelector('a[href="/assistant"]')).not.toBeNull();
       expect(element.querySelector('a[href="/administration/datasets"]')).toBeNull();
       response.next({email: 'demo@example.test', roles: ['ROLE_ADMIN']});
       fixture.detectChanges();
       expect(element.querySelector('a[href="/administration/datasets"]')).not.toBeNull();
-      expect(element.querySelector('a[aria-current="page"]')?.textContent)
+      expect(element.querySelector('.primary-nav a[aria-current="page"]')?.textContent)
         .toContain(page === 'datasets' ? 'Données' : page === 'assistant' ? 'Assistant' : 'Rapports');
       response.next({email: 'demo@example.test', roles: ['ROLE_USER']});
       fixture.detectChanges();

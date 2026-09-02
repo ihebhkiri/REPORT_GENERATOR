@@ -47,6 +47,7 @@ export class SharedPageLayoutComponent {
   readonly pageCopy = PAGE_COPY[this.page];
   readonly isDatasets = this.page === 'datasets';
   readonly isReports = this.page === 'reports' || this.page === 'configuration' || this.page === 'export';
+  readonly isAssistant = this.page === 'assistant';
   readonly user = toSignal(
     inject(AuthService).me().pipe(catchError(() => of(null))),
     {initialValue: null},
