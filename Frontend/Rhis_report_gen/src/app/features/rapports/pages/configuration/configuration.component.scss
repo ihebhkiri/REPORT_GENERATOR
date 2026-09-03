@@ -1,9 +1,40 @@
 :host {
   display: block;
+  color: #10213f;
 }
 
-main {
+.configuration-page {
   display: flex;
+  width: min(92rem, calc(100% - 6rem));
+  margin: 0 auto;
+  padding: 0 0 2rem;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.stepper-card,
+.report-actions {
+  border: 1px solid #dfe5ed;
+  border-radius: 0.7rem;
+  background: #fff;
+  box-shadow: 0 2px 6px rgb(16 33 63 / 5%);
+}
+
+.stepper-card {
+  padding: 1.4rem 3.5rem;
+}
+
+.configuration-grid {
+  display: grid;
+  min-width: 0;
+  grid-template-columns: minmax(0, 1.7fr) minmax(20rem, 1fr);
+  gap: 1rem;
+  align-items: stretch;
+}
+
+.configuration-side {
+  display: flex;
+  min-width: 0;
   flex-direction: column;
   gap: 1rem;
 }
@@ -42,18 +73,89 @@ main {
 .configuration-scroll {
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 1rem;
 }
 
 .report-actions {
   display: flex;
-  flex-direction: column;
+  min-height: 3.8rem;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
   gap: 1rem;
-  border: 1px solid #e2e8f0;
-  border-radius: 0.75rem;
+  padding: 0.65rem 1rem;
+}
+
+.report-guidance {
+  min-height: 1.25rem;
+  color: #526683;
+  font-size: 0.78rem;
+}
+
+.report-guidance p {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  margin: 0;
+}
+
+.report-guidance .material-symbols-outlined {
+  color: #7184a2;
+  font-size: 1.15rem;
+}
+
+.report-guidance--warning {
+  color: #9a5b00;
+}
+
+.report-action-buttons {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: 1rem;
+}
+
+.generation-error {
+  flex-basis: 100%;
+  margin: 0;
+  color: #b91c1c;
+  font-size: 0.8rem;
+}
+
+.secondary-action {
+  display: inline-flex;
+  min-width: 6.25rem;
+  min-height: 2.5rem;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #dfe5ed;
+  border-radius: 0.45rem;
+  color: #526683;
   background: #fff;
-  padding: 1.25rem;
-  box-shadow: 0 1px 2px rgb(15 23 42 / 5%);
+  font-size: 0.8rem;
+  font-weight: 650;
+  text-decoration: none;
+}
+
+.secondary-action:hover {
+  border-color: #b8c4d5;
+  background: #f7f9fc;
+}
+
+.secondary-action:focus-visible {
+  outline: 2px solid #4945f4;
+  outline-offset: 2px;
+}
+
+:host ::ng-deep .report-action-buttons .p-button {
+  min-width: 6.25rem;
+  min-height: 2.5rem;
+  border-color: #403df0;
+  border-radius: 0.45rem;
+  background: linear-gradient(135deg, #4945f4, #3433d7);
+  box-shadow: 0 5px 12px rgb(64 61 240 / 20%);
+  font-size: 0.8rem;
 }
 
 .mobile-hidden,
@@ -62,21 +164,6 @@ main {
 }
 
 @media (min-width: 48rem) {
-  :host {
-    height: 100%;
-    overflow: hidden;
-  }
-
-  main {
-    display: grid;
-    height: 100%;
-    min-height: 0;
-    grid-template-rows: minmax(0, 1fr) auto minmax(0, 1fr);
-    overflow: hidden;
-    padding-top: 1rem;
-    padding-bottom: 1rem;
-  }
-
   .mobile-tabs {
     display: none;
   }
@@ -84,30 +171,13 @@ main {
   .configuration-pane,
   .configuration-pane.mobile-hidden {
     display: block;
-    grid-row: 1;
     min-height: 0;
-    overflow: hidden;
-  }
-
-  .configuration-scroll {
-    height: 100%;
-    min-height: 0;
-    overflow-y: auto;
   }
 
   app-preview-panel,
   app-preview-panel.mobile-hidden {
     display: block;
-    grid-row: 3;
     min-height: 0;
-  }
-
-  .report-actions {
-    grid-row: 2;
-  }
-
-  main:has(app-preview-panel.preview-collapsed) {
-    grid-template-rows: minmax(0, 1fr) auto auto;
   }
 
   .preview-collapse-action {
@@ -149,10 +219,38 @@ main {
 }
 
 @media (min-width: 64rem) {
+  .configuration-grid > app-column-selector {
+    height: 100%;
+  }
+}
+
+@media (max-width: 64rem) {
+  .configuration-page {
+    width: calc(100% - 3rem);
+  }
+
+  .configuration-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 48rem) {
+  .configuration-page {
+    width: calc(100% - 2rem);
+    padding-bottom: 1rem;
+  }
+
+  .stepper-card {
+    padding: 1rem;
+  }
+
   .report-actions {
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .report-action-buttons {
+    justify-content: flex-end;
   }
 }
 

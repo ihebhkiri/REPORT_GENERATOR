@@ -1,17 +1,17 @@
 <section
-  class="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm"
+  class="columns-card"
   aria-labelledby="columns-title"
 >
-  <header class="flex items-center border-b border-slate-200 bg-white p-4">
-    <h2 id="columns-title" class="flex items-center gap-2 text-xl font-semibold text-slate-900">
+  <header class="columns-header">
+    <h2 id="columns-title">
       <span class="icon-filled material-symbols-outlined text-indigo-700" aria-hidden="true">view_column</span>
       Colonnes
     </h2>
   </header>
 
-  <div class="flex min-h-[420px] flex-col md:flex-row">
+  <div class="columns-body">
     <section
-      class="flex w-full flex-col gap-4 border-b border-slate-200 bg-[#f7f9fb] p-4 md:w-1/2 md:border-r md:border-b-0"
+      class="available-fields"
       aria-labelledby="available-fields-title"
     >
       <h3 id="available-fields-title" class="text-xs font-semibold tracking-wider text-slate-600 uppercase">
@@ -82,7 +82,7 @@
       </p-accordion>
     </section>
 
-    <section class="flex w-full flex-col gap-4 bg-white p-4 md:w-1/2" aria-labelledby="selected-fields-title">
+    <section class="selected-fields" aria-labelledby="selected-fields-title">
       <h3 id="selected-fields-title" class="flex items-center justify-between text-xs font-semibold tracking-wider text-slate-600 uppercase">
         <span>Colonnes sélectionnées</span>
         <span class="rounded-full bg-indigo-600 px-2 py-0.5 text-[11px] text-white">{{ selectedCount() }}</span>

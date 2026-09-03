@@ -1,116 +1,94 @@
 :host {
   display: block;
-  min-height: 100%;
 }
 
 .export-page {
-  color: var(--p-text-color);
+  --export-accent: #4945f4;
+  --export-border: #dfe5ed;
+  --export-muted: #526683;
+  color: #10213f;
   background: var(--p-surface-50);
 }
 
 .export-main {
   box-sizing: border-box;
-  width: 100%;
-  max-width: 1040px;
+  width: min(92rem, calc(100% - 6rem));
   margin: 0 auto;
-  padding: 32px 40px 28px;
-}
-
-.export-intro {
-  display: flex;
-  align-items: stretch;
-  flex-direction: column;
-  gap: 24px;
-}
-
-
-.report-stepper {
-  width: 100%;
-  max-width: 720px;
-  margin: 0 auto;
+  padding-bottom: 2rem;
 }
 
 .export-timeline {
   display: block;
-  width: 100%;
-  max-width: none;
-  margin: 28px auto 0;
+  margin-top: 1.25rem;
 }
 
 .export-timeline__marker {
   display: inline-flex;
-  width: 32px;
-  height: 32px;
+  width: 2.25rem;
+  height: 2.25rem;
   align-items: center;
   justify-content: center;
-  color: var(--p-surface-600);
-  background: var(--p-surface-0);
-  border: 1px solid var(--p-surface-300);
+  color: var(--export-muted);
+  background: #fff;
+  border: 1px solid var(--export-border);
   border-radius: 50%;
-  font-size: 13px;
   font-weight: 700;
 }
 
 .export-timeline__marker--completed {
-  color: var(--p-primary-contrast-color);
-  background: var(--p-primary-color);
-  border-color: var(--p-primary-color);
+  color: #fff;
+  background: linear-gradient(135deg, #403df0, #5b50f5);
+  border-color: var(--export-accent);
+  border-radius: .5rem;
 }
 
 .export-timeline__marker--active {
-  color: var(--p-primary-color);
-  background: var(--p-primary-50);
-  border-color: var(--p-primary-color);
-}
-
-.export-timeline__marker--error {
-  color: var(--p-red-50);
-  background: var(--p-red-600);
-  border-color: var(--p-red-600);
+  color: var(--export-accent);
+  border-color: var(--export-accent);
 }
 
 .export-workflow-card,
 .export-format-card,
-.export-format-card__copy {
-  min-width: 0;
-}
+.export-format-card__copy { min-width: 0; }
 
 .export-workflow-card {
+  --p-card-background: #fff;
+  --p-card-border-radius: .75rem;
+  --p-card-shadow: 0 .25rem .75rem rgb(16 33 63 / 6%);
+  --p-card-body-padding: 1.35rem 1.5rem;
+  --p-card-caption-gap: .35rem;
+  --p-card-title-font-size: 1rem;
+  --p-card-subtitle-color: var(--export-muted);
   display: block;
-  margin-bottom: 14px;
+  margin-bottom: 1.25rem;
 }
 
 .export-workflow-card__heading,
 .export-preparation-progress,
-.export-format-card__title-line,
 .export-card-actions,
 .export-page-actions {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 16px;
-}
-
-.export-preparation-progress {
-  margin-bottom: 8px;
-  color: var(--p-text-muted-color);
-  font-size: 13px;
-  font-variant-numeric: tabular-nums;
+  gap: 1rem;
 }
 
 .export-card-actions {
-  margin-top: 16px;
+  margin-top: 1rem;
   justify-content: flex-end;
 }
 
 .export-format-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 16px;
-  margin-top: 16px;
+  gap: 1.25rem;
+  margin-top: 1.25rem;
 }
 
 .export-format-card {
+  --p-card-background: #fff;
+  --p-card-border-radius: .625rem;
+  --p-card-body-padding: 1.125rem 1.25rem;
   display: block;
   height: 100%;
 }
@@ -118,115 +96,107 @@
 .export-format-card__row {
   display: grid;
   grid-template-columns: auto minmax(0, 1fr);
-  align-items: start;
-  gap: 12px;
-}
-
-.export-format-card__copy {
-  overflow-wrap: anywhere;
+  align-items: center;
+  gap: .75rem 1.25rem;
 }
 
 .export-format-card__copy > span {
   display: block;
-  margin-top: 4px;
-  color: var(--p-text-muted-color);
-  font-size: 13px;
-}
-
-.export-format-card__title-line {
-  justify-content: flex-start;
-  flex-wrap: wrap;
-  gap: 8px;
+  margin-top: .35rem;
+  color: var(--export-muted);
 }
 
 .export-format-card__row > p-button {
+  --p-button-primary-background: #4945f4;
+  --p-button-primary-border-color: #4945f4;
+  --p-button-primary-hover-background: #403df0;
+  --p-button-primary-hover-border-color: #403df0;
+  --p-button-border-radius: .45rem;
   display: block;
   min-width: 0;
   grid-column: 1 / -1;
 }
 
 .export-page-actions {
-  width: 100%;
-  max-width: none;
-  margin: 8px auto 0;
-  padding-top: 18px;
-  border-top: 1px solid var(--p-surface-200);
+  margin-top: .25rem;
+  padding: .25rem .5rem 0;
 }
 
-.export-loading {
+:host ::ng-deep app-report-steps {
   display: block;
-  width: 100%;
   max-width: none;
-  margin: 28px auto 0;
-  text-align: center;
+  padding: 1.45rem 2.25rem;
+  background: #fff;
+  border: 1px solid var(--export-border);
+  border-radius: .75rem;
+  box-shadow: 0 .25rem .75rem rgb(16 33 63 / 6%);
 }
 
-.export-loading .pi {
-  margin-right: 8px;
-  color: var(--p-primary-color);
+:host ::ng-deep app-report-steps .report-stepper {
+  max-width: 62rem;
+  margin: 0 auto;
 }
 
-.unavailable-elements {
-  margin-top: 12px;
-  padding: 12px 14px;
-  color: var(--p-red-800);
-  background: var(--p-red-50);
-  border: 1px solid var(--p-red-200);
-  border-radius: var(--p-border-radius-md);
-}
+:host ::ng-deep .export-timeline .p-timeline-event { min-width: 0; }
 
-.unavailable-elements ul {
-  margin: 6px 0 0;
-  padding-left: 20px;
-}
+:host ::ng-deep .export-timeline .p-timeline-event-opposite,
+:host ::ng-deep .export-timeline .p-timeline-event-connector { display: none; }
 
-:host ::ng-deep .export-timeline .p-timeline-event {
-  min-width: 0;
-}
-
-:host ::ng-deep .export-timeline .p-timeline-event-opposite {
-  display: none;
-  padding: 0;
-}
+:host ::ng-deep .export-timeline .p-timeline-event-separator { flex: 0 0 2.25rem; }
 
 :host ::ng-deep .export-timeline .p-timeline-event-content {
   min-width: 0;
-  padding: 0 0 20px 16px;
+  padding: 0 0 0 1.5rem;
   flex: 1 1 auto;
 }
 
+:host ::ng-deep .export-workflow-card > .p-card,
 :host ::ng-deep .export-format-card > .p-card {
-  height: 100%;
-}
-
-:host ::ng-deep .p-progressbar {
-  height: 8px;
   overflow: hidden;
-  background: #e5eaf0;
-  border-radius: 999px;
+  border: 1px solid var(--export-border);
 }
 
-:host ::ng-deep .p-progressbar-value {
-  background: #2563eb;
+:host ::ng-deep .export-format-card > .p-card { height: 100%; }
+
+.export-format-card__image {
+  width: 3.5rem;
+  height: 3.5rem;
+  background: #e9eef6;
+  border-radius: .55rem;
+  object-fit: contain;
 }
 
-@media (max-width: 760px) {
-  .export-main {
-    padding-right: 16px;
-    padding-left: 16px;
-  }
+:host ::ng-deep .export-format-card .p-button {
+  min-height: 2.75rem;
+  margin-top: .25rem;
+  box-shadow: none;
+  font-weight: 650;
+}
 
-  .export-main {
-    padding-top: 24px;
-    padding-bottom: 20px;
-  }
+:host ::ng-deep .export-workflow-card .p-message-secondary {
+  width: 100%;
+  margin-top: .75rem;
+  padding: .65rem .75rem;
+  color: #405575;
+  background: #f1f5fb;
+  border: 1px solid #dce4ef;
+  border-radius: .45rem;
+}
 
-  .export-format-grid {
-    grid-template-columns: minmax(0, 1fr);
-  }
+:host ::ng-deep .export-page-actions .p-button {
+  color: var(--export-muted);
+  box-shadow: none;
+}
 
-  .export-page-actions {
-    align-items: stretch;
-    flex-direction: column;
-  }
+@media (max-width: 64rem) {
+  .export-main { width: calc(100% - 3rem); }
+}
+
+@media (max-width: 47.5rem) {
+  .export-main { width: calc(100% - 2rem); }
+  .export-format-grid { grid-template-columns: minmax(0, 1fr); }
+  .export-page-actions { flex-direction: column; }
+  .export-workflow-card { --p-card-body-padding: 1.1rem 1rem; }
+  :host ::ng-deep app-report-steps { padding: 1.1rem .75rem; }
+  :host ::ng-deep .export-timeline .p-timeline-event-content { padding-left: .75rem; }
 }

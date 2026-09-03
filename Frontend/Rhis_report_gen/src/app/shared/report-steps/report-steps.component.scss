@@ -1,4 +1,8 @@
-:host { display: block; }
+:host {
+  display: block;
+  max-width: 62rem;
+  margin: 0 auto;
+}
 
 .report-stepper {
   --p-stepper-step-padding: 0;
@@ -14,7 +18,7 @@
   --p-stepper-step-number-active-color: #4945f4;
   --p-stepper-step-title-color: #526683;
   --p-stepper-step-title-active-color: #403df0;
-  --p-stepper-step-title-font-size: .875rem;
+  --p-stepper-step-title-font-size: .9rem;
   --p-stepper-step-title-font-weight: 650;
   --p-stepper-separator-background: #dfe5ed;
   --p-stepper-separator-active-background: #4945f4;

@@ -180,11 +180,10 @@
       }
 
       <div class="export-format-card__row">
-        <p-avatar
-          [icon]="definition.icon"
-          size="large"
-          shape="square"
-          [ariaLabel]="'Format ' + definition.title"
+        <img
+          class="export-format-card__image"
+          [src]="definition.imageSrc"
+          [alt]="'Format ' + definition.title"
         />
 
         <div class="export-format-card__copy">

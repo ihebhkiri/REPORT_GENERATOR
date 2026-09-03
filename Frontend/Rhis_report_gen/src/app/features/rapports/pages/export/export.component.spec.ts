@@ -438,8 +438,16 @@ describe('ExportComponent', () => {
     expect(formats.length).toBe(2);
     expect(formats[0].textContent).toContain('Télécharger PDF');
     expect(formats[1].textContent).toContain('Télécharger Excel');
-    expect(fixture.nativeElement.querySelector('.pi-file-pdf')).not.toBeNull();
-    expect(fixture.nativeElement.querySelector('.pi-file-excel')).not.toBeNull();
+    const host = fixture.nativeElement as HTMLElement;
+    const images = Array.from(host.querySelectorAll<HTMLImageElement>('.export-format-card__image'));
+    expect(images.map(({ src }) => new URL(src).pathname)).toEqual([
+      '/assets/pdf%20logo.avif',
+      '/assets/ms-excel.jpg',
+    ]);
+    expect(images.map(({ alt }) => alt)).toEqual([
+      'Format Document PDF',
+      'Format Classeur Excel',
+    ]);
   }));
 
   it('uses the full timeline width and contains both format actions', fakeAsync(() => {

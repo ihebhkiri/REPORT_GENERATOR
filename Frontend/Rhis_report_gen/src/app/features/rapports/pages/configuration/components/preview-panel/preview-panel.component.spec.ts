@@ -123,7 +123,7 @@ describe('PreviewPanelComponent', () => {
       .toContain('preview-content--expanded');
     expect(element.querySelector('#report-preview-body')?.hasAttribute('inert')).toBeFalse();
     expect(element.querySelectorAll('tbody tr').length).toBe(2);
-    expect(element.textContent).toContain('Aperçu du rapport');
+    expect(element.textContent).toContain('Aperçu en temps réel');
   });
 
   function response(): ReportPreviewResponse {

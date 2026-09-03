@@ -35,6 +35,12 @@ describe('SharedPageLayoutComponent', () => {
       fixture.detectChanges();
       expect(element.querySelector('a[href="/administration/datasets"]')).toBeNull();
       expect(element.querySelectorAll('h1').length).toBe(1);
+      if (page === 'configuration') {
+        expect(element.querySelector('h1')?.textContent).toContain('Créer un rapport dynamique');
+        expect(element.querySelector('.description')?.textContent).toContain(
+          'Sélectionnez une source de données, configurez les colonnes et exportez votre rapport.',
+        );
+      }
       response.error(new Error('Session unavailable'));
       fixture.detectChanges();
       expect(element.querySelector('a[href="/administration/datasets"]')).toBeNull();

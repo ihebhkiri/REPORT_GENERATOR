@@ -26,7 +26,7 @@ const PAGE_COPY: Record<LayoutPage, {breadcrumb: string; title: string; descript
   configuration: {
     breadcrumb: 'Rapports · Configuration',
     title: 'Configurer le rapport',
-    description: 'Choisissez les colonnes, filtres et tris, puis vérifiez l’aperçu.',
+    description: 'Configurez les champs, les filtres et le tri de votre rapport avant de générer l’aperçu final.',
   },
   export: {
     breadcrumb: 'Rapports · Export',
