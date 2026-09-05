@@ -16,4 +16,5 @@ public record ReportPreviewRequest(
         filters = filters == null ? List.of() : filters;
         sorts = sorts == null ? List.of() : sorts;
     }
+
 }

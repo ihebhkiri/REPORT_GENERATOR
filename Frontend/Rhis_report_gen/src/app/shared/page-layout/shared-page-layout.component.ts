@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, computed, inject} from '@angular/core';
+import {ChangeDetectionStrategy, Component, computed, inject, signal} from '@angular/core';
 import {toSignal} from '@angular/core/rxjs-interop';
 import {ActivatedRoute, RouterLink, RouterOutlet} from '@angular/router';
 import {catchError, of} from 'rxjs';
@@ -43,6 +43,7 @@ const PAGE_COPY: Record<LayoutPage, {breadcrumb: string; title: string; descript
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SharedPageLayoutComponent {
+  readonly isCollapsed = signal(true);
   readonly page = (inject(ActivatedRoute).snapshot.data['page'] ?? 'reports') as LayoutPage;
   readonly pageCopy = PAGE_COPY[this.page];
   readonly isDatasets = this.page === 'datasets';

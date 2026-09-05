@@ -1,26 +1,31 @@
 <a class="skip-link" href="#page-content">Aller au contenu</a>
-<div class="app-shell">
+<div class="app-shell" [class.sidebar-expanded]="!isCollapsed()">
   <aside class="shared-sidebar" aria-label="Navigation secondaire">
-    <div class="sidebar-logo" aria-label="RHIS"><img src="/rhis-solutions-logo.png" alt=""/></div>
+    <div class="sidebar-logo" aria-label="RHIS"><img [src]="isCollapsed() ? '/logo_collapsed.png' : '/rhis-solutions-logo.png'" alt=""/></div>
     <nav class="sidebar-nav" aria-label="Raccourcis">
       <a class="sidebar-item" routerLink="/rapports" aria-label="Rapports"
-         [attr.aria-current]="isReports ? 'page' : null"><span class="pi pi-chart-bar" aria-hidden="true"></span></a>
+         [attr.aria-current]="isReports ? 'page' : null"><span class="pi pi-chart-bar" aria-hidden="true"></span><span class="sidebar-label">Rapports</span></a>
       @if (isAdmin()) {
-        <a class="sidebar-item" routerLink="/administration/datasets"
-           [attr.aria-current]="isDatasets ? 'page' : null"><span class="pi pi-database" aria-hidden="true"></span></a>
+        <a class="sidebar-item" routerLink="/administration/datasets" aria-label="Données"
+           [attr.aria-current]="isDatasets ? 'page' : null"><span class="pi pi-database" aria-hidden="true"></span><span class="sidebar-label">Données</span></a>
       } @else {
-        <span class="sidebar-item" aria-hidden="true"><span class="pi pi-database"></span></span>
+        <span class="sidebar-item" aria-hidden="true"><span class="pi pi-database"></span><span class="sidebar-label">Données</span></span>
       }
-      <a routerLink="/assistant" class="sidebar-item" [attr.aria-current]="isAssistant ? 'page' : null"><span class="pi pi-sparkles"></span></a>
-      <span class="sidebar-item" aria-hidden="true"><span class="pi pi-th-large"></span></span>
-      <span class="sidebar-item" aria-hidden="true"><span class="pi pi-calendar"></span></span>
-      <span class="sidebar-item" aria-hidden="true"><span class="pi pi-bell"></span></span>
-      <span class="sidebar-item" aria-hidden="true"><span class="pi pi-users"></span></span>
-      <span class="sidebar-item" aria-hidden="true"><span class="pi pi-cog"></span></span>
+      <a routerLink="/assistant" class="sidebar-item" aria-label="Assistant" [attr.aria-current]="isAssistant ? 'page' : null"><span class="pi pi-sparkles" aria-hidden="true"></span><span class="sidebar-label">Assistant</span></a>
+      <span class="sidebar-item" aria-hidden="true"><span class="pi pi-th-large"></span><span class="sidebar-label">Applications</span></span>
+      <span class="sidebar-item" aria-hidden="true"><span class="pi pi-calendar"></span><span class="sidebar-label">Calendrier</span></span>
+      <span class="sidebar-item" aria-hidden="true"><span class="pi pi-bell"></span><span class="sidebar-label">Notifications</span></span>
+      <span class="sidebar-item" aria-hidden="true"><span class="pi pi-users"></span><span class="sidebar-label">Utilisateurs</span></span>
+      <span class="sidebar-item" aria-hidden="true"><span class="pi pi-cog"></span><span class="sidebar-label">Paramètres</span></span>
     </nav>
-    <div class="sidebar-footer" aria-hidden="true">
-      <span class="sidebar-item"><span class="pi pi-question-circle"></span></span>
-      <span class="sidebar-collapse"><span class="pi pi-chevron-left"></span></span>
+    <div class="sidebar-footer">
+      <span class="sidebar-item" aria-hidden="true"><span class="pi pi-question-circle"></span><span class="sidebar-label">Aide</span></span>
+      <button type="button" class="sidebar-collapse"
+              (click)="isCollapsed.set(!isCollapsed())"
+              [attr.aria-expanded]="!isCollapsed()"
+              [attr.aria-label]="isCollapsed() ? 'Développer la navigation' : 'Réduire la navigation'">
+        <span class="pi pi-chevron-right" aria-hidden="true"></span>
+      </button>
     </div>
   </aside>
 

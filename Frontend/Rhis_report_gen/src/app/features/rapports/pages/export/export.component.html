@@ -63,7 +63,7 @@
                   <div class="export-card-actions">
                     <p-button label="Revenir et réessayer" severity="danger" (onClick)="returnToConfiguration()"/>
                   </div>
-                } @else if (reportGeneration.status !== 'READY') {
+                } @else if (reportGeneration.status !== 'READY' && reportGeneration.progress < 100) {
                   <div class="export-preparation-progress">
                     <span>{{ reportGeneration.processedRowCount ?? 0 }} ligne(s) traitée(s)</span>
                     <strong>{{ reportGeneration.progress }} %</strong>
@@ -162,22 +162,24 @@
       class="export-format-card"
       [attr.data-testid]="location + '-card-' + definition.format"
     >
-      @if (location === 'download' &&
-      !exportError &&
-      (
-        formatCreationInProgress ||
-        reportExport?.status === 'PENDING' ||
-        reportExport?.status === 'RUNNING'
-      )) {
-        <ng-template #header>
+      <ng-template #header>
+        @if (location === 'download' &&
+        !exportError &&
+        reportExport?.status !== 'READY' &&
+        (reportExport?.progress ?? 0) < 100 &&
+        (
+          formatCreationInProgress ||
+          reportExport?.status === 'PENDING' ||
+          reportExport?.status === 'RUNNING'
+        )) {
           <p-progressbar
             role="progressbar"
             [mode]="formatProgressMode(definition.format)"
             [value]="reportExport?.progress ?? 0"
             [showValue]="false"
           />
-        </ng-template>
-      }
+        }
+      </ng-template>
 
       <div class="export-format-card__row">
         <img
