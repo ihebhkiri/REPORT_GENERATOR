@@ -21,7 +21,7 @@ Le backend Spring Boot 4.1 expose des controllers REST protégés par Spring Sec
 
 PostgreSQL contient le catalogue exposable (`datasets`, `dataset_fields`), les utilisateurs et rôles, les états de génération et d'export, ainsi que les tables métier RH. Les relations de datasets proviennent des foreign keys visibles dans `information_schema`.
 
-L'assistant appelle Mistral via Spring AI. Le modèle reçoit une version compacte du catalogue autorisé, la date et la demande utilisateur. Il retourne une structure typée ou une question de clarification. Il ne reçoit ni ligne métier, ni nom physique SQL, ni requête SQL. `ReportDefinitionResolver` revalide ensuite tous les IDs, types, opérateurs, valeurs, tris et chemins de jointure. Une seule tentative de correction LLM est permise avant un échec métier.
+L'assistant appelle XKiro via son endpoint compatible OpenAI et l'adapter OpenAI de Spring AI. La configuration courante sélectionne le modèle `qwen/qwen3-max:free`. Le modèle reçoit une version compacte du catalogue autorisé, la date et la demande utilisateur. Il retourne une structure typée ou une question de clarification. Il ne reçoit ni ligne métier, ni nom physique SQL, ni requête SQL. `ReportDefinitionResolver` revalide ensuite tous les IDs, types, opérateurs, valeurs, tris et chemins de jointure. Une seule tentative de correction LLM est permise avant un échec métier.
 
 ## Direction narrative retenue
 
@@ -32,7 +32,7 @@ Le deck suit une narration « architecture puis flux ». Elle convient à un pub
 1. **RHIS Report Generator** — titre, périmètre et technologies principales.
 2. **Problème métier et objectif** — besoin de rapports RH configurables sans exposer directement la structure SQL.
 3. **Périmètre fonctionnel réel** — parcours manuel, assistant naturel, administration de l'exposition, formats PDF/XLSX.
-4. **Architecture globale** — diagramme Angular, API Spring, PostgreSQL, stockage temporaire et Mistral.
+4. **Architecture globale** — diagramme Angular, API Spring, PostgreSQL, stockage temporaire et XKiro.
 5. **Architecture frontend** — features, composants, services, Signals et RxJS.
 6. **Architecture backend** — controllers, services, resolver, SQL builder, workers, JPA et JDBC.
 7. **Modèle de données et métadonnées** — utilisateurs/rôles, datasets/fields, générations/exports et principales relations RH.
@@ -72,6 +72,7 @@ Le deck suit une narration « architecture puis flux ». Elle convient à un pub
 - Deux appels LLM maximum par demande.
 - Le format d'export provient du champ de requête, pas du texte naturel.
 - Le frontend ne met pas en œuvre de refresh token automatique.
+- La configuration courante contient la clé XKiro en clair dans `application.yaml`; elle doit être révoquée puis externalisée avant un déploiement.
 
 ## Critères d'acceptation
 
