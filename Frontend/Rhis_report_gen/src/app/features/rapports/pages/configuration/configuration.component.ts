@@ -130,7 +130,7 @@ export class ConfigurationComponent {
   readonly previewResult = signal<ReportPreviewResponse | null>(null);
   readonly previewError = signal<string | null>(null);
   readonly previewStale = signal(false);
-  readonly previewCollapsed = signal(true);
+  readonly previewCollapsed = signal(false);
   readonly isMobile = signal(this.mobileMediaQuery?.matches ?? false);
   readonly mobileTab = signal<MobileTab>('configuration');
   readonly isGenerating = signal(false);

@@ -1,4 +1,4 @@
-<main class="mx-auto w-full max-w-[1440px] px-4 py-6 text-slate-900 md:px-10">
+<div class="configuration-page">
     <div
       class="mobile-tabs"
       role="tablist"
@@ -44,10 +44,8 @@
           <p class="rounded-lg border border-amber-200 bg-amber-50 p-4 text-sm text-amber-900" role="status">{{ message }}</p>
         }
 
-        <section class="flex flex-col items-center gap-4">
-          <div class="w-full max-w-4xl text-center">
-            <app-report-steps [stepValue]="2" />
-          </div>
+        <section class="stepper-card" aria-label="Progression de la création du rapport">
+          <app-report-steps [stepValue]="2" />
         </section>
 
         <div aria-live="polite">
@@ -72,15 +70,14 @@
               </div>
             </section>
           } @else {
-            <div class="grid grid-cols-1 gap-6 lg:grid-cols-3">
+            <div class="configuration-grid">
               <app-column-selector
-                class="lg:col-span-2"
                 [fieldGroups]="fieldGroups()"
                 [selectedFields]="selectedFields()"
                 (selectedFieldsChange)="updateSelectedFields($event)"
               />
 
-              <div class="flex flex-col gap-6">
+              <div class="configuration-side">
                 <app-filter-editor
                   [fieldGroups]="filterFieldGroups()"
                   [initialFilters]="filters()"
@@ -101,32 +98,35 @@
 
     @if (!isLoading() && !errorMessage()) {
       <section class="report-actions" aria-label="Actions du rapport">
-          <div class="min-h-5 text-sm text-slate-600" aria-live="polite">
+          <div class="report-guidance" aria-live="polite">
             @if (selectedCount() === 0) {
-              <p>Sélectionnez au moins une colonne pour afficher un aperçu.</p>
+              <p>
+                <span class="material-symbols-outlined" aria-hidden="true">info</span>
+                Sélectionnez au moins une colonne pour afficher un aperçu.
+              </p>
             } @else if (!filtersValid()) {
-              <p class="flex items-center gap-1 text-amber-800">
-                <span class="material-symbols-outlined text-base" aria-hidden="true">info</span>
+              <p class="report-guidance--warning">
+                <span class="material-symbols-outlined" aria-hidden="true">info</span>
                 Terminez ou corrigez les filtres avant d’afficher l’aperçu.
               </p>
             }
           </div>
 
-          <div class="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center lg:justify-end">
-            <p-button
-              [label]="isGenerating() ? 'Démarrage…' : 'Générer'"
-              [disabled]="!canGenerate()"
-              (onClick)="continueToExport()"
-            />
+          <div class="report-action-buttons">
             <a
               routerLink="/rapports"
-              class="rounded-lg px-4 py-2 text-center text-sm font-semibold text-slate-600 transition hover:bg-slate-100 hover:text-slate-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600"
+              class="secondary-action"
             >
               Précédent
             </a>
+            <p-button
+              [label]="isGenerating() ? 'Démarrage…' : 'Génerer'"
+              [disabled]="!canGenerate()"
+              (onClick)="continueToExport()"
+            />
           </div>
           @if (generationError(); as message) {
-            <p class="text-sm text-red-700" role="alert">{{ message }}</p>
+            <p class="generation-error" role="alert">{{ message }}</p>
           }
       </section>
     }
@@ -157,7 +157,7 @@
         (click)="togglePreview()"
       >
         <span class="material-symbols-outlined" aria-hidden="true">expand_more</span>
-        {{ previewCollapsed() ? 'Développer' : 'Réduire' }}
+
       </button>
     </app-preview-panel>
-</main>
+</div>

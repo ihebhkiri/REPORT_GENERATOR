@@ -247,7 +247,6 @@ describe('ExportComponent', () => {
       '[data-testid="download-card-PDF"]',
     ) as HTMLElement;
     expect(pendingCard.querySelector('.p-progressbar-indeterminate')).not.toBeNull();
-    expect(pendingCard.querySelector('.p-tag')).not.toBeNull();
 
     pdfRequest.next({
       exportId: 'PDF-id', generationId: generation.generationId, format: 'PDF',
@@ -262,6 +261,7 @@ describe('ExportComponent', () => {
     expect(action.disabled).toBeTrue();
     expect(action.textContent).toContain('Exporter PDF');
     expect(fixture.nativeElement.textContent).toContain('Prêt dans quelques secondes');
+    expect(pendingCard.querySelector('.p-progressbar')?.getAttribute('aria-valuenow')).toBe('12');
 
     component.pdfExport.set({
       exportId: 'PDF-id', generationId: generation.generationId, format: 'PDF',
@@ -277,26 +277,63 @@ describe('ExportComponent', () => {
     expect(fixture.nativeElement.textContent).toContain('Fichier prêt');
   }));
 
-  it('removes redundant ready indicators and keeps the download action fluid', fakeAsync(() => {
+  it('hides progress for ready PDF and Excel and keeps their download actions enabled', fakeAsync(() => {
     fixture = TestBed.createComponent(ExportComponent);
     component = fixture.componentInstance;
     tick(0);
 
     component.createExport('PDF');
+    component.createExport('XLSX');
+    component.pdfExport.set({
+      exportId: 'PDF-id', generationId: generation.generationId, format: 'PDF',
+      status: 'READY', progress: 68, errorCode: null,
+    });
+    component.xlsxExport.set({
+      exportId: 'XLSX-id', generationId: generation.generationId, format: 'XLSX',
+      status: 'READY', progress: 12, errorCode: null,
+    });
     fixture.detectChanges();
 
-    const card = fixture.nativeElement.querySelector(
-      '[data-testid="download-card-PDF"]',
-    ) as HTMLElement;
-    const action = card.querySelector(
-      '[data-testid="download-action-PDF"] button',
-    ) as HTMLButtonElement;
+    for (const format of ['PDF', 'XLSX']) {
+      const card = fixture.nativeElement.querySelector(
+        `[data-testid="download-card-${format}"]`,
+      ) as HTMLElement;
+      const action = card.querySelector('button') as HTMLButtonElement;
 
-    expect(card.querySelector('.p-progressbar')).toBeNull();
-    expect(card.querySelector('.p-tag')).toBeNull();
-    expect(card.textContent).toContain('Fichier prêt');
-    expect(action.textContent).toContain('Télécharger PDF');
-    expect(action.classList).toContain('p-button-fluid');
+      expect(card.querySelector('.p-progressbar')).toBeNull();
+      expect(card.textContent).toContain('Fichier prêt');
+      expect(action.disabled).toBeFalse();
+      expect(action.classList).toContain('p-button-fluid');
+    }
+  }));
+
+  it('hides preparation and format progress at 100 even before READY', fakeAsync(() => {
+    fixture = TestBed.createComponent(ExportComponent);
+    component = fixture.componentInstance;
+    tick(0);
+    component.createExport('PDF');
+    component.createExport('XLSX');
+
+    for (const progress of [99, 100]) {
+      component.reportGeneration.set({...generation, status: 'RUNNING', progress});
+      component.pdfExport.set({
+        exportId: 'PDF-id', generationId: generation.generationId, format: 'PDF',
+        status: 'RUNNING', progress, errorCode: null,
+      });
+      component.xlsxExport.set({
+        exportId: 'XLSX-id', generationId: generation.generationId, format: 'XLSX',
+        status: 'RUNNING', progress, errorCode: null,
+      });
+      fixture.detectChanges();
+
+      const host = fixture.nativeElement as HTMLElement;
+      expect(host.querySelectorAll('.p-progressbar').length).toBe(progress < 100 ? 3 : 0);
+      for (const format of ['PDF', 'XLSX']) {
+        expect(host.querySelector<HTMLButtonElement>(
+          `[data-testid="download-action-${format}"] button`,
+        )?.disabled).toBeTrue();
+      }
+    }
   }));
 
   it('keeps a request failure in download and retries only that format', fakeAsync(() => {
@@ -320,6 +357,7 @@ describe('ExportComponent', () => {
       '[data-testid="download-action-PDF"] button',
     ) as HTMLButtonElement;
     expect(failedCard.textContent).toContain('Le PDF ne peut pas être généré.');
+    expect(failedCard.querySelector('.p-progressbar')).toBeNull();
     expect(retryAction.textContent).toContain('Réessayer PDF');
     expect(retryAction.disabled).toBeFalse();
     expect(fixture.nativeElement.querySelector('[data-testid="formats-card-XLSX"]')).not.toBeNull();
@@ -438,8 +476,16 @@ describe('ExportComponent', () => {
     expect(formats.length).toBe(2);
     expect(formats[0].textContent).toContain('Télécharger PDF');
     expect(formats[1].textContent).toContain('Télécharger Excel');
-    expect(fixture.nativeElement.querySelector('.pi-file-pdf')).not.toBeNull();
-    expect(fixture.nativeElement.querySelector('.pi-file-excel')).not.toBeNull();
+    const host = fixture.nativeElement as HTMLElement;
+    const images = Array.from(host.querySelectorAll<HTMLImageElement>('.export-format-card__image'));
+    expect(images.map(({ src }) => new URL(src).pathname)).toEqual([
+      '/assets/pdf%20logo.avif',
+      '/assets/ms-excel.jpg',
+    ]);
+    expect(images.map(({ alt }) => alt)).toEqual([
+      'Format Document PDF',
+      'Format Classeur Excel',
+    ]);
   }));
 
   it('uses the full timeline width and contains both format actions', fakeAsync(() => {

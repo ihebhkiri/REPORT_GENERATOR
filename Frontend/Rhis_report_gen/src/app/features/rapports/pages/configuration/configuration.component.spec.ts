@@ -500,6 +500,17 @@ describe('ConfigurationComponent', () => {
     expect(element.querySelectorAll('[aria-label="Actions du rapport"]').length).toBe(1);
   });
 
+  it('renders the report workflow in the existing page content', () => {
+    createComponent();
+    const element = fixture.nativeElement as HTMLElement;
+
+    expect(element.querySelector('app-report-steps')).not.toBeNull();
+    expect(element.querySelector('app-column-selector')).not.toBeNull();
+    expect(element.querySelector('app-filter-editor')).not.toBeNull();
+    expect(element.querySelector('app-sort-editor')).not.toBeNull();
+    expect(element.querySelector('app-preview-panel')).not.toBeNull();
+  });
+
   it('removes the manual preview action and dialog while mounting one preview panel', () => {
     createComponent();
     const element = fixture.nativeElement as HTMLElement;
@@ -507,12 +518,12 @@ describe('ConfigurationComponent', () => {
       element.querySelectorAll<HTMLElement>('[aria-label="Actions du rapport"] button'),
     ).map((button) => button.textContent?.trim());
 
-    expect(actionLabels).toEqual(['Générer']);
+    expect(actionLabels).toEqual(['Suivant']);
     expect(element.querySelector('p-dialog')).toBeNull();
     expect(element.querySelectorAll('app-preview-panel').length).toBe(1);
   });
 
-  it('starts collapsed and expands the preview through a native button without another request', () => {
+  it('starts expanded and collapses the preview through a native button without another request', () => {
     createComponent();
     fixture.detectChanges();
 
@@ -521,18 +532,18 @@ describe('ConfigurationComponent', () => {
       'button[aria-controls="report-preview-body"]',
     );
 
-    expect(component.previewCollapsed()).toBeTrue();
+    expect(component.previewCollapsed()).toBeFalse();
     expect(button).not.toBeNull();
-    expect(button?.getAttribute('aria-expanded')).toBe('false');
+    expect(button?.getAttribute('aria-expanded')).toBe('true');
     expect(reportPreviewService.preview).not.toHaveBeenCalled();
 
     button?.click();
     fixture.detectChanges();
 
-    expect(component.previewCollapsed()).toBeFalse();
-    expect(button?.getAttribute('aria-expanded')).toBe('true');
+    expect(component.previewCollapsed()).toBeTrue();
+    expect(button?.getAttribute('aria-expanded')).toBe('false');
     expect(element.querySelector('#report-preview-body')?.classList)
-      .toContain('preview-content--expanded');
+      .not.toContain('preview-content--expanded');
     expect(reportPreviewService.preview).not.toHaveBeenCalled();
   });
 
@@ -615,6 +626,7 @@ describe('ConfigurationComponent', () => {
 
   it('keeps automatic updates active while the desktop panel is collapsed', fakeAsync(() => {
     createComponent();
+    component.togglePreview();
     component.updateSelectedFields([component.fieldGroups()[0].fields[0]]);
     tick(300);
     fixture.detectChanges();

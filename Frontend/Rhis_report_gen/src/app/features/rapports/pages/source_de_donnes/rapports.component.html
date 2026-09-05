@@ -1,69 +1,53 @@
-<div class="min-h-dvh bg-slate-50 text-slate-900">
-<main class="mx-auto flex w-full max-w-6xl flex-col px-4 py-6 sm:px-6 lg:px-10">
-    <section class="mx-auto w-full max-w-4xl" >
-<app-report-steps [stepValue]="1"></app-report-steps>
-    </section>
+<div class="report-source-page">
+  <section class="report-step-panel" aria-label="Progression du rapport">
+    <app-report-steps [stepValue]="1" />
+  </section>
 
-    <section class="mt-10" aria-labelledby="datasets-title">
-      <div class="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm sm:p-5">
-        <div>
-          <div>
-            <h2 id="datasets-title" class="text-lg font-semibold text-slate-900">Sources de données</h2>
-            <p class="mt-1 text-sm text-slate-500">Choisissez le dataset utilisé pour construire le rapport.</p>
-          </div>
+  <section class="report-source-panel" aria-labelledby="datasets-title">
+    <div class="report-source-panel__heading">
+      <h2 id="datasets-title">Sources de données</h2>
+      <p>Choisissez le dataset utilisé pour construire le rapport.</p>
+    </div>
+
+    <div class="report-source-panel__content" aria-live="polite">
+      @if (isLoading()) {
+        <div class="report-state">
+          <p-progress-spinner ariaLabel="Chargement des sources de données" [style]="{ width: '2rem', height: '2rem' }" />
+          <p>Chargement des sources de données…</p>
         </div>
-      </div>
-
-      <div class="mt-6" aria-live="polite">
-        @if (isLoading()) {
-          <div
-            class="flex min-h-48 flex-col items-center justify-center rounded-2xl border border-slate-200 bg-white p-8 text-slate-600">
-            <p-progress-spinner ariaLabel="Chargement des sources de données" [style]="{ width: '2rem', height: '2rem' }" />
-            <p class="mt-3 font-medium">Chargement des sources de données…</p>
-          </div>
-        } @else if (errorMessage(); as message) {
-          <div
-            class="flex min-h-48 flex-col items-center justify-center rounded-2xl border border-red-200 bg-red-50 p-8 text-center"
-            role="alert">
-            <svg class="size-9 text-red-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
-                 aria-hidden="true">
-              <circle cx="12" cy="12" r="9"></circle>
-              <path d="M12 7.5v5M12 16.5h.01"></path>
-            </svg>
-            <p class="mt-3 max-w-lg text-sm font-medium text-red-800">{{ message }}</p>
-            <p-button class="mt-5" label="Réessayer" severity="danger" (onClick)="loadReportSources()" />
-          </div>
-        } @else if (datasets().length === 0) {
-          <div
-            class="flex min-h-48 flex-col items-center justify-center rounded-2xl border border-dashed border-slate-300 bg-white p-8 text-center text-slate-600">
-            <p class="font-semibold text-slate-800">Aucune source de données active</p>
-            <p class="mt-2 text-sm">Les datasets actifs apparaîtront ici lorsqu’ils seront disponibles.</p>
-          </div>
-        } @else {
-          <div class="dataset-accordion-list" aria-label="Tables disponibles">
-            @for (item of datasetAccordions(); track item.dataset.id) {
-              <p-accordion
-                class="dataset-accordion"
-                [class.dataset-accordion--selected]="selectedDatasetId() === item.dataset.id"
-                [value]="selectedDatasetId() === item.dataset.id ? item.dataset.id : null"
-                (onOpen)="openDataset(item.dataset.id)"
-                (onClose)="closeDataset(item.dataset.id)"
-              >
-                <p-accordion-panel [value]="item.dataset.id">
-                  <p-accordion-header>
-                    <span class="dataset-accordion__identity">
-                      <span class="dataset-accordion__main-icon" aria-hidden="true">
-                        <span class="material-symbols-outlined">{{ item.icon }}</span>
-                      </span>
-
-                      <span class="dataset-accordion__title-group">
-                        <span class="dataset-accordion__title">{{ item.dataset.displayName }}</span>
-                      </span>
+      } @else if (errorMessage(); as message) {
+        <div class="report-state report-state--error" role="alert">
+          <span class="material-symbols-outlined" aria-hidden="true">error</span>
+          <p>{{ message }}</p>
+          <p-button label="Réessayer" severity="danger" (onClick)="loadReportSources()" />
+        </div>
+      } @else if (datasets().length === 0) {
+        <div class="report-state report-state--empty">
+          <p><strong>Aucune source de données active</strong></p>
+          <p>Les datasets actifs apparaîtront ici lorsqu’ils seront disponibles.</p>
+        </div>
+      } @else {
+        <div class="dataset-accordion-list" aria-label="Tables disponibles">
+          @for (item of datasetAccordions(); track item.dataset.id) {
+            <p-accordion
+              class="dataset-accordion"
+              [class.dataset-accordion--selected]="selectedDatasetId() === item.dataset.id"
+              [value]="selectedDatasetId() === item.dataset.id ? item.dataset.id : null"
+              (onOpen)="openDataset(item.dataset.id)"
+              (onClose)="closeDataset(item.dataset.id)"
+            >
+              <p-accordion-panel [value]="item.dataset.id">
+                <p-accordion-header>
+                  <span class="dataset-accordion__identity">
+                    <span class="dataset-accordion__main-icon" aria-hidden="true">
+                      <span class="material-symbols-outlined">{{ item.icon }}</span>
                     </span>
-                  </p-accordion-header>
+                    <span class="dataset-accordion__title">{{ item.dataset.displayName }}</span>
+                  </span>
+                </p-accordion-header>
 
-                  <p-accordion-content>
-                    <div class="dataset-accordion__content">
+                <p-accordion-content>
+                  <div class="dataset-accordion__content">
                     @if (item.relatedDatasets.length > 0) {
                       <div class="dataset-accordion__cards">
                         @for (relatedDataset of item.relatedDatasets; track relatedDataset.datasetId) {
@@ -77,45 +61,33 @@
                         }
                       </div>
                     } @else {
-                      <p class="dataset-accordion__empty">
-                        Aucune relation directe avec une autre table visible.
-                      </p>
+                      <p class="dataset-accordion__empty">Aucune relation directe avec une autre table visible.</p>
                     }
-                    </div>
-                  </p-accordion-content>
-                </p-accordion-panel>
-              </p-accordion>
-            }
-          </div>
-        }
-      </div>
-    </section>
-
-    <section class="selected-datasets-summary" aria-labelledby="selected-datasets-title">
-      <h2 id="selected-datasets-title" class="selected-datasets-summary__title">
-        Tables sélectionnées
-      </h2>
-
-      @if (selectedDatasetSummary().length > 0) {
-        <ul class="selected-datasets-summary__list">
-          @for (dataset of selectedDatasetSummary(); track dataset.id) {
-            <li class="selected-datasets-summary__chip">
-              <span>{{ dataset.displayName }}</span>
-            </li>
+                  </div>
+                </p-accordion-content>
+              </p-accordion-panel>
+            </p-accordion>
           }
-        </ul>
-      } @else {
-        <p class="selected-datasets-summary__empty">Aucune table sélectionnée.</p>
+        </div>
       }
-    </section>
-
-    <div class="mt-10 flex flex-col-reverse gap-3 border-t border-slate-200 pt-6 sm:flex-row sm:justify-end">
-      <p-button label="Annuler" severity="secondary" [outlined]="true" />
-      <p-button
-        label="Suivant"
-        [disabled]="selectedDatasetId() === null"
-        (onClick)="continueToConfiguration()"
-      />
     </div>
-  </main>
+  </section>
+
+  <section class="selected-datasets-summary" aria-labelledby="selected-datasets-title">
+    <h2 id="selected-datasets-title" class="selected-datasets-summary__title">Tables sélectionnées</h2>
+    @if (selectedDatasetSummary().length > 0) {
+      <ul class="selected-datasets-summary__list">
+        @for (dataset of selectedDatasetSummary(); track dataset.id) {
+          <li class="selected-datasets-summary__chip"><span>{{ dataset.displayName }}</span></li>
+        }
+      </ul>
+    } @else {
+      <p class="selected-datasets-summary__empty">Aucune table sélectionnée.</p>
+    }
+  </section>
+
+  <div class="report-source-actions">
+    <p-button label="Annuler" severity="secondary" [outlined]="true" />
+    <p-button label="Suivant" [disabled]="selectedDatasetId() === null" (onClick)="continueToConfiguration()" />
+  </div>
 </div>

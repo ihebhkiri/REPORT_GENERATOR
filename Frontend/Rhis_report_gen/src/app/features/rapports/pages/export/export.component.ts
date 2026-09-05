@@ -3,7 +3,6 @@ import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { ChangeDetectionStrategy, Component, DestroyRef, computed, inject, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, NavigationStart, Router } from '@angular/router';
-import { AvatarModule } from 'primeng/avatar';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { MessageModule } from 'primeng/message';
@@ -31,7 +30,7 @@ interface ExportFormatDefinition {
   readonly format: ReportExportFormat;
   readonly title: string;
   readonly description: string;
-  readonly icon: string;
+  readonly imageSrc: string;
   readonly exportLabel: string;
   readonly downloadLabel: string;
   readonly retryLabel: string;
@@ -48,7 +47,7 @@ const EXPORT_FORMATS: readonly ExportFormatDefinition[] = [
     format: 'PDF',
     title: 'Document PDF',
     description: 'Document paginé',
-    icon: 'pi pi-file-pdf',
+    imageSrc: '/assets/pdf logo.avif',
     exportLabel: 'Exporter PDF',
     downloadLabel: 'Télécharger PDF',
     retryLabel: 'Réessayer PDF',
@@ -57,7 +56,7 @@ const EXPORT_FORMATS: readonly ExportFormatDefinition[] = [
     format: 'XLSX',
     title: 'Classeur Excel',
     description: 'Fichier XLSX typé',
-    icon: 'pi pi-file-excel',
+    imageSrc: '/assets/ms-excel.jpg',
     exportLabel: 'Exporter Excel',
     downloadLabel: 'Télécharger Excel',
     retryLabel: 'Réessayer Excel',
@@ -78,7 +77,6 @@ const TRANSIENT_POLLING_RETRY_DELAY_MS = 2_000;
   standalone: true,
   imports: [
     NgTemplateOutlet,
-    AvatarModule,
     ButtonModule,
     CardModule,
     MessageModule,
