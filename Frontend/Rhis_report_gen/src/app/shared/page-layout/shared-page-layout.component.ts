@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, computed, inject, signal, viewChild} from '@angular/core';
+import {ChangeDetectionStrategy, Component, computed, HostListener, inject, signal, viewChild} from '@angular/core';
 import {toSignal} from '@angular/core/rxjs-interop';
 import {ActivatedRoute, Router, RouterLink, RouterOutlet} from '@angular/router';
 import {catchError, finalize, of} from 'rxjs';
@@ -55,6 +55,7 @@ export class SharedPageLayoutComponent {
     {label: 'Déconnexion', icon: 'pi pi-sign-out', command: () => this.logout()},
   ];
   readonly isCollapsed = signal(true);
+  readonly isMobileSidebarOpen = signal(false);
   readonly page = (inject(ActivatedRoute).snapshot.data['page'] ?? 'reports') as LayoutPage;
   readonly pageCopy = PAGE_COPY[this.page];
   readonly isDatasets = this.page === 'datasets';
@@ -65,6 +66,15 @@ export class SharedPageLayoutComponent {
     {initialValue: null},
   );
   readonly isAdmin = computed(() => this.user()?.roles.includes('ROLE_ADMIN') ?? false);
+
+  toggleMobileSidebar(): void {
+    this.isMobileSidebarOpen.update(open => !open);
+  }
+
+  @HostListener('document:keydown.escape')
+  closeMobileSidebar(): void {
+    this.isMobileSidebarOpen.set(false);
+  }
 
   logout(): void {
     const outlet = this.outlet();

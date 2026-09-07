@@ -1,20 +1,22 @@
 <a class="skip-link" href="#page-content">Aller au contenu</a>
 <div class="app-shell" [class.sidebar-expanded]="!isCollapsed()">
-  <aside class="shared-sidebar" aria-label="Navigation secondaire">
+  <aside id="shared-sidebar" class="shared-sidebar" [class.mobile-open]="isMobileSidebarOpen()"
+         aria-label="Navigation secondaire">
     <div class="sidebar-logo" aria-label="RHIS"><img
       [src]="isCollapsed() ? '/logo_collapsed.png' : '/rhis-solutions-logo.png'" alt=""/></div>
     <nav class="sidebar-nav" aria-label="Raccourcis">
-      <a class="sidebar-item" routerLink="/rapports" aria-label="Rapports"
+      <a class="sidebar-item" routerLink="/rapports" aria-label="Rapports" (click)="closeMobileSidebar()"
          [attr.aria-current]="isReports ? 'page' : null"><span class="pi pi-chart-bar" aria-hidden="true"></span><span
         class="sidebar-label">Rapports</span></a>
       @if (isAdmin()) {
         <a class="sidebar-item" routerLink="/administration/datasets" aria-label="Données"
+           (click)="closeMobileSidebar()"
            [attr.aria-current]="isDatasets ? 'page' : null"><span class="pi pi-database" aria-hidden="true"></span><span
           class="sidebar-label">Données</span></a>
       } @else {
         <span class="sidebar-item" aria-hidden="true"><span class="pi pi-database"></span><span class="sidebar-label">Données</span></span>
       }
-      <a routerLink="/assistant" class="sidebar-item" aria-label="Assistant"
+      <a routerLink="/assistant" class="sidebar-item" aria-label="Assistant" (click)="closeMobileSidebar()"
          [attr.aria-current]="isAssistant ? 'page' : null"><span class="pi pi-sparkles" aria-hidden="true"></span><span
         class="sidebar-label">Assistant</span></a>
       <span class="sidebar-item" aria-hidden="true"><span class="pi pi-th-large"></span><span class="sidebar-label">Applications</span></span>
@@ -34,11 +36,22 @@
       </button>
     </div>
   </aside>
+  @if (isMobileSidebarOpen()) {
+    <button type="button" class="mobile-sidebar-backdrop" aria-label="Fermer la navigation"
+            (click)="closeMobileSidebar()"></button>
+  }
 
   <div class="content-shell">
     <header class="shared-header">
-      <div class="header-brand"><span class="pi pi-bars"
-                                      aria-hidden="true"></span><span>{{ isDatasets ? 'Administration' : 'Rapports' }}</span>
+      <div class="header-brand">
+        <span class="pi pi-bars desktop-menu-icon" aria-hidden="true"></span>
+        <button type="button" class="mobile-menu-toggle" aria-controls="shared-sidebar"
+                [attr.aria-expanded]="isMobileSidebarOpen()"
+                [attr.aria-label]="isMobileSidebarOpen() ? 'Fermer la navigation' : 'Ouvrir la navigation'"
+                (click)="toggleMobileSidebar()">
+          <span class="pi pi-bars" aria-hidden="true"></span>
+        </button>
+        <span>{{ isDatasets ? 'Administration' : 'Rapports' }}</span>
       </div>
       <div class="header-actions">
         <span class="notification" aria-label="Notifications"><span class="pi pi-bell" aria-hidden="true"></span></span>

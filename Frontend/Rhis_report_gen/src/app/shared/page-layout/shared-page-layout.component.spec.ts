@@ -6,6 +6,36 @@ import {CurrentUser} from '../../features/auth/auth.model';
 import {SharedPageLayoutComponent} from './shared-page-layout.component';
 
 describe('SharedPageLayoutComponent', () => {
+  it('opens and closes the mobile sidebar from the header, backdrop and Escape', async () => {
+    await TestBed.configureTestingModule({
+      imports: [SharedPageLayoutComponent],
+      providers: [
+        provideRouter([]),
+        {provide: ActivatedRoute, useValue: {snapshot: {data: {page: 'reports'}}}},
+        {provide: AuthService, useValue: {me: () => new Subject<CurrentUser>()}},
+      ],
+    }).compileComponents();
+    const fixture = TestBed.createComponent(SharedPageLayoutComponent);
+    fixture.detectChanges();
+    const element = fixture.nativeElement as HTMLElement;
+    const toggle = element.querySelector<HTMLButtonElement>('.mobile-menu-toggle')!;
+
+    expect(toggle.getAttribute('aria-controls')).toBe('shared-sidebar');
+    expect(toggle.getAttribute('aria-expanded')).toBe('false');
+    toggle.click();
+    fixture.detectChanges();
+    expect(toggle.getAttribute('aria-expanded')).toBe('true');
+    expect(element.querySelector('.shared-sidebar')?.classList).toContain('mobile-open');
+    element.querySelector<HTMLButtonElement>('.mobile-sidebar-backdrop')!.click();
+    fixture.detectChanges();
+    expect(toggle.getAttribute('aria-expanded')).toBe('false');
+
+    toggle.click();
+    document.dispatchEvent(new KeyboardEvent('keydown', {key: 'Escape'}));
+    fixture.detectChanges();
+    expect(toggle.getAttribute('aria-expanded')).toBe('false');
+  });
+
   for (const page of ['reports', 'datasets', 'assistant', 'configuration', 'export']) {
     it('renders one header and role-aware navigation on ' + page, async () => {
       const response = new Subject<CurrentUser>();

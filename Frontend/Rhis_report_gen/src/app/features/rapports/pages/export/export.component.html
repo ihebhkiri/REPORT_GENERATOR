@@ -141,14 +141,13 @@
       <p-button
         label="Modifier la configuration"
         icon="pi pi-arrow-left"
-        [text]="true"
+        severity="secondary"
+        [outlined]="true"
         (onClick)="returnToConfiguration()"
       />
       <p-button
         label="Créer un nouveau rapport"
         icon="pi pi-plus"
-        severity="secondary"
-        [outlined]="true"
         (onClick)="startNewReport()"
       />
     </footer>

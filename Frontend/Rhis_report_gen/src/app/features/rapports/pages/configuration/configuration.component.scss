@@ -56,12 +56,12 @@
 }
 
 .mobile-tabs button[aria-selected='true'] {
-  background: #2563eb;
+  background: var(--p-primary-500, #6366f1);
   color: #fff;
 }
 
 .mobile-tabs button:focus-visible {
-  outline: 2px solid #2563eb;
+  outline: 2px solid var(--p-primary-500, #6366f1);
   outline-offset: 2px;
 }
 
@@ -243,6 +243,11 @@
   .stepper-card {
     padding: 1rem;
   }
+
+  .mobile-tabs { order: 1; }
+  .configuration-pane,
+  app-preview-panel { order: 2; }
+  .report-actions { order: 3; }
 
   .report-actions {
     flex-direction: column;
