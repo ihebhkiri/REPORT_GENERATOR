@@ -3,7 +3,7 @@ spring:
     jwt:
       secret: test-secret-key-that-is-long-enough-for-hmac
   ai:
-    mistralai:
+    openai:
       api-key: test-key
   datasource:
     url: jdbc:h2:mem:rhis;MODE=PostgreSQL;DATABASE_TO_LOWER=TRUE;DB_CLOSE_DELAY=-1

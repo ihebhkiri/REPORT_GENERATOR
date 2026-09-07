@@ -8,6 +8,7 @@ import RHIS.com.RHIS.auth.UserPrincipal;
 import RHIS.com.RHIS.auth.user.UserEntity;
 import RHIS.com.RHIS.bot.controller.BotReportController;
 import RHIS.com.RHIS.bot.controller.dto.BotReportResponse;
+import RHIS.com.RHIS.bot.exception.BotLlmException;
 import RHIS.com.RHIS.report.model.ReportExportFormat;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -87,6 +88,21 @@ class BotReportControllerSecurityTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"message\": \"\"}"))
                 .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    void hidesProviderFailureDetails() throws Exception {
+        when(botReportService.generate(any(), any(), any()))
+                .thenThrow(new BotLlmException("Xkiro HTTP 429"));
+
+        mockMvc.perform(post("/api/v1/bot/reports")
+                        .with(authentication(principalAuthentication()))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(validRequest()))
+                .andExpect(status().isBadGateway())
+                .andExpect(jsonPath("$.title").value("Assistant indisponible"))
+                .andExpect(jsonPath("$.detail").value(
+                        "L’assistant est temporairement indisponible. Réessayez."));
     }
 
     private UsernamePasswordAuthenticationToken principalAuthentication() {

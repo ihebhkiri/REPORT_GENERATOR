@@ -1,6 +1,5 @@
 package RHIS.com.RHIS.bot;
 
-import RHIS.com.RHIS.bot.config.BotAiProperties;
 import RHIS.com.RHIS.bot.controller.dto.BotReportRequest;
 import RHIS.com.RHIS.bot.dto.BotReportPlan;
 import RHIS.com.RHIS.bot.exception.BotLlmException;
@@ -30,13 +29,9 @@ class BotReportPlannerTest {
     @Mock private ChatClient.CallResponseSpec callSpec;
 
     private BotReportPlanner planner;
-    private BotAiProperties properties;
-
     @BeforeEach
     void setUp() {
-        properties = new BotAiProperties();
-        properties.setLlmTimeoutSeconds(1);
-        planner = new BotReportPlanner(chatClientBuilder, properties);
+        planner = new BotReportPlanner(chatClientBuilder);
     }
 
     private void stubChain() {
@@ -108,15 +103,4 @@ class BotReportPlannerTest {
                 new BotReportRequest("x", null, null, null), null));
     }
 
-    @Test
-    void timesOutWhenModelIsTooSlow() {
-        stubChain();
-        when(callSpec.entity(BotReportPlan.class)).thenAnswer(invocation -> {
-            Thread.sleep(3000);
-            return readyPlan();
-        });
-
-        assertThrows(BotLlmException.class, () -> planner.plan("[]",
-                new BotReportRequest("x", null, null, null), null));
-    }
 }

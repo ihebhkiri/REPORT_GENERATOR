@@ -153,7 +153,8 @@ class BotReportServiceTest {
                 new BotReportRequest("rapport", null, null, null));
 
         assertEquals("FAILED", response.status());
-        assertEquals(List.of("Opérateur inconnu : FOO."), response.errors());
+        assertEquals(List.of("Je n’ai pas pu créer ce rapport. Reformulez votre demande avec les informations souhaitées."),
+                response.errors());
         verifyNoInteractions(generationService);
         verify(planner, times(2)).plan(anyString(), any(BotReportRequest.class), any());
     }
@@ -263,7 +264,8 @@ class BotReportServiceTest {
                 new BotReportRequest("Liste des contrats", null, question, "Tous les contrats"));
 
         assertEquals("FAILED", response.status());
-        assertEquals(List.of("La question a déjà reçu une réponse."), response.errors());
+        assertEquals(List.of("Je n’ai pas pu créer ce rapport. Reformulez votre demande avec les informations souhaitées."),
+                response.errors());
         verify(planner, times(2)).plan(anyString(), any(BotReportRequest.class), any());
         verifyNoInteractions(definitionResolver, generationService);
     }
@@ -277,6 +279,37 @@ class BotReportServiceTest {
                 () -> service.generate(owner, UUID.randomUUID(), request));
 
         verifyNoInteractions(planner, catalogProvider);
+    }
+
+    @Test
+    void replacesTechnicalSummaryWithBusinessMessage() {
+        BotReportPlan technicalPlan = new BotReportPlan("READY", null,
+                "Rapport construit depuis le dataset Employés", 1L, List.of(),
+                List.of(10L), List.of(), List.of(), List.of());
+        when(catalogProvider.buildCatalog()).thenReturn(catalog());
+        when(planner.plan(anyString(), any(BotReportRequest.class), isNull()))
+                .thenReturn(technicalPlan);
+        when(generationService.create(any(), any(), any())).thenReturn(generationResponse());
+
+        BotReportResponse response = service.generate(owner, UUID.randomUUID(),
+                new BotReportRequest("Liste des employés", null, null, null));
+
+        assertEquals("Votre rapport est prêt.", response.planSummary());
+    }
+
+    @Test
+    void neverReturnsTechnicalClarification() {
+        when(catalogProvider.buildCatalog()).thenReturn(catalog());
+        when(planner.plan(anyString(), any(BotReportRequest.class), any()))
+                .thenReturn(clarificationPlan("Quelles tables souhaitez-vous utiliser ?"));
+
+        BotReportResponse response = service.generate(owner, UUID.randomUUID(),
+                new BotReportRequest("Un rapport", null, null, null));
+
+        assertEquals("FAILED", response.status());
+        assertEquals(List.of("Je n’ai pas pu créer ce rapport. Reformulez votre demande avec les informations souhaitées."),
+                response.errors());
+        verify(planner, times(2)).plan(anyString(), any(BotReportRequest.class), any());
     }
 
 }

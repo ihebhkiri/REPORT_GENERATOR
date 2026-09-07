@@ -1,9 +1,11 @@
-import {ActivatedRouteSnapshot, RouterStateSnapshot} from '@angular/router';
+import {ActivatedRouteSnapshot, provideRouter, RouterStateSnapshot} from '@angular/router';
+import {TestBed} from '@angular/core/testing';
 
 import {DatasetExposureComponent} from './dataset-exposure.component';
 import {pendingDatasetExposureChangesGuard} from './pending-dataset-exposure-changes.guard';
 
 describe('pendingDatasetExposureChangesGuard', () => {
+  beforeEach(() => TestBed.configureTestingModule({providers: [provideRouter([])]}));
   it('allows navigation without asking when the draft is clean', () => {
     const component = componentWithUnsavedChanges(false);
     const confirmSpy = spyOn(window, 'confirm');
@@ -28,11 +30,11 @@ describe('pendingDatasetExposureChangesGuard', () => {
   }
 
   function runGuard(component: DatasetExposureComponent): boolean {
-    return pendingDatasetExposureChangesGuard(
+    return TestBed.runInInjectionContext(() => pendingDatasetExposureChangesGuard(
       component,
       {} as ActivatedRouteSnapshot,
       {} as RouterStateSnapshot,
       {} as RouterStateSnapshot,
-    ) as boolean;
+    )) as boolean;
   }
 });

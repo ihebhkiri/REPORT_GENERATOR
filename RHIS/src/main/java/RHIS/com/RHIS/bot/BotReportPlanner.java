@@ -1,6 +1,5 @@
 package RHIS.com.RHIS.bot;
 
-import RHIS.com.RHIS.bot.config.BotAiProperties;
 import RHIS.com.RHIS.bot.controller.dto.BotReportRequest;
 import RHIS.com.RHIS.bot.dto.BotReportPlan;
 import RHIS.com.RHIS.bot.exception.BotLlmException;
@@ -10,10 +9,6 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
 
 /**
  * Interroge le LLM (structured output) pour transformer une phrase naturelle
@@ -116,8 +111,11 @@ public class BotReportPlanner {
         - Pose une question uniquement lorsqu’au moins deux interprétations métier
           réellement différentes restent possibles.
         - La question doit être courte et formulée avec du vocabulaire métier.
-        - Ne mentionne jamais les mots dataset, rootDataset, fieldId, datasetId,
-          table, colonne SQL ou relation technique.
+        - Tous les textes visibles par l’utilisateur (question, summary et errors)
+          doivent être courts, simples et formulés avec du vocabulaire métier.
+        - Dans ces textes, ne mentionne jamais les mots dataset, rootDataset,
+          fieldId, datasetId, table, colonne SQL, SQL, JSON, API, modèle,
+          opérateur, jointure ou relation technique.
         - Ne présente jamais une liste brute des datasets internes.
 
         STATUTS
@@ -221,24 +219,17 @@ public class BotReportPlanner {
         """;
 
     private final ChatClient.Builder chatClientBuilder;
-    private final BotAiProperties properties;
 
     public BotReportPlan plan(String catalogJson, BotReportRequest request,
             List<String> previousErrors) {
         String userText = buildUserText(catalogJson, request, previousErrors);
         try {
-            return CompletableFuture.supplyAsync(() -> callModel(userText))
-                    .get(properties.getLlmTimeoutSeconds(), TimeUnit.SECONDS);
-        } catch (TimeoutException exception) {
-            throw new BotLlmException("Le modèle n'a pas répondu dans le délai imparti.");
-        } catch (InterruptedException exception) {
-            Thread.currentThread().interrupt();
-            throw new BotLlmException("L'appel au modèle a été interrompu.");
-        } catch (ExecutionException exception) {
-            if (exception.getCause() instanceof BotLlmException botLlmException) {
+            return callModel(userText);
+        } catch (RuntimeException exception) {
+            if (exception instanceof BotLlmException botLlmException) {
                 throw botLlmException;
             }
-            throw new BotLlmException("L'appel au modèle a échoué.", exception.getCause());
+            throw new BotLlmException("L'appel au modèle a échoué.", exception);
         }
     }
 

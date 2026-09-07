@@ -40,7 +40,10 @@
 .header-actions { margin-left: 1.5rem; }
 .notification, .profile { height: 2.75rem; padding: 0 1.75rem; border-left: 1px solid #e4e9f1; }
 .notification { display: inline-flex; align-items: center; color: #294066; font-size: 1.25rem; }
-.profile { gap: .75rem; padding-right: 0; }
+.profile { gap: .75rem; padding-right: 0; border-top: 0; border-right: 0; border-bottom: 0; background: transparent; color: inherit; font: inherit; cursor: pointer; }
+.profile:focus-visible { outline: 3px solid #7371ff; outline-offset: 3px; }
+.profile:disabled { opacity: .6; cursor: wait; }
+.logout-error { margin: 1rem 2rem; color: var(--p-red-700, #b91c1c); }
 .profile-avatar { display: inline-flex; width: 2.5rem; height: 2.5rem; align-items: center; justify-content: center; color: #fff; background: linear-gradient(135deg, #343ad7, #4c3dea); border-radius: 50%; font-size: 1.1rem; }
 
 .page-heading { width: min(92rem, calc(100% - 6rem)); margin: 0 auto; padding: 2rem 0 1.75rem; }

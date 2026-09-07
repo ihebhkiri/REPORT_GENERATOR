@@ -37,10 +37,18 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.Locale;
 import java.util.UUID;
+import java.util.regex.Pattern;
 
 @Service
 @RequiredArgsConstructor
 public class BotReportService {
+
+    private static final String GENERIC_READY_SUMMARY = "Votre rapport est prêt.";
+    private static final String GENERIC_FAILURE =
+            "Je n’ai pas pu créer ce rapport. Reformulez votre demande avec les informations souhaitées.";
+    private static final Pattern TECHNICAL_LANGUAGE = Pattern.compile(
+            "(?iu)\\b(datasets?|rootdataset|fieldid|datasetid|sql|json|apis?|llm|modèles?|"
+                    + "opérateurs?|jointures?|tables?|colonnes?)\\b");
 
     private final ReportCatalogProvider catalogProvider;
     private final BotReportPlanner planner;
@@ -63,7 +71,7 @@ public class BotReportService {
             try {
                 return handlePlan(owner, idempotencyKey, request, corrected, catalog);
             } catch (ReportValidationException | ReportDefinitionUnavailableException secondAttempt) {
-                return BotReportResponse.failed(errorsOf(secondAttempt));
+                return businessFailure();
             }
         }
     }
@@ -71,13 +79,14 @@ public class BotReportService {
     private BotReportResponse handlePlan(UserEntity owner, UUID idempotencyKey,
             BotReportRequest request, BotReportPlan plan, ReportCatalog catalog) {
         if (plan.needsClarification()) {
+            validateBusinessText(plan.question());
             if (sameQuestion(plan.question(), request.clarificationQuestion())) {
                 throw new ReportValidationException("La question a déjà reçu une réponse.");
             }
             return BotReportResponse.clarification(plan.question());
         }
         if (plan.isFailed()) {
-            return BotReportResponse.failed(planErrors(plan));
+            return businessFailure();
         }
         return createGeneration(owner, idempotencyKey, request, plan, catalog);
     }
@@ -90,7 +99,8 @@ public class BotReportService {
         definitionResolver.resolve(preview);
         ReportGenerationResponse generation =
                 generationService.create(owner, idempotencyKey, preview);
-        return BotReportResponse.ready(generation.generationId(), format, plan.summary());
+        return BotReportResponse.ready(generation.generationId(), format,
+                businessSummary(plan.summary()));
     }
 
     private ReportExportFormat resolvedFormat(BotReportRequest request) {
@@ -244,12 +254,24 @@ public class BotReportService {
         return List.of(exception.getMessage());
     }
 
-    private List<String> planErrors(BotReportPlan plan) {
-        if (plan.errors() != null && !plan.errors().isEmpty()) {
-            return plan.errors();
+    private BotReportResponse businessFailure() {
+        return BotReportResponse.failed(List.of(GENERIC_FAILURE));
+    }
+
+    private String businessSummary(String summary) {
+        return summary == null || summary.isBlank() || containsTechnicalLanguage(summary)
+                ? GENERIC_READY_SUMMARY : summary;
+    }
+
+    private void validateBusinessText(String text) {
+        if (text == null || text.isBlank() || containsTechnicalLanguage(text)) {
+            throw new ReportValidationException(
+                    "La formulation destinée à l'utilisateur doit rester en langage métier.");
         }
-        return List.of(plan.summary() == null || plan.summary().isBlank()
-                ? "Le modèle n'a pas pu construire ce rapport." : plan.summary());
+    }
+
+    private boolean containsTechnicalLanguage(String text) {
+        return TECHNICAL_LANGUAGE.matcher(text).find();
     }
 
     private void validateMessage(BotReportRequest request) {
