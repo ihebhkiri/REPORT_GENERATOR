@@ -169,6 +169,91 @@ class ReportExportWriterTest {
     }
 
     @Test
+    void keepsPdfRowsTogetherWithTenRowsOnContinuationPages() throws Exception {
+        String[] labels = {"Date Entree", "Date Sortie", "Hebdo Courant", "Statut", "Emp Pk Id",
+                "Restau Fk Id", "Uuid", "Matricule", "Nom", "Prenom"};
+        List<ReportSnapshotMetadata.Column> columns = new ArrayList<>();
+        for (int index = 0; index < labels.length; index++) {
+            columns.add(new ReportSnapshotMetadata.Column("field_" + index, labels[index], DataSetFieldType.TEXT));
+        }
+        ByteArrayOutputStream snapshot = new ByteArrayOutputStream();
+        new ReportSnapshotWriter(mapper).write(snapshot, new ReportSnapshotMetadata(columns, 29), sink -> {
+            for (int row = 1; row <= 29; row++) {
+                sink.write(Map.of(
+                        "field_0", "2022-03-10", "field_1", "2024-03-10", "field_2", "35.0",
+                        "field_3", "true", "field_4", row, "field_5", row,
+                        "field_6", String.format("d1dd7ffe-9269-30e3-aaf7-%012d", row),
+                        "field_7", String.format("EMP-%04d", row), "field_8", "Durand", "field_9", "Ines"
+                ));
+            }
+        });
+        ByteArrayOutputStream output = new ByteArrayOutputStream();
+        pdfWriter().write(new ByteArrayInputStream(snapshot.toByteArray()), output, ignored -> { });
+        try (PdfReader document = new PdfReader(output.toByteArray())) {
+            assertThat(document.getNumberOfPages()).isEqualTo(4);
+            PdfTextExtractor extractor = new PdfTextExtractor(document);
+            int nextRow = 1;
+            int[] rowCounts = {7, 10, 10, 2};
+            for (int page = 1; page <= rowCounts.length; page++) {
+                String text = extractor.getTextFromPage(page).replaceAll("\\s+", "");
+                assertThat(text.split("EMP-", -1).length - 1).isEqualTo(rowCounts[page - 1]);
+                for (int index = 0; index < rowCounts[page - 1]; index++, nextRow++) {
+                    assertThat(text).contains(String.format("EMP-%04d", nextRow));
+                    assertThat(text).contains(String.format("d1dd7ffe-9269-30e3-aaf7-%012d", nextRow));
+                }
+            }
+        }
+        Path preview = Path.of("target", "pdf-qa", "ten-rows-per-page.pdf");
+        Files.createDirectories(preview.getParent());
+        Files.write(preview, output.toByteArray());
+    }
+
+    @Test
+    void writesReferenceLayoutPdf() throws Exception {
+        String[] labels = {"ID", "Restaurant", "Ville", "Catégorie", "Produit", "Quantité", "Chiffre d’affaires", "Date"};
+        DataSetFieldType[] types = {DataSetFieldType.INTEGER, DataSetFieldType.TEXT, DataSetFieldType.TEXT,
+                DataSetFieldType.TEXT, DataSetFieldType.TEXT, DataSetFieldType.INTEGER,
+                DataSetFieldType.DECIMAL, DataSetFieldType.DATE};
+        List<ReportSnapshotMetadata.Column> columns = new ArrayList<>();
+        for (int index = 0; index < labels.length; index++) {
+            columns.add(new ReportSnapshotMetadata.Column("field_" + index, labels[index], types[index]));
+        }
+        String[][] rows = {
+                {"1001", "Burger King Tunis", "Tunis", "Menu", "Whopper Menu", "120", "1 800,00 TND", "30/07/2025"},
+                {"1002", "Burger King Sousse", "Sousse", "Sandwich", "Chicken Royale", "85", "1 020,00 TND", "30/07/2025"},
+                {"1003", "Burger King Sfax", "Sfax", "Menu", "Big King Menu", "102", "1 530,00 TND", "30/07/2025"},
+                {"1004", "Burger King Nabeul", "Nabeul", "Accompagnement", "Frites Moyennes", "230", "460,00 TND", "30/07/2025"},
+                {"1005", "Burger King Bizerte", "Bizerte", "Boisson", "Coca-Cola 50cl", "189", "378,00 TND", "30/07/2025"},
+                {"1006", "Burger King Gabès", "Gabès", "Menu", "Long Chicken Menu", "97", "1 164,00 TND", "30/07/2025"},
+                {"1007", "Burger King Ariana", "Ariana", "Sandwich", "Steakhouse", "76", "912,00 TND", "30/07/2025"},
+                {"1008", "Burger King Ben Arous", "Ben Arous", "Dessert", "Sundae Chocolat", "64", "256,00 TND", "30/07/2025"},
+                {"1009", "Burger King Monastir", "Monastir", "Menu", "King Fish Menu", "91", "1 365,00 TND", "30/07/2025"},
+                {"1010", "Burger King La Marsa", "La Marsa", "Boisson", "Fanta 50cl", "150", "300,00 TND", "30/07/2025"}
+        };
+        ByteArrayOutputStream snapshot = new ByteArrayOutputStream();
+        new ReportSnapshotWriter(mapper).write(snapshot, new ReportSnapshotMetadata(columns, rows.length), sink -> {
+            for (String[] values : rows) {
+                Map<String, Object> row = new LinkedHashMap<>();
+                for (int index = 0; index < values.length; index++) {
+                    row.put("field_" + index, values[index]);
+                }
+                sink.write(row);
+            }
+        });
+        ByteArrayOutputStream output = new ByteArrayOutputStream();
+        pdfWriter().write(new ByteArrayInputStream(snapshot.toByteArray()), output, ignored -> { });
+        try (PdfReader document = new PdfReader(output.toByteArray())) {
+            assertThat(document.getNumberOfPages()).isEqualTo(2);
+            assertThat(document.getPageSizeWithRotation(1).getWidth()).isEqualTo(842);
+            assertThat(document.getPageSizeWithRotation(1).getHeight()).isEqualTo(595);
+            assertThat(extractText(document)).contains("1001", "1010", "Have it your way", "30/07/2025");
+        }
+        Path preview = Path.of("target", "pdf-qa", "reference-layout.pdf");
+        Files.createDirectories(preview.getParent());
+        Files.write(preview, output.toByteArray());
+    }
+
+    @Test
     void writesEveryPdfRowAcrossPagesAndRepeatsHeaders() throws Exception {
         byte[] snapshot = snapshot(120);
         PdfReportExportWriter writer = pdfWriter();
@@ -182,7 +267,9 @@ class ReportExportWriterTest {
             assertThat(document.getNumberOfPages()).isGreaterThan(1);
             assertThat(text).contains("Ligne 1", "Ligne 120");
             assertThat(text.split("Nom", -1).length - 1).isEqualTo(document.getNumberOfPages());
-            assertThat(text).contains("Rapport RHIS", "Page 1");
+            assertThat(text).contains("Rapport Burger King", "Page 1");
+            assertThat(text.split("Have it your way", -1).length - 1).isEqualTo(document.getNumberOfPages());
+            assertThat(document.getInfo()).containsEntry("Creator", "Burger King");
 
             PdfDictionary resources = document.getPageN(1).getAsDict(PdfName.RESOURCES);
             assertThat(resources.getAsDict(PdfName.XOBJECT).size()).isGreaterThan(0);
@@ -207,7 +294,7 @@ class ReportExportWriterTest {
 
         try (PdfReader document = new PdfReader(emptyPdf.toByteArray())) {
             assertThat(document.getNumberOfPages()).isEqualTo(1);
-            assertThat(extractText(document)).contains("Rapport RHIS", "Libellé", "Page 1");
+            assertThat(extractText(document)).contains("Rapport Burger King", "Libellé", "Page 1");
         }
 
         String longValue = "Élève déjà inscrit à l’établissement — données complètes ".repeat(40)

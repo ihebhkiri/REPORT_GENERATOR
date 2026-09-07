@@ -4,54 +4,66 @@
               pageWidth="842"
               pageHeight="595"
               orientation="Landscape"
-              columnWidth="794"
-              leftMargin="24"
-              rightMargin="24"
-              topMargin="18"
-              bottomMargin="18"
+              columnWidth="810"
+              leftMargin="16"
+              rightMargin="16"
+              topMargin="6"
+              bottomMargin="0"
               uuid="c721de7c-d412-46c9-a910-094210a4a875">
     <parameter name="REPORT_TITLE" class="java.lang.String"/>
     <parameter name="REPORT_LOGO" class="java.io.InputStream"/>
+    <parameter name="REPORT_FOOTER" class="java.io.InputStream"/>
 
-    <style name="Base" fontName="DejaVu Sans" fontSize="7.0"/>
-    <style name="ColumnHeader" style="Base" mode="Opaque" forecolor="#FFFFFF" backcolor="#3B60DE"
-           bold="true" hTextAlign="Center" vTextAlign="Middle">
-        <box>
-            <pen lineWidth="0.5" lineColor="#FFFFFF"/>
+    <style name="Base" fontName="DejaVu Sans" fontSize="10.0" forecolor="#353535"/>
+    <style name="ColumnHeader" style="Base" mode="Opaque" forecolor="#FFFFFF" backcolor="#BF1801"
+           fontSize="11.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
+        <box padding="6" topPadding="3" bottomPadding="3">
+            <pen lineWidth="0.5" lineColor="#D8D8D8"/>
         </box>
     </style>
     <style name="DataCell" style="Base" mode="Opaque" backcolor="#FFFFFF"
-           hTextAlign="Left" vTextAlign="Top">
+           hTextAlign="Left" vTextAlign="Middle">
         <box>
-            <pen lineWidth="0.25" lineColor="#A4A4A4"/>
+            <pen lineWidth="0.5" lineColor="#D8D8D8"/>
         </box>
+        <conditionalStyle backcolor="#F7EEE1">
+            <conditionExpression><![CDATA[$V{REPORT_COUNT} % 2 == 0]]></conditionExpression>
+        </conditionalStyle>
     </style>
 
-    <title height="64">
+    <title height="124">
         <element kind="image" uuid="7cff85ea-b70a-46ae-a695-84c2e2b783ae"
-                 x="0" y="0" width="110" height="60" scaleImage="RetainShape" hImageAlign="Left" vImageAlign="Middle">
+                 x="24" y="0" width="92" height="96" scaleImage="RetainShape" hImageAlign="Center" vImageAlign="Middle">
             <expression><![CDATA[$P{REPORT_LOGO}]]></expression>
         </element>
         <element kind="textField" uuid="b45a8676-8c84-4f5e-a23f-190fd80c10d4"
-                 x="126" y="7" width="668" height="28" fontName="DejaVu Sans" fontSize="18.0"
-                 bold="true" forecolor="#3B60DE" hTextAlign="Right" vTextAlign="Middle">
+                 x="126" y="29" width="678" height="38" fontName="DejaVu Sans" fontSize="25.0"
+                 bold="true" forecolor="#BF1509" hTextAlign="Right" vTextAlign="Middle">
             <expression><![CDATA[$P{REPORT_TITLE}]]></expression>
         </element>
         <element kind="textField" uuid="d5fc47b0-e3ab-4987-8ec0-5a386a6bc49f"
-                 x="126" y="38" width="668" height="16" fontName="DejaVu Sans" fontSize="8.0"
-                 forecolor="#666666" hTextAlign="Right" vTextAlign="Middle" pattern="dd/MM/yyyy HH:mm">
+                 x="126" y="65" width="678" height="23" fontName="DejaVu Sans" fontSize="14.5"
+                 forecolor="#777777" hTextAlign="Right" vTextAlign="Middle" pattern="dd/MM/yyyy HH:mm">
             <expression><![CDATA[new java.util.Date()]]></expression>
         </element>
-        <element kind="line" uuid="23e231fb-f027-432e-9baa-65ffcf2af93b" x="0" y="62" width="794" height="1">
-            <pen lineWidth="1.0" lineColor="#FF9F40"/>
+        <element kind="line" uuid="23e231fb-f027-432e-9baa-65ffcf2af93b" x="0" y="103" width="810" height="1">
+            <pen lineWidth="2.5" lineColor="#FF8732"/>
         </element>
     </title>
 
-    <pageFooter height="18">
+    <pageFooter height="78">
         <element kind="textField" uuid="1748e1c1-6ba5-43f4-ab14-c29280568cab"
-                 x="594" y="3" width="200" height="12" fontName="DejaVu Sans" fontSize="7.0"
-                 forecolor="#666666" hTextAlign="Right">
+                 x="604" y="0" width="200" height="18" fontName="DejaVu Sans" fontSize="10.0"
+                 forecolor="#777777" hTextAlign="Right">
             <expression><![CDATA["Page " + $V{PAGE_NUMBER}]]></expression>
+        </element>
+        <!-- Offset the left margin so the decorative strip reaches both page edges. -->
+        <element kind="image" x="-16" y="28" width="842" height="50" scaleImage="RetainShape">
+            <expression><![CDATA[$P{REPORT_FOOTER}]]></expression>
+        </element>
+        <element kind="staticText" x="10" y="42" width="230" height="24"
+                 fontName="DejaVu Sans" fontSize="12.0" italic="true" bold="true" forecolor="#A38C72">
+            <text><![CDATA[Have it your way®]]></text>
         </element>
     </pageFooter>
 </jasperReport>

@@ -36,8 +36,9 @@ import java.util.function.IntConsumer;
 public class PdfReportExportWriter implements ReportExportWriter {
 
     private static final String TEMPLATE_RESOURCE = "/reports/report-export-base.jrxml";
-    private static final String LOGO_RESOURCE = "/reports/rhis-logo.png";
-    private static final String REPORT_TITLE = "Rapport RHIS";
+    private static final String LOGO_RESOURCE = "/reports/burger-king-logo.svg";
+    private static final String FOOTER_RESOURCE = "/reports/burger-king-footer.svg";
+    private static final String REPORT_TITLE = "Rapport Burger King";
     private static final int SWAP_BLOCK_SIZE = 4_096;
     private static final int SWAP_MIN_GROW_COUNT = 100;
     private static final Object JASPER_COMPILE_LOCK = new Object();
@@ -68,13 +69,15 @@ public class PdfReportExportWriter implements ReportExportWriter {
 
         try (ReportSnapshotReader.SnapshotCursor cursor = snapshotReader.openCursor(snapshot);
              InputStream template = requiredResource(TEMPLATE_RESOURCE);
-             InputStream logo = requiredResource(LOGO_RESOURCE)) {
+             InputStream logo = requiredResource(LOGO_RESOURCE);
+             InputStream footer = requiredResource(FOOTER_RESOURCE)) {
             JasperDesign design = JRXmlLoader.load(template);
             JasperDynamicTableConfigurer.configure(design, cursor.metadata());
 
             Map<String, Object> parameters = new HashMap<>();
             parameters.put("REPORT_TITLE", REPORT_TITLE);
             parameters.put("REPORT_LOGO", logo);
+            parameters.put("REPORT_FOOTER", footer);
             parameters.put(JRParameter.REPORT_VIRTUALIZER, virtualizer);
 
             JasperReport report;
@@ -106,7 +109,7 @@ public class PdfReportExportWriter implements ReportExportWriter {
         SimplePdfExporterConfiguration exporterConfiguration = new SimplePdfExporterConfiguration();
         exporterConfiguration.setCompressed(true);
         exporterConfiguration.setMetadataTitle(REPORT_TITLE);
-        exporterConfiguration.setMetadataCreator("RHIS");
+        exporterConfiguration.setMetadataCreator("Burger King");
         exporter.setConfiguration(exporterConfiguration);
         exporter.exportReport();
     }
