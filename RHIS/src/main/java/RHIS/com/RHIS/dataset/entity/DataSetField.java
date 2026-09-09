@@ -27,6 +27,12 @@ public class DataSetField {
     @Column(name = "display_name", nullable = false)
     private String displayName;
 
+    @Column(length = 1000)
+    private String description = "";
+
+    @Column(length = 2000)
+    private String aliases = "";
+
     @Column(name = "source_name", nullable = false)
     private String sourceName;
 

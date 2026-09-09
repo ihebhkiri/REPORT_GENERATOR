@@ -54,8 +54,8 @@ class DataSetAdministrationServiceTest {
                                 1L,
                                 false,
                                 true,
-                                List.of(new UpdateDataSetExposureRequest.FieldUpdate(11L, false))
-                        )
+                                List.of(new UpdateDataSetExposureRequest.FieldUpdate(11L, false, null, null))
+                        , null, null)
                 ))
         );
 
@@ -87,8 +87,8 @@ class DataSetAdministrationServiceTest {
                         1L,
                         false,
                         false,
-                        List.of(new UpdateDataSetExposureRequest.FieldUpdate(11L, false))
-                )
+                        List.of(new UpdateDataSetExposureRequest.FieldUpdate(11L, false, null, null))
+                , null, null)
         ));
 
         assertThatThrownBy(() -> service.updateConfiguration(request))
@@ -103,7 +103,7 @@ class DataSetAdministrationServiceTest {
     @Test
     void rejectsDuplicateDatasetUpdates() {
         UpdateDataSetExposureRequest.DataSetUpdate update =
-                new UpdateDataSetExposureRequest.DataSetUpdate(1L, true, false, List.of());
+                new UpdateDataSetExposureRequest.DataSetUpdate(1L, true, false, List.of(), null, null);
 
         assertThatThrownBy(() -> service.updateConfiguration(
                 new UpdateDataSetExposureRequest(List.of(update, update))
@@ -119,10 +119,10 @@ class DataSetAdministrationServiceTest {
         DataSetEntity employees = dataSet(1L, "Employés", "rhis_employee");
         DataSetEntity contracts = dataSet(2L, "Contrats", "rhis_contract");
         when(dataSetRepository.findAllById(any())).thenReturn(List.of(employees, contracts));
-        var repeatedField = new UpdateDataSetExposureRequest.FieldUpdate(11L, false);
+        var repeatedField = new UpdateDataSetExposureRequest.FieldUpdate(11L, false, null, null);
         var request = new UpdateDataSetExposureRequest(List.of(
-                new UpdateDataSetExposureRequest.DataSetUpdate(1L, false, false, List.of(repeatedField)),
-                new UpdateDataSetExposureRequest.DataSetUpdate(2L, false, false, List.of(repeatedField))
+                new UpdateDataSetExposureRequest.DataSetUpdate(1L, false, false, List.of(repeatedField), null, null),
+                new UpdateDataSetExposureRequest.DataSetUpdate(2L, false, false, List.of(repeatedField), null, null)
         ));
 
         assertThatThrownBy(() -> service.updateConfiguration(request))
@@ -138,8 +138,8 @@ class DataSetAdministrationServiceTest {
         DataSetEntity employees = dataSet(1L, "Employés", "rhis_employee");
         when(dataSetRepository.findAllById(any())).thenReturn(List.of(employees));
         var request = new UpdateDataSetExposureRequest(List.of(
-                new UpdateDataSetExposureRequest.DataSetUpdate(1L, false, false, List.of()),
-                new UpdateDataSetExposureRequest.DataSetUpdate(2L, false, false, List.of())
+                new UpdateDataSetExposureRequest.DataSetUpdate(1L, false, false, List.of(), null, null),
+                new UpdateDataSetExposureRequest.DataSetUpdate(2L, false, false, List.of(), null, null)
         ));
 
         assertThatThrownBy(() -> service.updateConfiguration(request))
@@ -157,9 +157,9 @@ class DataSetAdministrationServiceTest {
         when(dataSetFieldRepository.findAllById(any())).thenReturn(List.of(name));
         var request = new UpdateDataSetExposureRequest(List.of(
                 new UpdateDataSetExposureRequest.DataSetUpdate(1L, false, false, List.of(
-                        new UpdateDataSetExposureRequest.FieldUpdate(11L, false),
-                        new UpdateDataSetExposureRequest.FieldUpdate(12L, false)
-                ))
+                        new UpdateDataSetExposureRequest.FieldUpdate(11L, false, null, null),
+                        new UpdateDataSetExposureRequest.FieldUpdate(12L, false, null, null)
+                ), null, null)
         ));
 
         assertThatThrownBy(() -> service.updateConfiguration(request))
@@ -169,6 +169,46 @@ class DataSetAdministrationServiceTest {
         assertThat(name.isVisible()).isTrue();
         verify(dataSetFieldRepository, never()).flush();
         verify(dataSetRepository, never()).flush();
+    }
+
+    @Test
+    void savesNormalizesAndClearsBusinessMetadataWithoutErasingOmittedValues() {
+        DataSetEntity employees = dataSet(1L, "Employés", "rhis_employee");
+        DataSetField name = field(11L, "Nom", "name", employees);
+        employees.getDataSetFieldSet().add(name);
+        when(dataSetRepository.findAllById(any())).thenReturn(List.of(employees));
+        when(dataSetFieldRepository.findAllById(any())).thenReturn(List.of(name));
+        when(dataSetRepository.findAllByOrderByDisplayNameAsc()).thenReturn(List.of(employees));
+        var response = service.updateConfiguration(new UpdateDataSetExposureRequest(List.of(
+                new UpdateDataSetExposureRequest.DataSetUpdate(1L, true, false,
+                        List.of(new UpdateDataSetExposureRequest.FieldUpdate(11L, true,
+                                " Nom de famille ", " Patronyme\npatronyme\nNom familial ")),
+                        " Personnel du restaurant ", " Salariés\r\nPersonnel\nSALARIÉS\n "))));
+        assertThat(response.datasets().get(0).description()).isEqualTo("Personnel du restaurant");
+        assertThat(response.datasets().get(0).aliases()).isEqualTo("Salariés\nPersonnel");
+        assertThat(response.datasets().get(0).fields().get(0).aliases()).isEqualTo("Patronyme\nNom familial");
+        service.updateConfiguration(new UpdateDataSetExposureRequest(List.of(
+                new UpdateDataSetExposureRequest.DataSetUpdate(1L, true, false,
+                        List.of(new UpdateDataSetExposureRequest.FieldUpdate(11L, true, "", "")), null, null))));
+        assertThat(employees.getDescription()).isEqualTo("Personnel du restaurant");
+        assertThat(employees.getAliases()).isEqualTo("Salariés\nPersonnel");
+        assertThat(name.getDescription()).isEmpty();
+        assertThat(name.getAliases()).isEmpty();
+    }
+
+    @Test
+    void rejectsInvalidMetadataBeforeMutatingTheBatch() {
+        DataSetEntity employees = dataSet(1L, "Employés", "rhis_employee");
+        when(dataSetRepository.findAllById(any())).thenReturn(List.of(employees));
+        for (String aliases : List.of("x".repeat(101), java.util.stream.IntStream.range(0, 21)
+                .mapToObj(i -> "Alias " + i).collect(java.util.stream.Collectors.joining("\n")))) {
+            var request = new UpdateDataSetExposureRequest(List.of(
+                    new UpdateDataSetExposureRequest.DataSetUpdate(1L, false, false, List.of(), "Texte", aliases)));
+            assertThatThrownBy(() -> service.updateConfiguration(request))
+                    .isInstanceOf(DataSetConfigurationException.class);
+            assertThat(employees.isDisplayMain()).isTrue();
+            assertThat(employees.getDescription()).isEmpty();
+        }
     }
 
     private DataSetEntity dataSet(Long id, String displayName, String sourceName) {

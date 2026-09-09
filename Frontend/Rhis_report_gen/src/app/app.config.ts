@@ -5,13 +5,14 @@ import {
 } from '@angular/core';
 import {provideRouter} from '@angular/router';
 import {provideAnimationsAsync} from '@angular/platform-browser/animations/async';
-import {provideHttpClient} from '@angular/common/http';
+import {provideHttpClient, withInterceptors} from '@angular/common/http';
 import {definePreset} from '@primeuix/themes';
 import Aura from '@primeuix/themes/aura';
 import {MessageService} from 'primeng/api';
 import {providePrimeNG} from 'primeng/config';
 
 import {routes} from './app.routes';
+import {authInterceptor} from './features/auth/auth.interceptor';
 
 const RhisPreset = definePreset(Aura, {
   semantic: {
@@ -36,7 +37,7 @@ export const appConfig: ApplicationConfig = {
     provideBrowserGlobalErrorListeners(),
     provideZoneChangeDetection({eventCoalescing: true}),
     provideRouter(routes),
-    provideHttpClient(),
+    provideHttpClient(withInterceptors([authInterceptor])),
     provideAnimationsAsync(),
     MessageService,
     providePrimeNG({

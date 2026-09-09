@@ -183,7 +183,7 @@
   border-radius: .45rem;
 }
 
-:host ::ng-deep .export-page-actions .p-button {
+:host ::ng-deep .export-page-actions .p-button-secondary {
   color: var(--export-muted);
   box-shadow: none;
 }
@@ -196,6 +196,8 @@
   .export-main { width: calc(100% - 2rem); }
   .export-format-grid { grid-template-columns: minmax(0, 1fr); }
   .export-page-actions { flex-direction: column; }
+  .export-page-actions p-button,
+  :host ::ng-deep .export-page-actions .p-button { width: 100%; }
   .export-workflow-card { --p-card-body-padding: 1.1rem 1rem; }
   :host ::ng-deep app-report-steps { padding: 1.1rem .75rem; }
   :host ::ng-deep .export-timeline .p-timeline-event-content { padding-left: .75rem; }

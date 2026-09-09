@@ -221,6 +221,7 @@ h3, .master-heading h2 {
 }
 
 .detail-heading {
+  flex-wrap: wrap;
   padding-bottom: 1.25rem;
   border-bottom: 1px solid var(--p-surface-200);
 }

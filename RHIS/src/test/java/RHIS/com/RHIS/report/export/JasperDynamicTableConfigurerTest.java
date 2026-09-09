@@ -9,6 +9,7 @@ import net.sf.jasperreports.engine.design.JRDesignStaticText;
 import net.sf.jasperreports.engine.design.JRDesignTextField;
 import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.type.PositionTypeEnum;
+import net.sf.jasperreports.engine.type.HorizontalTextAlignEnum;
 import net.sf.jasperreports.engine.type.SplitTypeEnum;
 import net.sf.jasperreports.engine.type.StretchTypeEnum;
 import net.sf.jasperreports.engine.type.TextAdjustEnum;
@@ -23,6 +24,23 @@ import static org.assertj.core.api.Assertions.assertThat;
 class JasperDynamicTableConfigurerTest {
 
     @Test
+    void alignsNumbersAndDatesWithoutChangingWidthsOrExpressions() throws Exception {
+        JasperDesign design = designWithColumnWidth(810);
+        JasperDynamicTableConfigurer.configure(design, new ReportSnapshotMetadata(List.of(
+                column("name", "Restaurant"),
+                new ReportSnapshotMetadata.Column("quantity", "Quantité", DataSetFieldType.INTEGER),
+                new ReportSnapshotMetadata.Column("date", "Date", DataSetFieldType.DATE)
+        ), 0));
+        JRDesignSection details = (JRDesignSection) design.getDetailSection();
+        assertThat(Arrays.stream(details.getBandsList().get(0).getElements())
+                .map(element -> ((JRDesignTextField) element).getHorizontalTextAlign()))
+                .containsExactly(HorizontalTextAlignEnum.LEFT, HorizontalTextAlignEnum.CENTER, HorizontalTextAlignEnum.CENTER);
+        assertThat(Arrays.stream(design.getColumnHeader().getElements())
+                .map(element -> ((JRDesignStaticText) element).getHorizontalTextAlign()))
+                .containsExactly(HorizontalTextAlignEnum.LEFT, HorizontalTextAlignEnum.CENTER, HorizontalTextAlignEnum.CENTER);
+    }
+
+    @Test
     void configuresEmptyMetadataWithHeaderAndDetailBands() throws Exception {
         JasperDesign design = designWithColumnWidth(794);
 
@@ -30,13 +48,13 @@ class JasperDynamicTableConfigurerTest {
 
         assertThat(design.getWhenNoDataType()).isEqualTo(WhenNoDataTypeEnum.ALL_SECTIONS_NO_DETAIL);
         assertThat(design.getFieldsList()).isEmpty();
-        assertThat(design.getColumnHeader().getHeight()).isEqualTo(24);
+        assertThat(design.getColumnHeader().getHeight()).isEqualTo(37);
         assertThat(design.getColumnHeader().getElements()).isEmpty();
         JRDesignSection detail = (JRDesignSection) design.getDetailSection();
         assertThat(detail.getBandsList()).hasSize(1);
-        assertThat(detail.getBandsList().get(0).getHeight()).isEqualTo(18);
+        assertThat(detail.getBandsList().get(0).getHeight()).isEqualTo(47);
         assertThat(detail.getBandsList().get(0).getElements()).isEmpty();
-        assertThat(detail.getBandsList().get(0).getSplitType()).isEqualTo(SplitTypeEnum.STRETCH);
+        assertThat(detail.getBandsList().get(0).getSplitType()).isEqualTo(SplitTypeEnum.PREVENT);
     }
 
     @Test
@@ -97,15 +115,15 @@ class JasperDynamicTableConfigurerTest {
                 .isNotSameAs(anotherExistingDetail);
         JRDesignTextField cell = (JRDesignTextField) detailSection.getBandsList().get(0)
                 .getElements()[0];
-        assertThat(header.getHeight()).isEqualTo(24);
+        assertThat(header.getHeight()).isEqualTo(37);
         assertThat(header.getStyleNameReference()).isEqualTo("ColumnHeader");
-        assertThat(cell.getHeight()).isEqualTo(18);
+        assertThat(cell.getHeight()).isEqualTo(47);
         assertThat(cell.getStyleNameReference()).isEqualTo("DataCell");
         assertThat(cell.isBlankWhenNull()).isTrue();
         assertThat(cell.getPositionType()).isEqualTo(PositionTypeEnum.FLOAT);
         assertThat(cell.getStretchType()).isEqualTo(StretchTypeEnum.CONTAINER_HEIGHT);
-        assertThat(cell.getTextAdjust()).isEqualTo(TextAdjustEnum.STRETCH_HEIGHT);
-        assertThat(cell.getLineBox().getPadding()).isEqualTo(2);
+        assertThat(cell.getTextAdjust()).isEqualTo(TextAdjustEnum.SCALE_FONT);
+        assertThat(cell.getLineBox().getPadding()).isEqualTo(6);
     }
 
     private JasperDesign designWithColumnWidth(int columnWidth) {

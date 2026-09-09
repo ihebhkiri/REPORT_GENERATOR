@@ -1,0 +1,63 @@
+
+> rhis-report-gen@0.0.0 build
+> ng build
+
+> Building...
+√ Building...
+Initial chunk files   | Names                        |  Raw size | Estimated transfer size
+chunk-TPK35M6P.js     | -                            | 177.45 kB |                51.42 kB
+main-57QLEZC4.js      | main                         | 152.56 kB |                21.93 kB
+chunk-CUHZQTRZ.js     | -                            |  92.42 kB |                23.34 kB
+chunk-IVNJ2LBK.js     | -                            |  57.00 kB |                16.00 kB
+styles-WGKTPNHH.css   | styles                       |  39.82 kB |                 7.79 kB
+polyfills-5CFQRCPP.js | polyfills                    |  34.59 kB |                11.33 kB
+chunk-LPKRAUUC.js     | -                            |  32.15 kB |                 8.69 kB
+chunk-U3HPE6KO.js     | -                            |  20.59 kB |                 4.20 kB
+chunk-IUXOOTCF.js     | -                            |   4.72 kB |                 1.57 kB
+chunk-4O3FVBGX.js     | -                            |   4.28 kB |                 1.09 kB
+chunk-GCTZPMM2.js     | -                            |   1.66 kB |               651 bytes
+chunk-C2EPL3Q5.js     | -                            |   1.53 kB |               717 bytes
+chunk-X2HLGOPM.js     | -                            |   1.34 kB |               672 bytes
+chunk-SWIYIL6N.js     | -                            |   1.05 kB |               483 bytes
+chunk-4CLCTAJ7.js     | -                            | 830 bytes |               830 bytes
+chunk-FU364INH.js     | -                            | 431 bytes |               431 bytes
+
+                      | Initial total                | 622.44 kB |               151.16 kB
+
+Lazy chunk files      | Names                        |  Raw size | Estimated transfer size
+chunk-2Z6ZVE3T.js     | configuration-component      | 454.89 kB |                84.29 kB
+chunk-B7FSGASW.js     | -                            | 105.23 kB |                21.60 kB
+chunk-7ASFP2TE.js     | browser                      |  64.24 kB |                17.19 kB
+chunk-HLVUQP5P.js     | export-component             |  64.16 kB |                12.81 kB
+chunk-KESFZKC4.js     | dataset-exposure-component   |  42.54 kB |                10.17 kB
+chunk-3AWRGKAX.js     | -                            |  42.08 kB |                 6.71 kB
+chunk-AJWQ5I67.js     | shared-page-layout-component |  41.39 kB |                10.29 kB
+chunk-T7O2MUKQ.js     | -                            |  40.42 kB |                 8.37 kB
+chunk-2NOJE457.js     | -                            |  24.08 kB |                 6.37 kB
+chunk-KN3EM4TJ.js     | -                            |  21.95 kB |                 4.92 kB
+chunk-75D2ODZ6.js     | rapports-component           |  17.91 kB |                 4.79 kB
+chunk-DS4WHNEY.js     | -                            |  15.63 kB |                 3.63 kB
+chunk-24Y5NYL5.js     | -                            |  14.37 kB |                 3.76 kB
+chunk-DJM3KYA3.js     | report-assistant-component   |   9.03 kB |                 3.13 kB
+chunk-NPZSNGDR.js     | login-component              |   8.55 kB |                 2.93 kB
+...and 3 more lazy chunks files. Use "--verbose" to show all the files.
+
+Application bundle generation complete. [32.414 seconds] - 2026-09-08T11:01:04.876Z
+
+▲ [WARNING] bundle initial exceeded maximum budget. Budget 500.00 kB was not met by 122.44 kB with a total of 622.44 kB.
+
+
+▲ [WARNING] src/app/features/rapports/pages/source_de_donnes/rapports.component.scss exceeded maximum budget. Budget 4.00 kB was not met by 592 bytes with a total of 4.59 kB.
+
+
+▲ [WARNING] src/app/features/rapports/pages/export/export.component.scss exceeded maximum budget. Budget 4.00 kB was not met by 84 bytes with a total of 4.08 kB.
+
+
+▲ [WARNING] src/app/features/administration/dataset-exposure/dataset-exposure.component.scss exceeded maximum budget. Budget 4.00 kB was not met by 3.98 kB with a total of 7.98 kB.
+
+
+▲ [WARNING] src/app/shared/page-layout/shared-page-layout.component.scss exceeded maximum budget. Budget 4.00 kB was not met by 2.14 kB with a total of 6.14 kB.
+
+
+Output location: C:\Users\Surface Pro\Downloads\RHIS\Frontend\Rhis_report_gen\dist\Rhis_report_gen
+

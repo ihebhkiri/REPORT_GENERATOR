@@ -28,6 +28,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayDeque;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
@@ -37,10 +38,21 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.Locale;
 import java.util.UUID;
+import java.util.regex.Pattern;
 
 @Service
 @RequiredArgsConstructor
 public class BotReportService {
+
+    private static final String GENERIC_READY_SUMMARY = "Votre rapport est prêt.";
+    private static final String GENERIC_FAILURE =
+            "Je n’ai pas pu créer ce rapport. Reformulez votre demande avec les informations souhaitées.";
+    private static final Pattern TECHNICAL_LANGUAGE = Pattern.compile(
+            "(?iu)\\b(datasets?|root[_ -]?dataset(?:id)?|field[_ -]?ids?|dataset[_ -]?ids?|"
+                    + "relatedDatasetIds|selectedFieldIds|allFieldsDatasetIds|ids?|joins?|sql|json|apis?|llm|"
+                    + "jointures?|tables?)\\b|\\bidentifiants?\\s+(internes?|techniques?)\\b");
+    private static final Pattern FIELD_SELECTION_QUESTION = Pattern.compile(
+            "(?iu)\\b(?:quels?\\s+champs?|quelles?\\s+(?:informations?|colonnes?))\\b");
 
     private final ReportCatalogProvider catalogProvider;
     private final BotReportPlanner planner;
@@ -63,38 +75,80 @@ public class BotReportService {
             try {
                 return handlePlan(owner, idempotencyKey, request, corrected, catalog);
             } catch (ReportValidationException | ReportDefinitionUnavailableException secondAttempt) {
-                return BotReportResponse.failed(errorsOf(secondAttempt));
+                return businessFailure();
             }
         }
     }
 
     private BotReportResponse handlePlan(UserEntity owner, UUID idempotencyKey,
             BotReportRequest request, BotReportPlan plan, ReportCatalog catalog) {
+        if (plan == null) {
+            throw new ReportValidationException("La proposition est vide.");
+        }
         if (plan.needsClarification()) {
+            validateBusinessText(plan.question());
+            if (FIELD_SELECTION_QUESTION.matcher(plan.question()).find()) {
+                throw new ReportValidationException(
+                        "Ne demande pas quels champs afficher : sans sélection explicite, utilise allFieldsDatasetIds.");
+            }
             if (sameQuestion(plan.question(), request.clarificationQuestion())) {
                 throw new ReportValidationException("La question a déjà reçu une réponse.");
             }
             return BotReportResponse.clarification(plan.question());
         }
         if (plan.isFailed()) {
-            return BotReportResponse.failed(planErrors(plan));
+            return businessFailure();
         }
         return createGeneration(owner, idempotencyKey, request, plan, catalog);
     }
 
     private BotReportResponse createGeneration(UserEntity owner, UUID idempotencyKey,
             BotReportRequest request, BotReportPlan plan, ReportCatalog catalog) {
+        plan = expandSelectedFields(plan, catalog);
         validatePlan(plan, catalog);
         ReportExportFormat format = resolvedFormat(request);
         ReportPreviewRequest preview = toPreviewRequest(plan);
         definitionResolver.resolve(preview);
         ReportGenerationResponse generation =
                 generationService.create(owner, idempotencyKey, preview);
-        return BotReportResponse.ready(generation.generationId(), format, plan.summary());
+        return BotReportResponse.ready(generation.generationId(), format,
+                businessSummary(plan.summary()));
     }
 
     private ReportExportFormat resolvedFormat(BotReportRequest request) {
         return request.format() == null ? ReportExportFormat.XLSX : request.format();
+    }
+
+    private BotReportPlan expandSelectedFields(BotReportPlan plan, ReportCatalog catalog) {
+        List<Long> allIds = plan.allFieldsDatasetIds();
+        if (allIds == null || allIds.isEmpty()) {
+            return plan;
+        }
+        if (allIds.stream().anyMatch(Objects::isNull) || new HashSet<>(allIds).size() != allIds.size()) {
+            throw new ReportValidationException("La sélection complète contient des identifiants invalides.");
+        }
+        Map<Long, CatalogDataset> available = byId(catalog.relatedDatasets());
+        available.putAll(byId(catalog.rootDatasets()));
+        Set<Long> declared = new HashSet<>(plan.relatedDatasetIds() == null
+                ? List.of() : plan.relatedDatasetIds());
+        declared.add(plan.rootDatasetId());
+        List<Long> selected = new ArrayList<>(plan.selectedFieldIds() == null
+                ? List.of() : plan.selectedFieldIds());
+        if (selected.stream().anyMatch(Objects::isNull)) {
+            throw new ReportValidationException("La sélection contient un champ invalide.");
+        }
+        Set<Long> selectedIds = new HashSet<>(selected);
+        for (Long datasetId : allIds) {
+            CatalogDataset dataset = available.get(datasetId);
+            if (dataset == null || !declared.contains(datasetId) || dataset.fields().isEmpty()) {
+                throw new ReportValidationException("La sélection complète ne correspond pas à des informations disponibles.");
+            }
+            for (var field : dataset.fields()) {
+                if (selectedIds.add(field.fieldId())) selected.add(field.fieldId());
+            }
+        }
+        return new BotReportPlan(plan.status(), plan.question(), plan.summary(), plan.rootDatasetId(),
+                plan.relatedDatasetIds(), List.copyOf(selected), plan.filters(), plan.sorts(), plan.errors(), List.of());
     }
 
     private ReportPreviewRequest toPreviewRequest(BotReportPlan plan) {
@@ -244,12 +298,24 @@ public class BotReportService {
         return List.of(exception.getMessage());
     }
 
-    private List<String> planErrors(BotReportPlan plan) {
-        if (plan.errors() != null && !plan.errors().isEmpty()) {
-            return plan.errors();
+    private BotReportResponse businessFailure() {
+        return BotReportResponse.failed(List.of(GENERIC_FAILURE));
+    }
+
+    private String businessSummary(String summary) {
+        return summary == null || summary.isBlank() || containsTechnicalLanguage(summary)
+                ? GENERIC_READY_SUMMARY : summary;
+    }
+
+    private void validateBusinessText(String text) {
+        if (text == null || text.isBlank() || containsTechnicalLanguage(text)) {
+            throw new ReportValidationException(
+                    "La formulation destinée à l'utilisateur doit rester en langage métier.");
         }
-        return List.of(plan.summary() == null || plan.summary().isBlank()
-                ? "Le modèle n'a pas pu construire ce rapport." : plan.summary());
+    }
+
+    private boolean containsTechnicalLanguage(String text) {
+        return TECHNICAL_LANGUAGE.matcher(text).find();
     }
 
     private void validateMessage(BotReportRequest request) {

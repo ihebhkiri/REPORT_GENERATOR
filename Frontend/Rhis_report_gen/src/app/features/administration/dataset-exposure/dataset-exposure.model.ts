@@ -5,6 +5,8 @@ export type DatasetExposureMode =
   | 'MAIN_AND_RELATED';
 
 export interface FieldExposure {
+  readonly description?: string | null;
+  readonly aliases?: string | null;
   readonly id: number;
   readonly displayName: string;
   readonly active: boolean;
@@ -12,6 +14,8 @@ export interface FieldExposure {
 }
 
 export interface DatasetExposure {
+  readonly description?: string | null;
+  readonly aliases?: string | null;
   readonly id: number;
   readonly displayName: string;
   readonly active: boolean;
@@ -26,11 +30,15 @@ export interface DatasetExposureConfiguration {
 }
 
 export interface FieldExposureUpdate {
+  readonly description?: string;
+  readonly aliases?: string;
   readonly id: number;
   readonly visible: boolean;
 }
 
 export interface DatasetExposureUpdate {
+  readonly description?: string;
+  readonly aliases?: string;
   readonly id: number;
   readonly displayMain: boolean;
   readonly displayRelated: boolean;

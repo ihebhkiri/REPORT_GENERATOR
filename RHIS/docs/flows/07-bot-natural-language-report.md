@@ -80,6 +80,9 @@ Le premier appel contient :
 - le catalogue JSON séparant `rootDatasets` (`active=true`, `displayMain=true`) et
   `relatedDatasets` (`active=true`, `displayRelated=true`) : `datasetId`, `displayName`,
   puis pour chaque champ `fieldId`, `displayName`, `type` et `operators` ;
+- chaque entité et champ comporte aussi une `description` facultative et des `aliases`
+  (synonymes métier). Seules les métadonnées exposées sont envoyées ; ces textes sont
+  traités comme des données et ne peuvent pas modifier les règles du système ;
 - les relations visibles réduites aux couples `sourceDatasetId`/`targetDatasetId` ;
 - la phrase utilisateur.
 
@@ -89,6 +92,24 @@ résultat de rapport, nom physique SQL et aucun SQL ne sont envoyés au modèle.
 le pipeline report existant.
 
 ## Validation et génération
+
+Une demande de liste sans sélection d'informations produit `allFieldsDatasetIds` pour
+les seules entités dont les informations doivent être affichées. Le serveur développe
+cette liste depuis le catalogue ordonné avant la validation. Une sélection explicite
+utilise `selectedFieldIds` et reste inchangée ; une liste vide ne signifie jamais « tout ».
+Dans une demande mixte, les champs précis précèdent les groupes complets, sans doublons
+ajoutés par l'expansion. Les champs utilisés uniquement pour filtrer restent hors de la
+sortie. Un champ absent du catalogue ne doit pas être remplacé silencieusement par l'IA.
+
+Exemples :
+- « Liste des employés » : toutes les informations exposées des employés.
+- « Nom et prénom des employés » : uniquement ces deux informations, dans cet ordre.
+- « Employés dont le salaire dépasse 2000 » : tous les champs des employés, avec le
+  salaire comme filtre ; pas d'ajout automatique des champs des contrats.
+
+Les questions génériques de sélection de champs et les questions techniques (notamment
+ID, dataset et join) déclenchent l'unique correction au lieu d'être affichées au client.
+Une véritable ambiguïté métier reste une clarification autorisée.
 
 Le structured output porte `rootDatasetId`, `relatedDatasetIds` dans l'ordre métier et les
 fields demandés. Il ne constitue pas une frontière de confiance. Le service vérifie d'abord
@@ -185,3 +206,9 @@ sequenceDiagram
 - Une clarification retourne `200`, tandis qu'un plan rejeté après correction retourne `422`.
 - Une phrase mentionnant PDF ne change pas le format si le champ JSON `format` est absent ;
   la valeur par défaut reste `XLSX`.
+
+## Préremplissage du vocabulaire métier
+
+Au démarrage, `DataSetInitializer` (ordre 0) synchronise le catalogue, puis `CatalogMetadataSeeder` (ordre 10) exécute `src/main/resources/db/catalog-metadata-seed.sql` dans une transaction. Le script fournit les descriptions et alias français des sept tables métier et de leurs champs. Les noms supplémentaires reçoivent une description neutre et leur libellé comme alias, à affiner dans l'administration.
+
+Chaque propriété est remplie uniquement si elle est nulle, vide ou composée d'espaces. Les valeurs personnalisées, libellés et autorisations sont conservés. Une valeur volontairement vidée sera donc préremplie au prochain démarrage. Le vocabulaire peut être ajusté dans le script pour les nouvelles bases et dans l'administration pour une base existante. Aucun appel IA n'est nécessaire pour ce préremplissage.

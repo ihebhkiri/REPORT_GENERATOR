@@ -31,6 +31,8 @@ interface ReadyGeneration {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ReportAssistantComponent {
+  private static readonly FAILURE_MESSAGE =
+    'Je n’ai pas pu créer ce rapport. Reformulez votre demande avec les informations souhaitées.';
   private readonly service = inject(BotReportService);
   private nextMessageId = 2;
 
@@ -102,7 +104,10 @@ export class ReportAssistantComponent {
 
   private handleResponse(response: BotReportResponse, request: BotReportRequest): void {
     if (response.status === 'NEEDS_CLARIFICATION' && response.question) {
-      this.clarificationContext.set({originalMessage: request.message, question: response.question});
+      this.clarificationContext.set({
+        originalMessage: this.messageWithPreviousClarification(request),
+        question: response.question,
+      });
       this.addMessage('assistant', response.question);
       return;
     }
@@ -115,7 +120,7 @@ export class ReportAssistantComponent {
     }
     if (response.status === 'FAILED') {
       this.clarificationContext.set(null);
-      this.addMessage('assistant', response.errors.join(' ') || 'La création du rapport a échoué.');
+      this.addMessage('assistant', ReportAssistantComponent.FAILURE_MESSAGE);
       return;
     }
     this.errorMessage.set('La réponse de l’assistant est incomplète.');
@@ -126,7 +131,7 @@ export class ReportAssistantComponent {
     const body = error.error as Partial<BotReportResponse> | null;
     if (error.status === 422 && body?.status === 'FAILED' && Array.isArray(body.errors)) {
       this.clarificationContext.set(null);
-      this.addMessage('assistant', body.errors.join(' ') || 'La création du rapport a échoué.');
+      this.addMessage('assistant', ReportAssistantComponent.FAILURE_MESSAGE);
       return;
     }
     const messages: Record<number, string> = {
@@ -139,5 +144,10 @@ export class ReportAssistantComponent {
 
   private addMessage(author: AssistantMessage['author'], text: string): void {
     this.messages.update((messages) => [...messages, {id: this.nextMessageId++, author, text}]);
+  }
+
+  private messageWithPreviousClarification(request: BotReportRequest): string {
+    if (!request.clarificationQuestion || !request.clarificationAnswer) return request.message;
+    return `${request.message}\nPrécision déjà fournie : ${request.clarificationQuestion} ${request.clarificationAnswer}`;
   }
 }

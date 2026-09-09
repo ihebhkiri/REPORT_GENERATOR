@@ -118,11 +118,26 @@ describe('ReportAssistantComponent', () => {
     component.submit();
 
     expect(service.createReport.calls.mostRecent().args[0]).toEqual({
-      message: 'Liste des contrats',
+      message: 'Liste des contrats\nPrécision déjà fournie : Actifs ou tous ? Tous',
       format: 'XLSX',
       clarificationQuestion: 'Quels champs ?',
       clarificationAnswer: 'Nom et salaire',
     });
+  });
+
+  it('never displays technical backend errors', () => {
+    service.createReport.and.returnValue(throwError(() => new HttpErrorResponse({
+      status: 422,
+      error: {status: 'FAILED', errors: ['Le dataset et le fieldId sont invalides.']},
+    })));
+    const component = TestBed.createComponent(ReportAssistantComponent).componentInstance;
+    component.draftMessage.set('Liste des employés');
+
+    component.submit();
+
+    expect(component.messages().at(-1)?.text).toBe(
+      'Je n’ai pas pu créer ce rapport. Reformulez votre demande avec les informations souhaitées.',
+    );
   });
 
   it('shows READY and maps session errors', () => {

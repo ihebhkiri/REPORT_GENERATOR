@@ -13,5 +13,4 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 public class BotAiProperties {
 
     private int maxMessageLength = 2000;
-    private int llmTimeoutSeconds = 30;
 }

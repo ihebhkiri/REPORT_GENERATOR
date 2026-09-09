@@ -82,6 +82,20 @@ describe('ExportComponent', () => {
     }).compileComponents();
   });
 
+  it('uses secondary then primary actions in the page footer', fakeAsync(() => {
+    fixture = TestBed.createComponent(ExportComponent);
+    tick(0);
+    fixture.detectChanges();
+    const actions = (fixture.nativeElement as HTMLElement)
+      .querySelectorAll<HTMLButtonElement>('.export-page-actions .p-button');
+
+    expect(actions.length).toBe(2);
+    expect(actions[0].classList).toContain('p-button-secondary');
+    expect(actions[0].classList).toContain('p-button-outlined');
+    expect(actions[1].classList).not.toContain('p-button-secondary');
+    expect(actions[1].classList).not.toContain('p-button-outlined');
+  }));
+
   it('polls by URL id and stops on a ready generation', fakeAsync(() => {
     fixture = TestBed.createComponent(ExportComponent);
     component = fixture.componentInstance;

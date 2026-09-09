@@ -83,6 +83,48 @@ describe('DatasetExposureComponent', () => {
     expect(component.filteredDatasets().length).toBe(3);
   });
 
+  it('tracks metadata edits, sends them with visibility and resets the draft', () => {
+    component.updateMetadata(1, 'description', 'Personnel du restaurant');
+    component.updateMetadata(1, 'aliases', 'Salariés\nPersonnel');
+    component.updateMetadata(1, 'aliases', 'Patronyme', 11);
+    expect(component.changes()).toEqual([{
+      id: 1, displayMain: true, displayRelated: false,
+      description: 'Personnel du restaurant', aliases: 'Salariés\nPersonnel',
+      fields: [{id: 11, visible: true, aliases: 'Patronyme'}],
+    }]);
+    expect(component.hasUnsavedChanges()).toBeTrue();
+    component.save();
+    expect(service.updateConfiguration).toHaveBeenCalled();
+    expect(component.dirty()).toBeFalse();
+    component.updateMetadata(1, 'description', 'Autre');
+    component.resetDraft();
+    expect(component.dirty()).toBeFalse();
+  });
+
+  it('blocks invalid aliases and preserves metadata on inactive entries', () => {
+    component.updateMetadata(3, 'description', 'Interdit');
+    component.updateMetadata(1, 'description', 'Interdit', 12);
+    expect(component.dirty()).toBeFalse();
+    component.updateMetadata(1, 'aliases', 'a'.repeat(101));
+    expect(component.metadataError()).not.toBeNull();
+    component.save();
+    expect(service.updateConfiguration).not.toHaveBeenCalled();
+    component.updateMetadata(1, 'aliases', 'Salariés\nSALARIÉS');
+    expect(component.metadataError()).toBeNull();
+  });
+
+  it('renders labeled controls for business metadata', () => {
+    component.selectDataset(1);
+    fixture.detectChanges();
+    const root = fixture.nativeElement as HTMLElement;
+    const description = root.querySelector<HTMLTextAreaElement>('#description-1')!;
+    expect(root.querySelector('label[for="description-1"]')).not.toBeNull();
+    description.value = 'Personnel';
+    description.dispatchEvent(new Event('input'));
+    expect(component.selectedDataset()?.description).toBe('Personnel');
+    expect(root.querySelector('#field-aliases-11')).not.toBeNull();
+  });
+
   it('selects a dataset without saving or resetting another dataset draft', () => {
     component.updateMode(1, 'RELATED_ONLY');
 

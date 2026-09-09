@@ -76,6 +76,7 @@
           <div class="panel-empty-state">
             <span class="state-icon pi pi-search" aria-hidden="true"></span>
             <h3>Aucun résultat</h3>
+            <p>Aucune table ne correspond à votre recherche.</p>
           </div>
         } @else {
           <nav class="table-navigation" aria-label="Tables disponibles">
@@ -141,7 +142,7 @@
             />
 
             <header class="detail-heading">
-
+              <h2 #detailHeading id="dataset-detail-title" tabindex="-1">{{ dataset.displayName }}</h2>
               <div class="mode-control">
                 <label [id]="'mode-label-' + dataset.id" [for]="'mode-' + dataset.id">Mode d’exposition</label>
                 <p-select
@@ -175,6 +176,22 @@
                 </p>
               </div>
             }
+
+            <section class="mt-4 text-sm font-normal" aria-label="Vocabulaire métier">
+              <h3>{{ dataset.displayName }} — vocabulaire métier</h3>
+              <label class="block mt-2" [for]="'description-' + dataset.id">Description</label>
+              <textarea pTextarea fluid class="mt-2 block" [id]="'description-' + dataset.id" rows="2" maxlength="1000"
+                [ngModel]="dataset.description ?? ''" [disabled]="!dataset.active || saving()"
+                (ngModelChange)="updateMetadata(dataset.id, 'description', $event)"
+                placeholder="Expliquez les informations disponibles et leur sens métier."></textarea>
+              <label class="block mt-2" [for]="'aliases-' + dataset.id">Alias et synonymes</label>
+              <textarea pTextarea fluid class="mt-2 block" [id]="'aliases-' + dataset.id" rows="2" maxlength="2000"
+                aria-describedby="aliases-help" [ngModel]="dataset.aliases ?? ''"
+                [disabled]="!dataset.active || saving()"
+                (ngModelChange)="updateMetadata(dataset.id, 'aliases', $event)"
+                placeholder="Exemple : salariés, personnel (un synonyme par ligne)"></textarea>
+              <p id="aliases-help">Un alias par ligne, 20 maximum et 100 caractères par alias. Les noms affichés dans les rapports restent inchangés.</p>
+            </section>
 
             <section class="fields-section" aria-labelledby="fields-title">
               <div class="fields-toolbar">
@@ -216,7 +233,7 @@
                 <div class="panel-empty-state fields-empty">
                   <span class="state-icon pi pi-search" aria-hidden="true"></span>
                   <h4>Aucun résultat</h4>
-
+                  <p>Aucun champ ne correspond à votre recherche.</p>
                 </div>
               } @else {
                 <div class="field-table-wrapper">
@@ -234,6 +251,18 @@
                         <tr [class.inactive]="!field.active">
                           <th scope="row">
                             <span class="field-name">{{ field.displayName }}</span>
+                            <details class="mt-4 text-sm font-normal">
+                              <summary class="cursor-pointer py-3">Description et alias</summary>
+                              <label class="block mt-2" [for]="'field-description-' + field.id">Description de {{ field.displayName }}</label>
+                              <textarea pTextarea fluid class="mt-2 block" [id]="'field-description-' + field.id" rows="2" maxlength="1000"
+                                [ngModel]="field.description ?? ''" [disabled]="!dataset.active || !field.active || saving()"
+                                (ngModelChange)="updateMetadata(dataset.id, 'description', $event, field.id)"></textarea>
+                              <label class="block mt-2" [for]="'field-aliases-' + field.id">Alias de {{ field.displayName }}</label>
+                              <textarea pTextarea fluid class="mt-2 block" [id]="'field-aliases-' + field.id" rows="2" maxlength="2000"
+                                aria-describedby="aliases-help" [ngModel]="field.aliases ?? ''"
+                                [disabled]="!dataset.active || !field.active || saving()"
+                                (ngModelChange)="updateMetadata(dataset.id, 'aliases', $event, field.id)"></textarea>
+                            </details>
                           </th>
                           <td>
                             <span class="field-status" [class.inactive]="!field.active">
@@ -287,7 +316,9 @@
             <span class="change-symbol pi" [class.pi-pencil]="!saveError()" [class.pi-exclamation-circle]="saveError()" aria-hidden="true"></span>
             <div>
               <strong>{{ changeCount() }} {{ changeCount() === 1 ? 'table modifiée' : 'tables modifiées' }}</strong>
-              @if (saveError(); as error) {
+              @if (metadataError(); as error) {
+                <p role="alert">{{ error }}</p>
+              } @else if (saveError(); as error) {
                 <p role="alert">{{ error }}</p>
               } @else {
                 <p role="status">Modifications non enregistrées</p>
@@ -298,7 +329,7 @@
             <p-button label="Annuler les modifications" severity="secondary" [outlined]="true"
               [disabled]="!dirty() || saving()" (onClick)="resetDraft()" />
             <p-button [label]="saveError() ? 'Réessayer' : 'Enregistrer'" icon="pi pi-check"
-              [loading]="saving()" [disabled]="!dirty() || saving()" (onClick)="save()" />
+              [loading]="saving()" [disabled]="!dirty() || saving() || !!metadataError()" (onClick)="save()" />
           </div>
         </footer>
       }

@@ -1,9 +1,12 @@
-import {ChangeDetectionStrategy, Component, computed, inject, signal} from '@angular/core';
+import {ChangeDetectionStrategy, Component, computed, HostListener, inject, signal, viewChild} from '@angular/core';
 import {toSignal} from '@angular/core/rxjs-interop';
-import {ActivatedRoute, RouterLink, RouterOutlet} from '@angular/router';
-import {catchError, of} from 'rxjs';
+import {ActivatedRoute, Router, RouterLink, RouterOutlet} from '@angular/router';
+import {catchError, finalize, of} from 'rxjs';
+import {MenuModule} from 'primeng/menu';
+import {MenuItem} from 'primeng/api';
 
 import {AuthService} from '../../features/auth/services/auth.service';
+import {confirmPendingChanges} from '../../features/administration/dataset-exposure/pending-dataset-exposure-changes.guard';
 
 type LayoutPage = 'reports' | 'datasets' | 'assistant' | 'configuration' | 'export';
 
@@ -37,13 +40,22 @@ const PAGE_COPY: Record<LayoutPage, {breadcrumb: string; title: string; descript
 
 @Component({
   selector: 'app-shared-page-layout',
-  imports: [RouterLink, RouterOutlet],
+  imports: [RouterLink, RouterOutlet, MenuModule],
   templateUrl: './shared-page-layout.component.html',
   styleUrl: './shared-page-layout.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SharedPageLayoutComponent {
+  private readonly auth = inject(AuthService);
+  private readonly router = inject(Router);
+  private readonly outlet = viewChild(RouterOutlet);
+  readonly loggingOut = signal(false);
+  readonly logoutError = signal<string | null>(null);
+  readonly profileMenuItems: MenuItem[] = [
+    {label: 'Déconnexion', icon: 'pi pi-sign-out', command: () => this.logout()},
+  ];
   readonly isCollapsed = signal(true);
+  readonly isMobileSidebarOpen = signal(false);
   readonly page = (inject(ActivatedRoute).snapshot.data['page'] ?? 'reports') as LayoutPage;
   readonly pageCopy = PAGE_COPY[this.page];
   readonly isDatasets = this.page === 'datasets';
@@ -54,4 +66,28 @@ export class SharedPageLayoutComponent {
     {initialValue: null},
   );
   readonly isAdmin = computed(() => this.user()?.roles.includes('ROLE_ADMIN') ?? false);
+
+  toggleMobileSidebar(): void {
+    this.isMobileSidebarOpen.update(open => !open);
+  }
+
+  @HostListener('document:keydown.escape')
+  closeMobileSidebar(): void {
+    this.isMobileSidebarOpen.set(false);
+  }
+
+  logout(): void {
+    const outlet = this.outlet();
+    if (this.loggingOut() || !confirmPendingChanges(outlet?.isActivated ? outlet.component : null)) {
+      return;
+    }
+    this.loggingOut.set(true);
+    this.logoutError.set(null);
+    this.auth.logout().pipe(finalize(() => this.loggingOut.set(false))).subscribe({
+      next: () => void this.router.navigateByUrl('/login', {
+        replaceUrl: true, state: {logoutConfirmed: true},
+      }),
+      error: () => this.logoutError.set('La déconnexion a échoué. Veuillez réessayer.'),
+    });
+  }
 }
