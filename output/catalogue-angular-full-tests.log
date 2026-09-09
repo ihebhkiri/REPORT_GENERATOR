@@ -1,0 +1,272 @@
+
+> rhis-report-gen@0.0.0 test
+> ng test --watch=false --browsers=ChromeHeadless
+
+> Building...
+√ Building...
+Initial chunk files                                 | Names                                            |  Raw size
+chunk-KKZ5SV2F.js                                   | -                                                |   1.18 MB | 
+chunk-4L2HQ7HF.js                                   | -                                                |   1.13 MB | 
+polyfills.js                                        | polyfills                                        |   1.04 MB | 
+chunk-4PSQNQLV.js                                   | -                                                | 554.43 kB | 
+chunk-VTP3QTYW.js                                   | -                                                | 272.31 kB | 
+chunk-JNA7RYNP.js                                   | -                                                | 243.00 kB | 
+chunk-SJ3RHY6F.js                                   | -                                                | 233.07 kB | 
+chunk-KFN3TQGK.js                                   | -                                                | 232.16 kB | 
+chunk-DR342HRC.js                                   | -                                                | 221.63 kB | 
+chunk-CKGVGF4P.js                                   | -                                                | 209.26 kB | 
+chunk-TMODPSEI.js                                   | -                                                | 198.72 kB | 
+chunk-AMPDAFKP.js                                   | -                                                | 167.06 kB | 
+chunk-5254QTLQ.js                                   | -                                                | 114.30 kB | 
+chunk-TRZGPHED.js                                   | -                                                | 109.06 kB | 
+chunk-I4C34NXE.js                                   | -                                                |  96.90 kB | 
+chunk-EC5CSMKT.js                                   | -                                                |  75.41 kB | 
+chunk-CMPANPXV.js                                   | -                                                |  74.81 kB | 
+jasmine-cleanup-1.js                                | jasmine-cleanup-1                                |  67.20 kB | 
+chunk-4HG7DES3.js                                   | -                                                |  62.72 kB | 
+chunk-IVXCUL53.js                                   | -                                                |  58.84 kB | 
+chunk-J4L5YQXD.js                                   | -                                                |  49.77 kB | 
+styles.css                                          | styles                                           |  49.28 kB | 
+spec-app.spec.js                                    | spec-app.spec                                    |  43.76 kB | 
+chunk-WOIMFE7Z.js                                   | -                                                |  43.44 kB | 
+chunk-FUEHAY5M.js                                   | -                                                |  38.54 kB | 
+chunk-FLVKIMTA.js                                   | -                                                |  37.99 kB | 
+spec-configuration.component.spec.js                | spec-configuration.component.spec                |  36.51 kB | 
+chunk-IVGWJWP2.js                                   | -                                                |  33.43 kB | 
+chunk-FEJ2RUYF.js                                   | -                                                |  32.72 kB | 
+spec-export.component.spec.js                       | spec-export.component.spec                       |  27.67 kB | 
+chunk-LEISQ3HX.js                                   | -                                                |  26.25 kB | 
+chunk-55FOVV6S.js                                   | -                                                |  26.20 kB | 
+chunk-TDP2AURB.js                                   | -                                                |  24.14 kB | 
+spec-dataset-exposure.component.spec.js             | spec-dataset-exposure.component.spec             |  22.50 kB | 
+chunk-UEXREU3O.js                                   | -                                                |  20.50 kB | 
+chunk-RVYBKE6U.js                                   | -                                                |  19.82 kB | 
+spec-shared-page-layout.routes.spec.js              | spec-shared-page-layout.routes.spec              |  19.48 kB | 
+chunk-CHTNX4LH.js                                   | -                                                |  15.17 kB | 
+spec-filter-editor.component.spec.js                | spec-filter-editor.component.spec                |  14.06 kB | 
+spec-rapports.component.spec.js                     | spec-rapports.component.spec                     |  12.89 kB | 
+chunk-ZROSBQNW.js                                   | -                                                |  12.24 kB | 
+chunk-KD53LJLO.js                                   | -                                                |  12.13 kB | 
+chunk-7RJDHTQJ.js                                   | -                                                |  11.60 kB | 
+chunk-DXIY4GNK.js                                   | -                                                |   9.63 kB | 
+chunk-3TFCSIHV.js                                   | -                                                |   9.24 kB | 
+spec-shared-page-layout.component.spec.js           | spec-shared-page-layout.component.spec           |   8.75 kB | 
+spec-report-assistant.component.spec.js             | spec-report-assistant.component.spec             |   8.51 kB | 
+spec-sort-editor.component.spec.js                  | spec-sort-editor.component.spec                  |   8.06 kB | 
+spec-preview-panel.component.spec.js                | spec-preview-panel.component.spec                |   7.43 kB | 
+spec-auth.interceptor.spec.js                       | spec-auth.interceptor.spec                       |   6.62 kB | 
+chunk-AGFN4G2S.js                                   | -                                                |   5.90 kB | 
+spec-column-selector.component.spec.js              | spec-column-selector.component.spec              |   5.74 kB | 
+chunk-IWLZOCFS.js                                   | -                                                |   5.57 kB | 
+spec-report-configuration-loader.service.spec.js    | spec-report-configuration-loader.service.spec    |   4.83 kB | 
+chunk-MEPWG7JY.js                                   | -                                                |   4.79 kB | 
+test_main.js                                        | test_main                                        |   4.43 kB | 
+chunk-FV73PLLP.js                                   | -                                                |   3.41 kB | 
+spec-login.component.spec.js                        | spec-login.component.spec                        |   3.33 kB | 
+spec-report-generation.service.spec.js              | spec-report-generation.service.spec              |   2.77 kB | 
+chunk-ZVCGLBDB.js                                   | -                                                |   2.69 kB | 
+chunk-GXGBYT6V.js                                   | -                                                |   2.59 kB | 
+chunk-73RZBNIU.js                                   | -                                                |   2.20 kB | 
+spec-dataset.service.spec.js                        | spec-dataset.service.spec                        |   2.19 kB | 
+chunk-UNTCRUUX.js                                   | -                                                |   2.18 kB | 
+spec-report-related-card.component.spec.js          | spec-report-related-card.component.spec          |   2.05 kB | 
+spec-admin.guard.spec.js                            | spec-admin.guard.spec                            |   2.03 kB | 
+spec-dataset-exposure.service.spec.js               | spec-dataset-exposure.service.spec               |   1.95 kB | 
+spec-report-preview.service.spec.js                 | spec-report-preview.service.spec                 |   1.94 kB | 
+spec-auth.service.spec.js                           | spec-auth.service.spec                           |   1.90 kB | 
+spec-pending-dataset-exposure-changes.guard.spec.js | spec-pending-dataset-exposure-changes.guard.spec |   1.77 kB | 
+spec-bot-report.service.spec.js                     | spec-bot-report.service.spec                     |   1.74 kB | 
+chunk-3YH4JCKC.js                                   | -                                                |   1.58 kB | 
+spec-report-draft-storage.service.spec.js           | spec-report-draft-storage.service.spec           |   1.41 kB | 
+chunk-DIB6C3X2.js                                   | -                                                |   1.37 kB | 
+chunk-L4W2GJ4P.js                                   | -                                                |   1.28 kB | 
+chunk-FHLDE2T6.js                                   | -                                                |   1.27 kB | 
+chunk-5TDCCELG.js                                   | -                                                |   1.13 kB | 
+chunk-EEMG2QGS.js                                   | -                                                |   1.10 kB | 
+chunk-7RXXJTSW.js                                   | -                                                |   1.04 kB | 
+spec-dataset-exposure.model.spec.js                 | spec-dataset-exposure.model.spec                 | 969 bytes | 
+chunk-OHVFNW4W.js                                   | -                                                | 920 bytes | 
+jasmine-cleanup-0.js                                | jasmine-cleanup-0                                | 519 bytes | 
+chunk-353PBBMD.js                                   | -                                                | 359 bytes | 
+
+                                                    | Initial total                                    |   7.12 MB
+
+Lazy chunk files                                    | Names                                            |  Raw size
+chunk-PTNH7ALC.js                                   | configuration-component                          |   1.20 kB | 
+chunk-667LWCA4.js                                   | rapports-component                               | 878 bytes | 
+chunk-3EVAKJ2P.js                                   | dataset-exposure-component                       | 788 bytes | 
+chunk-YHODOYCV.js                                   | export-component                                 | 720 bytes | 
+chunk-7DWPFZGI.js                                   | shared-page-layout-component                     | 674 bytes | 
+chunk-HZKEV2II.js                                   | report-assistant-component                       | 638 bytes | 
+chunk-BB6GW5CS.js                                   | login-component                                  | 476 bytes | 
+chunk-RODJ37SG.js                                   | rapports-routes                                  | 190 bytes | 
+
+Application bundle generation complete. [8.357 seconds] - 2026-09-08T13:27:15.416Z
+
+08 09 2026 15:27:16.122:INFO [karma-server]: Karma v6.4.4 server started at http://localhost:9876/
+08 09 2026 15:27:16.126:INFO [launcher]: Launching browsers ChromeHeadless with concurrency unlimited
+08 09 2026 15:27:16.143:INFO [launcher]: Starting browser ChromeHeadless
+08 09 2026 15:27:18.036:INFO [Chrome Headless 152.0.0.0 (Windows 10)]: Connected on socket Jz4GA2Adfpc_sOsTAAAB with id 43304901
+Chrome Headless 152.0.0.0 (Windows 10): Executed 0 of 187[32m SUCCESS[39m (0 secs / 0 secs)
+[1A[2KChrome Headless 152.0.0.0 (Windows 10): Executed 1 of 187[32m SUCCESS[39m (0 secs / 0.015 secs)
+[1A[2KChrome Headless 152.0.0.0 (Windows 10): Executed 2 of 187[32m SUCCESS[39m (0 secs / 0.018 secs)
+[1A[2KChrome Headless 152.0.0.0 (Windows 10): Executed 3 of 187[32m SUCCESS[39m (0 secs / 0.024 secs)
+[1A[2KChrome Headless 152.0.0.0 (Windows 10): Executed 4 of 187[32m SUCCESS[39m (0 secs / 0.03 secs)
+[1A[2KChrome Headless 152.0.0.0 (Windows 10): Executed 5 of 187[32m SUCCESS[39m (0 secs / 0.033 secs)
+[1A[2KChrome Headless 152.0.0.0 (Windows 10): Executed 6 of 187[32m SUCCESS[39m (0 secs / 0.033 secs)
+[1A[2KChrome Headless 152.0.0.0 (Windows 10): Executed 7 of 187[32m SUCCESS[39m (0 secs / 0.046 secs)
+[1A[2KChrome Headless 152.0.0.0 (Windows 10): Executed 8 of 187[32m SUCCESS[39m (0 secs / 0.048 secs)
+[1A[2KChrome Headless 152.0.0.0 (Windows 10): Executed 9 of 187[32m SUCCESS[39m (0 secs / 0.05 secs)
+[1A[2KChrome Headless 152.0.0.0 (Windows 10): Executed 10 of 187[32m SUCCESS[39m (0 secs / 0.055 secs)
+[1A[2KChrome Headless 152.0.0.0 (Windows 10): Executed 11 of 187[32m SUCCESS[39m (0 secs / 0.058 secs)
+[1A[2KChrome Headless 152.0.0.0 (Windows 10): Executed 12 of 187[32m SUCCESS[39m (0 secs / 0.107 secs)
+[1A[2KChrome Headless 152.0.0.0 (Windows 10): Executed 13 of 187[32m SUCCESS[39m (0 secs / 0.11 secs)
+[1A[2KChrome Headless 152.0.0.0 (Windows 10): Executed 14 of 187[32m SUCCESS[39m (0 secs / 0.112 secs)
+[1A[2KChrome Headless 152.0.0.0 (Windows 10): Executed 15 of 187[32m SUCCESS[39m (0 secs / 0.21 secs)
+[1A[2KChrome Headless 152.0.0.0 (Windows 10): Executed 16 of 187[32m SUCCESS[39m (0 secs / 0.227 secs)
+[1A[2KChrome Headless 152.0.0.0 (Windows 10): Executed 17 of 187[32m SUCCESS[39m (0 secs / 0.245 secs)
+[1A[2KChrome Headless 152.0.0.0 (Windows 10): Executed 18 of 187[32m SUCCESS[39m (0 secs / 0.338 secs)
+[1A[2KChrome Headless 152.0.0.0 (Windows 10): Executed 19 of 187[32m SUCCESS[39m (0 secs / 0.348 secs)
+[1A[2KChrome Headless 152.0.0.0 (Windows 10): Executed 20 of 187[32m SUCCESS[39m (0 secs / 0.356 secs)
+[1A[2KChrome Headless 152.0.0.0 (Windows 10): Executed 21 of 187[32m SUCCESS[39m (0 secs / 0.391 secs)
+[1A[2KChrome Headless 152.0.0.0 (Windows 10): Executed 22 of 187[32m SUCCESS[39m (0 secs / 0.416 secs)
+[1A[2KChrome Headless 152.0.0.0 (Windows 10): Executed 23 of 187[32m SUCCESS[39m (0 secs / 0.628 secs)
+08 09 2026 15:27:20.401:WARN [web-server]: 404: /base/media/primeicons.woff2
+[1A[2KChrome Headless 152.0.0.0 (Windows 10): Executed 24 of 187[32m SUCCESS[39m (0 secs / 0.64 secs)
+08 09 2026 15:27:20.418:WARN [web-server]: 404: /base/media/primeicons.woff
+[1A[2KChrome Headless 152.0.0.0 (Windows 10): Executed 25 of 187[32m SUCCESS[39m (0 secs / 0.649 secs)
+08 09 2026 15:27:20.434:WARN [web-server]: 404: /base/media/primeicons.ttf
+[1A[2KChrome Headless 152.0.0.0 (Windows 10): Executed 26 of 187[32m SUCCESS[39m (0 secs / 0.717 secs)
+[1A[2KChrome Headless 152.0.0.0 (Windows 10): Executed 27 of 187[32m SUCCESS[39m (0 secs / 0.725 secs)
+[1A[2KChrome Headless 152.0.0.0 (Windows 10): Executed 28 of 187[32m SUCCESS[39m (0 secs / 0.736 secs)
+[1A[2KChrome Headless 152.0.0.0 (Windows 10): Executed 29 of 187[32m SUCCESS[39m (0 secs / 0.802 secs)
+[1A[2KChrome Headless 152.0.0.0 (Windows 10): Executed 30 of 187[32m SUCCESS[39m (0 secs / 0.816 secs)
+[1A[2KChrome Headless 152.0.0.0 (Windows 10): Executed 31 of 187[32m SUCCESS[39m (0 secs / 0.824 secs)
+[1A[2KChrome Headless 152.0.0.0 (Windows 10): Executed 32 of 187[32m SUCCESS[39m (0 secs / 0.914 secs)
+[1A[2KChrome Headless 152.0.0.0 (Windows 10): Executed 33 of 187[32m SUCCESS[39m (0 secs / 0.921 secs)
+[1A[2KChrome Headless 152.0.0.0 (Windows 10): Executed 34 of 187[32m SUCCESS[39m (0 secs / 0.928 secs)
+[1A[2KChrome Headless 152.0.0.0 (Windows 10): Executed 35 of 187[32m SUCCESS[39m (0 secs / 0.938 secs)
+[1A[2KChrome Headless 152.0.0.0 (Windows 10): Executed 36 of 187[32m SUCCESS[39m (0 secs / 0.961 secs)
+[1A[2KChrome Headless 152.0.0.0 (Windows 10): Executed 37 of 187[32m SUCCESS[39m (0 secs / 0.97 secs)
+[1A[2KChrome Headless 152.0.0.0 (Windows 10): Executed 38 of 187[32m SUCCESS[39m (0 secs / 1.033 secs)
+[1A[2KChrome Headless 152.0.0.0 (Windows 10): Executed 39 of 187[32m SUCCESS[39m (0 secs / 1.073 secs)
+[1A[2KChrome Headless 152.0.0.0 (Windows 10): Executed 40 of 187[32m SUCCESS[39m (0 secs / 1.553 secs)
+[1A[2KChrome Headless 152.0.0.0 (Windows 10): Executed 41 of 187[32m SUCCESS[39m (0 secs / 1.566 secs)
+[1A[2KChrome Headless 152.0.0.0 (Windows 10): Executed 42 of 187[32m SUCCESS[39m (0 secs / 1.995 secs)
+[1A[2KChrome Headless 152.0.0.0 (Windows 10): Executed 43 of 187[32m SUCCESS[39m (0 secs / 2.424 secs)
+[1A[2KChrome Headless 152.0.0.0 (Windows 10): Executed 44 of 187[32m SUCCESS[39m (0 secs / 2.857 secs)
+[1A[2KChrome Headless 152.0.0.0 (Windows 10): Executed 45 of 187[32m SUCCESS[39m (0 secs / 3.286 secs)
+[1A[2KChrome Headless 152.0.0.0 (Windows 10): Executed 46 of 187[32m SUCCESS[39m (0 secs / 3.361 secs)
+[1A[2KChrome Headless 152.0.0.0 (Windows 10): Executed 47 of 187[32m SUCCESS[39m (0 secs / 3.386 secs)
+[1A[2KChrome Headless 152.0.0.0 (Windows 10): Executed 48 of 187[32m SUCCESS[39m (0 secs / 3.396 secs)
+[1A[2KChrome Headless 152.0.0.0 (Windows 10): Executed 49 of 187[32m SUCCESS[39m (0 secs / 3.413 secs)
+[1A[2KChrome Headless 152.0.0.0 (Windows 10): Executed 50 of 187[32m SUCCESS[39m (0 secs / 3.431 secs)
+[1A[2K[31mChrome Headless 152.0.0.0 (Windows 10) PreviewPanelComponent renders rows and cells in API column order with the returned count FAILED[39m
+	Expected 'Aperçu en temps réelNomActifNoteCommentaireEmployé 1Oui—TexteEmployé 2Non—Suite' to contain '2 lignes'.
+	    at <Jasmine>
+	    at UserContext.<anonymous> (src/app/features/rapports/pages/configuration/components/preview-panel/preview-panel.component.spec.ts:35:33)
+	    at _ZoneDelegate.invoke (node_modules/zone.js/fesm2015/zone.js:398:28)
+	    at _ProxyZoneSpec.onInvoke (node_modules/zone.js/fesm2015/zone-testing.js:2132:39)
+	    at _ZoneDelegate.invoke (node_modules/zone.js/fesm2015/zone.js:397:34)
+Chrome Headless 152.0.0.0 (Windows 10): Executed 51 of 187[31m (1 FAILED)[39m (0 secs / 3.45 secs)
+[1A[2K[31mChrome Headless 152.0.0.0 (Windows 10) PreviewPanelComponent renders the empty success state and its zero count FAILED[39m
+	Expected 'Aperçu en temps réeltable_rowsAucune donnéeAucune ligne ne correspond à cette configuration.' to contain '0 ligne'.
+	    at <Jasmine>
+	    at UserContext.<anonymous> (src/app/features/rapports/pages/configuration/components/preview-panel/preview-panel.component.spec.ts:48:64)
+	    at _ZoneDelegate.invoke (node_modules/zone.js/fesm2015/zone.js:398:28)
+	    at _ProxyZoneSpec.onInvoke (node_modules/zone.js/fesm2015/zone-testing.js:2132:39)
+	    at _ZoneDelegate.invoke (node_modules/zone.js/fesm2015/zone.js:397:34)
+Chrome Headless 152.0.0.0 (Windows 10): Executed 52 of 187[31m (2 FAILED)[39m (0 secs / 3.457 secs)
+[1A[2K[31mChrome Headless 152.0.0.0 (Windows 10) Auth refresh interceptor shares a refresh between concurrent failures FAILED[39m
+	Error: Expected one matching request for criteria "Match URL: /api/v1/auth/refresh", found none.
+	    at _HttpClientTestingBackend.expectOne (node_modules/@angular/common/fesm2022/http/testing.mjs:273:19)
+	    at UserContext.<anonymous> (src/app/features/auth/auth.interceptor.spec.ts:50:14)
+	    at _ZoneDelegate.invoke (node_modules/zone.js/fesm2015/zone.js:398:28)
+	    at _ProxyZoneSpec.onInvoke (node_modules/zone.js/fesm2015/zone-testing.js:2132:39)
+	    at _ZoneDelegate.invoke (node_modules/zone.js/fesm2015/zone.js:397:34)
+	    at ZoneImpl.run (node_modules/zone.js/fesm2015/zone.js:113:43)
+	    at runInTestZone (node_modules/zone.js/fesm2015/zone-testing.js:216:38)
+	    at UserContext.<anonymous> (node_modules/zone.js/fesm2015/zone-testing.js:234:32)
+	    at <Jasmine>
+Chrome Headless 152.0.0.0 (Windows 10): Executed 53 of 187[31m (3 FAILED)[39m (0 secs / 3.483 secs)
+[1A[2K[31mChrome Headless 152.0.0.0 (Windows 10) Auth refresh interceptor refreshes with cookies and retries the original request once FAILED[39m
+	Error: Expected one matching request for criteria "Match URL: /api/v1/auth/refresh", found none.
+	    at _HttpClientTestingBackend.expectOne (node_modules/@angular/common/fesm2022/http/testing.mjs:273:19)
+	    at UserContext.<anonymous> (src/app/features/auth/auth.interceptor.spec.ts:33:28)
+	    at _ZoneDelegate.invoke (node_modules/zone.js/fesm2015/zone.js:398:28)
+	    at _ProxyZoneSpec.onInvoke (node_modules/zone.js/fesm2015/zone-testing.js:2132:39)
+	    at _ZoneDelegate.invoke (node_modules/zone.js/fesm2015/zone.js:397:34)
+	    at ZoneImpl.run (node_modules/zone.js/fesm2015/zone.js:113:43)
+	    at runInTestZone (node_modules/zone.js/fesm2015/zone-testing.js:216:38)
+	    at UserContext.<anonymous> (node_modules/zone.js/fesm2015/zone-testing.js:234:32)
+	    at <Jasmine>
+Chrome Headless 152.0.0.0 (Windows 10): Executed 54 of 187[31m (4 FAILED)[39m (0 secs / 3.487 secs)
+[1A[2K[31mChrome Headless 152.0.0.0 (Windows 10) Auth refresh interceptor propagates a second 403 without another refresh FAILED[39m
+	Error: Expected one matching request for criteria "Match URL: /api/v1/auth/refresh", found none.
+	    at _HttpClientTestingBackend.expectOne (node_modules/@angular/common/fesm2022/http/testing.mjs:273:19)
+	    at UserContext.<anonymous> (src/app/features/auth/auth.interceptor.spec.ts:60:14)
+	    at _ZoneDelegate.invoke (node_modules/zone.js/fesm2015/zone.js:398:28)
+	    at _ProxyZoneSpec.onInvoke (node_modules/zone.js/fesm2015/zone-testing.js:2132:39)
+	    at _ZoneDelegate.invoke (node_modules/zone.js/fesm2015/zone.js:397:34)
+	    at ZoneImpl.run (node_modules/zone.js/fesm2015/zone.js:113:43)
+	    at runInTestZone (node_modules/zone.js/fesm2015/zone-testing.js:216:38)
+	    at UserContext.<anonymous> (node_modules/zone.js/fesm2015/zone-testing.js:234:32)
+	    at <Jasmine>
+Chrome Headless 152.0.0.0 (Windows 10): Executed 55 of 187[31m (5 FAILED)[39m (0 secs / 3.491 secs)
+[1A[2K[31mChrome Headless 152.0.0.0 (Windows 10) Auth refresh interceptor propagates refresh failure and permits a later fresh attempt FAILED[39m
+	Error: Expected one matching request for criteria "Match URL: /api/v1/auth/refresh", found none.
+	    at _HttpClientTestingBackend.expectOne (node_modules/@angular/common/fesm2022/http/testing.mjs:273:19)
+	    at UserContext.<anonymous> (src/app/features/auth/auth.interceptor.spec.ts:71:16)
+	    at _ZoneDelegate.invoke (node_modules/zone.js/fesm2015/zone.js:398:28)
+	    at _ProxyZoneSpec.onInvoke (node_modules/zone.js/fesm2015/zone-testing.js:2132:39)
+	    at _ZoneDelegate.invoke (node_modules/zone.js/fesm2015/zone.js:397:34)
+	    at ZoneImpl.run (node_modules/zone.js/fesm2015/zone.js:113:43)
+	    at runInTestZone (node_modules/zone.js/fesm2015/zone-testing.js:216:38)
+	    at UserContext.<anonymous> (node_modules/zone.js/fesm2015/zone-testing.js:234:32)
+	    at <Jasmine>
+Chrome Headless 152.0.0.0 (Windows 10): Executed 56 of 187[31m (6 FAILED)[39m (0 secs / 3.495 secs)
+[1A[2K[31mChrome Headless 152.0.0.0 (Windows 10) Auth refresh interceptor waits for cookie rotation before logout and suppresses retries during logout FAILED[39m
+	Error: Expected zero matching requests for criteria "Match URL: /api/v1/auth/logout", found 1.
+	    at _HttpClientTestingBackend.expectNone (node_modules/@angular/common/fesm2022/http/testing.mjs:285:19)
+	    at UserContext.<anonymous> (src/app/features/auth/auth.interceptor.spec.ts:113:14)
+	    at _ZoneDelegate.invoke (node_modules/zone.js/fesm2015/zone.js:398:28)
+	    at _ProxyZoneSpec.onInvoke (node_modules/zone.js/fesm2015/zone-testing.js:2132:39)
+	    at _ZoneDelegate.invoke (node_modules/zone.js/fesm2015/zone.js:397:34)
+	    at ZoneImpl.run (node_modules/zone.js/fesm2015/zone.js:113:43)
+	    at runInTestZone (node_modules/zone.js/fesm2015/zone-testing.js:216:38)
+	    at UserContext.<anonymous> (node_modules/zone.js/fesm2015/zone-testing.js:234:32)
+	    at <Jasmine>
+Chrome Headless 152.0.0.0 (Windows 10): Executed 57 of 187[31m (7 FAILED)[39m (0 secs / 3.5 secs)
+[1A[2KChrome Headless 152.0.0.0 (Windows 10): Executed 58 of 187[31m (7 FAILED)[39m (0 secs / 3.503 secs)
+[1A[2KChrome Headless 152.0.0.0 (Windows 10): Executed 59 of 187[31m (7 FAILED)[39m (0 secs / 3.505 secs)
+[1A[2K[31mChrome Headless 152.0.0.0 (Windows 10) Auth refresh interceptor passes through statuses other than 403 FAILED[39m
+	Error: Expected zero matching requests for criteria "Match URL: /api/v1/auth/refresh", found 1.
+	    at _HttpClientTestingBackend.expectNone (node_modules/@angular/common/fesm2022/http/testing.mjs:285:19)
+	    at UserContext.<anonymous> (src/app/features/auth/auth.interceptor.spec.ts:92:16)
+	    at _ZoneDelegate.invoke (node_modules/zone.js/fesm2015/zone.js:398:28)
+	    at _ProxyZoneSpec.onInvoke (node_modules/zone.js/fesm2015/zone-testing.js:2132:39)
+	    at _ZoneDelegate.invoke (node_modules/zone.js/fesm2015/zone.js:397:34)
+	    at ZoneImpl.run (node_modules/zone.js/fesm2015/zone.js:113:43)
+	    at runInTestZone (node_modules/zone.js/fesm2015/zone-testing.js:216:38)
+	    at UserContext.<anonymous> (node_modules/zone.js/fesm2015/zone-testing.js:234:32)
+	    at <Jasmine>
+Chrome Headless 152.0.0.0 (Windows 10): Executed 60 of 187[31m (8 FAILED)[39m (0 secs / 3.508 secs)
+[1A[2KChrome Headless 152.0.0.0 (Windows 10): Executed 61 of 187[31m (8 FAILED)[39m (0 secs / 3.51 secs)
+[1A[2K[31mChrome Headless 152.0.0.0 (Windows 10) ERROR[39m
+  An error was thrown in afterAll
+  HttpErrorResponse: Http failure response for /api/v1/datasets: 403 Forbidden
+  HttpErrorResponse: Http failure response for /api/v1/datasets/2: 403 Forbidden
+  HttpErrorResponse: Http failure response for /api/v1/datasets: 403 Forbidden
+Chrome Headless 152.0.0.0 (Windows 10): Executed 61 of 187[31m (8 FAILED)[39m[31m ERROR[39m (0 secs / 3.51 secs)
+Chrome Headless 152.0.0.0 (Windows 10) ERROR
+  An error was thrown in afterAll
+  HttpErrorResponse: Http failure response for /api/v1/datasets: 403 Forbidden
+  HttpErrorResponse: Http failure response for /api/v1/datasets/2: 403 Forbidden
+  HttpErrorResponse: Http failure response for /api/v1/datasets: 403 Forbidden
+[1A[2KChrome Headless 152.0.0.0 (Windows 10): Executed 61 of 187[31m (8 FAILED)[39m[31m ERROR[39m (3.65 secs / 3.51 secs)
+[1A[2K[31mChrome Headless 152.0.0.0 (Windows 10) ERROR[39m
+  Disconnected , because no message in 30000 ms.
+Chrome Headless 152.0.0.0 (Windows 10): Executed 61 of 187[31m (8 FAILED)[39m[31m DISCONNECTED[39m (33.658 secs / 3.51 secs)
+Chrome Headless 152.0.0.0 (Windows 10) ERROR
+  Disconnected , because no message in 30000 ms.
+[1A[2KChrome Headless 152.0.0.0 (Windows 10): Executed 61 of 187[31m (8 FAILED)[39m[31m DISCONNECTED[39m (33.658 secs / 3.51 secs)

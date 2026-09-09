@@ -22,6 +22,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
+import org.mockito.ArgumentCaptor;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
@@ -58,34 +59,34 @@ class BotReportServiceTest {
 
     private BotReportPlan readyPlan() {
         return new BotReportPlan("READY", null, "Rapport employés",
-                1L, List.of(), List.of(10L), List.of(), List.of(), List.of());
+                1L, List.of(), List.of(10L), List.of(), List.of(), List.of(), List.of());
     }
 
     private ReportCatalog catalog() {
-        CatalogField name = new CatalogField(10L, "Nom", "TEXT", List.of("EQUALS"));
+        CatalogField name = new CatalogField(10L, "Nom", "TEXT", List.of("EQUALS"), "", List.of());
         return new ReportCatalog(
-                List.of(new CatalogDataset(1L, "Employés", List.of(name))),
+                List.of(new CatalogDataset(1L, "Employés", List.of(name), "", List.of())),
                 List.of(),
                 List.of());
     }
 
     private ReportCatalog relatedCatalog(List<CatalogRelation> relations) {
-        CatalogField name = new CatalogField(10L, "Nom", "TEXT", List.of("EQUALS"));
-        CatalogField salary = new CatalogField(20L, "Salaire", "DECIMAL", List.of("EQUALS"));
+        CatalogField name = new CatalogField(10L, "Nom", "TEXT", List.of("EQUALS"), "", List.of());
+        CatalogField salary = new CatalogField(20L, "Salaire", "DECIMAL", List.of("EQUALS"), "", List.of());
         return new ReportCatalog(
-                List.of(new CatalogDataset(1L, "Employés", List.of(name))),
-                List.of(new CatalogDataset(2L, "Contrats", List.of(salary))),
+                List.of(new CatalogDataset(1L, "Employés", List.of(name), "", List.of())),
+                List.of(new CatalogDataset(2L, "Contrats", List.of(salary), "", List.of())),
                 relations);
     }
 
     private BotReportPlan relatedPlan(Long relatedId, Long fieldId) {
         return new BotReportPlan("READY", null, "Employés et contrats", 1L,
-                List.of(relatedId), List.of(10L, fieldId), List.of(), List.of(), List.of());
+                List.of(relatedId), List.of(10L, fieldId), List.of(), List.of(), List.of(), List.of());
     }
 
     private BotReportPlan clarificationPlan(String question) {
         return new BotReportPlan("NEEDS_CLARIFICATION", question, null, null,
-                null, null, null, null, null);
+                null, null, null, null, null, List.of());
     }
 
     private ReportGenerationResponse generationResponse() {
@@ -115,7 +116,7 @@ class BotReportServiceTest {
         when(catalogProvider.buildCatalog()).thenReturn(catalog());
         when(planner.plan(anyString(), any(BotReportRequest.class), isNull())).thenReturn(
                 new BotReportPlan("NEEDS_CLARIFICATION", "Quel restaurant ?",
-                        null, null, null, null, null, null, null));
+                        null, null, null, null, null, null, null, List.of()));
 
         BotReportResponse response = service.generate(owner, UUID.randomUUID(),
                 new BotReportRequest("un rapport", null, null, null));
@@ -241,14 +242,14 @@ class BotReportServiceTest {
     void allowsADifferentClarificationQuestion() {
         when(catalogProvider.buildCatalog()).thenReturn(catalog());
         when(planner.plan(anyString(), any(BotReportRequest.class), isNull()))
-                .thenReturn(clarificationPlan("Quels champs souhaitez-vous afficher ?"));
+                .thenReturn(clarificationPlan("Quel restaurant souhaitez-vous consulter ?"));
 
         BotReportResponse response = service.generate(owner, UUID.randomUUID(),
                 new BotReportRequest("Liste des employés", null,
                         "Actifs uniquement ou tous ?", "Tous"));
 
         assertEquals("NEEDS_CLARIFICATION", response.status());
-        assertEquals("Quels champs souhaitez-vous afficher ?", response.question());
+        assertEquals("Quel restaurant souhaitez-vous consulter ?", response.question());
     }
 
     @Test
@@ -285,7 +286,7 @@ class BotReportServiceTest {
     void replacesTechnicalSummaryWithBusinessMessage() {
         BotReportPlan technicalPlan = new BotReportPlan("READY", null,
                 "Rapport construit depuis le dataset Employés", 1L, List.of(),
-                List.of(10L), List.of(), List.of(), List.of());
+                List.of(10L), List.of(), List.of(), List.of(), List.of());
         when(catalogProvider.buildCatalog()).thenReturn(catalog());
         when(planner.plan(anyString(), any(BotReportRequest.class), isNull()))
                 .thenReturn(technicalPlan);
@@ -310,6 +311,106 @@ class BotReportServiceTest {
         assertEquals(List.of("Je n’ai pas pu créer ce rapport. Reformulez votre demande avec les informations souhaitées."),
                 response.errors());
         verify(planner, times(2)).plan(anyString(), any(BotReportRequest.class), any());
+    }
+
+    @Test
+    void expandsAllAuthorizedFieldsInCatalogOrderWithoutAddingFilterOnlyFields() {
+        var name = new CatalogField(10L, "Nom", "TEXT", List.of("EQUALS"), "", List.of());
+        var firstName = new CatalogField(11L, "Prénom", "TEXT", List.of("EQUALS"), "", List.of());
+        var salary = new CatalogField(20L, "Salaire", "DECIMAL", List.of("GREATER_THAN"), "", List.of());
+        when(catalogProvider.buildCatalog()).thenReturn(new ReportCatalog(
+                List.of(new CatalogDataset(1L, "Employés", List.of(firstName, name), "", List.of())),
+                List.of(new CatalogDataset(2L, "Contrats", List.of(salary), "", List.of())),
+                List.of(new CatalogRelation(1L, 2L))));
+        var plan = new BotReportPlan("READY", null, "Liste des employés", 1L, List.of(2L), List.of(),
+                List.of(new BotReportPlan.PlanFilter(20L, "GREATER_THAN", List.of("2000"))),
+                List.of(new BotReportPlan.PlanSort(10L, "ASC")), List.of(), List.of(1L));
+        when(planner.plan(anyString(), any(), any())).thenReturn(plan);
+        when(generationService.create(any(), any(), any())).thenReturn(generationResponse());
+        var response = service.generate(owner, UUID.randomUUID(),
+                new BotReportRequest("Liste des employés avec un salaire supérieur à 2000, triée par nom", null, null, null));
+        assertEquals("READY", response.status());
+        var preview = ArgumentCaptor.forClass(ReportPreviewRequest.class);
+        verify(definitionResolver).resolve(preview.capture());
+        assertEquals(List.of(11L, 10L), preview.getValue().selectedFieldIds());
+        assertEquals(20L, preview.getValue().filters().get(0).fieldId());
+        assertEquals(10L, preview.getValue().sorts().get(0).fieldId());
+        verify(generationService).create(any(), any(), eq(preview.getValue()));
+    }
+
+    @Test
+    void keepsAnExplicitSelectionInTheRequestedOrder() {
+        var root = catalog().rootDatasets().get(0);
+        var firstName = new CatalogField(11L, "Prénom", "TEXT", List.of("EQUALS"), "", List.of());
+        when(catalogProvider.buildCatalog()).thenReturn(new ReportCatalog(
+                List.of(new CatalogDataset(1L, root.displayName(), List.of(root.fields().get(0), firstName), "", List.of())),
+                List.of(), List.of()));
+        var plan = new BotReportPlan("READY", null, "Prénom et nom", 1L, List.of(),
+                List.of(11L, 10L), List.of(), List.of(), List.of(), List.of());
+        when(planner.plan(anyString(), any(), any())).thenReturn(plan);
+        when(generationService.create(any(), any(), any())).thenReturn(generationResponse());
+        service.generate(owner, UUID.randomUUID(), new BotReportRequest("Prénom puis nom des employés", null, null, null));
+        var preview = ArgumentCaptor.forClass(ReportPreviewRequest.class);
+        verify(definitionResolver).resolve(preview.capture());
+        assertEquals(List.of(11L, 10L), preview.getValue().selectedFieldIds());
+    }
+
+    @Test
+    void refusesEmptySelectionsAndInvalidFullSelectionTargets() {
+        when(catalogProvider.buildCatalog()).thenReturn(catalog());
+        for (List<Long> allIds : List.of(List.<Long>of(), List.of(99L), List.of(1L, 1L))) {
+            var plan = new BotReportPlan("READY", null, "Rapport", 1L, List.of(), List.of(),
+                    List.of(), List.of(), List.of(), allIds);
+            when(planner.plan(anyString(), any(), any())).thenReturn(plan);
+            assertEquals("FAILED", service.generate(owner, UUID.randomUUID(),
+                    new BotReportRequest("Liste des employés", null, null, null)).status());
+        }
+        verifyNoInteractions(definitionResolver, generationService);
+    }
+
+    @Test
+    void fullSelectionDoesNotBypassValidationOfInventedFieldsOrCurrentPermissions() {
+        when(catalogProvider.buildCatalog()).thenReturn(catalog());
+        var invalid = new BotReportPlan("READY", null, "Rapport", 1L, List.of(), List.of(999L),
+                List.of(), List.of(), List.of(), List.of(1L));
+        when(planner.plan(anyString(), any(), any())).thenReturn(invalid);
+        assertEquals("FAILED", service.generate(owner, UUID.randomUUID(),
+                new BotReportRequest("Liste des employés", null, null, null)).status());
+        verifyNoInteractions(definitionResolver, generationService);
+
+        var all = new BotReportPlan("READY", null, "Rapport", 1L, List.of(), List.of(),
+                List.of(), List.of(), List.of(), List.of(1L));
+        when(planner.plan(anyString(), any(), any())).thenReturn(all);
+        when(definitionResolver.resolve(any())).thenThrow(new ReportValidationException("Champ révoqué"));
+        assertEquals("FAILED", service.generate(owner, UUID.randomUUID(),
+                new BotReportRequest("Liste des employés", null, null, null)).status());
+        verifyNoInteractions(generationService);
+    }
+
+    @Test
+    void correctsGenericFieldQuestionsIntoACompleteList() {
+        when(catalogProvider.buildCatalog()).thenReturn(catalog());
+        when(planner.plan(anyString(), any(), isNull())).thenReturn(clarificationPlan("Quels champs souhaitez-vous afficher ?"));
+        when(planner.plan(anyString(), any(), anyList())).thenReturn(new BotReportPlan(
+                "READY", null, "Liste des employés", 1L, List.of(), List.of(), List.of(), List.of(), List.of(), List.of(1L)));
+        when(generationService.create(any(), any(), any())).thenReturn(generationResponse());
+        assertEquals("READY", service.generate(owner, UUID.randomUUID(),
+                new BotReportRequest("Je veux la liste des employés", null, null, null)).status());
+        verify(planner, times(2)).plan(anyString(), any(), any());
+    }
+
+    @Test
+    void rejectsJoinAndInternalIdQuestionsButAllowsBusinessIdentityQuestions() {
+        when(catalogProvider.buildCatalog()).thenReturn(catalog());
+        for (String question : List.of("Quel join utiliser ?", "Quel ID choisir ?", "Quel dataset_id ?")) {
+            when(planner.plan(anyString(), any(), any())).thenReturn(clarificationPlan(question));
+            assertEquals("FAILED", service.generate(owner, UUID.randomUUID(),
+                    new BotReportRequest("Un rapport", null, null, null)).status());
+        }
+        when(planner.plan(anyString(), any(), any())).thenReturn(clarificationPlan("L’identité du salarié ou du responsable ?"));
+        assertEquals("NEEDS_CLARIFICATION", service.generate(owner, UUID.randomUUID(),
+                new BotReportRequest("Un rapport", null, null, null)).status());
+        verifyNoInteractions(generationService);
     }
 
 }

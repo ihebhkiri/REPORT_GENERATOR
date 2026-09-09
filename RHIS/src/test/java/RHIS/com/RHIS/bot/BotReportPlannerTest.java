@@ -44,7 +44,7 @@ class BotReportPlannerTest {
 
     private BotReportPlan readyPlan() {
         return new BotReportPlan("READY", null, "Rapport", 1L, List.of(),
-                List.of(10L), List.of(), List.of(), List.of());
+                List.of(10L), List.of(), List.of(), List.of(), List.of());
     }
 
     @Test

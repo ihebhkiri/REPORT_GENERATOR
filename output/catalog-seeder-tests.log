@@ -1,0 +1,84 @@
+22:13:35.740 [main] INFO org.testcontainers.DockerClientFactory -- Testcontainers version: 2.0.5
+22:13:38.822 [main] INFO org.testcontainers.dockerclient.DockerClientProviderStrategy -- Loaded org.testcontainers.dockerclient.NpipeSocketClientProviderStrategy from ~/.testcontainers.properties, will try it first
+22:13:45.745 [main] INFO org.testcontainers.dockerclient.DockerClientProviderStrategy -- Found Docker environment with local Npipe socket (npipe:////./pipe/docker_engine)
+22:13:45.762 [main] INFO org.testcontainers.DockerClientFactory -- Docker host IP address is localhost
+22:13:46.084 [main] INFO org.testcontainers.DockerClientFactory -- Connected to docker: 
+  Server Version: 29.2.1
+  API Version: 1.53
+  Operating System: Docker Desktop
+  Total Memory: 7736 MB
+  Labels: 
+    com.docker.desktop.address=npipe://\\.\pipe\docker_cli
+22:13:46.208 [main] INFO org.testcontainers.images.PullPolicy -- Image pull policy will be performed by: DefaultPullPolicy()
+22:13:46.233 [main] INFO org.testcontainers.utility.ImageNameSubstitutor -- Image name substitution will be performed by: DefaultImageNameSubstitutor (composite of 'ConfigurationFileImageNameSubstitutor' and 'PrefixingImageNameSubstitutor')
+22:13:47.416 [main] INFO tc.testcontainers/ryuk:0.14.0 -- Creating container for image: testcontainers/ryuk:0.14.0
+22:13:48.096 [main] INFO org.testcontainers.utility.RegistryAuthLocator -- Credential helper/store (docker-credential-desktop) does not have credentials for https://index.docker.io/v1/
+22:13:49.819 [main] INFO tc.testcontainers/ryuk:0.14.0 -- Container testcontainers/ryuk:0.14.0 is starting: acbc5d339698efac93154b8859ce23a94b07a57f6a70369da3ab7fde86dcb6e7
+22:13:53.594 [main] INFO tc.testcontainers/ryuk:0.14.0 -- Container testcontainers/ryuk:0.14.0 started in PT6.1755522S
+22:13:53.623 [main] INFO org.testcontainers.utility.RyukResourceReaper -- Ryuk started - will monitor and terminate Testcontainers containers on JVM exit
+22:13:53.624 [main] INFO org.testcontainers.DockerClientFactory -- Checking the system...
+22:13:53.628 [main] INFO org.testcontainers.DockerClientFactory -- ?? Docker server version should be at least 1.6.0
+22:13:54.756 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [RHIS.com.RHIS.dataset.CatalogMetadataPostgresIntegrationTest]: CatalogMetadataPostgresIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+22:13:55.667 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration RHIS.com.RHIS.RhisApplication for test class RHIS.com.RHIS.dataset.CatalogMetadataPostgresIntegrationTest
+22:13:56.625 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [RHIS.com.RHIS.dataset.CatalogMetadataPostgresIntegrationTest]: CatalogMetadataPostgresIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+22:13:56.667 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration RHIS.com.RHIS.RhisApplication for test class RHIS.com.RHIS.dataset.CatalogMetadataPostgresIntegrationTest
+22:13:57.018 [main] INFO tc.postgres:16-alpine -- Creating container for image: postgres:16-alpine
+22:13:58.153 [main] INFO tc.postgres:16-alpine -- Container postgres:16-alpine is starting: bf933396affd7006f94c8a7e67f84191d6f484e50b374d019223b964c0bbedd8
+22:14:13.652 [main] INFO tc.postgres:16-alpine -- Container postgres:16-alpine started in PT16.6344166S
+22:14:13.660 [main] INFO tc.postgres:16-alpine -- Container is started (JDBC URL: jdbc:postgresql://localhost:58649/test?loggerLevel=OFF)
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.1.0)
+
+2026-09-08T22:14:18.117+02:00  INFO 31608 --- [           main] d.CatalogMetadataPostgresIntegrationTest : Starting CatalogMetadataPostgresIntegrationTest using Java 17.0.7 with PID 31608 (started by Surface Pro in C:\Users\Surface Pro\Downloads\RHIS\RHIS)
+2026-09-08T22:14:18.135+02:00  INFO 31608 --- [           main] d.CatalogMetadataPostgresIntegrationTest : The following 1 profile is active: "test"
+2026-09-08T22:14:30.262+02:00  INFO 31608 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-09-08T22:14:31.336+02:00  INFO 31608 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 1020 ms. Found 15 JPA repository interfaces.
+2026-09-08T22:14:34.159+02:00  INFO 31608 --- [           main] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-09-08T22:14:35.207+02:00  INFO 31608 --- [           main] org.hibernate.orm.core                   : HHH000001: Hibernate ORM core version 7.4.1.Final
+2026-09-08T22:14:38.485+02:00  INFO 31608 --- [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-09-08T22:14:38.742+02:00  INFO 31608 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-09-08T22:14:39.515+02:00  INFO 31608 --- [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@17af9f67
+2026-09-08T22:14:39.524+02:00  INFO 31608 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-09-08T22:14:39.935+02:00  INFO 31608 --- [           main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [jdbc:postgresql://localhost:58649/test?loggerLevel=OFF]
+	Database driver: PostgreSQL JDBC Driver
+	Database dialect: PostgreSQLDialect
+	Database version: 16.14
+	Default catalog/schema: test/public
+	Autocommit mode: undefined/unknown
+	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-09-08T22:14:50.795+02:00  INFO 31608 --- [           main] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-09-08T22:14:51.520+02:00  INFO 31608 --- [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-09-08T22:14:51.901+02:00  INFO 31608 --- [           main] o.s.d.j.r.query.QueryEnhancerFactories   : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-09-08T22:14:55.578+02:00  INFO 31608 --- [           main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name customUserDetailService
+2026-09-08T22:15:06.234+02:00  INFO 31608 --- [           main] d.CatalogMetadataPostgresIntegrationTest : Started CatalogMetadataPostgresIntegrationTest in 52.186 seconds (process running for 93.459)
+2026-09-08T22:15:07.669+02:00  INFO 31608 --- [           main] R.c.R.d.bootstrap.DataSetInitializer     : Synchronized DataSet 'Absence Conge' with 11 fields.
+2026-09-08T22:15:07.872+02:00  INFO 31608 --- [           main] R.c.R.d.bootstrap.DataSetInitializer     : Synchronized DataSet 'Contrat' with 14 fields.
+2026-09-08T22:15:08.034+02:00  INFO 31608 --- [           main] R.c.R.d.bootstrap.DataSetInitializer     : Synchronized DataSet 'Detail Evenement' with 10 fields.
+2026-09-08T22:15:08.230+02:00  INFO 31608 --- [           main] R.c.R.d.bootstrap.DataSetInitializer     : Synchronized DataSet 'Employee' with 10 fields.
+2026-09-08T22:15:08.557+02:00  INFO 31608 --- [           main] R.c.R.d.bootstrap.DataSetInitializer     : Synchronized DataSet 'Pointage' with 12 fields.
+2026-09-08T22:15:08.779+02:00  INFO 31608 --- [           main] R.c.R.d.bootstrap.DataSetInitializer     : Synchronized DataSet 'Restaurant' with 7 fields.
+2026-09-08T22:15:09.344+02:00  INFO 31608 --- [           main] R.c.R.d.bootstrap.DataSetInitializer     : Synchronized DataSet 'Plannig' with 13 fields.
+2026-09-08T22:15:16.997+02:00  INFO 31608 --- [           main] R.c.R.w.bootstrap.WorkforceDataSeeder    : Initialisation RHIS terminee : 50 lignes dans chacune des 7 tables metier.
+Java HotSpot(TM) 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+2026-09-08T22:15:22.062+02:00  INFO 31608 --- [           main] R.c.R.d.bootstrap.DataSetInitializer     : Synchronized DataSet 'Absence Conge' with 11 fields.
+2026-09-08T22:15:22.291+02:00  INFO 31608 --- [           main] R.c.R.d.bootstrap.DataSetInitializer     : Synchronized DataSet 'Contrat' with 14 fields.
+2026-09-08T22:15:22.479+02:00  INFO 31608 --- [           main] R.c.R.d.bootstrap.DataSetInitializer     : Synchronized DataSet 'Detail Evenement' with 10 fields.
+2026-09-08T22:15:22.560+02:00  INFO 31608 --- [           main] R.c.R.d.bootstrap.DataSetInitializer     : Synchronized DataSet 'Employee' with 10 fields.
+2026-09-08T22:15:22.630+02:00  INFO 31608 --- [           main] R.c.R.d.bootstrap.DataSetInitializer     : Synchronized DataSet 'Pointage' with 12 fields.
+2026-09-08T22:15:22.690+02:00  INFO 31608 --- [           main] R.c.R.d.bootstrap.DataSetInitializer     : Synchronized DataSet 'Restaurant' with 7 fields.
+2026-09-08T22:15:22.803+02:00  INFO 31608 --- [           main] R.c.R.d.bootstrap.DataSetInitializer     : Synchronized DataSet 'Plannig' with 13 fields.
+2026-09-08T22:15:23.875+02:00  INFO 31608 --- [           main] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-09-08T22:15:24.670+02:00  INFO 31608 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-09-08T22:15:24.696+02:00  INFO 31608 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.

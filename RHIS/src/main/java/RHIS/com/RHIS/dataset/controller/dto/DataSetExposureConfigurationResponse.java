@@ -12,7 +12,9 @@ public record DataSetExposureConfigurationResponse(
             boolean displayMain,
             boolean displayRelated,
             long visibleFieldCount,
-            List<FieldExposure> fields
+            List<FieldExposure> fields,
+            String description,
+            String aliases
     ) {
     }
 
@@ -20,7 +22,9 @@ public record DataSetExposureConfigurationResponse(
             Long id,
             String displayName,
             boolean active,
-            boolean visible
+            boolean visible,
+            String description,
+            String aliases
     ) {
     }
 }

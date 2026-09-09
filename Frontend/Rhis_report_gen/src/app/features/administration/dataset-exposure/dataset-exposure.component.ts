@@ -21,6 +21,7 @@ import {CheckboxModule} from 'primeng/checkbox';
 import {InputTextModule} from 'primeng/inputtext';
 import {SelectModule} from 'primeng/select';
 import {SkeletonModule} from 'primeng/skeleton';
+import {TextareaModule} from 'primeng/textarea';
 
 import {
   DatasetExposure,
@@ -47,6 +48,7 @@ interface ExposureModeOption {
     InputTextModule,
     SelectModule,
     SkeletonModule,
+    TextareaModule,
   ],
   templateUrl: './dataset-exposure.component.html',
   styleUrl: './dataset-exposure.component.scss',
@@ -83,6 +85,15 @@ export class DatasetExposureComponent {
   readonly changes = computed<readonly DatasetExposureUpdate[]>(() => this.buildChanges());
   readonly changeCount = computed(() => this.changes().length);
   readonly dirty = computed(() => this.changeCount() > 0);
+  readonly metadataError = computed(() => {
+    const entries = this.changes().flatMap((dataset) => [dataset, ...dataset.fields]);
+    return entries.some((entry) => {
+      const aliases = (entry.aliases ?? '').split(/\r?\n/).map((value) => value.trim()).filter(Boolean);
+      return (entry.description?.length ?? 0) > 1000 || (entry.aliases?.length ?? 0) > 2000
+        || new Set(aliases.map((value) => value.toLocaleLowerCase('fr'))).size > 20
+        || aliases.some((value) => value.length > 100);
+    }) ? 'Description : 1000 caractères maximum. Alias : 20 maximum, un par ligne, 100 caractères chacun et 2000 au total.' : null;
+  });
   readonly saveError = computed(() => this.dirty() && this.saveFailed()
     ? 'Vos modifications sont conservées. Réessayez.' : null);
   readonly dirtyDatasetIds = computed<ReadonlySet<number>>(
@@ -201,6 +212,17 @@ export class DatasetExposureComponent {
     return dataset.fields.filter((field) => field.active && field.visible).length;
   }
 
+  updateMetadata(datasetId: number, property: 'description' | 'aliases', value: string, fieldId?: number): void {
+    if (this.saving()) return;
+    this.draft.update((datasets) => datasets.map((dataset) => {
+      if (dataset.id !== datasetId || !dataset.active) return dataset;
+      if (fieldId === undefined) return {...dataset, [property]: value};
+      return {...dataset, fields: dataset.fields.map((field) =>
+        field.id === fieldId && field.active ? {...field, [property]: value} : field)};
+    }));
+    if (!this.dirty()) this.saveFailed.set(false);
+  }
+
   fieldsDisabled(dataset: DatasetExposure): boolean {
     return !dataset.active || this.exposureMode(dataset) === 'NONE';
   }
@@ -216,7 +238,7 @@ export class DatasetExposureComponent {
 
   save(): void {
     const datasets = this.changes();
-    if (datasets.length === 0 || this.saving()) {
+    if (datasets.length === 0 || this.saving() || this.metadataError()) {
       return;
     }
     const restoreFocus = !!this.hostElement.nativeElement.ownerDocument.activeElement
@@ -272,12 +294,18 @@ export class DatasetExposureComponent {
       }
       const baselineFields = new Map(baseline.fields.map((field) => [field.id, field]));
       const fields = dataset.fields
-        .filter((field) => field.active && baselineFields.get(field.id)?.visible !== field.visible)
-        .map((field) => ({id: field.id, visible: field.visible}));
+        .flatMap((field) => {
+          const original = baselineFields.get(field.id);
+          if (!field.active || !original) return [];
+          const metadata = this.metadataChanges(original, field);
+          return original.visible !== field.visible || Object.keys(metadata).length > 0
+            ? [{id: field.id, visible: field.visible, ...metadata}] : [];
+        });
+      const metadata = this.metadataChanges(baseline, dataset);
       const modeChanged =
         baseline.displayMain !== dataset.displayMain ||
         baseline.displayRelated !== dataset.displayRelated;
-      if (!modeChanged && fields.length === 0) {
+      if (!modeChanged && fields.length === 0 && Object.keys(metadata).length === 0) {
         return [];
       }
       return [
@@ -286,6 +314,7 @@ export class DatasetExposureComponent {
           displayMain: dataset.displayMain,
           displayRelated: dataset.displayRelated,
           fields,
+          ...metadata,
         },
       ];
     });
@@ -304,6 +333,16 @@ export class DatasetExposureComponent {
       this.mobileDetailVisible.set(false);
       this.fieldSearchTerm.set('');
     }
+  }
+
+  private metadataChanges(
+    baseline: Pick<DatasetExposure, 'description' | 'aliases'>,
+    draft: Pick<DatasetExposure, 'description' | 'aliases'>,
+  ): {description?: string; aliases?: string} {
+    const changes: {description?: string; aliases?: string} = {};
+    if ((baseline.description ?? '') !== (draft.description ?? '')) changes.description = draft.description ?? '';
+    if ((baseline.aliases ?? '') !== (draft.aliases ?? '')) changes.aliases = draft.aliases ?? '';
+    return changes;
   }
 
   private normalizeSearch(value: string): string {

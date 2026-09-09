@@ -1,0 +1,136 @@
+
+> rhis-report-gen@0.0.0 test
+> ng test --watch=false --browsers=ChromeHeadless --include=src/app/features/auth/auth.interceptor.spec.ts --include=src/app/features/rapports/pages/configuration/components/preview-panel/preview-panel.component.spec.ts
+
+> Building...
+√ Building...
+Initial chunk files                  | Names                             |  Raw size
+chunk-ZZDEJ4CO.js                    | -                                 |   2.28 MB | 
+spec-preview-panel.component.spec.js | spec-preview-panel.component.spec |   1.96 MB | 
+polyfills.js                         | polyfills                         |   1.04 MB | 
+chunk-QCADA6YP.js                    | -                                 | 236.60 kB | 
+spec-auth.interceptor.spec.js        | spec-auth.interceptor.spec        | 105.28 kB | 
+jasmine-cleanup-1.js                 | jasmine-cleanup-1                 |  67.20 kB | 
+styles.css                           | styles                            |  49.28 kB | 
+test_main.js                         | test_main                         |  21.83 kB | 
+chunk-752XMSYM.js                    | -                                 |   2.56 kB | 
+jasmine-cleanup-0.js                 | jasmine-cleanup-0                 | 519 bytes | 
+
+                                     | Initial total                     |   5.76 MB
+
+Application bundle generation complete. [6.294 seconds] - 2026-09-08T13:30:25.075Z
+
+08 09 2026 15:30:25.315:INFO [karma-server]: Karma v6.4.4 server started at http://localhost:9876/
+08 09 2026 15:30:25.317:INFO [launcher]: Launching browsers ChromeHeadless with concurrency unlimited
+08 09 2026 15:30:25.330:INFO [launcher]: Starting browser ChromeHeadless
+08 09 2026 15:30:26.965:INFO [Chrome Headless 152.0.0.0 (Windows 10)]: Connected on socket fRrJXK61U3B4NRRGAAAB with id 82287481
+Chrome Headless 152.0.0.0 (Windows 10): Executed 0 of 16[32m SUCCESS[39m (0 secs / 0 secs)
+[1A[2KChrome Headless 152.0.0.0 (Windows 10): Executed 1 of 16[32m SUCCESS[39m (0 secs / 0.104 secs)
+[1A[2KChrome Headless 152.0.0.0 (Windows 10): Executed 2 of 16[32m SUCCESS[39m (0 secs / 0.131 secs)
+[1A[2KChrome Headless 152.0.0.0 (Windows 10): Executed 3 of 16[32m SUCCESS[39m (0 secs / 0.161 secs)
+[1A[2K[31mChrome Headless 152.0.0.0 (Windows 10) PreviewPanelComponent renders the empty success state and its zero count FAILED[39m
+	Expected 'Aperçu en temps réeltable_rowsAucune donnéeAucune ligne ne correspond à cette configuration.' to contain '0 ligne'.
+	    at <Jasmine>
+	    at UserContext.<anonymous> (src/app/features/rapports/pages/configuration/components/preview-panel/preview-panel.component.spec.ts:48:64)
+	    at _ZoneDelegate.invoke (node_modules/zone.js/fesm2015/zone.js:398:28)
+	    at _ProxyZoneSpec.onInvoke (node_modules/zone.js/fesm2015/zone-testing.js:2132:39)
+	    at _ZoneDelegate.invoke (node_modules/zone.js/fesm2015/zone.js:397:34)
+Chrome Headless 152.0.0.0 (Windows 10): Executed 4 of 16[31m (1 FAILED)[39m (0 secs / 0.17 secs)
+[1A[2KChrome Headless 152.0.0.0 (Windows 10): Executed 5 of 16[31m (1 FAILED)[39m (0 secs / 0.187 secs)
+[1A[2K[31mChrome Headless 152.0.0.0 (Windows 10) PreviewPanelComponent renders rows and cells in API column order with the returned count FAILED[39m
+	Expected 'Aperçu en temps réelNomActifNoteCommentaireEmployé 1Oui—TexteEmployé 2Non—Suite' to contain '2 lignes'.
+	    at <Jasmine>
+	    at UserContext.<anonymous> (src/app/features/rapports/pages/configuration/components/preview-panel/preview-panel.component.spec.ts:35:33)
+	    at _ZoneDelegate.invoke (node_modules/zone.js/fesm2015/zone.js:398:28)
+	    at _ProxyZoneSpec.onInvoke (node_modules/zone.js/fesm2015/zone-testing.js:2132:39)
+	    at _ZoneDelegate.invoke (node_modules/zone.js/fesm2015/zone.js:397:34)
+Chrome Headless 152.0.0.0 (Windows 10): Executed 6 of 16[31m (2 FAILED)[39m (0 secs / 0.198 secs)
+[1A[2KChrome Headless 152.0.0.0 (Windows 10): Executed 7 of 16[31m (2 FAILED)[39m (0 secs / 0.211 secs)
+[1A[2K[31mChrome Headless 152.0.0.0 (Windows 10) Auth refresh interceptor shares a refresh between concurrent failures FAILED[39m
+	Error: Expected one matching request for criteria "Match URL: /api/v1/auth/refresh", found none.
+	    at _HttpClientTestingBackend.expectOne (node_modules/@angular/common/fesm2022/http/testing.mjs:273:19)
+	    at UserContext.<anonymous> (src/app/features/auth/auth.interceptor.spec.ts:50:14)
+	    at _ZoneDelegate.invoke (node_modules/zone.js/fesm2015/zone.js:398:28)
+	    at _ProxyZoneSpec.onInvoke (node_modules/zone.js/fesm2015/zone-testing.js:2132:39)
+	    at _ZoneDelegate.invoke (node_modules/zone.js/fesm2015/zone.js:397:34)
+	    at ZoneImpl.run (node_modules/zone.js/fesm2015/zone.js:113:43)
+	    at runInTestZone (node_modules/zone.js/fesm2015/zone-testing.js:216:38)
+	    at UserContext.<anonymous> (node_modules/zone.js/fesm2015/zone-testing.js:234:32)
+	    at <Jasmine>
+Chrome Headless 152.0.0.0 (Windows 10): Executed 8 of 16[31m (3 FAILED)[39m (0 secs / 0.219 secs)
+[1A[2K[31mChrome Headless 152.0.0.0 (Windows 10) Auth refresh interceptor refreshes with cookies and retries the original request once FAILED[39m
+	Error: Expected one matching request for criteria "Match URL: /api/v1/auth/refresh", found none.
+	    at _HttpClientTestingBackend.expectOne (node_modules/@angular/common/fesm2022/http/testing.mjs:273:19)
+	    at UserContext.<anonymous> (src/app/features/auth/auth.interceptor.spec.ts:33:28)
+	    at _ZoneDelegate.invoke (node_modules/zone.js/fesm2015/zone.js:398:28)
+	    at _ProxyZoneSpec.onInvoke (node_modules/zone.js/fesm2015/zone-testing.js:2132:39)
+	    at _ZoneDelegate.invoke (node_modules/zone.js/fesm2015/zone.js:397:34)
+	    at ZoneImpl.run (node_modules/zone.js/fesm2015/zone.js:113:43)
+	    at runInTestZone (node_modules/zone.js/fesm2015/zone-testing.js:216:38)
+	    at UserContext.<anonymous> (node_modules/zone.js/fesm2015/zone-testing.js:234:32)
+	    at <Jasmine>
+Chrome Headless 152.0.0.0 (Windows 10): Executed 9 of 16[31m (4 FAILED)[39m (0 secs / 0.223 secs)
+[1A[2KChrome Headless 152.0.0.0 (Windows 10): Executed 10 of 16[31m (4 FAILED)[39m (0 secs / 0.227 secs)
+[1A[2K[31mChrome Headless 152.0.0.0 (Windows 10) Auth refresh interceptor propagates refresh failure and permits a later fresh attempt FAILED[39m
+	Error: Expected one matching request for criteria "Match URL: /api/v1/auth/refresh", found none.
+	    at _HttpClientTestingBackend.expectOne (node_modules/@angular/common/fesm2022/http/testing.mjs:273:19)
+	    at UserContext.<anonymous> (src/app/features/auth/auth.interceptor.spec.ts:71:16)
+	    at _ZoneDelegate.invoke (node_modules/zone.js/fesm2015/zone.js:398:28)
+	    at _ProxyZoneSpec.onInvoke (node_modules/zone.js/fesm2015/zone-testing.js:2132:39)
+	    at _ZoneDelegate.invoke (node_modules/zone.js/fesm2015/zone.js:397:34)
+	    at ZoneImpl.run (node_modules/zone.js/fesm2015/zone.js:113:43)
+	    at runInTestZone (node_modules/zone.js/fesm2015/zone-testing.js:216:38)
+	    at UserContext.<anonymous> (node_modules/zone.js/fesm2015/zone-testing.js:234:32)
+	    at <Jasmine>
+Chrome Headless 152.0.0.0 (Windows 10): Executed 11 of 16[31m (5 FAILED)[39m (0 secs / 0.23 secs)
+[1A[2KChrome Headless 152.0.0.0 (Windows 10): Executed 12 of 16[31m (5 FAILED)[39m (0 secs / 0.234 secs)
+[1A[2K[31mChrome Headless 152.0.0.0 (Windows 10) Auth refresh interceptor propagates a second 403 without another refresh FAILED[39m
+	Error: Expected one matching request for criteria "Match URL: /api/v1/auth/refresh", found none.
+	    at _HttpClientTestingBackend.expectOne (node_modules/@angular/common/fesm2022/http/testing.mjs:273:19)
+	    at UserContext.<anonymous> (src/app/features/auth/auth.interceptor.spec.ts:60:14)
+	    at _ZoneDelegate.invoke (node_modules/zone.js/fesm2015/zone.js:398:28)
+	    at _ProxyZoneSpec.onInvoke (node_modules/zone.js/fesm2015/zone-testing.js:2132:39)
+	    at _ZoneDelegate.invoke (node_modules/zone.js/fesm2015/zone.js:397:34)
+	    at ZoneImpl.run (node_modules/zone.js/fesm2015/zone.js:113:43)
+	    at runInTestZone (node_modules/zone.js/fesm2015/zone-testing.js:216:38)
+	    at UserContext.<anonymous> (node_modules/zone.js/fesm2015/zone-testing.js:234:32)
+	    at <Jasmine>
+Chrome Headless 152.0.0.0 (Windows 10): Executed 13 of 16[31m (6 FAILED)[39m (0 secs / 0.237 secs)
+[1A[2K[31mChrome Headless 152.0.0.0 (Windows 10) Auth refresh interceptor waits for cookie rotation before logout and suppresses retries during logout FAILED[39m
+	Error: Expected zero matching requests for criteria "Match URL: /api/v1/auth/logout", found 1.
+	    at _HttpClientTestingBackend.expectNone (node_modules/@angular/common/fesm2022/http/testing.mjs:285:19)
+	    at UserContext.<anonymous> (src/app/features/auth/auth.interceptor.spec.ts:113:14)
+	    at _ZoneDelegate.invoke (node_modules/zone.js/fesm2015/zone.js:398:28)
+	    at _ProxyZoneSpec.onInvoke (node_modules/zone.js/fesm2015/zone-testing.js:2132:39)
+	    at _ZoneDelegate.invoke (node_modules/zone.js/fesm2015/zone.js:397:34)
+	    at ZoneImpl.run (node_modules/zone.js/fesm2015/zone.js:113:43)
+	    at runInTestZone (node_modules/zone.js/fesm2015/zone-testing.js:216:38)
+	    at UserContext.<anonymous> (node_modules/zone.js/fesm2015/zone-testing.js:234:32)
+	    at <Jasmine>
+Chrome Headless 152.0.0.0 (Windows 10): Executed 14 of 16[31m (7 FAILED)[39m (0 secs / 0.239 secs)
+[1A[2KChrome Headless 152.0.0.0 (Windows 10): Executed 15 of 16[31m (7 FAILED)[39m (0 secs / 0.241 secs)
+[1A[2K[31mChrome Headless 152.0.0.0 (Windows 10) Auth refresh interceptor passes through statuses other than 403 FAILED[39m
+	Error: Expected zero matching requests for criteria "Match URL: /api/v1/auth/refresh", found 1.
+	    at _HttpClientTestingBackend.expectNone (node_modules/@angular/common/fesm2022/http/testing.mjs:285:19)
+	    at UserContext.<anonymous> (src/app/features/auth/auth.interceptor.spec.ts:92:16)
+	    at _ZoneDelegate.invoke (node_modules/zone.js/fesm2015/zone.js:398:28)
+	    at _ProxyZoneSpec.onInvoke (node_modules/zone.js/fesm2015/zone-testing.js:2132:39)
+	    at _ZoneDelegate.invoke (node_modules/zone.js/fesm2015/zone.js:397:34)
+	    at ZoneImpl.run (node_modules/zone.js/fesm2015/zone.js:113:43)
+	    at runInTestZone (node_modules/zone.js/fesm2015/zone-testing.js:216:38)
+	    at UserContext.<anonymous> (node_modules/zone.js/fesm2015/zone-testing.js:234:32)
+	    at <Jasmine>
+Chrome Headless 152.0.0.0 (Windows 10): Executed 16 of 16[31m (8 FAILED)[39m (0 secs / 0.244 secs)
+[1A[2K[31mChrome Headless 152.0.0.0 (Windows 10) ERROR[39m
+  An error was thrown in afterAll
+  HttpErrorResponse: Http failure response for /api/v1/datasets: 403 Forbidden
+  HttpErrorResponse: Http failure response for /api/v1/datasets/2: 403 Forbidden
+  HttpErrorResponse: Http failure response for /api/v1/datasets: 403 Forbidden
+Chrome Headless 152.0.0.0 (Windows 10): Executed 16 of 16[31m (8 FAILED)[39m[31m ERROR[39m (0 secs / 0.244 secs)
+Chrome Headless 152.0.0.0 (Windows 10) ERROR
+  An error was thrown in afterAll
+  HttpErrorResponse: Http failure response for /api/v1/datasets: 403 Forbidden
+  HttpErrorResponse: Http failure response for /api/v1/datasets/2: 403 Forbidden
+  HttpErrorResponse: Http failure response for /api/v1/datasets: 403 Forbidden
+[1A[2KChrome Headless 152.0.0.0 (Windows 10): Executed 16 of 16[31m (8 FAILED)[39m[31m ERROR[39m (0.277 secs / 0.244 secs)
+[1A[2KChrome Headless 152.0.0.0 (Windows 10): Executed 16 of 16[31m (8 FAILED)[39m[31m ERROR[39m (0.282 secs / 0.244 secs)

@@ -1,0 +1,83 @@
+
+> rhis-report-gen@0.0.0 test
+> ng test --watch=false --browsers=ChromeHeadless --include=src/app/features/administration/dataset-exposure/*.spec.ts --include=src/app/features/report-assistant/*.spec.ts
+
+> Building...
+√ Building...
+Initial chunk files                                 | Names                                            |  Raw size
+chunk-AUAW6JFY.js                                   | -                                                |   2.29 MB | 
+polyfills.js                                        | polyfills                                        |   1.04 MB | 
+spec-dataset-exposure.component.spec.js             | spec-dataset-exposure.component.spec             | 800.98 kB | 
+chunk-WXLH67E4.js                                   | -                                                | 466.60 kB | 
+chunk-GAHWTMLJ.js                                   | -                                                | 253.98 kB | 
+chunk-JZTHOT7W.js                                   | -                                                | 241.32 kB | 
+chunk-37QCMCAP.js                                   | -                                                |  96.63 kB | 
+jasmine-cleanup-1.js                                | jasmine-cleanup-1                                |  67.20 kB | 
+styles.css                                          | styles                                           |  49.24 kB | 
+test_main.js                                        | test_main                                        |  21.83 kB | 
+spec-report-assistant.component.spec.js             | spec-report-assistant.component.spec             |  19.40 kB | 
+chunk-EIQRQOXY.js                                   | -                                                |  11.16 kB | 
+chunk-ZVCGLBDB.js                                   | -                                                |   2.69 kB | 
+spec-pending-dataset-exposure-changes.guard.spec.js | spec-pending-dataset-exposure-changes.guard.spec |   2.33 kB | 
+spec-dataset-exposure.service.spec.js               | spec-dataset-exposure.service.spec               |   1.87 kB | 
+spec-bot-report.service.spec.js                     | spec-bot-report.service.spec                     |   1.66 kB | 
+chunk-GEWWWME5.js                                   | -                                                |   1.27 kB | 
+chunk-CXMWWUOP.js                                   | -                                                |   1.10 kB | 
+chunk-7RXXJTSW.js                                   | -                                                |   1.04 kB | 
+spec-dataset-exposure.model.spec.js                 | spec-dataset-exposure.model.spec                 | 969 bytes | 
+jasmine-cleanup-0.js                                | jasmine-cleanup-0                                | 519 bytes | 
+chunk-353PBBMD.js                                   | -                                                | 359 bytes | 
+
+                                                    | Initial total                                    |   5.37 MB
+
+Application bundle generation complete. [27.321 seconds] - 2026-09-08T10:58:49.758Z
+
+08 09 2026 12:58:50.947:INFO [karma-server]: Karma v6.4.4 server started at http://localhost:9876/
+08 09 2026 12:58:50.955:INFO [launcher]: Launching browsers ChromeHeadless with concurrency unlimited
+08 09 2026 12:58:50.989:INFO [launcher]: Starting browser ChromeHeadless
+08 09 2026 12:58:55.402:INFO [Chrome Headless 152.0.0.0 (Windows 10)]: Connected on socket GDqu4lfZLJwa4VgsAAAB with id 60706329
+Chrome Headless 152.0.0.0 (Windows 10): Executed 0 of 39[32m SUCCESS[39m (0 secs / 0 secs)
+[1A[2KChrome Headless 152.0.0.0 (Windows 10): Executed 1 of 39[32m SUCCESS[39m (0 secs / 0.015 secs)
+[1A[2KChrome Headless 152.0.0.0 (Windows 10): Executed 2 of 39[32m SUCCESS[39m (0 secs / 0.673 secs)
+[1A[2KChrome Headless 152.0.0.0 (Windows 10): Executed 3 of 39[32m SUCCESS[39m (0 secs / 0.717 secs)
+[1A[2KChrome Headless 152.0.0.0 (Windows 10): Executed 4 of 39[32m SUCCESS[39m (0 secs / 0.762 secs)
+[1A[2KChrome Headless 152.0.0.0 (Windows 10): Executed 5 of 39[32m SUCCESS[39m (0 secs / 1.085 secs)
+[1A[2KChrome Headless 152.0.0.0 (Windows 10): Executed 6 of 39[32m SUCCESS[39m (0 secs / 1.127 secs)
+[1A[2KChrome Headless 152.0.0.0 (Windows 10): Executed 7 of 39[32m SUCCESS[39m (0 secs / 1.179 secs)
+[1A[2KChrome Headless 152.0.0.0 (Windows 10): Executed 8 of 39[32m SUCCESS[39m (0 secs / 1.218 secs)
+[1A[2KChrome Headless 152.0.0.0 (Windows 10): Executed 9 of 39[32m SUCCESS[39m (0 secs / 1.249 secs)
+[1A[2KChrome Headless 152.0.0.0 (Windows 10): Executed 10 of 39[32m SUCCESS[39m (0 secs / 1.838 secs)
+08 09 2026 12:59:02.317:WARN [web-server]: 404: /base/media/primeicons.woff2
+[1A[2KChrome Headless 152.0.0.0 (Windows 10): Executed 11 of 39[32m SUCCESS[39m (0 secs / 1.874 secs)
+08 09 2026 12:59:02.368:WARN [web-server]: 404: /base/media/primeicons.woff
+[1A[2KChrome Headless 152.0.0.0 (Windows 10): Executed 12 of 39[32m SUCCESS[39m (0 secs / 1.962 secs)
+[1A[2KChrome Headless 152.0.0.0 (Windows 10): Executed 13 of 39[32m SUCCESS[39m (0 secs / 2.16 secs)
+08 09 2026 12:59:02.656:WARN [web-server]: 404: /base/media/primeicons.ttf
+[1A[2KChrome Headless 152.0.0.0 (Windows 10): Executed 14 of 39[32m SUCCESS[39m (0 secs / 2.372 secs)
+[1A[2KChrome Headless 152.0.0.0 (Windows 10): Executed 15 of 39[32m SUCCESS[39m (0 secs / 2.422 secs)
+[1A[2KChrome Headless 152.0.0.0 (Windows 10): Executed 16 of 39[32m SUCCESS[39m (0 secs / 2.538 secs)
+[1A[2KChrome Headless 152.0.0.0 (Windows 10): Executed 17 of 39[32m SUCCESS[39m (0 secs / 2.566 secs)
+[1A[2KChrome Headless 152.0.0.0 (Windows 10): Executed 18 of 39[32m SUCCESS[39m (0 secs / 2.589 secs)
+[1A[2KChrome Headless 152.0.0.0 (Windows 10): Executed 19 of 39[32m SUCCESS[39m (0 secs / 2.608 secs)
+[1A[2KChrome Headless 152.0.0.0 (Windows 10): Executed 20 of 39[32m SUCCESS[39m (0 secs / 2.662 secs)
+[1A[2KChrome Headless 152.0.0.0 (Windows 10): Executed 21 of 39[32m SUCCESS[39m (0 secs / 2.684 secs)
+[1A[2KChrome Headless 152.0.0.0 (Windows 10): Executed 22 of 39[32m SUCCESS[39m (0 secs / 2.707 secs)
+[1A[2KChrome Headless 152.0.0.0 (Windows 10): Executed 23 of 39[32m SUCCESS[39m (0 secs / 2.858 secs)
+[1A[2KChrome Headless 152.0.0.0 (Windows 10): Executed 24 of 39[32m SUCCESS[39m (0 secs / 2.879 secs)
+[1A[2KChrome Headless 152.0.0.0 (Windows 10): Executed 25 of 39[32m SUCCESS[39m (0 secs / 2.9 secs)
+[1A[2KChrome Headless 152.0.0.0 (Windows 10): Executed 26 of 39[32m SUCCESS[39m (0 secs / 2.927 secs)
+[1A[2KChrome Headless 152.0.0.0 (Windows 10): Executed 27 of 39[32m SUCCESS[39m (0 secs / 2.947 secs)
+[1A[2KChrome Headless 152.0.0.0 (Windows 10): Executed 28 of 39[32m SUCCESS[39m (0 secs / 3.018 secs)
+[1A[2KChrome Headless 152.0.0.0 (Windows 10): Executed 29 of 39[32m SUCCESS[39m (0 secs / 3.031 secs)
+[1A[2KChrome Headless 152.0.0.0 (Windows 10): Executed 30 of 39[32m SUCCESS[39m (0 secs / 3.066 secs)
+[1A[2KChrome Headless 152.0.0.0 (Windows 10): Executed 31 of 39[32m SUCCESS[39m (0 secs / 3.081 secs)
+[1A[2KChrome Headless 152.0.0.0 (Windows 10): Executed 32 of 39[32m SUCCESS[39m (0 secs / 3.099 secs)
+[1A[2KChrome Headless 152.0.0.0 (Windows 10): Executed 33 of 39[32m SUCCESS[39m (0 secs / 3.111 secs)
+[1A[2KChrome Headless 152.0.0.0 (Windows 10): Executed 34 of 39[32m SUCCESS[39m (0 secs / 3.178 secs)
+[1A[2KChrome Headless 152.0.0.0 (Windows 10): Executed 35 of 39[32m SUCCESS[39m (0 secs / 3.209 secs)
+[1A[2KChrome Headless 152.0.0.0 (Windows 10): Executed 36 of 39[32m SUCCESS[39m (0 secs / 3.215 secs)
+[1A[2KChrome Headless 152.0.0.0 (Windows 10): Executed 37 of 39[32m SUCCESS[39m (0 secs / 3.222 secs)
+[1A[2KChrome Headless 152.0.0.0 (Windows 10): Executed 38 of 39[32m SUCCESS[39m (0 secs / 3.227 secs)
+[1A[2KChrome Headless 152.0.0.0 (Windows 10): Executed 39 of 39[32m SUCCESS[39m (0 secs / 3.23 secs)
+[1A[2KChrome Headless 152.0.0.0 (Windows 10): Executed 39 of 39[32m SUCCESS[39m (3.482 secs / 3.23 secs)
+[32mTOTAL: 39 SUCCESS[39m

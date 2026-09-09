@@ -27,7 +27,7 @@ spring:
 
       chat:
         options:
-          model: qwen/qwen3-max:free
+          model: mistralai/mistral-large-2512
 
 
 refresh :

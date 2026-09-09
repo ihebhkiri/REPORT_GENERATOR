@@ -15,7 +15,8 @@ public record BotReportPlan(
         List<Long> selectedFieldIds,
         List<PlanFilter> filters,
         List<PlanSort> sorts,
-        List<String> errors
+        List<String> errors,
+        List<Long> allFieldsDatasetIds
 ) {
     public record PlanFilter(Long fieldId, String operator, List<String> values) {
     }

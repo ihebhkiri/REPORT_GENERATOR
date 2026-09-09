@@ -33,9 +33,13 @@ class ReportCatalogProviderTest {
     void buildsCatalogFromActiveMainDatasetsAndVisibleFields() {
         DataSetEntity dataset = new DataSetEntity("Employés", "employees");
         dataset.setId(1L);
+        dataset.setDescription("Personnes employées par le restaurant.");
+        dataset.setAliases("Salariés\nPersonnel");
         when(dataSetRepository.findByActiveTrueAndDisplayMainTrue()).thenReturn(List.of(dataset));
         DataSetField field = new DataSetField("Date d'embauche", "hire_date", 0, dataset);
         field.setId(10L);
+        field.setDescription("Date de début d'emploi.");
+        field.setAliases("Entrée\nDébut d'emploi");
         field.setDataType(DataSetFieldType.DATE);
         when(dataSetFieldRepository.findVisibleFieldsByDatasetId(1L)).thenReturn(List.of(field));
 
@@ -47,9 +51,13 @@ class ReportCatalogProviderTest {
         assertEquals(1, catalog.rootDatasets().size());
         assertEquals(1L, catalog.rootDatasets().get(0).datasetId());
         assertEquals("Employés", catalog.rootDatasets().get(0).displayName());
+        assertEquals(dataset.getDescription(), catalog.rootDatasets().get(0).description());
+        assertEquals(List.of("Salariés", "Personnel"), catalog.rootDatasets().get(0).aliases());
         CatalogField catalogField = catalog.rootDatasets().get(0).fields().get(0);
         assertEquals(10L, catalogField.fieldId());
         assertEquals("DATE", catalogField.type());
+        assertEquals(field.getDescription(), catalogField.description());
+        assertEquals(List.of("Entrée", "Début d'emploi"), catalogField.aliases());
         assertTrue(catalogField.operators().contains("BETWEEN"));
     }
 

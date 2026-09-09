@@ -37,7 +37,7 @@ public class ReportCatalogProvider {
     private List<CatalogDataset> catalogDatasets(List<DataSetEntity> datasets) {
         return datasets.stream()
                 .map(dataset -> new CatalogDataset(dataset.getId(), dataset.getDisplayName(),
-                        visibleFields(dataset.getId())))
+                        visibleFields(dataset.getId()), dataset.getDescription(), aliases(dataset.getAliases())))
                 .toList();
     }
 
@@ -53,6 +53,12 @@ public class ReportCatalogProvider {
                 field.getId(),
                 field.getDisplayName(),
                 field.getDataType().name(),
-                field.getDataType().supportedOperators().stream().map(Enum::name).toList());
+                field.getDataType().supportedOperators().stream().map(Enum::name).toList(),
+                field.getDescription(), aliases(field.getAliases()));
+    }
+
+    private List<String> aliases(String value) {
+        return value == null ? List.of() : value.lines().map(String::strip)
+                .filter(alias -> !alias.isEmpty()).toList();
     }
 }

@@ -28,6 +28,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayDeque;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
@@ -47,8 +48,11 @@ public class BotReportService {
     private static final String GENERIC_FAILURE =
             "Je n’ai pas pu créer ce rapport. Reformulez votre demande avec les informations souhaitées.";
     private static final Pattern TECHNICAL_LANGUAGE = Pattern.compile(
-            "(?iu)\\b(datasets?|rootdataset|fieldid|datasetid|sql|json|apis?|llm|modèles?|"
-                    + "opérateurs?|jointures?|tables?|colonnes?)\\b");
+            "(?iu)\\b(datasets?|root[_ -]?dataset(?:id)?|field[_ -]?ids?|dataset[_ -]?ids?|"
+                    + "relatedDatasetIds|selectedFieldIds|allFieldsDatasetIds|ids?|joins?|sql|json|apis?|llm|"
+                    + "jointures?|tables?)\\b|\\bidentifiants?\\s+(internes?|techniques?)\\b");
+    private static final Pattern FIELD_SELECTION_QUESTION = Pattern.compile(
+            "(?iu)\\b(?:quels?\\s+champs?|quelles?\\s+(?:informations?|colonnes?))\\b");
 
     private final ReportCatalogProvider catalogProvider;
     private final BotReportPlanner planner;
@@ -78,8 +82,15 @@ public class BotReportService {
 
     private BotReportResponse handlePlan(UserEntity owner, UUID idempotencyKey,
             BotReportRequest request, BotReportPlan plan, ReportCatalog catalog) {
+        if (plan == null) {
+            throw new ReportValidationException("La proposition est vide.");
+        }
         if (plan.needsClarification()) {
             validateBusinessText(plan.question());
+            if (FIELD_SELECTION_QUESTION.matcher(plan.question()).find()) {
+                throw new ReportValidationException(
+                        "Ne demande pas quels champs afficher : sans sélection explicite, utilise allFieldsDatasetIds.");
+            }
             if (sameQuestion(plan.question(), request.clarificationQuestion())) {
                 throw new ReportValidationException("La question a déjà reçu une réponse.");
             }
@@ -93,6 +104,7 @@ public class BotReportService {
 
     private BotReportResponse createGeneration(UserEntity owner, UUID idempotencyKey,
             BotReportRequest request, BotReportPlan plan, ReportCatalog catalog) {
+        plan = expandSelectedFields(plan, catalog);
         validatePlan(plan, catalog);
         ReportExportFormat format = resolvedFormat(request);
         ReportPreviewRequest preview = toPreviewRequest(plan);
@@ -105,6 +117,38 @@ public class BotReportService {
 
     private ReportExportFormat resolvedFormat(BotReportRequest request) {
         return request.format() == null ? ReportExportFormat.XLSX : request.format();
+    }
+
+    private BotReportPlan expandSelectedFields(BotReportPlan plan, ReportCatalog catalog) {
+        List<Long> allIds = plan.allFieldsDatasetIds();
+        if (allIds == null || allIds.isEmpty()) {
+            return plan;
+        }
+        if (allIds.stream().anyMatch(Objects::isNull) || new HashSet<>(allIds).size() != allIds.size()) {
+            throw new ReportValidationException("La sélection complète contient des identifiants invalides.");
+        }
+        Map<Long, CatalogDataset> available = byId(catalog.relatedDatasets());
+        available.putAll(byId(catalog.rootDatasets()));
+        Set<Long> declared = new HashSet<>(plan.relatedDatasetIds() == null
+                ? List.of() : plan.relatedDatasetIds());
+        declared.add(plan.rootDatasetId());
+        List<Long> selected = new ArrayList<>(plan.selectedFieldIds() == null
+                ? List.of() : plan.selectedFieldIds());
+        if (selected.stream().anyMatch(Objects::isNull)) {
+            throw new ReportValidationException("La sélection contient un champ invalide.");
+        }
+        Set<Long> selectedIds = new HashSet<>(selected);
+        for (Long datasetId : allIds) {
+            CatalogDataset dataset = available.get(datasetId);
+            if (dataset == null || !declared.contains(datasetId) || dataset.fields().isEmpty()) {
+                throw new ReportValidationException("La sélection complète ne correspond pas à des informations disponibles.");
+            }
+            for (var field : dataset.fields()) {
+                if (selectedIds.add(field.fieldId())) selected.add(field.fieldId());
+            }
+        }
+        return new BotReportPlan(plan.status(), plan.question(), plan.summary(), plan.rootDatasetId(),
+                plan.relatedDatasetIds(), List.copyOf(selected), plan.filters(), plan.sorts(), plan.errors(), List.of());
     }
 
     private ReportPreviewRequest toPreviewRequest(BotReportPlan plan) {
