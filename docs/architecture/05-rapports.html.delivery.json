@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "ok": true,
+  "command": "deliver",
+  "type": "sequence",
+  "input": "C:\\Users\\Surface Pro\\Downloads\\RHIS\\docs\\architecture\\05-rapports.json",
+  "output": "C:\\Users\\Surface Pro\\Downloads\\RHIS\\docs\\architecture\\05-rapports.html",
+  "specification": {
+    "sha256": "b568d4668e8b9cde30e1819665e6c7e162d54b830133a08493bb753ee0140f9b",
+    "bytes": 3004
+  },
+  "artifact": {
+    "sha256": "3f59659ad9e10bd7bd801e7ff3eb66f3e8245cb57b187c28ec0daf4689387760",
+    "bytes": 709408
+  },
+  "validation": {
+    "checksPassed": 9,
+    "checkCount": 9,
+    "compositionProfile": "showcase",
+    "compositionStatus": "pass",
+    "errors": 0,
+    "warnings": 0
+  }
+}

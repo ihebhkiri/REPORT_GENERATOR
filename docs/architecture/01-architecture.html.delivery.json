@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "ok": true,
+  "command": "deliver",
+  "type": "architecture",
+  "input": "C:\\Users\\Surface Pro\\Downloads\\RHIS\\docs\\architecture\\01-architecture.json",
+  "output": "C:\\Users\\Surface Pro\\Downloads\\RHIS\\docs\\architecture\\01-architecture.html",
+  "specification": {
+    "sha256": "def91bb444175577491bd1d55904871a1b3ece31405ba249bc5d7f59dcb2bfce",
+    "bytes": 3456
+  },
+  "artifact": {
+    "sha256": "77e046f51307f769ed7528eb4d42143b56e50a41dd9fae0c04b3b226a413851e",
+    "bytes": 709128
+  },
+  "validation": {
+    "checksPassed": 9,
+    "checkCount": 9,
+    "compositionProfile": "showcase",
+    "compositionStatus": "pass",
+    "errors": 0,
+    "warnings": 0
+  }
+}

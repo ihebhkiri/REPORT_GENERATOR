@@ -1,0 +1,128 @@
+{
+  "schema_version": 1,
+  "diagram_type": "sequence",
+  "meta": {
+    "title": "RHIS · Catalogue et autorisations",
+    "quality_profile": "showcase",
+    "column_fit": "spread",
+    "viewBox": [
+      1080,
+      660
+    ]
+  },
+  "participants": [
+    {
+      "id": "boot",
+      "type": "backend",
+      "label": "Initialisation",
+      "sublabel": "Au démarrage"
+    },
+    {
+      "id": "db",
+      "type": "database",
+      "label": "PostgreSQL",
+      "sublabel": "Métadonnées et métier"
+    },
+    {
+      "id": "admin",
+      "type": "frontend",
+      "label": "Administration",
+      "sublabel": "Rôle ADMIN"
+    },
+    {
+      "id": "api",
+      "type": "backend",
+      "label": "Catalogue API",
+      "sublabel": "Services Spring"
+    }
+  ],
+  "messages": [
+    {
+      "from": "boot",
+      "to": "db",
+      "label": "Découvrir public.rhis%",
+      "y": 160
+    },
+    {
+      "from": "boot",
+      "to": "db",
+      "label": "Synchroniser tables et champs",
+      "y": 192
+    },
+    {
+      "from": "boot",
+      "to": "db",
+      "label": "Seeder descriptions et alias",
+      "y": 224
+    },
+    {
+      "from": "admin",
+      "to": "api",
+      "label": "GET configuration",
+      "y": 256
+    },
+    {
+      "from": "api",
+      "to": "db",
+      "label": "Lire catalogue complet",
+      "y": 288
+    },
+    {
+      "from": "api",
+      "to": "admin",
+      "label": "Exposition et vocabulaire",
+      "y": 320,
+      "variant": "return"
+    },
+    {
+      "from": "admin",
+      "to": "api",
+      "label": "PUT configuration modifiée",
+      "y": 352
+    },
+    {
+      "from": "api",
+      "to": "db",
+      "label": "Valider puis enregistrer",
+      "y": 384
+    },
+    {
+      "from": "api",
+      "to": "admin",
+      "label": "Configuration sauvegardée",
+      "y": 416,
+      "variant": "return"
+    },
+    {
+      "from": "api",
+      "to": "db",
+      "label": "Lire les éléments exposés",
+      "y": 448
+    },
+    {
+      "from": "db",
+      "to": "api",
+      "label": "Catalogue pour rapports et IA",
+      "y": 480,
+      "variant": "return"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "Administration",
+      "items": [
+        "GET / PUT /api/v1/admin/dataset-exposure",
+        "Descriptions et alias vides préremplis ; textes personnalisés conservés."
+      ]
+    },
+    {
+      "dot": "cyan",
+      "title": "Contrôle serveur",
+      "items": [
+        "L’édition exige ADMIN ; masquer un champ empêche son utilisation.",
+        "La génération revalide les éléments disponibles."
+      ]
+    }
+  ]
+}

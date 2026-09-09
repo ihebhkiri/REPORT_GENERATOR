@@ -1,0 +1,141 @@
+{
+  "schema_version": 1,
+  "diagram_type": "sequence",
+  "meta": {
+    "title": "RHIS · Génération et export",
+    "quality_profile": "showcase",
+    "column_fit": "spread",
+    "viewBox": [
+      1080,
+      660
+    ]
+  },
+  "participants": [
+    {
+      "id": "ui",
+      "type": "frontend",
+      "label": "Angular",
+      "sublabel": "Configuration / suivi"
+    },
+    {
+      "id": "api",
+      "type": "backend",
+      "label": "API rapports",
+      "sublabel": "Validation / jobs"
+    },
+    {
+      "id": "worker",
+      "type": "backend",
+      "label": "Workers JVM",
+      "sublabel": "Traitements différés"
+    },
+    {
+      "id": "storage",
+      "type": "database",
+      "label": "PostgreSQL / fichiers",
+      "sublabel": "Données / snapshots"
+    }
+  ],
+  "messages": [
+    {
+      "from": "ui",
+      "to": "api",
+      "label": "Prévisualiser la définition",
+      "y": 160
+    },
+    {
+      "from": "api",
+      "to": "storage",
+      "label": "Valider puis requête limitée",
+      "y": 192
+    },
+    {
+      "from": "api",
+      "to": "ui",
+      "label": "Aperçu",
+      "y": 224,
+      "variant": "return"
+    },
+    {
+      "from": "ui",
+      "to": "api",
+      "label": "Créer le job + Idempotency-Key",
+      "y": 256
+    },
+    {
+      "from": "api",
+      "to": "storage",
+      "label": "Persister PENDING",
+      "y": 288
+    },
+    {
+      "from": "api",
+      "to": "ui",
+      "label": "202 + generationId",
+      "y": 320,
+      "variant": "return"
+    },
+    {
+      "from": "api",
+      "to": "worker",
+      "label": "Après commit : lancer",
+      "y": 352,
+      "variant": "dashed"
+    },
+    {
+      "from": "worker",
+      "to": "storage",
+      "label": "Revalider, lire et créer snapshot",
+      "y": 384
+    },
+    {
+      "from": "ui",
+      "to": "api",
+      "label": "Consulter état jusqu’à READY",
+      "y": 416
+    },
+    {
+      "from": "ui",
+      "to": "api",
+      "label": "Demander PDF ou XLSX",
+      "y": 448
+    },
+    {
+      "from": "api",
+      "to": "worker",
+      "label": "Après commit : exporter",
+      "y": 480,
+      "variant": "dashed"
+    },
+    {
+      "from": "worker",
+      "to": "storage",
+      "label": "Lire snapshot, écrire fichier",
+      "y": 512
+    },
+    {
+      "from": "ui",
+      "to": "api",
+      "label": "Suivre export, télécharger",
+      "y": 544
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "API",
+      "items": [
+        "POST /api/v1/reports/preview ; POST /api/v1/report-generations",
+        "POST /api/v1/report-generations/{id}/exports"
+      ]
+    },
+    {
+      "dot": "cyan",
+      "title": "Téléchargement",
+      "items": [
+        "GET /api/v1/report-exports/{id}/file : propriétaire contrôlé.",
+        "PDF via JasperReports ; XLSX via Apache POI ; nettoyage après expiration."
+      ]
+    }
+  ]
+}

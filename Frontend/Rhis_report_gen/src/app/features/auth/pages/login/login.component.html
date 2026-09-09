@@ -1,5 +1,5 @@
 <div
-  class="min-h-dvh bg-[linear-gradient(to_bottom,#ffa552_0%,#ffa552_38%,#f6f6f6_38%,#f6f6f6_100%)] text-slate-900"
+  class="min-h-dvh bg-[linear-gradient(to_bottom,#102c52_0%,#0d315c_38%,#f6f6f6_38%,#f6f6f6_100%)] text-slate-900"
 >
   <div class="mx-auto  flex min-h-dvh w-full max-w-7xl flex-col px-4 sm:px-6 lg:px-8 -translate-y-16">
     <header class="flex justify-end py-5 sm:py-7">
@@ -12,7 +12,9 @@
           aria-labelledby="login-title"
         >
           <div class="mb-7 text-center">
-            <img class="mx-auto h-12 w-auto" src="Logo.svg" alt="RHIS"/>
+            <div class="inline-flex max-w-full rounded-xl bg-[#102c52] px-4 py-3">
+              <img class="h-12 max-w-full w-auto object-contain" src="rhis-solutions-logo.png" alt="RHIS Solutions"/>
+            </div>
 
             <p class="mt-2 text-sm leading-6 text-slate-500">
               Connectez-vous à votre compte
@@ -126,7 +128,7 @@
 
             <button
               type="submit"
-              class="flex w-full items-center justify-center gap-2 rounded-xl bg-[#3f63e8] px-4 py-3 font-semibold text-white shadow-sm transition hover:bg-[#3151ca] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#3f63e8]/30 disabled:cursor-not-allowed disabled:opacity-60"
+              class="flex w-full items-center justify-center gap-2 rounded-xl bg-[#102c52] px-4 py-3 font-semibold text-white shadow-sm transition hover:bg-[#0d315c] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#102c52]/30 disabled:cursor-not-allowed disabled:opacity-60"
               [disabled]="loginForm.invalid || isLoading()"
             >
               @if (isLoading()) {

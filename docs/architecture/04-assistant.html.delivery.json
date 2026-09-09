@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "ok": true,
+  "command": "deliver",
+  "type": "sequence",
+  "input": "C:\\Users\\Surface Pro\\Downloads\\RHIS\\docs\\architecture\\04-assistant.json",
+  "output": "C:\\Users\\Surface Pro\\Downloads\\RHIS\\docs\\architecture\\04-assistant.html",
+  "specification": {
+    "sha256": "0032910b70c66a375ccd419f16fa086dff1aa60e3995508225373c0abbde402b",
+    "bytes": 2927
+  },
+  "artifact": {
+    "sha256": "849c8fe4c83852251196777637d8f111b96d9eca3a6630c3ad9b74e58b432068",
+    "bytes": 708381
+  },
+  "validation": {
+    "checksPassed": 9,
+    "checkCount": 9,
+    "compositionProfile": "showcase",
+    "compositionStatus": "pass",
+    "errors": 0,
+    "warnings": 0
+  }
+}
