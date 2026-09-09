@@ -1,0 +1,117 @@
+[
+  {
+    "artifact": "01-architecture.html",
+    "type": "architecture",
+    "validation": {
+      "checksPassed": 9,
+      "checkCount": 9,
+      "compositionProfile": "showcase",
+      "compositionStatus": "pass",
+      "errors": 0,
+      "warnings": 0
+    },
+    "specification": {
+      "sha256": "def91bb444175577491bd1d55904871a1b3ece31405ba249bc5d7f59dcb2bfce",
+      "bytes": 3456
+    },
+    "receipt": {
+      "sha256": "77e046f51307f769ed7528eb4d42143b56e50a41dd9fae0c04b3b226a413851e",
+      "bytes": 709128
+    },
+    "browser_evidence": "pass",
+    "visual_review": "passed",
+    "review_note": "Captures finales inspectées en clair et sombre ; géométrie, lisibilité et absence de débordement vérifiées."
+  },
+  {
+    "artifact": "02-session.html",
+    "type": "sequence",
+    "validation": {
+      "checksPassed": 9,
+      "checkCount": 9,
+      "compositionProfile": "showcase",
+      "compositionStatus": "pass",
+      "errors": 0,
+      "warnings": 0
+    },
+    "specification": {
+      "sha256": "3ad5ae3f0266e20b833125c343883090441cea430b2bd254707e176f78bcb64d",
+      "bytes": 2748
+    },
+    "receipt": {
+      "sha256": "a5c3a34a33b8904ceadb09bf850ff1a4a7db4c620490a82a4768699c3c2fb988",
+      "bytes": 706339
+    },
+    "browser_evidence": "pass",
+    "visual_review": "passed",
+    "review_note": "Captures finales inspectées en clair et sombre ; géométrie, lisibilité et absence de débordement vérifiées."
+  },
+  {
+    "artifact": "03-catalogue.html",
+    "type": "sequence",
+    "validation": {
+      "checksPassed": 9,
+      "checkCount": 9,
+      "compositionProfile": "showcase",
+      "compositionStatus": "pass",
+      "errors": 0,
+      "warnings": 0
+    },
+    "specification": {
+      "sha256": "974b07abb5fa75bd2c37d15730d611d63beb56929ffb7a7d8f2f2569f482dbee",
+      "bytes": 2716
+    },
+    "receipt": {
+      "sha256": "12b6068933751029ea20f9586267c1a3d7e53c88531f7f0447816074415d5feb",
+      "bytes": 707646
+    },
+    "browser_evidence": "pass",
+    "visual_review": "passed",
+    "review_note": "Captures finales inspectées en clair et sombre ; géométrie, lisibilité et absence de débordement vérifiées."
+  },
+  {
+    "artifact": "04-assistant.html",
+    "type": "sequence",
+    "validation": {
+      "checksPassed": 9,
+      "checkCount": 9,
+      "compositionProfile": "showcase",
+      "compositionStatus": "pass",
+      "errors": 0,
+      "warnings": 0
+    },
+    "specification": {
+      "sha256": "0032910b70c66a375ccd419f16fa086dff1aa60e3995508225373c0abbde402b",
+      "bytes": 2927
+    },
+    "receipt": {
+      "sha256": "849c8fe4c83852251196777637d8f111b96d9eca3a6630c3ad9b74e58b432068",
+      "bytes": 708381
+    },
+    "browser_evidence": "pass",
+    "visual_review": "passed",
+    "review_note": "Captures finales inspectées en clair et sombre ; géométrie, lisibilité et absence de débordement vérifiées."
+  },
+  {
+    "artifact": "05-rapports.html",
+    "type": "sequence",
+    "validation": {
+      "checksPassed": 9,
+      "checkCount": 9,
+      "compositionProfile": "showcase",
+      "compositionStatus": "pass",
+      "errors": 0,
+      "warnings": 0
+    },
+    "specification": {
+      "sha256": "b568d4668e8b9cde30e1819665e6c7e162d54b830133a08493bb753ee0140f9b",
+      "bytes": 3004
+    },
+    "receipt": {
+      "sha256": "3f59659ad9e10bd7bd801e7ff3eb66f3e8245cb57b187c28ec0daf4689387760",
+      "bytes": 709408
+    },
+    "browser_evidence": "pass",
+    "visual_review": "passed",
+    "review_note": "Captures finales inspectées en clair et sombre ; géométrie, lisibilité et absence de débordement vérifiées."
+  }
+]

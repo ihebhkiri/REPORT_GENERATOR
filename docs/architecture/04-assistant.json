@@ -1,0 +1,136 @@
+{
+  "schema_version": 1,
+  "diagram_type": "sequence",
+  "meta": {
+    "title": "RHIS · De la demande au rapport",
+    "quality_profile": "showcase",
+    "column_fit": "spread",
+    "viewBox": [
+      1080,
+      660
+    ]
+  },
+  "participants": [
+    {
+      "id": "ui",
+      "type": "frontend",
+      "label": "Client Angular",
+      "sublabel": "Demande métier"
+    },
+    {
+      "id": "bot",
+      "type": "backend",
+      "label": "Service Bot",
+      "sublabel": "Orchestration"
+    },
+    {
+      "id": "ia",
+      "type": "external",
+      "label": "Fournisseur IA",
+      "sublabel": "Spring AI"
+    },
+    {
+      "id": "engine",
+      "type": "backend",
+      "label": "Moteur rapports",
+      "sublabel": "Validation / création"
+    }
+  ],
+  "messages": [
+    {
+      "from": "ui",
+      "to": "bot",
+      "label": "POST /api/v1/bot/reports",
+      "y": 160
+    },
+    {
+      "from": "bot",
+      "to": "ia",
+      "label": "Phrase + catalogue exposé",
+      "y": 192
+    },
+    {
+      "from": "ia",
+      "to": "bot",
+      "label": "Plan structuré",
+      "y": 224,
+      "variant": "return"
+    },
+    {
+      "from": "bot",
+      "to": "ui",
+      "label": "Si ambigu : question métier (200)",
+      "y": 256,
+      "variant": "return"
+    },
+    {
+      "from": "ui",
+      "to": "bot",
+      "label": "Si question : demande + réponse",
+      "y": 288
+    },
+    {
+      "from": "bot",
+      "to": "ia",
+      "label": "Intégrer la clarification",
+      "y": 320
+    },
+    {
+      "from": "ia",
+      "to": "bot",
+      "label": "Plan READY",
+      "y": 352,
+      "variant": "return"
+    },
+    {
+      "from": "bot",
+      "to": "engine",
+      "label": "Développer / valider les champs",
+      "y": 384
+    },
+    {
+      "from": "engine",
+      "to": "bot",
+      "label": "Validation ou erreurs",
+      "y": 416,
+      "variant": "return"
+    },
+    {
+      "from": "bot",
+      "to": "ia",
+      "label": "Si invalide : une correction",
+      "y": 448
+    },
+    {
+      "from": "bot",
+      "to": "engine",
+      "label": "Si valide : créer la génération",
+      "y": 480
+    },
+    {
+      "from": "bot",
+      "to": "ui",
+      "label": "202 + generationId",
+      "y": 512,
+      "variant": "return"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "Branches alternatives",
+      "items": [
+        "La clarification est facultative ; une correction au plus par requête.",
+        "Après correction, une question reste possible ; échec métier : 422."
+      ]
+    },
+    {
+      "dot": "cyan",
+      "title": "Données et limites",
+      "items": [
+        "Liste simple : tous les champs autorisés ; choix précis : sélection stricte.",
+        "Échec IA : 502 ; capacité de rapports atteinte : 429."
+      ]
+    }
+  ]
+}

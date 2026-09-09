@@ -1,1465 +1,1465 @@
 {
   "Frontend/Rhis_report_gen/angular.json": {
     "mtime": 1785745099.4211936,
-    "seen": 1788898534.0966914,
+    "seen": 1788940821.643361,
     "ast_hash": "65693ea270c6e7a4beab48157244d2c3",
     "semantic_hash": "65693ea270c6e7a4beab48157244d2c3"
   },
   "Frontend/Rhis_report_gen/package.json": {
     "mtime": 1786957429.2955928,
-    "seen": 1788898534.0967183,
+    "seen": 1788940821.6433787,
     "ast_hash": "d5189c94b6f259263ac0e29473882e94",
     "semantic_hash": "d5189c94b6f259263ac0e29473882e94"
   },
   "Frontend/Rhis_report_gen/src/app/app.config.ts": {
     "mtime": 1788781336.870957,
-    "seen": 1788898534.096779,
+    "seen": 1788940821.6433866,
     "ast_hash": "b4012d5b0c7c237f819dbd5e5e629539",
     "semantic_hash": ""
   },
   "Frontend/Rhis_report_gen/src/app/app.routes.ts": {
     "mtime": 1788179501.3234396,
-    "seen": 1788898534.096786,
+    "seen": 1788940821.6433904,
     "ast_hash": "e849011e14b08c4620c4f40868504fa7",
     "semantic_hash": ""
   },
   "Frontend/Rhis_report_gen/src/app/app.spec.ts": {
     "mtime": 1787956525.924046,
-    "seen": 1788898534.0967915,
+    "seen": 1788940821.6433942,
     "ast_hash": "6760619ec9b010bcf01e8d0c541d160e",
     "semantic_hash": ""
   },
   "Frontend/Rhis_report_gen/src/app/app.ts": {
     "mtime": 1787956525.9280488,
-    "seen": 1788898534.0967963,
+    "seen": 1788940821.6433978,
     "ast_hash": "fe61ec81666a2d62e6f22d29637f8bf3",
     "semantic_hash": ""
   },
   "Frontend/Rhis_report_gen/src/app/features/auth/auth.model.ts": {
     "mtime": 1787572919.8855672,
-    "seen": 1788898534.0968525,
+    "seen": 1788940821.6434398,
     "ast_hash": "cd3e1539745443157873146632ccd90f",
     "semantic_hash": ""
   },
   "Frontend/Rhis_report_gen/src/app/features/auth/pages/login/login.component.spec.ts": {
     "mtime": 1787295539.4166725,
-    "seen": 1788898534.0968678,
+    "seen": 1788940821.6434522,
     "ast_hash": "5c3baacea58c326f9acb4a6b1c5e7701",
     "semantic_hash": ""
   },
   "Frontend/Rhis_report_gen/src/app/features/auth/pages/login/login.component.ts": {
     "mtime": 1787295539.4226727,
-    "seen": 1788898534.0968723,
+    "seen": 1788940821.6434557,
     "ast_hash": "22970a8e04777916604f146c02a6c5b4",
     "semantic_hash": ""
   },
   "Frontend/Rhis_report_gen/src/app/features/auth/services/auth.service.spec.ts": {
     "mtime": 1787573687.7734592,
-    "seen": 1788898534.0968773,
+    "seen": 1788940821.6434593,
     "ast_hash": "d57c777a9942e20639047440ddd85995",
     "semantic_hash": ""
   },
   "Frontend/Rhis_report_gen/src/app/features/auth/services/auth.service.ts": {
     "mtime": 1788781303.1967192,
-    "seen": 1788898534.0968826,
+    "seen": 1788940821.6434631,
     "ast_hash": "0c771b35008e18e67f55c428aeb339ae",
     "semantic_hash": ""
   },
   "Frontend/Rhis_report_gen/src/app/features/rapports/components/report-related-card/report-related-card.component.spec.ts": {
     "mtime": 1786280470.398371,
-    "seen": 1788898534.0968878,
+    "seen": 1788940821.643467,
     "ast_hash": "960a98674967446ed105e7fe64853aeb",
     "semantic_hash": "960a98674967446ed105e7fe64853aeb"
   },
   "Frontend/Rhis_report_gen/src/app/features/rapports/components/report-related-card/report-related-card.component.ts": {
     "mtime": 1786280418.4240537,
-    "seen": 1788898534.0968919,
+    "seen": 1788940821.643471,
     "ast_hash": "b1b3e961bab6a234633fea3b31031953",
     "semantic_hash": "b1b3e961bab6a234633fea3b31031953"
   },
   "Frontend/Rhis_report_gen/src/app/features/rapports/models/dataset-field.model.ts": {
     "mtime": 1787295539.4410264,
-    "seen": 1788898534.0968971,
+    "seen": 1788940821.6434746,
     "ast_hash": "620645b4738bc5f8e702b4c1ce3ecb90",
     "semantic_hash": ""
   },
   "Frontend/Rhis_report_gen/src/app/features/rapports/models/dataset.model.ts": {
     "mtime": 1787295539.4440255,
-    "seen": 1788898534.096902,
+    "seen": 1788940821.6434786,
     "ast_hash": "3386cd66da100b8490fdb0cd27d27d4f",
     "semantic_hash": ""
   },
   "Frontend/Rhis_report_gen/src/app/features/rapports/models/report-generation.model.ts": {
     "mtime": 1787573977.926675,
-    "seen": 1788898534.096907,
+    "seen": 1788940821.643483,
     "ast_hash": "dcd569a468b09eb235cb5e9082fa1110",
     "semantic_hash": ""
   },
   "Frontend/Rhis_report_gen/src/app/features/rapports/models/report-preview.model.ts": {
     "mtime": 1786297263.4053376,
-    "seen": 1788898534.0969124,
+    "seen": 1788940821.6434867,
     "ast_hash": "9923c7461457c9a81fad50821e6a2715",
     "semantic_hash": "9923c7461457c9a81fad50821e6a2715"
   },
   "Frontend/Rhis_report_gen/src/app/features/rapports/models/table-relation.model.ts": {
     "mtime": 1786224645.2918124,
-    "seen": 1788898534.096917,
+    "seen": 1788940821.6434906,
     "ast_hash": "111788ec332292133440519d67b5516d",
     "semantic_hash": "111788ec332292133440519d67b5516d"
   },
   "Frontend/Rhis_report_gen/src/app/features/rapports/pages/configuration/components/column-selector/column-selector.component.spec.ts": {
     "mtime": 1786389336.7431004,
-    "seen": 1788898534.0969725,
+    "seen": 1788940821.6434941,
     "ast_hash": "0122650cae665e37e17c69edd23e0dbb",
     "semantic_hash": "0122650cae665e37e17c69edd23e0dbb"
   },
   "Frontend/Rhis_report_gen/src/app/features/rapports/pages/configuration/components/column-selector/column-selector.component.ts": {
     "mtime": 1786389332.9520116,
-    "seen": 1788898534.0969806,
+    "seen": 1788940821.6434982,
     "ast_hash": "00b452f21477879e9cdcbf0e26413a3d",
     "semantic_hash": "00b452f21477879e9cdcbf0e26413a3d"
   },
   "Frontend/Rhis_report_gen/src/app/features/rapports/pages/configuration/components/filter-editor/filter-editor.component.spec.ts": {
     "mtime": 1786389774.19804,
-    "seen": 1788898534.0970187,
+    "seen": 1788940821.6435018,
     "ast_hash": "ddcaa3acc39310c03ba243630709f1c8",
     "semantic_hash": "ddcaa3acc39310c03ba243630709f1c8"
   },
   "Frontend/Rhis_report_gen/src/app/features/rapports/pages/configuration/components/filter-editor/filter-editor.component.ts": {
     "mtime": 1786522976.7054572,
-    "seen": 1788898534.0970328,
+    "seen": 1788940821.6435056,
     "ast_hash": "57312ed004af0ee371e025c0058342c6",
     "semantic_hash": "57312ed004af0ee371e025c0058342c6"
   },
   "Frontend/Rhis_report_gen/src/app/features/rapports/pages/configuration/components/sort-editor/sort-editor.component.spec.ts": {
     "mtime": 1786460306.253251,
-    "seen": 1788898534.0970466,
+    "seen": 1788940821.6435173,
     "ast_hash": "3ff3071cca6118eb75a896ef96fe1953",
     "semantic_hash": "3ff3071cca6118eb75a896ef96fe1953"
   },
   "Frontend/Rhis_report_gen/src/app/features/rapports/pages/configuration/components/sort-editor/sort-editor.component.ts": {
     "mtime": 1786460052.1934538,
-    "seen": 1788898534.097051,
+    "seen": 1788940821.643521,
     "ast_hash": "bd01e94cacdb750fee8ba51e67fa78bf",
     "semantic_hash": "bd01e94cacdb750fee8ba51e67fa78bf"
   },
   "Frontend/Rhis_report_gen/src/app/features/rapports/pages/configuration/configuration.component.spec.ts": {
     "mtime": 1788605701.7231226,
-    "seen": 1788898534.0970562,
+    "seen": 1788940821.6435242,
     "ast_hash": "9c01e3c8954cb31f8964fd8b001384db",
     "semantic_hash": ""
   },
   "Frontend/Rhis_report_gen/src/app/features/rapports/pages/configuration/configuration.component.ts": {
     "mtime": 1788605701.7231226,
-    "seen": 1788898534.0970614,
+    "seen": 1788940821.6435277,
     "ast_hash": "303b3f524d10edf87098d327747bcae8",
     "semantic_hash": ""
   },
   "Frontend/Rhis_report_gen/src/app/features/rapports/pages/configuration/configuration.models.ts": {
     "mtime": 1786450680.4390974,
-    "seen": 1788898534.097066,
+    "seen": 1788940821.6435318,
     "ast_hash": "7158a9125c82b20313833a3a01804808",
     "semantic_hash": "7158a9125c82b20313833a3a01804808"
   },
   "Frontend/Rhis_report_gen/src/app/features/rapports/pages/configuration/report-configuration-loader.service.spec.ts": {
     "mtime": 1786450706.6041045,
-    "seen": 1788898534.0970707,
+    "seen": 1788940821.6435347,
     "ast_hash": "1fb6d899a20e0c903b16bddcfd814881",
     "semantic_hash": "1fb6d899a20e0c903b16bddcfd814881"
   },
   "Frontend/Rhis_report_gen/src/app/features/rapports/pages/configuration/report-configuration-loader.service.ts": {
     "mtime": 1786456568.1444938,
-    "seen": 1788898534.0970752,
+    "seen": 1788940821.643538,
     "ast_hash": "89e709947287fab917a9d946e9d0710a",
     "semantic_hash": "89e709947287fab917a9d946e9d0710a"
   },
   "Frontend/Rhis_report_gen/src/app/features/rapports/pages/export/export.component.spec.ts": {
     "mtime": 1788791642.2255354,
-    "seen": 1788898534.0970802,
+    "seen": 1788940821.643542,
     "ast_hash": "bdb46b9267209ce63d48ffe120131a33",
     "semantic_hash": ""
   },
   "Frontend/Rhis_report_gen/src/app/features/rapports/pages/export/export.component.ts": {
     "mtime": 1788605701.737734,
-    "seen": 1788898534.0970848,
+    "seen": 1788940821.6435456,
     "ast_hash": "16a787b099c8456adb488df6b5704b0a",
     "semantic_hash": ""
   },
   "Frontend/Rhis_report_gen/src/app/features/rapports/pages/source_de_donnes/rapports.component.spec.ts": {
     "mtime": 1788297172.955233,
-    "seen": 1788898534.0970886,
+    "seen": 1788940821.6435494,
     "ast_hash": "41bdab24377cdc625e26531baa1ea333",
     "semantic_hash": ""
   },
   "Frontend/Rhis_report_gen/src/app/features/rapports/pages/source_de_donnes/rapports.component.ts": {
     "mtime": 1787295539.4608445,
-    "seen": 1788898534.0970933,
+    "seen": 1788940821.6435525,
     "ast_hash": "5229c4923e72869fcc414a005cd81fc7",
     "semantic_hash": ""
   },
   "Frontend/Rhis_report_gen/src/app/features/rapports/rapports.routes.ts": {
     "mtime": 1788179501.362553,
-    "seen": 1788898534.0970979,
+    "seen": 1788940821.643557,
     "ast_hash": "6d29ae3f3826b7c54ed55ede45f193a6",
     "semantic_hash": ""
   },
   "Frontend/Rhis_report_gen/src/app/features/rapports/services/dataset.service.spec.ts": {
     "mtime": 1787295539.464862,
-    "seen": 1788898534.0971034,
+    "seen": 1788940821.6435611,
     "ast_hash": "974afade38f3697f1b81d978f621c8d2",
     "semantic_hash": ""
   },
   "Frontend/Rhis_report_gen/src/app/features/rapports/services/dataset.service.ts": {
     "mtime": 1787295539.466864,
-    "seen": 1788898534.0971084,
+    "seen": 1788940821.6435645,
     "ast_hash": "ef5d0f9b378b60422805cbbc827e08a4",
     "semantic_hash": ""
   },
   "Frontend/Rhis_report_gen/src/app/features/rapports/services/report-draft-storage.service.spec.ts": {
     "mtime": 1786523723.2109714,
-    "seen": 1788898534.0971134,
+    "seen": 1788940821.6435678,
     "ast_hash": "e018ad67df1148ca36de54828486be36",
     "semantic_hash": "e018ad67df1148ca36de54828486be36"
   },
   "Frontend/Rhis_report_gen/src/app/features/rapports/services/report-draft-storage.service.ts": {
     "mtime": 1786970217.1158087,
-    "seen": 1788898534.0971181,
+    "seen": 1788940821.643571,
     "ast_hash": "a871e1d0dc61edeb684ec5734731a743",
     "semantic_hash": "a871e1d0dc61edeb684ec5734731a743"
   },
   "Frontend/Rhis_report_gen/src/app/features/rapports/services/report-generation.service.spec.ts": {
     "mtime": 1786970113.7978878,
-    "seen": 1788898534.0971231,
+    "seen": 1788940821.6435745,
     "ast_hash": "5cfa7712872eb96b6d7e2855edbc1ca1",
     "semantic_hash": "5cfa7712872eb96b6d7e2855edbc1ca1"
   },
   "Frontend/Rhis_report_gen/src/app/features/rapports/services/report-generation.service.ts": {
     "mtime": 1786970208.1410878,
-    "seen": 1788898534.097128,
+    "seen": 1788940821.6435773,
     "ast_hash": "aca8c1cd908252e8f8f346995e5adb9e",
     "semantic_hash": "aca8c1cd908252e8f8f346995e5adb9e"
   },
   "Frontend/Rhis_report_gen/src/app/features/rapports/services/report-preview.service.spec.ts": {
     "mtime": 1786298048.5623133,
-    "seen": 1788898534.0971332,
+    "seen": 1788940821.6435812,
     "ast_hash": "b0afe39be30cb6b71612b19f424f1a30",
     "semantic_hash": "b0afe39be30cb6b71612b19f424f1a30"
   },
   "Frontend/Rhis_report_gen/src/app/features/rapports/services/report-preview.service.ts": {
     "mtime": 1786297267.5127156,
-    "seen": 1788898534.0971365,
+    "seen": 1788940821.6435847,
     "ast_hash": "c7e7f486d9e4c387a6e18b14901bfbc6",
     "semantic_hash": "c7e7f486d9e4c387a6e18b14901bfbc6"
   },
   "Frontend/Rhis_report_gen/src/app/shared/report-steps/report-steps.component.ts": {
     "mtime": 1787038306.0777562,
-    "seen": 1788898534.09718,
+    "seen": 1788940821.643618,
     "ast_hash": "16cb0fd397a770d6fb2929f831965fc5",
     "semantic_hash": "16cb0fd397a770d6fb2929f831965fc5"
   },
   "Frontend/Rhis_report_gen/src/app/test/iheb/iheb.component.ts": {
     "mtime": 1786542560.527409,
-    "seen": 1788898534.0971863,
+    "seen": 1788940821.6436222,
     "ast_hash": "518d25921814d70effc1f596264cc9f8",
     "semantic_hash": "518d25921814d70effc1f596264cc9f8"
   },
   "Frontend/Rhis_report_gen/src/environments/environment.development.ts": {
     "mtime": 1785834052.4452891,
-    "seen": 1788898534.0971909,
+    "seen": 1788940821.6436253,
     "ast_hash": "05543a47d94a93405101b668d284da60",
     "semantic_hash": "05543a47d94a93405101b668d284da60"
   },
   "Frontend/Rhis_report_gen/src/environments/environment.ts": {
     "mtime": 1785781021.74699,
-    "seen": 1788898534.0971956,
+    "seen": 1788940821.643629,
     "ast_hash": "c41b5bc8187f408d211b083ab7756b74",
     "semantic_hash": "c41b5bc8187f408d211b083ab7756b74"
   },
   "Frontend/Rhis_report_gen/src/main.ts": {
     "mtime": 1785326346.6701658,
-    "seen": 1788898534.0971997,
+    "seen": 1788940821.6436322,
     "ast_hash": "1289536d6d8f94242a4ffc598d094633",
     "semantic_hash": "1289536d6d8f94242a4ffc598d094633"
   },
   "RHIS/mvnw": {
     "mtime": 1785142583.9983344,
-    "seen": 1788898534.097211,
+    "seen": 1788940821.6436403,
     "ast_hash": "ab50dd89da7da2346b28003352eeeeeb",
     "semantic_hash": "ab50dd89da7da2346b28003352eeeeeb"
   },
   "RHIS/pom.xml": {
     "mtime": 1788621955.6767178,
-    "seen": 1788898534.0972157,
+    "seen": 1788940821.6436443,
     "ast_hash": "a65e4900f714cfbdee039070444b1526",
     "semantic_hash": ""
   },
   "RHIS/src/main/java/RHIS/com/RHIS/GenericCrudService.java": {
     "mtime": 1785156462.3913682,
-    "seen": 1788898534.097277,
+    "seen": 1788940821.6436486,
     "ast_hash": "54caa5ffc0f914028432773533ce3257",
     "semantic_hash": "54caa5ffc0f914028432773533ce3257"
   },
   "RHIS/src/main/java/RHIS/com/RHIS/GenericCrudServiceImpl.java": {
     "mtime": 1785220318.0328143,
-    "seen": 1788898534.0972877,
+    "seen": 1788940821.6436522,
     "ast_hash": "378a75d7be1f8a9902c8c3d9134733c5",
     "semantic_hash": "378a75d7be1f8a9902c8c3d9134733c5"
   },
   "RHIS/src/main/java/RHIS/com/RHIS/RhisApplication.java": {
     "mtime": 1785307923.931442,
-    "seen": 1788898534.0972927,
+    "seen": 1788940821.643656,
     "ast_hash": "e10c275f029c56e5544ee0b86527f228",
     "semantic_hash": "e10c275f029c56e5544ee0b86527f228"
   },
   "RHIS/src/main/java/RHIS/com/RHIS/auth/CustomUserDetailService.java": {
     "mtime": 1785331122.968612,
-    "seen": 1788898534.0972984,
+    "seen": 1788940821.64366,
     "ast_hash": "dbd96e893a42968c8667ecd37c0478d7",
     "semantic_hash": "dbd96e893a42968c8667ecd37c0478d7"
   },
   "RHIS/src/main/java/RHIS/com/RHIS/auth/JwtCookieFilter.java": {
     "mtime": 1785330559.6137564,
-    "seen": 1788898534.0973032,
+    "seen": 1788940821.6436634,
     "ast_hash": "e5b2199191fce672be119d79c8ecc994",
     "semantic_hash": "e5b2199191fce672be119d79c8ecc994"
   },
   "RHIS/src/main/java/RHIS/com/RHIS/auth/JwtService.java": {
     "mtime": 1785823216.8966265,
-    "seen": 1788898534.0973072,
+    "seen": 1788940821.6436667,
     "ast_hash": "efc73a26ca90f55008e45a978c8a783a",
     "semantic_hash": "efc73a26ca90f55008e45a978c8a783a"
   },
   "RHIS/src/main/java/RHIS/com/RHIS/auth/SecurityConfig.java": {
     "mtime": 1788179501.4516902,
-    "seen": 1788898534.0973196,
+    "seen": 1788940821.6436708,
     "ast_hash": "cf27ada53444eeae97e8f1ef77c6deb3",
     "semantic_hash": ""
   },
   "RHIS/src/main/java/RHIS/com/RHIS/auth/UserPrincipal.java": {
     "mtime": 1785331091.6661582,
-    "seen": 1788898534.097326,
+    "seen": 1788940821.643675,
     "ast_hash": "ed897a28b00c1a6477e440e3f6cc38cd",
     "semantic_hash": "ed897a28b00c1a6477e440e3f6cc38cd"
   },
   "RHIS/src/main/java/RHIS/com/RHIS/auth/auth/AuthController.java": {
     "mtime": 1785831457.6933126,
-    "seen": 1788898534.0973315,
+    "seen": 1788940821.6436794,
     "ast_hash": "4ceb059069711b6fc8028d759b72ed44",
     "semantic_hash": "4ceb059069711b6fc8028d759b72ed44"
   },
   "RHIS/src/main/java/RHIS/com/RHIS/auth/auth/dto/ForgotPasswordRequest.java": {
     "mtime": 1785330559.962078,
-    "seen": 1788898534.0973365,
+    "seen": 1788940821.6436841,
     "ast_hash": "0a45be861ad00f65c754cdda22ef0a9b",
     "semantic_hash": "0a45be861ad00f65c754cdda22ef0a9b"
   },
   "RHIS/src/main/java/RHIS/com/RHIS/auth/auth/dto/LoginRequest.java": {
     "mtime": 1785330559.6391401,
-    "seen": 1788898534.0973415,
+    "seen": 1788940821.643688,
     "ast_hash": "7710232c82cdb4354e5221d66d615faa",
     "semantic_hash": "7710232c82cdb4354e5221d66d615faa"
   },
   "RHIS/src/main/java/RHIS/com/RHIS/auth/auth/dto/LoginResponse.java": {
     "mtime": 1785330559.7933924,
-    "seen": 1788898534.0973454,
+    "seen": 1788940821.6436918,
     "ast_hash": "00e77de4f488dffd9c4f07b84332dc2e",
     "semantic_hash": "00e77de4f488dffd9c4f07b84332dc2e"
   },
   "RHIS/src/main/java/RHIS/com/RHIS/auth/auth/dto/RefreshTokenResponse.java": {
     "mtime": 1785330559.7251153,
-    "seen": 1788898534.0973494,
+    "seen": 1788940821.6436956,
     "ast_hash": "9a4b2d8b25196186005093dcc6b80db3",
     "semantic_hash": "9a4b2d8b25196186005093dcc6b80db3"
   },
   "RHIS/src/main/java/RHIS/com/RHIS/auth/auth/dto/ResetPasswordRequest.java": {
     "mtime": 1785330559.7814002,
-    "seen": 1788898534.0973537,
+    "seen": 1788940821.643699,
     "ast_hash": "0470a5409710dcb8fae1e705c7a35607",
     "semantic_hash": "0470a5409710dcb8fae1e705c7a35607"
   },
   "RHIS/src/main/java/RHIS/com/RHIS/auth/auth/models/PasswordResetTokenEntity.java": {
     "mtime": 1785331091.6883006,
-    "seen": 1788898534.0973577,
+    "seen": 1788940821.6437025,
     "ast_hash": "a794ce6d585c9c1c9aaec869620ca5bf",
     "semantic_hash": "a794ce6d585c9c1c9aaec869620ca5bf"
   },
   "RHIS/src/main/java/RHIS/com/RHIS/auth/auth/models/RefreshTokenEntity.java": {
     "mtime": 1785331091.628991,
-    "seen": 1788898534.0973625,
+    "seen": 1788940821.6437058,
     "ast_hash": "cbc7d457071b0f8e68fe53f03dcc36a1",
     "semantic_hash": "cbc7d457071b0f8e68fe53f03dcc36a1"
   },
   "RHIS/src/main/java/RHIS/com/RHIS/auth/auth/repositories/PassResetRepo.java": {
     "mtime": 1785331157.116197,
-    "seen": 1788898534.0973678,
+    "seen": 1788940821.6437092,
     "ast_hash": "a1f27141b0244276594e27ae4661dafc",
     "semantic_hash": "a1f27141b0244276594e27ae4661dafc"
   },
   "RHIS/src/main/java/RHIS/com/RHIS/auth/auth/repositories/RefreshTokenRepo.java": {
     "mtime": 1785331278.6138377,
-    "seen": 1788898534.0973725,
+    "seen": 1788940821.6437125,
     "ast_hash": "ee73f56a57d63f23f7927cb5de21796e",
     "semantic_hash": "ee73f56a57d63f23f7927cb5de21796e"
   },
   "RHIS/src/main/java/RHIS/com/RHIS/auth/auth/services/AuthService.java": {
     "mtime": 1785831364.2656991,
-    "seen": 1788898534.0973775,
+    "seen": 1788940821.6437216,
     "ast_hash": "e44ef115d8ecdb17d986a0065b098786",
     "semantic_hash": "e44ef115d8ecdb17d986a0065b098786"
   },
   "RHIS/src/main/java/RHIS/com/RHIS/auth/auth/services/AuthServiceImpl.java": {
     "mtime": 1785831370.4222195,
-    "seen": 1788898534.0973823,
+    "seen": 1788940821.643725,
     "ast_hash": "0ab4a9cb07f72388223333a3e9ea1ef3",
     "semantic_hash": "0ab4a9cb07f72388223333a3e9ea1ef3"
   },
   "RHIS/src/main/java/RHIS/com/RHIS/auth/auth/services/RefreshTokenService.java": {
     "mtime": 1785823216.880858,
-    "seen": 1788898534.097387,
+    "seen": 1788940821.6437285,
     "ast_hash": "28036a067348acc71cb7ffe5fb6016ea",
     "semantic_hash": "28036a067348acc71cb7ffe5fb6016ea"
   },
   "RHIS/src/main/java/RHIS/com/RHIS/auth/role/RoleController.java": {
     "mtime": 1785331314.8932173,
-    "seen": 1788898534.0973914,
+    "seen": 1788940821.6437323,
     "ast_hash": "7a2e448e6f7562226766d31f0e768667",
     "semantic_hash": "7a2e448e6f7562226766d31f0e768667"
   },
   "RHIS/src/main/java/RHIS/com/RHIS/auth/role/RoleEntity.java": {
     "mtime": 1785330559.8745632,
-    "seen": 1788898534.097396,
+    "seen": 1788940821.643736,
     "ast_hash": "0a94ec66d2fefdf6f2653be10187f5ed",
     "semantic_hash": "0a94ec66d2fefdf6f2653be10187f5ed"
   },
   "RHIS/src/main/java/RHIS/com/RHIS/auth/role/RoleRepository.java": {
     "mtime": 1785330559.59372,
-    "seen": 1788898534.0974007,
+    "seen": 1788940821.6437392,
     "ast_hash": "de9fb138ba953f6d2457018aeccebadf",
     "semantic_hash": "de9fb138ba953f6d2457018aeccebadf"
   },
   "RHIS/src/main/java/RHIS/com/RHIS/auth/role/RoleService.java": {
     "mtime": 1785331369.3588507,
-    "seen": 1788898534.0974057,
+    "seen": 1788940821.6437433,
     "ast_hash": "3592cf9aa0a19dfa079f8523e90de636",
     "semantic_hash": "3592cf9aa0a19dfa079f8523e90de636"
   },
   "RHIS/src/main/java/RHIS/com/RHIS/auth/role/dto/RoleRequest.java": {
     "mtime": 1785330559.671654,
-    "seen": 1788898534.0974102,
+    "seen": 1788940821.6437469,
     "ast_hash": "24eb2214355fb81f19e37e73a94a42c1",
     "semantic_hash": "24eb2214355fb81f19e37e73a94a42c1"
   },
   "RHIS/src/main/java/RHIS/com/RHIS/auth/role/dto/RoleResponse.java": {
     "mtime": 1785330559.8077073,
-    "seen": 1788898534.0974145,
+    "seen": 1788940821.643751,
     "ast_hash": "438824503e3337e5ebb16e42e7a9e66b",
     "semantic_hash": "438824503e3337e5ebb16e42e7a9e66b"
   },
   "RHIS/src/main/java/RHIS/com/RHIS/auth/user/UserController.java": {
     "mtime": 1785331401.502852,
-    "seen": 1788898534.0974195,
+    "seen": 1788940821.6437545,
     "ast_hash": "100d8645964a064ecec868472a712925",
     "semantic_hash": "100d8645964a064ecec868472a712925"
   },
   "RHIS/src/main/java/RHIS/com/RHIS/auth/user/UserEntity.java": {
     "mtime": 1785331091.6066957,
-    "seen": 1788898534.0974236,
+    "seen": 1788940821.643758,
     "ast_hash": "deee2a72a76570becf36921dc466c5e8",
     "semantic_hash": "deee2a72a76570becf36921dc466c5e8"
   },
   "RHIS/src/main/java/RHIS/com/RHIS/auth/user/UserRepository.java": {
     "mtime": 1786523943.1383853,
-    "seen": 1788898534.0974276,
+    "seen": 1788940821.6437619,
     "ast_hash": "0d3ef43fe37396adaf710e030de44df4",
     "semantic_hash": "0d3ef43fe37396adaf710e030de44df4"
   },
   "RHIS/src/main/java/RHIS/com/RHIS/auth/user/UserService.java": {
     "mtime": 1785332127.3677926,
-    "seen": 1788898534.0974326,
+    "seen": 1788940821.6438074,
     "ast_hash": "aa9afb526bc3c40aa79aea6e6f70075b",
     "semantic_hash": "aa9afb526bc3c40aa79aea6e6f70075b"
   },
   "RHIS/src/main/java/RHIS/com/RHIS/auth/user/dto/BulkStatusRequest.java": {
     "mtime": 1785330559.8609786,
-    "seen": 1788898534.0974376,
+    "seen": 1788940821.6438208,
     "ast_hash": "3ccfb2f72fafd89cda22d8408c7a3de5",
     "semantic_hash": "3ccfb2f72fafd89cda22d8408c7a3de5"
   },
   "RHIS/src/main/java/RHIS/com/RHIS/auth/user/dto/CreateUserRequest.java": {
     "mtime": 1785330559.9010353,
-    "seen": 1788898534.0974426,
+    "seen": 1788940821.6438243,
     "ast_hash": "9bdfdc11b0d41f7af337f5bdd3dadb47",
     "semantic_hash": "9bdfdc11b0d41f7af337f5bdd3dadb47"
   },
   "RHIS/src/main/java/RHIS/com/RHIS/auth/user/dto/CreateUserResponse.java": {
     "mtime": 1785330559.8451366,
-    "seen": 1788898534.097447,
+    "seen": 1788940821.6438277,
     "ast_hash": "84f25622349b5d922a5c667ce073074c",
     "semantic_hash": "84f25622349b5d922a5c667ce073074c"
   },
   "RHIS/src/main/java/RHIS/com/RHIS/auth/user/dto/Me.java": {
     "mtime": 1785330559.9148028,
-    "seen": 1788898534.0974514,
+    "seen": 1788940821.6438313,
     "ast_hash": "9ec082ad8a69baa241bcf5e642346f84",
     "semantic_hash": "9ec082ad8a69baa241bcf5e642346f84"
   },
   "RHIS/src/main/java/RHIS/com/RHIS/auth/user/dto/UpdateUserRequest.java": {
     "mtime": 1785330559.5236368,
-    "seen": 1788898534.0975068,
+    "seen": 1788940821.6438346,
     "ast_hash": "6b37ade7b5ba1bb7eb6d4a820e4df3b1",
     "semantic_hash": "6b37ade7b5ba1bb7eb6d4a820e4df3b1"
   },
   "RHIS/src/main/java/RHIS/com/RHIS/auth/user/dto/UserDataResponse.java": {
     "mtime": 1785330559.7582376,
-    "seen": 1788898534.0975127,
+    "seen": 1788940821.6438382,
     "ast_hash": "17b8f9b0ab14cb9a025b26785c89daa1",
     "semantic_hash": "17b8f9b0ab14cb9a025b26785c89daa1"
   },
   "RHIS/src/main/java/RHIS/com/RHIS/auth/user/dto/UserResponse.java": {
     "mtime": 1785330559.625911,
-    "seen": 1788898534.0975168,
+    "seen": 1788940821.6438413,
     "ast_hash": "bcd458d07eab14a18771dccd7b8a918f",
     "semantic_hash": "bcd458d07eab14a18771dccd7b8a918f"
   },
   "RHIS/src/main/java/RHIS/com/RHIS/auth/user/dto/UserStatsResponse.java": {
     "mtime": 1785330559.5023336,
-    "seen": 1788898534.0975208,
+    "seen": 1788940821.6438453,
     "ast_hash": "1e8dfda3d2fafd23823f2e350fda3355",
     "semantic_hash": "1e8dfda3d2fafd23823f2e350fda3355"
   },
   "RHIS/src/main/java/RHIS/com/RHIS/core/BaseEntity.java": {
     "mtime": 1785331737.054956,
-    "seen": 1788898534.0976064,
+    "seen": 1788940821.6439056,
     "ast_hash": "5edfa8f50c38ee5fede91dfe97840839",
     "semantic_hash": "5edfa8f50c38ee5fede91dfe97840839"
   },
   "RHIS/src/main/java/RHIS/com/RHIS/core/exception/InvalidRefreshTokenException.java": {
     "mtime": 1785331091.712487,
-    "seen": 1788898534.0976093,
+    "seen": 1788940821.6439092,
     "ast_hash": "6e4d53b0990a47c5e29656a7226cd339",
     "semantic_hash": "6e4d53b0990a47c5e29656a7226cd339"
   },
   "RHIS/src/main/java/RHIS/com/RHIS/core/exception/InvalidTokenException.java": {
     "mtime": 1785331091.6557338,
-    "seen": 1788898534.0976121,
+    "seen": 1788940821.6439133,
     "ast_hash": "42e13c4ac705e6b8994ce202b7378617",
     "semantic_hash": "42e13c4ac705e6b8994ce202b7378617"
   },
   "RHIS/src/main/java/RHIS/com/RHIS/core/exception/PasswordMismatchException.java": {
     "mtime": 1785331091.7246897,
-    "seen": 1788898534.097615,
+    "seen": 1788940821.6439168,
     "ast_hash": "33a9c39f40106b23e961de72bf127d1f",
     "semantic_hash": "33a9c39f40106b23e961de72bf127d1f"
   },
   "RHIS/src/main/java/RHIS/com/RHIS/core/exception/RefreshTokenExpiredException.java": {
     "mtime": 1785331091.678347,
-    "seen": 1788898534.0976179,
+    "seen": 1788940821.6439204,
     "ast_hash": "31e527823fc1fd0ec8fbbff588a4e989",
     "semantic_hash": "31e527823fc1fd0ec8fbbff588a4e989"
   },
   "RHIS/src/main/java/RHIS/com/RHIS/core/exception/RefreshTokenNotFoundException.java": {
     "mtime": 1785331091.5829291,
-    "seen": 1788898534.0976205,
+    "seen": 1788940821.6439238,
     "ast_hash": "0fbdb2cc0dec8fa51f04dfd7e49df9c1",
     "semantic_hash": "0fbdb2cc0dec8fa51f04dfd7e49df9c1"
   },
   "RHIS/src/main/java/RHIS/com/RHIS/core/exception/RessourceNotFoundException.java": {
     "mtime": 1785220318.1233406,
-    "seen": 1788898534.0976233,
+    "seen": 1788940821.6439276,
     "ast_hash": "aef5d764ea1479cd1bca0d61c71216f1",
     "semantic_hash": "aef5d764ea1479cd1bca0d61c71216f1"
   },
   "RHIS/src/main/java/RHIS/com/RHIS/core/exception/RoleNotFoundException.java": {
     "mtime": 1785331572.281098,
-    "seen": 1788898534.0976262,
+    "seen": 1788940821.6439319,
     "ast_hash": "acb6ade8e95520fe7467726657a9175e",
     "semantic_hash": "acb6ade8e95520fe7467726657a9175e"
   },
   "RHIS/src/main/java/RHIS/com/RHIS/core/exception/TokenExpiredException.java": {
     "mtime": 1785331091.6424725,
-    "seen": 1788898534.0976286,
+    "seen": 1788940821.6439354,
     "ast_hash": "940d519887261a9e89d75201f3eac6f5",
     "semantic_hash": "940d519887261a9e89d75201f3eac6f5"
   },
   "RHIS/src/main/java/RHIS/com/RHIS/core/exception/UserAlreadyExistsException.java": {
     "mtime": 1785331091.7002542,
-    "seen": 1788898534.0976312,
+    "seen": 1788940821.6439393,
     "ast_hash": "c16c5b733ee914a4cdc3a760082f14d7",
     "semantic_hash": "c16c5b733ee914a4cdc3a760082f14d7"
   },
   "RHIS/src/main/java/RHIS/com/RHIS/core/exception/UserNotFoundException.java": {
     "mtime": 1785331091.595729,
-    "seen": 1788898534.0976338,
+    "seen": 1788940821.6439428,
     "ast_hash": "a972263e06477f58c0ff54d2aea16ccd",
     "semantic_hash": "a972263e06477f58c0ff54d2aea16ccd"
   },
   "RHIS/src/main/java/RHIS/com/RHIS/dataset/bootstrap/DataSetInitializer.java": {
     "mtime": 1788898315.7323403,
-    "seen": 1788898534.09764,
+    "seen": 1788940821.6439662,
     "ast_hash": "ecfc1a5a681593d3d7e18f31d9cc21f4",
     "semantic_hash": ""
   },
   "RHIS/src/main/java/RHIS/com/RHIS/dataset/controller/DataSetController.java": {
     "mtime": 1787572332.7012208,
-    "seen": 1788898534.0976493,
+    "seen": 1788940821.6439931,
     "ast_hash": "401240849cb197938d6c3eb3cdfb194d",
     "semantic_hash": ""
   },
   "RHIS/src/main/java/RHIS/com/RHIS/dataset/controller/DataSetMapper.java": {
     "mtime": 1787300901.6851907,
-    "seen": 1788898534.0976522,
+    "seen": 1788940821.6439965,
     "ast_hash": "369495936984e392915acf180bcd8231",
     "semantic_hash": ""
   },
   "RHIS/src/main/java/RHIS/com/RHIS/dataset/controller/dto/DataSetFieldResponse.java": {
     "mtime": 1787300901.6978116,
-    "seen": 1788898534.097658,
+    "seen": 1788940821.6440036,
     "ast_hash": "99f2995047f6ec4e9fd54aa8e32edd89",
     "semantic_hash": ""
   },
   "RHIS/src/main/java/RHIS/com/RHIS/dataset/controller/dto/DataSetResponse.java": {
     "mtime": 1787300901.6998231,
-    "seen": 1788898534.097661,
+    "seen": 1788940821.644007,
     "ast_hash": "a5473ae8aafab2088e58a99f88039036",
     "semantic_hash": ""
   },
   "RHIS/src/main/java/RHIS/com/RHIS/dataset/controller/dto/JoinInfoProjection.java": {
     "mtime": 1785318474.1709428,
-    "seen": 1788898534.0976634,
+    "seen": 1788940821.64401,
     "ast_hash": "ec813b52314e0c3bb3b21c882cde2cfd",
     "semantic_hash": "ec813b52314e0c3bb3b21c882cde2cfd"
   },
   "RHIS/src/main/java/RHIS/com/RHIS/dataset/controller/dto/TableRelationProjection.java": {
     "mtime": 1786290802.848282,
-    "seen": 1788898534.0976663,
+    "seen": 1788940821.644014,
     "ast_hash": "ba48a544966af2e3123bd7de695f4a86",
     "semantic_hash": "ba48a544966af2e3123bd7de695f4a86"
   },
   "RHIS/src/main/java/RHIS/com/RHIS/dataset/controller/dto/TableRelationResponse.java": {
     "mtime": 1786135184.3745217,
-    "seen": 1788898534.0976686,
+    "seen": 1788940821.6440175,
     "ast_hash": "aacd323bbe4444320c8c00b9293f7100",
     "semantic_hash": "aacd323bbe4444320c8c00b9293f7100"
   },
   "RHIS/src/main/java/RHIS/com/RHIS/dataset/entity/DataSetEntity.java": {
     "mtime": 1788863597.4523547,
-    "seen": 1788898534.0976741,
+    "seen": 1788940821.6440246,
     "ast_hash": "cac5a43df9f57a8bc7bd219a7858c399",
     "semantic_hash": ""
   },
   "RHIS/src/main/java/RHIS/com/RHIS/dataset/entity/DataSetField.java": {
     "mtime": 1788863599.9426575,
-    "seen": 1788898534.0976765,
+    "seen": 1788940821.644028,
     "ast_hash": "81708876b654f0617b8d006877d9655a",
     "semantic_hash": ""
   },
   "RHIS/src/main/java/RHIS/com/RHIS/dataset/model/DataSetFieldType.java": {
     "mtime": 1786438526.290224,
-    "seen": 1788898534.097682,
+    "seen": 1788940821.644035,
     "ast_hash": "ca842c49773fc1395c39ece66ae7addd",
     "semantic_hash": "ca842c49773fc1395c39ece66ae7addd"
   },
   "RHIS/src/main/java/RHIS/com/RHIS/dataset/model/FilterOperator.java": {
     "mtime": 1786433230.5716147,
-    "seen": 1788898534.0976844,
+    "seen": 1788940821.644081,
     "ast_hash": "75419524f8bc1ae6e1287c3f5b5542a4",
     "semantic_hash": "75419524f8bc1ae6e1287c3f5b5542a4"
   },
   "RHIS/src/main/java/RHIS/com/RHIS/dataset/repository/DataSetFieldRepository.java": {
     "mtime": 1787572046.7354555,
-    "seen": 1788898534.0976872,
+    "seen": 1788940821.6440942,
     "ast_hash": "6a242bd87a11b2a159eed93daf9409f4",
     "semantic_hash": ""
   },
   "RHIS/src/main/java/RHIS/com/RHIS/dataset/repository/DataSetRepository.java": {
     "mtime": 1788179501.489677,
-    "seen": 1788898534.09769,
+    "seen": 1788940821.644099,
     "ast_hash": "e7678c9229c2829740d83e653fda641c",
     "semantic_hash": ""
   },
   "RHIS/src/main/java/RHIS/com/RHIS/dataset/service/DataSetService.java": {
     "mtime": 1787300901.7038462,
-    "seen": 1788898534.0976949,
+    "seen": 1788940821.6441083,
     "ast_hash": "765cc701c8efc18ac9f635667cd953ae",
     "semantic_hash": ""
   },
   "RHIS/src/main/java/RHIS/com/RHIS/dataset/service/DataSetServiceImpl.java": {
     "mtime": 1787316999.9755337,
-    "seen": 1788898534.097698,
+    "seen": 1788940821.6441119,
     "ast_hash": "ae9569626e6e74168295b10b0fbab4d5",
     "semantic_hash": ""
   },
   "RHIS/src/main/java/RHIS/com/RHIS/report/config/ReportJobConfiguration.java": {
     "mtime": 1787209604.166752,
-    "seen": 1788898534.0977013,
+    "seen": 1788940821.644177,
     "ast_hash": "ccbaa1334e4abcb8f9a657230976581a",
     "semantic_hash": "ccbaa1334e4abcb8f9a657230976581a"
   },
   "RHIS/src/main/java/RHIS/com/RHIS/report/config/ReportJobProperties.java": {
     "mtime": 1787171550.2992544,
-    "seen": 1788898534.0977037,
+    "seen": 1788940821.6441903,
     "ast_hash": "592da4e95540e5cd7622bfb3013f06c7",
     "semantic_hash": ""
   },
   "RHIS/src/main/java/RHIS/com/RHIS/report/controller/ReportController.java": {
     "mtime": 1786718691.0453885,
-    "seen": 1788898534.0977066,
+    "seen": 1788940821.644199,
     "ast_hash": "fafbc2e3e1ac30bb42fd1c0d4a3a3838",
     "semantic_hash": "fafbc2e3e1ac30bb42fd1c0d4a3a3838"
   },
   "RHIS/src/main/java/RHIS/com/RHIS/report/controller/ReportExceptionHandler.java": {
     "mtime": 1787572576.8293316,
-    "seen": 1788898534.097709,
+    "seen": 1788940821.6442034,
     "ast_hash": "4ab756e0d03b8671eb7f71945a48d464",
     "semantic_hash": ""
   },
   "RHIS/src/main/java/RHIS/com/RHIS/report/controller/ReportExportController.java": {
     "mtime": 1786522027.465128,
-    "seen": 1788898534.0977116,
+    "seen": 1788940821.644207,
     "ast_hash": "a40e140395f8755558b5fecae60112e2",
     "semantic_hash": "a40e140395f8755558b5fecae60112e2"
   },
   "RHIS/src/main/java/RHIS/com/RHIS/report/controller/ReportGenerationController.java": {
     "mtime": 1787217311.902079,
-    "seen": 1788898534.0977142,
+    "seen": 1788940821.6442113,
     "ast_hash": "0f358f746031c7533111f70db651d748",
     "semantic_hash": ""
   },
   "RHIS/src/main/java/RHIS/com/RHIS/report/controller/dto/CreateReportExportRequest.java": {
     "mtime": 1786521160.352168,
-    "seen": 1788898534.0977187,
+    "seen": 1788940821.6442156,
     "ast_hash": "e16a494d2dc5b2a123b75d5556ae4bf0",
     "semantic_hash": "e16a494d2dc5b2a123b75d5556ae4bf0"
   },
   "RHIS/src/main/java/RHIS/com/RHIS/report/controller/dto/ReportExportResponse.java": {
     "mtime": 1787574059.0358307,
-    "seen": 1788898534.0977213,
+    "seen": 1788940821.6442187,
     "ast_hash": "790b432e57f6fb0a0edc27760c2698a1",
     "semantic_hash": ""
   },
   "RHIS/src/main/java/RHIS/com/RHIS/report/controller/dto/ReportFilterRequest.java": {
     "mtime": 1786716047.4027615,
-    "seen": 1788898534.097724,
+    "seen": 1788940821.6442223,
     "ast_hash": "338bf5fcc9acf297e2535037efa0dd28",
     "semantic_hash": "338bf5fcc9acf297e2535037efa0dd28"
   },
   "RHIS/src/main/java/RHIS/com/RHIS/report/controller/dto/ReportGenerationResponse.java": {
     "mtime": 1787574056.4903023,
-    "seen": 1788898534.0977268,
+    "seen": 1788940821.6442263,
     "ast_hash": "a81b73ae33cde707646dd9ef661eb293",
     "semantic_hash": ""
   },
   "RHIS/src/main/java/RHIS/com/RHIS/report/controller/dto/ReportPreviewColumnResponse.java": {
     "mtime": 1786291001.8376038,
-    "seen": 1788898534.0977292,
+    "seen": 1788940821.6442297,
     "ast_hash": "ee1561baa04578c5631045a8437b3562",
     "semantic_hash": "ee1561baa04578c5631045a8437b3562"
   },
   "RHIS/src/main/java/RHIS/com/RHIS/report/controller/dto/ReportPreviewRequest.java": {
     "mtime": 1788605701.745284,
-    "seen": 1788898534.0977318,
+    "seen": 1788940821.6442332,
     "ast_hash": "0204415f62f3ac1b8461b15c2838332c",
     "semantic_hash": ""
   },
   "RHIS/src/main/java/RHIS/com/RHIS/report/controller/dto/ReportPreviewResponse.java": {
     "mtime": 1786291007.7713132,
-    "seen": 1788898534.0977345,
+    "seen": 1788940821.644237,
     "ast_hash": "a7e64df2d47c4154caadae16fde0b713",
     "semantic_hash": "a7e64df2d47c4154caadae16fde0b713"
   },
   "RHIS/src/main/java/RHIS/com/RHIS/report/controller/dto/ReportSortRequest.java": {
     "mtime": 1786290997.954844,
-    "seen": 1788898534.0977373,
+    "seen": 1788940821.6442413,
     "ast_hash": "71c2b50c422eae780ae4fe5851d8a76f",
     "semantic_hash": "71c2b50c422eae780ae4fe5851d8a76f"
   },
   "RHIS/src/main/java/RHIS/com/RHIS/report/controller/dto/SortDirection.java": {
     "mtime": 1786290994.551241,
-    "seen": 1788898534.0977397,
+    "seen": 1788940821.6442451,
     "ast_hash": "0a9cc7f119c71e5232739072eb94f13a",
     "semantic_hash": "0a9cc7f119c71e5232739072eb94f13a"
   },
   "RHIS/src/main/java/RHIS/com/RHIS/report/entity/ReportExportEntity.java": {
     "mtime": 1786521074.548794,
-    "seen": 1788898534.097742,
+    "seen": 1788940821.6442487,
     "ast_hash": "22d82eebf06c967cdba325219ed6b876",
     "semantic_hash": "22d82eebf06c967cdba325219ed6b876"
   },
   "RHIS/src/main/java/RHIS/com/RHIS/report/entity/ReportGenerationEntity.java": {
     "mtime": 1786522637.9857876,
-    "seen": 1788898534.097745,
+    "seen": 1788940821.6442528,
     "ast_hash": "e725fb532efd6203ccd68a116b50fd54",
     "semantic_hash": "e725fb532efd6203ccd68a116b50fd54"
   },
   "RHIS/src/main/java/RHIS/com/RHIS/report/exception/ReportCapacityException.java": {
     "mtime": 1786521177.299336,
-    "seen": 1788898534.097747,
+    "seen": 1788940821.6442564,
     "ast_hash": "0c56158b3a20ebed6cc5aede6ecae506",
     "semantic_hash": "0c56158b3a20ebed6cc5aede6ecae506"
   },
   "RHIS/src/main/java/RHIS/com/RHIS/report/exception/ReportConflictException.java": {
     "mtime": 1786521171.319229,
-    "seen": 1788898534.09775,
+    "seen": 1788940821.6443088,
     "ast_hash": "74dc3f1a1e993aaa63bb2ad5427491df",
     "semantic_hash": "74dc3f1a1e993aaa63bb2ad5427491df"
   },
   "RHIS/src/main/java/RHIS/com/RHIS/report/exception/ReportExecutionException.java": {
     "mtime": 1786291023.2494066,
-    "seen": 1788898534.0977554,
+    "seen": 1788940821.6443229,
     "ast_hash": "d1200160d2ef9fdf1bf8df8bf201e4a4",
     "semantic_hash": "d1200160d2ef9fdf1bf8df8bf201e4a4"
   },
   "RHIS/src/main/java/RHIS/com/RHIS/report/exception/ReportQueryTimeoutException.java": {
     "mtime": 1786291019.7435858,
-    "seen": 1788898534.0977583,
+    "seen": 1788940821.6443677,
     "ast_hash": "4ce6493a0ea4da94559c2660d725210b",
     "semantic_hash": "4ce6493a0ea4da94559c2660d725210b"
   },
   "RHIS/src/main/java/RHIS/com/RHIS/report/exception/ReportResourceNotFoundException.java": {
     "mtime": 1786291015.5092373,
-    "seen": 1788898534.097761,
+    "seen": 1788940821.6443763,
     "ast_hash": "dc7d467d12fb88f6d7f15c7e0db34799",
     "semantic_hash": "dc7d467d12fb88f6d7f15c7e0db34799"
   },
   "RHIS/src/main/java/RHIS/com/RHIS/report/exception/ReportValidationException.java": {
     "mtime": 1786291012.5723648,
-    "seen": 1788898534.0977633,
+    "seen": 1788940821.6443827,
     "ast_hash": "d5d14e8fe725000bd2decad415aedd47",
     "semantic_hash": "d5d14e8fe725000bd2decad415aedd47"
   },
   "RHIS/src/main/java/RHIS/com/RHIS/report/export/JasperDynamicTableConfigurer.java": {
     "mtime": 1788812520.8391526,
-    "seen": 1788898534.097769,
+    "seen": 1788940821.6443927,
     "ast_hash": "cfd2587ace50ee563d75ccd19fbf6267",
     "semantic_hash": ""
   },
   "RHIS/src/main/java/RHIS/com/RHIS/report/export/PdfReportExportWriter.java": {
     "mtime": 1788810648.6210315,
-    "seen": 1788898534.0977714,
+    "seen": 1788940821.6443973,
     "ast_hash": "26837a8227a2bef40b5f693aec5661f5",
     "semantic_hash": ""
   },
   "RHIS/src/main/java/RHIS/com/RHIS/report/export/ReportExportWriter.java": {
     "mtime": 1786521631.587601,
-    "seen": 1788898534.0977743,
+    "seen": 1788940821.6444013,
     "ast_hash": "3dbabe333e6ded20251c59895dde32f0",
     "semantic_hash": "3dbabe333e6ded20251c59895dde32f0"
   },
   "RHIS/src/main/java/RHIS/com/RHIS/report/export/XlsxReportExportWriter.java": {
     "mtime": 1786971071.3742607,
-    "seen": 1788898534.0977774,
+    "seen": 1788940821.6444058,
     "ast_hash": "4638885a4aa13f8a513f249e6f089897",
     "semantic_hash": "4638885a4aa13f8a513f249e6f089897"
   },
   "RHIS/src/main/java/RHIS/com/RHIS/report/model/ReportExportFormat.java": {
     "mtime": 1786521055.561497,
-    "seen": 1788898534.0977812,
+    "seen": 1788940821.64441,
     "ast_hash": "5b0c3909ee4fa974464b1044d1131a17",
     "semantic_hash": "5b0c3909ee4fa974464b1044d1131a17"
   },
   "RHIS/src/main/java/RHIS/com/RHIS/report/model/ReportExportStatus.java": {
     "mtime": 1786521049.0747962,
-    "seen": 1788898534.0977838,
+    "seen": 1788940821.6444137,
     "ast_hash": "a0788798c65ac4b6372e937670102357",
     "semantic_hash": "a0788798c65ac4b6372e937670102357"
   },
   "RHIS/src/main/java/RHIS/com/RHIS/report/model/ReportGenerationPhase.java": {
     "mtime": 1786521034.9516785,
-    "seen": 1788898534.0977862,
+    "seen": 1788940821.644418,
     "ast_hash": "a1b00a7d671f118467a182a4253bcba2",
     "semantic_hash": "a1b00a7d671f118467a182a4253bcba2"
   },
   "RHIS/src/main/java/RHIS/com/RHIS/report/model/ReportGenerationStatus.java": {
     "mtime": 1786521031.5380535,
-    "seen": 1788898534.0977888,
+    "seen": 1788940821.6444218,
     "ast_hash": "36fb770dc0c7e89bd47c1cef557e12bb",
     "semantic_hash": "36fb770dc0c7e89bd47c1cef557e12bb"
   },
   "RHIS/src/main/java/RHIS/com/RHIS/report/repository/ReportExportRepository.java": {
     "mtime": 1786522071.3746555,
-    "seen": 1788898534.0977914,
+    "seen": 1788940821.6444259,
     "ast_hash": "cfb167ff5fa748ce0db2c99bb106de9b",
     "semantic_hash": "cfb167ff5fa748ce0db2c99bb106de9b"
   },
   "RHIS/src/main/java/RHIS/com/RHIS/report/repository/ReportGenerationRepository.java": {
     "mtime": 1787165327.1257527,
-    "seen": 1788898534.097794,
+    "seen": 1788940821.64443,
     "ast_hash": "dedd4c8d2b8c71472328621dbd5500df",
     "semantic_hash": ""
   },
   "RHIS/src/main/java/RHIS/com/RHIS/report/service/InProcessReportJobDispatcher.java": {
     "mtime": 1787171949.34962,
-    "seen": 1788898534.0977967,
+    "seen": 1788940821.6444335,
     "ast_hash": "4d480ccbe36f7deb80d4e02b34f89901",
     "semantic_hash": ""
   },
   "RHIS/src/main/java/RHIS/com/RHIS/report/service/ReportDefinitionResolver.java": {
     "mtime": 1788179501.4927182,
-    "seen": 1788898534.0977988,
+    "seen": 1788940821.6444368,
     "ast_hash": "d6676be104918c23652beeb073714684",
     "semantic_hash": ""
   },
   "RHIS/src/main/java/RHIS/com/RHIS/report/service/ReportExportService.java": {
     "mtime": 1787574064.1300943,
-    "seen": 1788898534.097802,
+    "seen": 1788940821.6444411,
     "ast_hash": "a9873eab28820e1273019b7737b536b0",
     "semantic_hash": ""
   },
   "RHIS/src/main/java/RHIS/com/RHIS/report/service/ReportExportWorker.java": {
     "mtime": 1787572584.6860275,
-    "seen": 1788898534.0978048,
+    "seen": 1788940821.644445,
     "ast_hash": "e29b172bd4889c0f4a27ad110ec11ea6",
     "semantic_hash": ""
   },
   "RHIS/src/main/java/RHIS/com/RHIS/report/service/ReportFullQueryExecutor.java": {
     "mtime": 1787212082.958371,
-    "seen": 1788898534.0978074,
+    "seen": 1788940821.6444485,
     "ast_hash": "97e351ef46b2a02581872f023d696749",
     "semantic_hash": ""
   },
   "RHIS/src/main/java/RHIS/com/RHIS/report/service/ReportGenerationService.java": {
     "mtime": 1787574061.574672,
-    "seen": 1788898534.0978103,
+    "seen": 1788940821.6444528,
     "ast_hash": "7470dbfa94e63704d7bc25511fbbdd4f",
     "semantic_hash": ""
   },
   "RHIS/src/main/java/RHIS/com/RHIS/report/service/ReportGenerationWorker.java": {
     "mtime": 1787572579.5116508,
-    "seen": 1788898534.0978127,
+    "seen": 1788940821.644457,
     "ast_hash": "d58ec8256c2221aa7ad870da0d9d2849",
     "semantic_hash": ""
   },
   "RHIS/src/main/java/RHIS/com/RHIS/report/service/ReportJobCleanupService.java": {
     "mtime": 1786522073.2049136,
-    "seen": 1788898534.097815,
+    "seen": 1788940821.644461,
     "ast_hash": "cc8ba2c30603554ba617470d50394a72",
     "semantic_hash": "cc8ba2c30603554ba617470d50394a72"
   },
   "RHIS/src/main/java/RHIS/com/RHIS/report/service/ReportJobDispatcher.java": {
     "mtime": 1786522014.7178068,
-    "seen": 1788898534.0978177,
+    "seen": 1788940821.6444645,
     "ast_hash": "0b38d2addba5471a252eb0fcc2753629",
     "semantic_hash": "0b38d2addba5471a252eb0fcc2753629"
   },
   "RHIS/src/main/java/RHIS/com/RHIS/report/service/ReportJobStateService.java": {
     "mtime": 1787572582.0948765,
-    "seen": 1788898534.0978198,
+    "seen": 1788940821.6444683,
     "ast_hash": "782f3490a64e39472409423b1e375ec8",
     "semantic_hash": ""
   },
   "RHIS/src/main/java/RHIS/com/RHIS/report/service/ReportPreviewExecutor.java": {
     "mtime": 1786948955.596982,
-    "seen": 1788898534.0978224,
+    "seen": 1788940821.6444721,
     "ast_hash": "f2f9514a216dca6dfde055e2dfe8c8cf",
     "semantic_hash": "f2f9514a216dca6dfde055e2dfe8c8cf"
   },
   "RHIS/src/main/java/RHIS/com/RHIS/report/service/ReportPreviewService.java": {
     "mtime": 1786782686.5362916,
-    "seen": 1788898534.0978248,
+    "seen": 1788940821.6444755,
     "ast_hash": "0700b307328c15445c765771409f229f",
     "semantic_hash": "0700b307328c15445c765771409f229f"
   },
   "RHIS/src/main/java/RHIS/com/RHIS/report/service/ReportQueryModel.java": {
     "mtime": 1788179501.4947808,
-    "seen": 1788898534.0978274,
+    "seen": 1788940821.6444795,
     "ast_hash": "bf7db85a22bd5366cccff1ae9536bd7d",
     "semantic_hash": ""
   },
   "RHIS/src/main/java/RHIS/com/RHIS/report/service/ReportSqlBuilder.java": {
     "mtime": 1788179501.4977095,
-    "seen": 1788898534.0978296,
+    "seen": 1788940821.6444833,
     "ast_hash": "99e2ddfae72d6220276ed12c50658bff",
     "semantic_hash": ""
   },
   "RHIS/src/main/java/RHIS/com/RHIS/report/snapshot/ReportSnapshotMetadata.java": {
     "mtime": 1786521464.5685766,
-    "seen": 1788898534.0978324,
+    "seen": 1788940821.6444874,
     "ast_hash": "62b998d46080b9871a023986c5852265",
     "semantic_hash": "62b998d46080b9871a023986c5852265"
   },
   "RHIS/src/main/java/RHIS/com/RHIS/report/snapshot/ReportSnapshotReader.java": {
     "mtime": 1786539166.603289,
-    "seen": 1788898534.097835,
+    "seen": 1788940821.6444912,
     "ast_hash": "f8f0a3370005027768958ebbd3c74408",
     "semantic_hash": "f8f0a3370005027768958ebbd3c74408"
   },
   "RHIS/src/main/java/RHIS/com/RHIS/report/snapshot/ReportSnapshotWriter.java": {
     "mtime": 1786522350.6483634,
-    "seen": 1788898534.0978372,
+    "seen": 1788940821.6444948,
     "ast_hash": "25753700a9a6b88b45a85f7453e9ce12",
     "semantic_hash": "25753700a9a6b88b45a85f7453e9ce12"
   },
   "RHIS/src/main/java/RHIS/com/RHIS/report/storage/FileSystemReportArtifactStorage.java": {
     "mtime": 1786521420.3754797,
-    "seen": 1788898534.09784,
+    "seen": 1788940821.6444993,
     "ast_hash": "39b225e5b820e36ecb5c216e4f83c34f",
     "semantic_hash": "39b225e5b820e36ecb5c216e4f83c34f"
   },
   "RHIS/src/main/java/RHIS/com/RHIS/report/storage/ReportArtifactStorage.java": {
     "mtime": 1786521418.728432,
-    "seen": 1788898534.0978427,
+    "seen": 1788940821.6445038,
     "ast_hash": "3a22ed77849ce93e5b7a78f4153cf620",
     "semantic_hash": "3a22ed77849ce93e5b7a78f4153cf620"
   },
   "RHIS/src/main/java/RHIS/com/RHIS/workforce/bootstrap/WorkforceDataSeeder.java": {
     "mtime": 1785845114.5127685,
-    "seen": 1788898534.0978456,
+    "seen": 1788940821.6445084,
     "ast_hash": "60dff65616578c813976d755c09e6276",
     "semantic_hash": "60dff65616578c813976d755c09e6276"
   },
   "RHIS/src/main/java/RHIS/com/RHIS/workforce/entity/AbsenceCongeEntity.java": {
     "mtime": 1785844950.5303674,
-    "seen": 1788898534.0978482,
+    "seen": 1788940821.6445124,
     "ast_hash": "65485b44c87e93f0c06a0b7a7ea9f783",
     "semantic_hash": "65485b44c87e93f0c06a0b7a7ea9f783"
   },
   "RHIS/src/main/java/RHIS/com/RHIS/workforce/entity/ContratEntity.java": {
     "mtime": 1785844944.6785872,
-    "seen": 1788898534.0978508,
+    "seen": 1788940821.6445158,
     "ast_hash": "455f897426d447a67fc4bde97776d41c",
     "semantic_hash": "455f897426d447a67fc4bde97776d41c"
   },
   "RHIS/src/main/java/RHIS/com/RHIS/workforce/entity/DetailEvenementEntity.java": {
     "mtime": 1785844952.8524556,
-    "seen": 1788898534.0978537,
+    "seen": 1788940821.64452,
     "ast_hash": "eb5faf50e3d3691da8ba344c5e4b8dbf",
     "semantic_hash": "eb5faf50e3d3691da8ba344c5e4b8dbf"
   },
   "RHIS/src/main/java/RHIS/com/RHIS/workforce/entity/EmployeeEntity.java": {
     "mtime": 1785844942.2698677,
-    "seen": 1788898534.0978563,
+    "seen": 1788940821.6445239,
     "ast_hash": "af33c059d78f78fc48d09e9c3d0438b1",
     "semantic_hash": "af33c059d78f78fc48d09e9c3d0438b1"
   },
   "RHIS/src/main/java/RHIS/com/RHIS/workforce/entity/EntityUuid.java": {
     "mtime": 1785844936.2694056,
-    "seen": 1788898534.0978591,
+    "seen": 1788940821.6445282,
     "ast_hash": "7251da645a00957ac1b5284b784f8cad",
     "semantic_hash": "7251da645a00957ac1b5284b784f8cad"
   },
   "RHIS/src/main/java/RHIS/com/RHIS/workforce/entity/PointageEntity.java": {
     "mtime": 1785844948.6219015,
-    "seen": 1788898534.0978613,
+    "seen": 1788940821.6445324,
     "ast_hash": "96de26f5ecd7411177a40288a437ca72",
     "semantic_hash": "96de26f5ecd7411177a40288a437ca72"
   },
   "RHIS/src/main/java/RHIS/com/RHIS/workforce/entity/RestaurantEntity.java": {
     "mtime": 1785844939.548016,
-    "seen": 1788898534.0978642,
+    "seen": 1788940821.6445365,
     "ast_hash": "cd81988ec3b4172cb901a67eec70cc0e",
     "semantic_hash": "cd81988ec3b4172cb901a67eec70cc0e"
   },
   "RHIS/src/main/java/RHIS/com/RHIS/workforce/entity/ShiftEntity.java": {
     "mtime": 1785844946.5437026,
-    "seen": 1788898534.0978665,
+    "seen": 1788940821.6445403,
     "ast_hash": "c15202e3e29894625cd973a98619a891",
     "semantic_hash": "c15202e3e29894625cd973a98619a891"
   },
   "RHIS/src/main/java/RHIS/com/RHIS/workforce/repository/AbsenceCongeRepository.java": {
     "mtime": 1785844990.0617373,
-    "seen": 1788898534.0978692,
+    "seen": 1788940821.6445453,
     "ast_hash": "17e85587a2df1f8860ad4a0c9ed72138",
     "semantic_hash": "17e85587a2df1f8860ad4a0c9ed72138"
   },
   "RHIS/src/main/java/RHIS/com/RHIS/workforce/repository/ContratRepository.java": {
     "mtime": 1785844984.5636182,
-    "seen": 1788898534.0978715,
+    "seen": 1788940821.6445491,
     "ast_hash": "849b188f4bb29f2f536e679d29b69878",
     "semantic_hash": "849b188f4bb29f2f536e679d29b69878"
   },
   "RHIS/src/main/java/RHIS/com/RHIS/workforce/repository/DetailEvenementRepository.java": {
     "mtime": 1785844992.2619796,
-    "seen": 1788898534.0978744,
+    "seen": 1788940821.6445527,
     "ast_hash": "2304a06f126a78a87ded381a6c3a6d39",
     "semantic_hash": "2304a06f126a78a87ded381a6c3a6d39"
   },
   "RHIS/src/main/java/RHIS/com/RHIS/workforce/repository/EmployeeRepository.java": {
     "mtime": 1785844982.4072657,
-    "seen": 1788898534.0978773,
+    "seen": 1788940821.6445568,
     "ast_hash": "91a956d6f0dc3f8cff6bc0c81b9b7493",
     "semantic_hash": "91a956d6f0dc3f8cff6bc0c81b9b7493"
   },
   "RHIS/src/main/java/RHIS/com/RHIS/workforce/repository/PointageRepository.java": {
     "mtime": 1785844988.2792726,
-    "seen": 1788898534.0978801,
+    "seen": 1788940821.644561,
     "ast_hash": "32d09355ba22a5f20399212aa1251dd4",
     "semantic_hash": "32d09355ba22a5f20399212aa1251dd4"
   },
   "RHIS/src/main/java/RHIS/com/RHIS/workforce/repository/RestaurantRepository.java": {
     "mtime": 1785844980.4109328,
-    "seen": 1788898534.0978825,
+    "seen": 1788940821.644565,
     "ast_hash": "ac9b16eb18af1e109081cd9125b36c2e",
     "semantic_hash": "ac9b16eb18af1e109081cd9125b36c2e"
   },
   "RHIS/src/main/java/RHIS/com/RHIS/workforce/repository/ShiftRepository.java": {
     "mtime": 1785844986.5307732,
-    "seen": 1788898534.0978851,
+    "seen": 1788940821.644569,
     "ast_hash": "eb5099816142fdd58b4ede4221cba7f4",
     "semantic_hash": "eb5099816142fdd58b4ede4221cba7f4"
   },
   "RHIS/src/test/java/RHIS/com/RHIS/dataset/model/DataSetFieldTypeTest.java": {
     "mtime": 1786438773.3923135,
-    "seen": 1788898534.0979154,
+    "seen": 1788940821.6446152,
     "ast_hash": "ddf2f74df823a91de08c238478390a8e",
     "semantic_hash": "ddf2f74df823a91de08c238478390a8e"
   },
   "RHIS/src/test/java/RHIS/com/RHIS/report/ReportPreviewPostgresIntegrationTest.java": {
     "mtime": 1788864845.5903351,
-    "seen": 1788898534.0979235,
+    "seen": 1788940821.6446285,
     "ast_hash": "a71a7272085d2def3009df53458b4b0c",
     "semantic_hash": "a71a7272085d2def3009df53458b4b0c"
   },
   "RHIS/src/test/java/RHIS/com/RHIS/report/config/ReportJobConfigurationTest.java": {
     "mtime": 1786526732.9777243,
-    "seen": 1788898534.0979264,
+    "seen": 1788940821.6446326,
     "ast_hash": "1cd3b5d6fccad6b3bfc3722ce60cd330",
     "semantic_hash": "1cd3b5d6fccad6b3bfc3722ce60cd330"
   },
   "RHIS/src/test/java/RHIS/com/RHIS/report/controller/ReportControllerSecurityTest.java": {
     "mtime": 1786970333.5782144,
-    "seen": 1788898534.0979295,
+    "seen": 1788940821.6446376,
     "ast_hash": "5ee02536aaf491cc0f3c24322ec3dbaa",
     "semantic_hash": "5ee02536aaf491cc0f3c24322ec3dbaa"
   },
   "RHIS/src/test/java/RHIS/com/RHIS/report/export/JasperDynamicTableConfigurerTest.java": {
     "mtime": 1788812525.301091,
-    "seen": 1788898534.0979323,
+    "seen": 1788940821.644642,
     "ast_hash": "e913d83a9e75944eaa70e802684c8580",
     "semantic_hash": ""
   },
   "RHIS/src/test/java/RHIS/com/RHIS/report/export/ReportExportWriterTest.java": {
     "mtime": 1788812572.7384748,
-    "seen": 1788898534.097935,
+    "seen": 1788940821.6446474,
     "ast_hash": "58f148a90d5f408f1a611964d59e7f97",
     "semantic_hash": ""
   },
   "RHIS/src/test/java/RHIS/com/RHIS/report/service/ReportExportWorkerTest.java": {
     "mtime": 1787572614.7783484,
-    "seen": 1788898534.0979373,
+    "seen": 1788940821.6446521,
     "ast_hash": "683ffb6e327394247d7db766e3507d79",
     "semantic_hash": ""
   },
   "RHIS/src/test/java/RHIS/com/RHIS/report/service/ReportJobStateServiceTest.java": {
     "mtime": 1786970591.2408943,
-    "seen": 1788898534.0979402,
+    "seen": 1788940821.6446564,
     "ast_hash": "5a2c211685258d9fef7b57d4c6a42e37",
     "semantic_hash": "5a2c211685258d9fef7b57d4c6a42e37"
   },
   "RHIS/src/test/java/RHIS/com/RHIS/report/service/ReportPreviewExecutorTest.java": {
     "mtime": 1786294643.8792627,
-    "seen": 1788898534.0979428,
+    "seen": 1788940821.6446602,
     "ast_hash": "57b0ab5830849440dda8b4841bd9f9c1",
     "semantic_hash": "57b0ab5830849440dda8b4841bd9f9c1"
   },
   "RHIS/src/test/java/RHIS/com/RHIS/report/service/ReportPreviewServiceTest.java": {
     "mtime": 1788179501.5141523,
-    "seen": 1788898534.0979455,
+    "seen": 1788940821.6446638,
     "ast_hash": "4b8361e21af4c301d0e43f8b25ef5988",
     "semantic_hash": ""
   },
   "RHIS/src/test/java/RHIS/com/RHIS/report/service/ReportSqlBuilderTest.java": {
     "mtime": 1788179501.5161872,
-    "seen": 1788898534.0979478,
+    "seen": 1788940821.6446686,
     "ast_hash": "a03e510fb3ce14cac1f096fe624cd8a0",
     "semantic_hash": ""
   },
   "RHIS/src/test/java/RHIS/com/RHIS/report/snapshot/ReportSnapshotStorageTest.java": {
     "mtime": 1786538943.520521,
-    "seen": 1788898534.0979507,
+    "seen": 1788940821.6446729,
     "ast_hash": "40ee0c9e56616680987c2691cf245b99",
     "semantic_hash": "40ee0c9e56616680987c2691cf245b99"
   },
   "DESIGN.md": {
     "mtime": 1787525621.6960423,
-    "seen": 1788898534.0979686,
+    "seen": 1788940821.6447027,
     "ast_hash": "f52f10a024b791e3d6e43ebb5386cc41",
     "semantic_hash": ""
   },
   "Frontend/Rhis_report_gen/README.md": {
     "mtime": 1785326346.6447039,
-    "seen": 1788898534.0979745,
+    "seen": 1788940821.6447105,
     "ast_hash": "0c70f4c68754314eacdcdce2ee8cb674",
     "semantic_hash": ""
   },
   "Frontend/Rhis_report_gen/docs/superpowers/plans/2026-08-17-report-export-independent-formats-primeng.md": {
     "mtime": 1786958465.6923406,
-    "seen": 1788898534.0979779,
+    "seen": 1788940821.6447158,
     "ast_hash": "0aa1d7662cbd1a9136496f9a399c833e",
     "semantic_hash": ""
   },
   "Frontend/Rhis_report_gen/docs/superpowers/plans/2026-08-17-report-export-layout-correction.md": {
     "mtime": 1786960238.7272494,
-    "seen": 1788898534.097981,
+    "seen": 1788940821.6447272,
     "ast_hash": "7b9f58df8b0fa967a345ebfcd5f4258c",
     "semantic_hash": ""
   },
   "Frontend/Rhis_report_gen/docs/superpowers/plans/2026-08-17-report-export-targeted-refactoring.md": {
     "mtime": 1786962858.6860554,
-    "seen": 1788898534.0979836,
+    "seen": 1788940821.6447349,
     "ast_hash": "334abb53867d4fd4622fd9d916be89d3",
     "semantic_hash": ""
   },
   "Frontend/Rhis_report_gen/docs/superpowers/plans/2026-08-17-report-export-vertical-stepper.md": {
     "mtime": 1786958460.607911,
-    "seen": 1788898534.0979862,
+    "seen": 1788940821.6447392,
     "ast_hash": "b7e801d4fc77f380ece92053ad6a8df4",
     "semantic_hash": ""
   },
   "Frontend/Rhis_report_gen/docs/superpowers/specs/2026-08-10-configuration-report-ux-design.md": {
     "mtime": 1786390124.8687809,
-    "seen": 1788898534.098003,
+    "seen": 1788940821.6447656,
     "ast_hash": "77918f2ba8cf065c99f9a9b7bf087bcb",
     "semantic_hash": ""
   },
   "Frontend/Rhis_report_gen/docs/superpowers/specs/2026-08-17-report-export-layout-correction-design.md": {
     "mtime": 1786959629.2347026,
-    "seen": 1788898534.0980055,
+    "seen": 1788940821.64477,
     "ast_hash": "11f72ce51aeb9ccd99ab1c9333ff4ca9",
     "semantic_hash": ""
   },
   "Frontend/Rhis_report_gen/docs/superpowers/specs/2026-08-17-report-export-refactoring-design.md": {
     "mtime": 1786962402.8396485,
-    "seen": 1788898534.0980082,
+    "seen": 1788940821.6447744,
     "ast_hash": "76e3b980b9b02f4265b5524b627cdac8",
     "semantic_hash": ""
   },
   "Frontend/Rhis_report_gen/docs/superpowers/specs/2026-08-17-report-export-vertical-stepper-design.md": {
     "mtime": 1786958456.2729619,
-    "seen": 1788898534.0980108,
+    "seen": 1788940821.6447785,
     "ast_hash": "663200e1a58724a0d32f6244eac337e3",
     "semantic_hash": ""
   },
   "Frontend/Rhis_report_gen/src/app/app.html": {
     "mtime": 1787956525.9139302,
-    "seen": 1788898534.09808,
+    "seen": 1788940821.6448028,
     "ast_hash": "48dc1de126a5426223b407810cdd9f6d",
     "semantic_hash": ""
   },
   "Frontend/Rhis_report_gen/src/app/features/auth/pages/login/login.component.html": {
-    "mtime": 1785827992.9723234,
-    "seen": 1788898534.0980856,
-    "ast_hash": "5fa9e650d5cf9abf51d8d7458b6f20a2",
+    "mtime": 1788940789.7881303,
+    "seen": 1788940821.6448112,
+    "ast_hash": "ef2a59956874a8f99cc14d9e6e9d7857",
     "semantic_hash": ""
   },
   "Frontend/Rhis_report_gen/src/app/features/rapports/components/report-related-card/report-related-card.component.html": {
     "mtime": 1786546370.0260499,
-    "seen": 1788898534.0980887,
+    "seen": 1788940821.6448152,
     "ast_hash": "95b87e6adf9124b5c7a3d193e6486db5",
     "semantic_hash": ""
   },
   "Frontend/Rhis_report_gen/src/app/features/rapports/pages/configuration/components/column-selector/column-selector.component.html": {
     "mtime": 1788605701.7196007,
-    "seen": 1788898534.098092,
+    "seen": 1788940821.6448193,
     "ast_hash": "9564c20229ca5657597ac6666bac47fd",
     "semantic_hash": ""
   },
   "Frontend/Rhis_report_gen/src/app/features/rapports/pages/configuration/components/filter-editor/filter-editor.component.html": {
     "mtime": 1788605701.7231226,
-    "seen": 1788898534.0980952,
+    "seen": 1788940821.6448238,
     "ast_hash": "35926a00ef5108cd0524776e51d29dce",
     "semantic_hash": ""
   },
   "Frontend/Rhis_report_gen/src/app/features/rapports/pages/configuration/components/sort-editor/sort-editor.component.html": {
     "mtime": 1788605701.7231226,
-    "seen": 1788898534.0981102,
+    "seen": 1788940821.644831,
     "ast_hash": "d7bed25f5f63d055e4e4cf368d3ad87e",
     "semantic_hash": ""
   },
   "Frontend/Rhis_report_gen/src/app/features/rapports/pages/configuration/configuration.component.html": {
     "mtime": 1788605701.7231226,
-    "seen": 1788898534.0981128,
+    "seen": 1788940821.6448352,
     "ast_hash": "51730d6137d38b30e4b0752838dbb89c",
     "semantic_hash": ""
   },
   "Frontend/Rhis_report_gen/src/app/features/rapports/pages/export/export.component.html": {
     "mtime": 1788791499.043933,
-    "seen": 1788898534.0981154,
+    "seen": 1788940821.6448395,
     "ast_hash": "b48c6c49c969bcdd7c752e7d7e3f4a89",
     "semantic_hash": ""
   },
   "Frontend/Rhis_report_gen/src/app/features/rapports/pages/source_de_donnes/rapports.component.html": {
     "mtime": 1788605701.738741,
-    "seen": 1788898534.0981178,
+    "seen": 1788940821.6448493,
     "ast_hash": "6824c6e439593c7a328504723d591685",
     "semantic_hash": ""
   },
   "Frontend/Rhis_report_gen/src/app/shared/report-steps/report-steps.component.html": {
     "mtime": 1787038681.7006216,
-    "seen": 1788898534.0981264,
+    "seen": 1788940821.6448631,
     "ast_hash": "52b7ccb6e6eab6d5838461d6d4949a1b",
     "semantic_hash": ""
   },
   "Frontend/Rhis_report_gen/src/app/test/iheb/iheb.component.html": {
     "mtime": 1786542711.5272238,
-    "seen": 1788898534.098129,
+    "seen": 1788940821.6448672,
     "ast_hash": "3a277dad7725c657448ac86bfcf1bdaa",
     "semantic_hash": ""
   },
   "Frontend/Rhis_report_gen/src/index.html": {
     "mtime": 1785781031.044899,
-    "seen": 1788898534.0981317,
+    "seen": 1788940821.6448712,
     "ast_hash": "c4e77c05cff8121f2204f6a82abe244f",
     "semantic_hash": ""
   },
   "RHIS/.superpowers/brainstorm/494-1786357409/content/filter-ux-directions.html": {
     "mtime": 1786358056.6416614,
-    "seen": 1788898534.0981345,
+    "seen": 1788940821.6448755,
     "ast_hash": "8ec0c1e9b6fe44bf7b2d0a117d61c496",
     "semantic_hash": ""
   },
   "RHIS/.superpowers/brainstorm/494-1786357409/content/phrase-guidee-parcours-review.html": {
     "mtime": 1786363176.9371908,
-    "seen": 1788898534.0981379,
+    "seen": 1788940821.6448796,
     "ast_hash": "bd00c5f6544eddfce1df4d3128fc7376",
     "semantic_hash": ""
   },
   "RHIS/.superpowers/brainstorm/494-1786357409/content/phrase-guidee-parcours.html": {
     "mtime": 1786358320.1296034,
-    "seen": 1788898534.0981407,
+    "seen": 1788940821.6448832,
     "ast_hash": "4f471e8e15df572ee786bc464509af7d",
     "semantic_hash": ""
   },
   "RHIS/.superpowers/brainstorm/494-1786357409/content/waiting-for-implementation.html": {
     "mtime": 1786358472.9148612,
-    "seen": 1788898534.0981433,
+    "seen": 1788940821.6448865,
     "ast_hash": "9bc52be2de799ceee841b74a47fd4abd",
     "semantic_hash": ""
   },
   "RHIS/.superpowers/brainstorm/494-1786357409/content/waiting-for-persona.html": {
     "mtime": 1786357440.9227905,
-    "seen": 1788898534.0981457,
+    "seen": 1788940821.6448908,
     "ast_hash": "3362d2394570bd3baa2b7bebfaf6d2ba",
     "semantic_hash": ""
   },
   "RHIS/RAPPORT_AVANCEMENT.md": {
     "mtime": 1785218974.002068,
-    "seen": 1788898534.0981514,
+    "seen": 1788940821.6448991,
     "ast_hash": "259f1aa91040d507f928ad5d1a5557be",
     "semantic_hash": ""
   },
   "RHIS/docs/flows/01-dataset-selection-and-configuration-load.md": {
     "mtime": 1787956526.0305936,
-    "seen": 1788898534.098154,
+    "seen": 1788940821.6449027,
     "ast_hash": "8eeb23adc315f2843bd8917e38454cc6",
     "semantic_hash": ""
   },
   "RHIS/docs/flows/02-report-definition-fields-filters-sorts.md": {
     "mtime": 1788179501.3946352,
-    "seen": 1788898534.0981565,
+    "seen": 1788940821.644907,
     "ast_hash": "a860b70032d7de2bdce0b0196557934a",
     "semantic_hash": ""
   },
   "RHIS/docs/flows/03-report-preview.md": {
     "mtime": 1788179501.3981683,
-    "seen": 1788898534.0981596,
+    "seen": 1788940821.6449115,
     "ast_hash": "0a150c4c66da2d8e1619b5f333748e96",
     "semantic_hash": ""
   },
   "RHIS/docs/flows/04-report-generation.md": {
     "mtime": 1787574666.3122778,
-    "seen": 1788898534.0981622,
+    "seen": 1788940821.6449158,
     "ast_hash": "8d0cdcaacd1afb02f7ee9f642be1ec32",
     "semantic_hash": ""
   },
   "RHIS/docs/flows/05-report-export-and-download.md": {
     "mtime": 1787574683.6600428,
-    "seen": 1788898534.0981653,
+    "seen": 1788940821.6449196,
     "ast_hash": "5b2e197b9a6b9d3d8af42d184f98412e",
     "semantic_hash": ""
   },
   "RHIS/docs/flows/06-authentication-and-refresh.md": {
     "mtime": 1786702589.4719493,
-    "seen": 1788898534.0981684,
+    "seen": 1788940821.644924,
     "ast_hash": "b3f2debbeac52d1e1b41902651b1c60a",
     "semantic_hash": ""
   },
   "RHIS/docs/flows/README.md": {
     "mtime": 1786702659.6869495,
-    "seen": 1788898534.0981734,
+    "seen": 1788940821.6449318,
     "ast_hash": "2b581cce1e8559454599918adb2e3189",
     "semantic_hash": ""
   },
   "RHIS/docs/superpowers/plans/2026-08-11-report-code-documentation.md": {
     "mtime": 1786453443.0354648,
-    "seen": 1788898534.0981894,
+    "seen": 1788940821.6449547,
     "ast_hash": "cf375b1a083b1772321087021d468478",
     "semantic_hash": ""
   },
   "RHIS/docs/superpowers/plans/2026-08-12-async-report-generation-export.md": {
     "mtime": 1786529918.0118415,
-    "seen": 1788898534.0981922,
+    "seen": 1788940821.6449587,
     "ast_hash": "f0b41ddd232547917c477a47913b7693",
     "semantic_hash": ""
   },
   "RHIS/docs/superpowers/plans/2026-08-12-xlsx-temporal-snapshot-compatibility.md": {
     "mtime": 1786526545.5004168,
-    "seen": 1788898534.0981948,
+    "seen": 1788940821.6449628,
     "ast_hash": "b573bedc5829be49db140302a6468631",
     "semantic_hash": ""
   },
   "RHIS/docs/superpowers/plans/2026-08-14-end-to-end-flow-documentation.md": {
     "mtime": 1786702664.275321,
-    "seen": 1788898534.0981977,
+    "seen": 1788940821.6449668,
     "ast_hash": "36a54f13e760f01a0d07f3efc0dcbb71",
     "semantic_hash": ""
   },
   "RHIS/docs/superpowers/plans/2026-08-17-report-export-front-back-kiss-refactoring.md": {
     "mtime": 1786971672.3888674,
-    "seen": 1788898534.0982008,
+    "seen": 1788940821.644971,
     "ast_hash": "05e826b0c8cb56ef1a15a24d3b577d72",
     "semantic_hash": ""
   },
   "RHIS/docs/superpowers/plans/2026-08-20-report-builder-data-admin-figma.md": {
     "mtime": 1787219787.84163,
-    "seen": 1788898534.0982034,
+    "seen": 1788940821.6449752,
     "ast_hash": "5ef0e631b47e0bbaff74bed5b3d2f719",
     "semantic_hash": ""
   },
   "RHIS/docs/superpowers/specs/2026-08-10-async-report-generation-export-design.md": {
     "mtime": 1786529941.5929368,
-    "seen": 1788898534.0982826,
+    "seen": 1788940821.6452081,
     "ast_hash": "a26221f60938ca69dedd3ea3a98f48c9",
     "semantic_hash": ""
   },
   "RHIS/docs/superpowers/specs/2026-08-11-report-code-documentation-design.md": {
     "mtime": 1786520011.3748052,
-    "seen": 1788898534.0982852,
+    "seen": 1788940821.6452127,
     "ast_hash": "d3456f070224ea19199168e3e8f10e3a",
     "semantic_hash": ""
   },
   "RHIS/docs/superpowers/specs/2026-08-12-xlsx-temporal-snapshot-compatibility-design.md": {
     "mtime": 1786526371.567165,
-    "seen": 1788898534.0982878,
+    "seen": 1788940821.6452203,
     "ast_hash": "c79d525b75fd923cc4f96f6fd35bc861",
     "semantic_hash": ""
   },
   "RHIS/docs/superpowers/specs/2026-08-17-report-export-front-back-kiss-refactoring-design.md": {
     "mtime": 1786969841.1619382,
-    "seen": 1788898534.0982904,
+    "seen": 1788940821.645224,
     "ast_hash": "a9577c43cbaa006a4b37f7f0d8db349d",
     "semantic_hash": ""
   },
   "RHIS/docs/superpowers/specs/2026-08-20-report-builder-data-admin-figma-design.md": {
     "mtime": 1787219445.273689,
-    "seen": 1788898534.098293,
+    "seen": 1788940821.6452281,
     "ast_hash": "1c3709bfb7452266c9f1e496c8541274",
     "semantic_hash": ""
   },
   "RHIS/docs/superpowers/specs/2026-08-21-database-tables-fields-admin-ui-design.md": {
     "mtime": 1787318545.7419298,
-    "seen": 1788898534.0982962,
+    "seen": 1788940821.6452327,
     "ast_hash": "3b693e54f56f2337c2ea362d2b27fdb8",
     "semantic_hash": ""
   },
   "RHIS/src/main/resources/application.yaml": {
     "mtime": 1788866206.3305202,
-    "seen": 1788898534.0983243,
+    "seen": 1788940821.6452787,
     "ast_hash": "ea0ea36aff7b171fb8404be7818c9185",
     "semantic_hash": ""
   },
   "RHIS/src/test/resources/application.yaml": {
     "mtime": 1788628342.7864747,
-    "seen": 1788898534.0983274,
+    "seen": 1788940821.6452827,
     "ast_hash": "a6c18fa1911b4ab6f6c7554c74c08a1b",
     "semantic_hash": ""
   },
@@ -1471,901 +1471,901 @@
   },
   "docker-compose.yml": {
     "mtime": 1785225491.0772045,
-    "seen": 1788898534.0983298,
+    "seen": 1788940821.6452897,
     "ast_hash": "2dfb81da52cc91e470e7cbc54f017fca",
     "semantic_hash": ""
   },
   ".agent/PLANS.md": {
     "mtime": 1787522557.422513,
-    "seen": 1788898534.0979605,
+    "seen": 1788940821.6446867,
     "ast_hash": "f473db6ece45d1abf17079abdaaf152c",
     "semantic_hash": ""
   },
   "AGENTS.md": {
     "mtime": 1787522557.422513,
-    "seen": 1788898534.0979636,
+    "seen": 1788940821.6446917,
     "ast_hash": "e45720a0670e2615c7dfd2191c867c1f",
     "semantic_hash": ""
   },
   "Frontend/Rhis_report_gen/AGENTS.md": {
     "mtime": 1787519439.4032855,
-    "seen": 1788898534.0979717,
+    "seen": 1788940821.6447067,
     "ast_hash": "1d1d3c90d0fb731f1b3d9f9434e35872",
     "semantic_hash": ""
   },
   "RHIS/AGENTS.md": {
     "mtime": 1787519424.0857797,
-    "seen": 1788898534.0981483,
+    "seen": 1788940821.644895,
     "ast_hash": "7474799572754aec64d86499b9578b5a",
     "semantic_hash": ""
   },
   "RHIS/docs/plans/2026-08-24-dataset-field-exposure.md": {
     "mtime": 1787574930.7464645,
-    "seen": 1788898534.0981815,
+    "seen": 1788940821.644943,
     "ast_hash": "a3e0c164f624148e0ea28c39146470f8",
     "semantic_hash": ""
   },
   "RHIS/docs/research/2026-08-24-dataset-field-exposure.md": {
     "mtime": 1787560749.50694,
-    "seen": 1788898534.0981867,
+    "seen": 1788940821.644951,
     "ast_hash": "716995fc122fa09796e790bd5ffe46a4",
     "semantic_hash": ""
   },
   "RHIS/docs/superpowers/plans/2026-08-21-data-admin-ui-prototype.md": {
     "mtime": 1787319199.9016538,
-    "seen": 1788898534.0982063,
+    "seen": 1788940821.6449797,
     "ast_hash": "54394132738be154f34200b04ee565ac",
     "semantic_hash": ""
   },
   "RHIS/docs/superpowers/plans/2026-08-23-codex-project-workflow.md": {
     "mtime": 1787519434.821788,
-    "seen": 1788898534.0982084,
+    "seen": 1788940821.6449838,
     "ast_hash": "82fbad88ea21672b8e09d200970bce00",
     "semantic_hash": ""
   },
   "RHIS/docs/superpowers/plans/README.md": {
     "mtime": 1787517507.3361793,
-    "seen": 1788898534.098239,
+    "seen": 1788940821.6450286,
     "ast_hash": "07f571122fa6ea4bf7ca809152a3c0c9",
     "semantic_hash": ""
   },
   "RHIS/docs/superpowers/progress/README.md": {
     "mtime": 1787519470.009895,
-    "seen": 1788898534.098264,
+    "seen": 1788940821.6450634,
     "ast_hash": "0cb1396e311df3371b6852621257f50b",
     "semantic_hash": ""
   },
   "RHIS/docs/superpowers/research/README.md": {
     "mtime": 1787517490.5179088,
-    "seen": 1788898534.09828,
+    "seen": 1788940821.6452026,
     "ast_hash": "d3cf7c041d14097aa25a25a3e6076b31",
     "semantic_hash": ""
   },
   "RHIS/docs/superpowers/specs/2026-08-23-codex-project-workflow-design.md": {
     "mtime": 1787519429.5160968,
-    "seen": 1788898534.0982988,
+    "seen": 1788940821.6452367,
     "ast_hash": "1164f82cb8c4199f8a1d514b1557d3a3",
     "semantic_hash": ""
   },
   "docs/guidelines/frontend-ui.md": {
     "mtime": 1787522557.4323268,
-    "seen": 1788898534.0983326,
+    "seen": 1788940821.6452937,
     "ast_hash": "0daa9cb51e72b0927ba3fe35cede2b0f",
     "semantic_hash": ""
   },
   "docs/plans/TEMPLATE.md": {
     "mtime": 1787522557.4323268,
-    "seen": 1788898534.0983517,
+    "seen": 1788940821.6453428,
     "ast_hash": "3464ff877720ce1169524f01d0a88311",
     "semantic_hash": ""
   },
   "docs/research/TEMPLATE.md": {
     "mtime": 1787522557.4323268,
-    "seen": 1788898534.0983696,
+    "seen": 1788940821.645372,
     "ast_hash": "58326e9f253e7f4c69ae9fcd6d64ec57",
     "semantic_hash": ""
   },
   "Frontend/Rhis_report_gen/src/app/features/administration/dataset-exposure/dataset-exposure.component.spec.ts": {
     "mtime": 1788863875.9906054,
-    "seen": 1788898534.096802,
+    "seen": 1788940821.6434026,
     "ast_hash": "2f5d4144438cbcf59cf8d55617b72bad",
     "semantic_hash": ""
   },
   "Frontend/Rhis_report_gen/src/app/features/administration/dataset-exposure/dataset-exposure.component.ts": {
     "mtime": 1788865009.4846904,
-    "seen": 1788898534.0968072,
+    "seen": 1788940821.6434064,
     "ast_hash": "3bb52a245c2eb7d75f34dcd2cdb83eb6",
     "semantic_hash": ""
   },
   "Frontend/Rhis_report_gen/src/app/features/administration/dataset-exposure/dataset-exposure.model.spec.ts": {
     "mtime": 1787573695.201705,
-    "seen": 1788898534.096813,
+    "seen": 1788940821.64341,
     "ast_hash": "854ccff2119f701e8ea32e9de7ce1ddd",
     "semantic_hash": ""
   },
   "Frontend/Rhis_report_gen/src/app/features/administration/dataset-exposure/dataset-exposure.model.ts": {
     "mtime": 1788863768.6470196,
-    "seen": 1788898534.096819,
+    "seen": 1788940821.643414,
     "ast_hash": "3c5b926ca5a642a0eaed97859ce9e2e0",
     "semantic_hash": ""
   },
   "Frontend/Rhis_report_gen/src/app/features/administration/dataset-exposure/dataset-exposure.service.spec.ts": {
     "mtime": 1787573699.0821376,
-    "seen": 1788898534.0968237,
+    "seen": 1788940821.6434176,
     "ast_hash": "1e444bcf0610ad02e019074aa2a93b9b",
     "semantic_hash": ""
   },
   "Frontend/Rhis_report_gen/src/app/features/administration/dataset-exposure/dataset-exposure.service.ts": {
     "mtime": 1787572979.0404835,
-    "seen": 1788898534.0968282,
+    "seen": 1788940821.6434212,
     "ast_hash": "3b357081fc6cace93b4386a37ee54f4d",
     "semantic_hash": ""
   },
   "Frontend/Rhis_report_gen/src/app/features/administration/dataset-exposure/pending-dataset-exposure-changes.guard.spec.ts": {
     "mtime": 1788781914.841475,
-    "seen": 1788898534.0968332,
+    "seen": 1788940821.643425,
     "ast_hash": "6156f173bc303e1336dcc9fc7c3aa3f1",
     "semantic_hash": ""
   },
   "Frontend/Rhis_report_gen/src/app/features/administration/dataset-exposure/pending-dataset-exposure-changes.guard.ts": {
     "mtime": 1788781466.0509768,
-    "seen": 1788898534.0968385,
+    "seen": 1788940821.6434286,
     "ast_hash": "fb48163230772ea24c3095800ef6374f",
     "semantic_hash": ""
   },
   "Frontend/Rhis_report_gen/src/app/features/auth/guards/admin.guard.spec.ts": {
     "mtime": 1787573691.5195298,
-    "seen": 1788898534.0968583,
+    "seen": 1788940821.6434448,
     "ast_hash": "3ed1edb043573990502d74836cb62d51",
     "semantic_hash": ""
   },
   "Frontend/Rhis_report_gen/src/app/features/auth/guards/admin.guard.ts": {
     "mtime": 1787572944.111715,
-    "seen": 1788898534.0968633,
+    "seen": 1788940821.6434484,
     "ast_hash": "32e70d191011a5c463b89960bac32b04",
     "semantic_hash": ""
   },
   "Frontend/Rhis_report_gen/src/app/features/rapports/pages/configuration/components/preview-panel/preview-panel.component.spec.ts": {
     "mtime": 1788605701.7231226,
-    "seen": 1788898534.0970373,
+    "seen": 1788940821.643509,
     "ast_hash": "2923273d2ee1038e8a4e88bce11386a5",
     "semantic_hash": ""
   },
   "Frontend/Rhis_report_gen/src/app/features/rapports/pages/configuration/components/preview-panel/preview-panel.component.ts": {
     "mtime": 1788179501.3389585,
-    "seen": 1788898534.0970418,
+    "seen": 1788940821.6435125,
     "ast_hash": "06a344e8d9dc7902a22bd5fec0b270c9",
     "semantic_hash": ""
   },
   "Frontend/Rhis_report_gen/src/app/features/report-assistant/bot-report.service.spec.ts": {
     "mtime": 1788179501.366227,
-    "seen": 1788898534.0971396,
+    "seen": 1788940821.6435885,
     "ast_hash": "7e415cb74a60bec5bde1856a79922c25",
     "semantic_hash": ""
   },
   "Frontend/Rhis_report_gen/src/app/features/report-assistant/bot-report.service.ts": {
     "mtime": 1788179501.367728,
-    "seen": 1788898534.0971434,
+    "seen": 1788940821.6435921,
     "ast_hash": "a99d6a6203955aee9c99fa0da02e159b",
     "semantic_hash": ""
   },
   "Frontend/Rhis_report_gen/src/app/features/report-assistant/report-assistant.component.spec.ts": {
     "mtime": 1788618406.8590372,
-    "seen": 1788898534.097147,
+    "seen": 1788940821.6435955,
     "ast_hash": "b5e0de6ed01004980f1324640d512fce",
     "semantic_hash": ""
   },
   "Frontend/Rhis_report_gen/src/app/features/report-assistant/report-assistant.component.ts": {
     "mtime": 1788618406.8612041,
-    "seen": 1788898534.0971515,
+    "seen": 1788940821.6435993,
     "ast_hash": "84dfc2d3ac1bd1d347324debb5d689ab",
     "semantic_hash": ""
   },
   "Frontend/Rhis_report_gen/src/app/features/report-assistant/report-assistant.model.ts": {
     "mtime": 1788179501.3773093,
-    "seen": 1788898534.097156,
+    "seen": 1788940821.643603,
     "ast_hash": "884318d26c5b28f3caacb6c801c40f6b",
     "semantic_hash": ""
   },
   "Frontend/Rhis_report_gen/src/app/shared/page-layout/shared-page-layout.component.spec.ts": {
     "mtime": 1788791551.8625546,
-    "seen": 1788898534.0971608,
+    "seen": 1788940821.6436074,
     "ast_hash": "cd93e74538cab9e9f6de2e792af9426d",
     "semantic_hash": ""
   },
   "Frontend/Rhis_report_gen/src/app/shared/page-layout/shared-page-layout.component.ts": {
     "mtime": 1788791706.004502,
-    "seen": 1788898534.0971653,
+    "seen": 1788940821.6436112,
     "ast_hash": "74b60bc5886e4a8e515797419fbcba8b",
     "semantic_hash": ""
   },
   "Frontend/Rhis_report_gen/src/app/shared/page-layout/shared-page-layout.routes.spec.ts": {
     "mtime": 1788782000.376593,
-    "seen": 1788898534.0971704,
+    "seen": 1788940821.6436148,
     "ast_hash": "7bf6f2da894238d8a98c069830b556bb",
     "semantic_hash": ""
   },
   "RHIS/src/main/java/RHIS/com/RHIS/bot/BotExceptionHandler.java": {
     "mtime": 1788896091.6227217,
-    "seen": 1788898534.0975266,
+    "seen": 1788940821.643849,
     "ast_hash": "6b05560bb87e867b36b3f3f14baa7c8e",
     "semantic_hash": ""
   },
   "RHIS/src/main/java/RHIS/com/RHIS/bot/BotReportPlanner.java": {
-    "mtime": 1788897214.8095565,
-    "seen": 1788898534.0975423,
-    "ast_hash": "0b82ef61dbfd655eba7d5b62156a8cf3",
+    "mtime": 1788938452.196772,
+    "seen": 1788940821.6438527,
+    "ast_hash": "65f1c45323a1b7569cb12371f8a59026",
     "semantic_hash": ""
   },
   "RHIS/src/main/java/RHIS/com/RHIS/bot/BotReportService.java": {
     "mtime": 1788864344.5513165,
-    "seen": 1788898534.0975473,
+    "seen": 1788940821.643857,
     "ast_hash": "0d211c0f131d16b603b01dba14ceb9f9",
     "semantic_hash": ""
   },
   "RHIS/src/main/java/RHIS/com/RHIS/bot/catalog/CatalogDataset.java": {
     "mtime": 1788863636.7948709,
-    "seen": 1788898534.097552,
+    "seen": 1788940821.6438599,
     "ast_hash": "e92aedd4e52809e455d5b9e126f49b7a",
     "semantic_hash": ""
   },
   "RHIS/src/main/java/RHIS/com/RHIS/bot/catalog/CatalogField.java": {
     "mtime": 1788863642.9716525,
-    "seen": 1788898534.097557,
+    "seen": 1788940821.6438632,
     "ast_hash": "527a8f4ab6f228f7ead3d9d343156cd4",
     "semantic_hash": ""
   },
   "RHIS/src/main/java/RHIS/com/RHIS/bot/catalog/CatalogRelation.java": {
     "mtime": 1788179501.4643795,
-    "seen": 1788898534.0975626,
+    "seen": 1788940821.6438675,
     "ast_hash": "531fac64db13fbb31e10288d185ca65b",
     "semantic_hash": ""
   },
   "RHIS/src/main/java/RHIS/com/RHIS/bot/catalog/ReportCatalog.java": {
     "mtime": 1788179501.4673333,
-    "seen": 1788898534.0975688,
+    "seen": 1788940821.643871,
     "ast_hash": "a40e255e81a113f279f51297ee2c833c",
     "semantic_hash": ""
   },
   "RHIS/src/main/java/RHIS/com/RHIS/bot/catalog/ReportCatalogProvider.java": {
     "mtime": 1788863653.3923771,
-    "seen": 1788898534.097574,
+    "seen": 1788940821.643875,
     "ast_hash": "359675878b0aa1c2ac1a07bfd2079db5",
     "semantic_hash": ""
   },
   "RHIS/src/main/java/RHIS/com/RHIS/bot/config/BotAiProperties.java": {
     "mtime": 1788631377.5591483,
-    "seen": 1788898534.0975792,
+    "seen": 1788940821.6438785,
     "ast_hash": "6bd0a7893098251c507600d7d7df4579",
     "semantic_hash": ""
   },
   "RHIS/src/main/java/RHIS/com/RHIS/bot/config/BotConfig.java": {
     "mtime": 1788179501.4751601,
-    "seen": 1788898534.0975845,
+    "seen": 1788940821.643882,
     "ast_hash": "906d1b9c344eb1b07dc55ea2283650f1",
     "semantic_hash": ""
   },
   "RHIS/src/main/java/RHIS/com/RHIS/bot/controller/BotReportController.java": {
     "mtime": 1788179501.4784155,
-    "seen": 1788898534.0975897,
+    "seen": 1788940821.6438854,
     "ast_hash": "7956f5084a9bfc9322406686c87db6a4",
     "semantic_hash": ""
   },
   "RHIS/src/main/java/RHIS/com/RHIS/bot/controller/dto/BotReportRequest.java": {
     "mtime": 1788179501.4799366,
-    "seen": 1788898534.0975926,
+    "seen": 1788940821.6438887,
     "ast_hash": "48f099761895eafbfa3cf0c59e9f049f",
     "semantic_hash": ""
   },
   "RHIS/src/main/java/RHIS/com/RHIS/bot/controller/dto/BotReportResponse.java": {
     "mtime": 1788179501.4818234,
-    "seen": 1788898534.0975955,
+    "seen": 1788940821.6438923,
     "ast_hash": "718e6106681e8f0f0d4a16bae1651a58",
     "semantic_hash": ""
   },
   "RHIS/src/main/java/RHIS/com/RHIS/bot/dto/BotReportPlan.java": {
     "mtime": 1788864275.0856652,
-    "seen": 1788898534.0975983,
+    "seen": 1788940821.6438954,
     "ast_hash": "134218d18d6bcd68de210651f7be2ca1",
     "semantic_hash": ""
   },
   "RHIS/src/main/java/RHIS/com/RHIS/bot/exception/BotLlmException.java": {
     "mtime": 1788179501.4852798,
-    "seen": 1788898534.097601,
+    "seen": 1788940821.6438987,
     "ast_hash": "1f043ecf642b5b771324578553cd2fc4",
     "semantic_hash": ""
   },
   "RHIS/src/main/java/RHIS/com/RHIS/bot/exception/BotRequestException.java": {
     "mtime": 1788179501.4873686,
-    "seen": 1788898534.0976036,
+    "seen": 1788940821.6439023,
     "ast_hash": "33653b62f644d96e4d496a1fc2cd0b81",
     "semantic_hash": ""
   },
   "RHIS/src/main/java/RHIS/com/RHIS/dataset/controller/DataSetAdministrationController.java": {
     "mtime": 1787572350.5981407,
-    "seen": 1788898534.097643,
+    "seen": 1788940821.6439703,
     "ast_hash": "3b1e285c568a06fc2ef549826df55db0",
     "semantic_hash": ""
   },
   "RHIS/src/main/java/RHIS/com/RHIS/dataset/controller/DataSetAdministrationExceptionHandler.java": {
     "mtime": 1787572353.5059624,
-    "seen": 1788898534.0976462,
+    "seen": 1788940821.6439736,
     "ast_hash": "8145547ca0591ed1fddb4e447242e792",
     "semantic_hash": ""
   },
   "RHIS/src/main/java/RHIS/com/RHIS/dataset/controller/dto/DataSetExposureConfigurationResponse.java": {
     "mtime": 1788863622.8649049,
-    "seen": 1788898534.0976553,
+    "seen": 1788940821.6439996,
     "ast_hash": "44753c2c266f2ba2118393542d2a07f1",
     "semantic_hash": ""
   },
   "RHIS/src/main/java/RHIS/com/RHIS/dataset/controller/dto/UpdateDataSetExposureRequest.java": {
     "mtime": 1788863606.6541543,
-    "seen": 1788898534.0976715,
+    "seen": 1788940821.644021,
     "ast_hash": "253195ee80dcaa540e82facd14f19bf5",
     "semantic_hash": ""
   },
   "RHIS/src/main/java/RHIS/com/RHIS/dataset/exception/DataSetConfigurationException.java": {
     "mtime": 1787572344.3314202,
-    "seen": 1788898534.0976794,
+    "seen": 1788940821.6440315,
     "ast_hash": "a0fb614a07938ae7f650614ca5f08cb3",
     "semantic_hash": ""
   },
   "RHIS/src/main/java/RHIS/com/RHIS/dataset/service/DataSetAdministrationService.java": {
     "mtime": 1788863628.262072,
-    "seen": 1788898534.0976925,
+    "seen": 1788940821.6441042,
     "ast_hash": "ad2444727673bcff3737ecf1c7c0126a",
     "semantic_hash": ""
   },
   "RHIS/src/main/java/RHIS/com/RHIS/report/exception/ReportDefinitionUnavailableException.java": {
     "mtime": 1787572571.6790287,
-    "seen": 1788898534.0977528,
+    "seen": 1788940821.6443176,
     "ast_hash": "bd9f71d964b10b460fcb1fddd32f22db",
     "semantic_hash": ""
   },
   "RHIS/src/main/java/RHIS/com/RHIS/report/exception/UnavailableReportElement.java": {
     "mtime": 1787572569.2276957,
-    "seen": 1788898534.0977662,
+    "seen": 1788940821.6443882,
     "ast_hash": "3cc1653ac2b0d02bb9957aa1de5a63cf",
     "semantic_hash": ""
   },
   "RHIS/src/test/java/RHIS/com/RHIS/bot/BotReportControllerSecurityTest.java": {
     "mtime": 1788895957.3763456,
-    "seen": 1788898534.0978923,
+    "seen": 1788940821.6445782,
     "ast_hash": "1f72373cedd23b8cbe1d313f131f88e5",
     "semantic_hash": ""
   },
   "RHIS/src/test/java/RHIS/com/RHIS/bot/BotReportPlannerTest.java": {
     "mtime": 1788864323.3026187,
-    "seen": 1788898534.097899,
+    "seen": 1788940821.6445878,
     "ast_hash": "a531985408d53d714bd95e60aa1fd8b9",
     "semantic_hash": ""
   },
   "RHIS/src/test/java/RHIS/com/RHIS/bot/BotReportServiceTest.java": {
     "mtime": 1788864590.93792,
-    "seen": 1788898534.0979018,
+    "seen": 1788940821.644592,
     "ast_hash": "7e44ef64075155b62bce8f12434cba40",
     "semantic_hash": ""
   },
   "RHIS/src/test/java/RHIS/com/RHIS/bot/catalog/ReportCatalogProviderTest.java": {
     "mtime": 1788863871.0770686,
-    "seen": 1788898534.0979047,
+    "seen": 1788940821.644597,
     "ast_hash": "284bd110a9493013b5c92cf437d533a5",
     "semantic_hash": ""
   },
   "RHIS/src/test/java/RHIS/com/RHIS/bot/config/BotAiPropertiesTest.java": {
     "mtime": 1788631339.1725376,
-    "seen": 1788898534.0979073,
+    "seen": 1788940821.6446016,
     "ast_hash": "eaf1e35dcb89534080219a4b7be206e2",
     "semantic_hash": ""
   },
   "RHIS/src/test/java/RHIS/com/RHIS/dataset/controller/DataSetAdministrationControllerSecurityTest.java": {
     "mtime": 1788863866.37025,
-    "seen": 1788898534.0979128,
+    "seen": 1788940821.6446111,
     "ast_hash": "95643b3ad31dbbb07901660240bf3e1a",
     "semantic_hash": ""
   },
   "RHIS/src/test/java/RHIS/com/RHIS/dataset/repository/DataSetFieldRepositoryTest.java": {
     "mtime": 1787572170.365228,
-    "seen": 1788898534.0979183,
+    "seen": 1788940821.6446192,
     "ast_hash": "c31d3703f578b03f59adf3109ba739bc",
     "semantic_hash": ""
   },
   "RHIS/src/test/java/RHIS/com/RHIS/dataset/service/DataSetAdministrationServiceTest.java": {
     "mtime": 1788864062.1272118,
-    "seen": 1788898534.0979211,
+    "seen": 1788940821.6446235,
     "ast_hash": "a8b20fb516b657512057a3f9a39a7663",
     "semantic_hash": ""
   },
   "CHANGELOG.md": {
     "mtime": 1788267460.7702632,
-    "seen": 1788898534.0979662,
+    "seen": 1788940821.6446989,
     "ast_hash": "daf3716532fa375f8854abc3b21f3019",
     "semantic_hash": ""
   },
   "Frontend/Rhis_report_gen/src/app/features/administration/dataset-exposure/dataset-exposure.component.html": {
     "mtime": 1788865210.0615675,
-    "seen": 1788898534.0980828,
+    "seen": 1788940821.644807,
     "ast_hash": "c693b87b9ea7065ac30ff54501abc59a",
     "semantic_hash": ""
   },
   "Frontend/Rhis_report_gen/src/app/features/rapports/pages/configuration/components/preview-panel/preview-panel.component.html": {
     "mtime": 1788605701.7231226,
-    "seen": 1788898534.0981069,
+    "seen": 1788940821.6448274,
     "ast_hash": "55e010af9d5990825af5a7b50de13471",
     "semantic_hash": ""
   },
   "Frontend/Rhis_report_gen/src/app/features/report-assistant/report-assistant.component.html": {
     "mtime": 1788179501.3699448,
-    "seen": 1788898534.0981207,
+    "seen": 1788940821.6448553,
     "ast_hash": "18a09837fc106e1b1940b298c4e5e767",
     "semantic_hash": ""
   },
   "Frontend/Rhis_report_gen/src/app/shared/page-layout/shared-page-layout.component.html": {
     "mtime": 1788791710.4663026,
-    "seen": 1788898534.0981238,
+    "seen": 1788940821.6448593,
     "ast_hash": "05063428a54867ab6303ba3dbc3f8dca",
     "semantic_hash": ""
   },
   "RHIS/docs/flows/07-bot-natural-language-report.md": {
     "mtime": 1788898407.8045404,
-    "seen": 1788898534.098171,
+    "seen": 1788940821.644928,
     "ast_hash": "3c8485bfc6815e33d1e1146dbf886f29",
     "semantic_hash": ""
   },
   "RHIS/docs/plans/2026-08-24-dataset-exposure-master-detail.md": {
     "mtime": 1787956526.0365884,
-    "seen": 1788898534.0981789,
+    "seen": 1788940821.6449392,
     "ast_hash": "2cb47ee88e2a47211a1d519a2893210b",
     "semantic_hash": ""
   },
   "RHIS/docs/research/2026-08-24-dataset-exposure-master-detail.md": {
     "mtime": 1787956526.049194,
-    "seen": 1788898534.098184,
+    "seen": 1788940821.6449473,
     "ast_hash": "66dacdb23476316d9e2b3e2ecca0f906",
     "semantic_hash": ""
   },
   "RHIS/docs/superpowers/plans/2026-08-28-admin-ui-preview.md": {
     "mtime": 1787956526.0537684,
-    "seen": 1788898534.0982113,
+    "seen": 1788940821.644989,
     "ast_hash": "b97d86b6d4f14280a4fa6b005b71784f",
     "semantic_hash": ""
   },
   "RHIS/docs/superpowers/plans/2026-08-29-dataset-exposure-ponytail.md": {
     "mtime": 1787956526.0585423,
-    "seen": 1788898534.098214,
+    "seen": 1788940821.6449928,
     "ast_hash": "d7309ae386a75dadb7d5392b91a80e2f",
     "semantic_hash": ""
   },
   "RHIS/docs/superpowers/plans/2026-08-29-rhis-bot-natural-language-report.md": {
     "mtime": 1788179501.4062245,
-    "seen": 1788898534.0982163,
+    "seen": 1788940821.6449966,
     "ast_hash": "c16d7e0fea32f87694d5cbb4dd55d5ea",
     "semantic_hash": ""
   },
   "RHIS/docs/superpowers/plans/2026-08-30-angular-composer-preview-polish.md": {
     "mtime": 1788179501.4087727,
-    "seen": 1788898534.098219,
+    "seen": 1788940821.6450007,
     "ast_hash": "3c196ca256246f3289167c3a93002a26",
     "semantic_hash": ""
   },
   "RHIS/docs/superpowers/plans/2026-08-30-rhis-bot-angular-interface.md": {
     "mtime": 1788179501.4112794,
-    "seen": 1788898534.0982218,
+    "seen": 1788940821.6450045,
     "ast_hash": "85d18b5e999ffc81ac412421160e174c",
     "semantic_hash": ""
   },
   "RHIS/docs/superpowers/plans/2026-08-30-rhis-bot-related-datasets.md": {
     "mtime": 1788179501.413283,
-    "seen": 1788898534.0982244,
+    "seen": 1788940821.6450083,
     "ast_hash": "31280d70608ea675a0c8686aea8f6554",
     "semantic_hash": ""
   },
   "RHIS/docs/superpowers/plans/2026-08-30-rhis-bot-structured-clarification.md": {
     "mtime": 1788179501.4166238,
-    "seen": 1788898534.0982273,
+    "seen": 1788940821.6450121,
     "ast_hash": "4e6d43153a8e87e344bdabae49588e83",
     "semantic_hash": ""
   },
   "RHIS/docs/superpowers/progress/2026-08-24-dataset-field-exposure.md": {
     "mtime": 1787574934.211738,
-    "seen": 1788898534.0982413,
+    "seen": 1788940821.6450324,
     "ast_hash": "dcb03d5976e807c8a222c2f4603448f3",
     "semantic_hash": ""
   },
   "RHIS/docs/superpowers/progress/2026-08-27-admin-ui-preview.md": {
     "mtime": 1787956526.0617037,
-    "seen": 1788898534.098244,
+    "seen": 1788940821.6450362,
     "ast_hash": "93f3a3229640f4401a86048467dfd754",
     "semantic_hash": ""
   },
   "RHIS/docs/superpowers/progress/2026-08-28-admin-ui-preview-validation.md": {
     "mtime": 1787956526.0675168,
-    "seen": 1788898534.0982466,
+    "seen": 1788940821.64504,
     "ast_hash": "f38728a6917f4384875d742cd1a8e82d",
     "semantic_hash": ""
   },
   "RHIS/docs/superpowers/progress/2026-08-29-dataset-exposure-ponytail.md": {
     "mtime": 1787956526.0705552,
-    "seen": 1788898534.0982494,
+    "seen": 1788940821.6450446,
     "ast_hash": "4a95c77485ca2430aff21db571c1b37d",
     "semantic_hash": ""
   },
   "RHIS/docs/superpowers/progress/2026-08-29-rhis-bot-natural-language-report.md": {
     "mtime": 1788179501.421563,
-    "seen": 1788898534.0982523,
+    "seen": 1788940821.6450484,
     "ast_hash": "45a3343ed1b6747c5c6f13c9718e66f1",
     "semantic_hash": ""
   },
   "RHIS/docs/superpowers/progress/2026-08-30-rhis-bot-angular-interface.md": {
     "mtime": 1788179501.4238143,
-    "seen": 1788898534.0982552,
+    "seen": 1788940821.645052,
     "ast_hash": "f09f768a4334c473c47a533acccbb8e1",
     "semantic_hash": ""
   },
   "RHIS/docs/superpowers/progress/2026-08-30-rhis-bot-related-datasets.md": {
     "mtime": 1788179501.4263232,
-    "seen": 1788898534.0982578,
+    "seen": 1788940821.6450555,
     "ast_hash": "161e8bf4672e4be8d725847ad7062b03",
     "semantic_hash": ""
   },
   "RHIS/docs/superpowers/progress/2026-08-30-rhis-bot-structured-clarification.md": {
     "mtime": 1788179501.4278426,
-    "seen": 1788898534.0982609,
+    "seen": 1788940821.6450596,
     "ast_hash": "19d67c56a54006c1f5a2f5e3a4e06c91",
     "semantic_hash": ""
   },
   "RHIS/docs/superpowers/research/2026-08-27-admin-ui-preview.md": {
     "mtime": 1787956526.0770848,
-    "seen": 1788898534.0982666,
+    "seen": 1788940821.6451626,
     "ast_hash": "e2b0f5108673ae33e7018c6749edb18d",
     "semantic_hash": ""
   },
   "RHIS/docs/superpowers/research/2026-08-29-dataset-exposure-ponytail.md": {
     "mtime": 1787956526.0810902,
-    "seen": 1788898534.0982695,
+    "seen": 1788940821.6451821,
     "ast_hash": "97bb4c1e13ecd38d0fc6d61d928f8422",
     "semantic_hash": ""
   },
   "RHIS/docs/superpowers/research/2026-08-30-rhis-bot-related-datasets.md": {
     "mtime": 1788179501.4298553,
-    "seen": 1788898534.098272,
+    "seen": 1788940821.6451876,
     "ast_hash": "03d692f787d821381b31bb0d2b80d426",
     "semantic_hash": ""
   },
   "RHIS/docs/superpowers/specs/2026-08-27-admin-ui-preview-design.md": {
     "mtime": 1787956526.0978463,
-    "seen": 1788898534.0983016,
+    "seen": 1788940821.6452405,
     "ast_hash": "3d651cac9a45e8353c478061ea0eb367",
     "semantic_hash": ""
   },
   "RHIS/docs/superpowers/specs/2026-08-29-rhis-bot-natural-language-report-design.md": {
     "mtime": 1788179501.4354715,
-    "seen": 1788898534.0983045,
+    "seen": 1788940821.6452498,
     "ast_hash": "b75aa6e04efce3436743ae5e5220df60",
     "semantic_hash": ""
   },
   "RHIS/docs/superpowers/specs/2026-08-30-angular-composer-preview-polish-design.md": {
     "mtime": 1788179501.4374845,
-    "seen": 1788898534.0983071,
+    "seen": 1788940821.6452568,
     "ast_hash": "33afe0899d97712cabddece8b2c93784",
     "semantic_hash": ""
   },
   "RHIS/docs/superpowers/specs/2026-08-30-rhis-bot-angular-interface-design.md": {
     "mtime": 1788179501.4390116,
-    "seen": 1788898534.09831,
+    "seen": 1788940821.6452606,
     "ast_hash": "557e2a06e7ffe9f84a3695cc0e5f1a24",
     "semantic_hash": ""
   },
   "RHIS/docs/superpowers/specs/2026-08-30-rhis-bot-related-datasets-design.md": {
     "mtime": 1788179501.4414556,
-    "seen": 1788898534.0983126,
+    "seen": 1788940821.645264,
     "ast_hash": "12cd583142859f6a2d207390fcab1a9c",
     "semantic_hash": ""
   },
   "RHIS/docs/superpowers/specs/2026-08-30-rhis-bot-structured-clarification-design.md": {
     "mtime": 1788179501.443462,
-    "seen": 1788898534.0983155,
+    "seen": 1788940821.6452672,
     "ast_hash": "d7183c1e57eff11a200db81ed3280d75",
     "semantic_hash": ""
   },
   "docs/plans/2026-08-24-configuration-live-preview.md": {
     "mtime": 1788179501.522657,
-    "seen": 1788898534.0983357,
+    "seen": 1788940821.6452982,
     "ast_hash": "43bcea09f231a94433dacaf2b718eff1",
     "semantic_hash": ""
   },
   "docs/research/2026-08-24-configuration-live-preview.md": {
     "mtime": 1788179501.5256581,
-    "seen": 1788898534.098354,
+    "seen": 1788940821.6453469,
     "ast_hash": "f0b3ee8857c65196dd80d6ee19f7b06e",
     "semantic_hash": ""
   },
   "RHIS/docs/superpowers/plans/2026-08-31-bot-report-ponytail-refactor.md": {
     "mtime": 1788179501.419148,
-    "seen": 1788898534.0982304,
+    "seen": 1788940821.645016,
     "ast_hash": "fab1bf7fce8ad3d3a006c709adb4967e",
     "semantic_hash": ""
   },
   "RHIS/docs/superpowers/research/2026-08-31-bot-report-ponytail-refactor.md": {
     "mtime": 1788179501.4318626,
-    "seen": 1788898534.0982747,
+    "seen": 1788940821.645192,
     "ast_hash": "3b6d16e7027bbe742bb0256ebcf513ba",
     "semantic_hash": ""
   },
   "RHIS/docs/superpowers/specs/2026-08-31-bot-report-ponytail-refactor-design.md": {
     "mtime": 1788179501.4461298,
-    "seen": 1788898534.098318,
+    "seen": 1788940821.645271,
     "ast_hash": "d4388181143386c35963cc88c1d756f6",
     "semantic_hash": ""
   },
   "Frontend/Rhis_report_gen/docs/superpowers/plans/2026-08-31-preview-table-visual-quality.md": {
     "mtime": 1788179501.314725,
-    "seen": 1788898534.097989,
+    "seen": 1788940821.6447437,
     "ast_hash": "7fcb75ae4bbb324af7d3a234cf155d9b",
     "semantic_hash": ""
   },
   "Frontend/Rhis_report_gen/docs/superpowers/specs/2026-08-31-preview-table-visual-quality-design.md": {
     "mtime": 1788179501.3187244,
-    "seen": 1788898534.0980136,
+    "seen": 1788940821.6447823,
     "ast_hash": "2db8f9db195eba42ffaeda276a96fd79",
     "semantic_hash": ""
   },
   "Frontend/Rhis_report_gen/docs/superpowers/plans/2026-09-02-configuration-reference-visual-clone.md": {
     "mtime": 1788605701.6912508,
-    "seen": 1788898534.0979922,
+    "seen": 1788940821.6447487,
     "ast_hash": "914747b71847d740afb5932bbfb7016d",
     "semantic_hash": ""
   },
   "Frontend/Rhis_report_gen/docs/superpowers/plans/2026-09-02-export-reference-visual-clone.md": {
     "mtime": 1788605701.6912508,
-    "seen": 1788898534.0979948,
+    "seen": 1788940821.6447527,
     "ast_hash": "a0c62174e39ab5723ab54c646bf78f34",
     "semantic_hash": ""
   },
   "Frontend/Rhis_report_gen/docs/superpowers/specs/2026-09-02-configuration-reference-visual-clone-design.md": {
     "mtime": 1788605701.7049854,
-    "seen": 1788898534.0980167,
+    "seen": 1788940821.6447866,
     "ast_hash": "28695e2430d4909b98a155008205a0dc",
     "semantic_hash": ""
   },
   "Frontend/Rhis_report_gen/docs/superpowers/specs/2026-09-02-export-reference-visual-clone-design.md": {
     "mtime": 1788605701.7049854,
-    "seen": 1788898534.0980198,
+    "seen": 1788940821.644791,
     "ast_hash": "1d0cc8c3a3b2907d6a424cd9fbf723f0",
     "semantic_hash": ""
   },
   "docs/plans/2026-09-01-shared-shell-report-source.md": {
     "mtime": 1788605701.7462463,
-    "seen": 1788898534.0983386,
+    "seen": 1788940821.6453228,
     "ast_hash": "4e41c2375615c0b670ca916dc4e32e1f",
     "semantic_hash": ""
   },
   "docs/research/2026-09-01-shared-shell-report-source.md": {
     "mtime": 1788605701.747245,
-    "seen": 1788898534.098357,
+    "seen": 1788940821.6453514,
     "ast_hash": "9adb6e568b59d90ad9b5b453ad26da4b",
     "semantic_hash": ""
   },
   "docs/research/2026-09-02-configuration-reference-visual-clone.md": {
     "mtime": 1788605701.748292,
-    "seen": 1788898534.0983593,
+    "seen": 1788940821.6453555,
     "ast_hash": "33d2817f11163c3c2cbda695b0782b2e",
     "semantic_hash": ""
   },
   "docs/superpowers/specs/2026-09-01-shared-shell-report-source-design.md": {
     "mtime": 1788605701.7492938,
-    "seen": 1788898534.0983727,
+    "seen": 1788940821.645376,
     "ast_hash": "8efa71b9ec2b44f7ae0e79e2c3f23bb7",
     "semantic_hash": ""
   },
   "Frontend/Rhis_report_gen/public/rhis-solutions-logo.png": {
     "mtime": 1788777908.110124,
-    "seen": 1788898534.0983946,
+    "seen": 1788940821.645408,
     "ast_hash": "7bb469ccdf17534ee798f7ae3acdc50f",
     "semantic_hash": ""
   },
   "Frontend/Rhis_report_gen/public/assets/ms-excel.jpg": {
     "mtime": 1788605701.7049854,
-    "seen": 1788898534.098389,
+    "seen": 1788940821.6454003,
     "ast_hash": "b3983a8e94ecf2eb0e9eb2dd73eacabc",
     "semantic_hash": ""
   },
   "Frontend/Rhis_report_gen/docs/superpowers/plans/2026-09-03-collapsible-sidebar.md": {
     "mtime": 1788605701.7049854,
-    "seen": 1788898534.0979977,
+    "seen": 1788940821.644757,
     "ast_hash": "66386121ed423bc895d74668a79769f4",
     "semantic_hash": ""
   },
   "Frontend/Rhis_report_gen/docs/superpowers/specs/2026-09-03-collapsible-sidebar-design.md": {
     "mtime": 1788605701.7049854,
-    "seen": 1788898534.098023,
+    "seen": 1788940821.644795,
     "ast_hash": "d23fe1d702bc3fa9eaf812250018fc94",
     "semantic_hash": ""
   },
   "Frontend/Rhis_report_gen/public/logo_collapsed.png": {
     "mtime": 1788605701.7155879,
-    "seen": 1788898534.0983918,
+    "seen": 1788940821.6454043,
     "ast_hash": "da12ae18bc02380847f64ab68272efe5",
     "semantic_hash": ""
   },
   "Frontend/Rhis_report_gen/public/Logo.svg": {
     "mtime": 1785770842.1878135,
-    "seen": 1788898534.0983863,
+    "seen": 1788940821.6453967,
     "ast_hash": "f7d7254287a4c0f15715e1a2cdfd0e7a",
     "semantic_hash": ""
   },
   "docs/plans/2026-09-05-chatbot-business-language.md": {
     "mtime": 1788618407.0179944,
-    "seen": 1788898534.0983415,
+    "seen": 1788940821.6453266,
     "ast_hash": "bee95a0b3916a0c317ff5e65ad4ec01e",
     "semantic_hash": ""
   },
   "docs/research/2026-09-05-chatbot-business-language.md": {
     "mtime": 1788618407.01965,
-    "seen": 1788898534.098362,
+    "seen": 1788940821.6453593,
     "ast_hash": "56be495691cec813b4c9e61bc982b5ce",
     "semantic_hash": ""
   },
   "Frontend/Rhis_report_gen/src/app/features/auth/auth.interceptor.spec.ts": {
     "mtime": 1788782029.3916745,
-    "seen": 1788898534.0968437,
+    "seen": 1788940821.6434326,
     "ast_hash": "8c1ab44ef2d4906d913a22149b7d35a4",
     "semantic_hash": ""
   },
   "Frontend/Rhis_report_gen/src/app/features/auth/auth.interceptor.ts": {
     "mtime": 1788786309.3178918,
-    "seen": 1788898534.0968485,
+    "seen": 1788940821.6434364,
     "ast_hash": "320b385d88b24f9647d35ca8ce496464",
     "semantic_hash": ""
   },
   "tools/presentation/generate-rhis-technical-deck.js": {
     "mtime": 1788642522.899769,
-    "seen": 1788898534.0979574,
+    "seen": 1788940821.644682,
     "ast_hash": "25ef939a4c8a6d8cf5d6219ec6c0f359",
     "semantic_hash": ""
   },
   "docs/plans/2026-09-05-technical-project-presentation.md": {
     "mtime": 1788642569.4968476,
-    "seen": 1788898534.0983438,
+    "seen": 1788940821.6453311,
     "ast_hash": "ea4b2d46c86fd63fede981e7b9ead790",
     "semantic_hash": ""
   },
   "docs/plans/2026-09-07-auth-refresh-interceptor.md": {
     "mtime": 1788782596.5743058,
-    "seen": 1788898534.0983465,
+    "seen": 1788940821.6453352,
     "ast_hash": "71a24ae333bb1e69817f567c3ab8b92f",
     "semantic_hash": ""
   },
   "docs/research/2026-09-07-auth-refresh-interceptor.md": {
     "mtime": 1788780912.5074625,
-    "seen": 1788898534.0983644,
+    "seen": 1788940821.6453638,
     "ast_hash": "6c03c580e14955df5b26b79147058f23",
     "semantic_hash": ""
   },
   "docs/superpowers/specs/2026-09-05-technical-project-presentation-design.md": {
     "mtime": 1788641757.45583,
-    "seen": 1788898534.0983758,
+    "seen": 1788940821.6453798,
     "ast_hash": "f38b23186fd4ddf93eab25687f1a9c91",
     "semantic_hash": ""
   },
   "Frontend/Rhis_report_gen/docs/superpowers/plans/2026-09-07-mobile-navigation-report-actions.md": {
     "mtime": 1788792170.4281175,
-    "seen": 1788898534.098,
+    "seen": 1788940821.6447613,
     "ast_hash": "8cf67875f4dc78d269fe23d60804bea6",
     "semantic_hash": ""
   },
   "Frontend/Rhis_report_gen/docs/superpowers/specs/2026-09-07-mobile-navigation-report-actions-design.md": {
     "mtime": 1788790836.974106,
-    "seen": 1788898534.098076,
+    "seen": 1788940821.6447988,
     "ast_hash": "bc1c217ea5cf46a316d63d6f3a2ed397",
     "semantic_hash": ""
   },
   "RHIS/docs/superpowers/plans/2026-09-07-burger-king-pdf-branding.md": {
     "mtime": 1788801078.165932,
-    "seen": 1788898534.098233,
+    "seen": 1788940821.6450207,
     "ast_hash": "1b276004db3a65cbe28cafbb8d526c88",
     "semantic_hash": ""
   },
   "RHIS/docs/superpowers/specs/2026-09-07-burger-king-pdf-branding-design.md": {
     "mtime": 1788799716.9269114,
-    "seen": 1788898534.098321,
+    "seen": 1788940821.6452749,
     "ast_hash": "f961b0ed25e672f83216b437ba2316d1",
     "semantic_hash": ""
   },
   "Frontend/Rhis_report_gen/public/Burger_King_logo.svg": {
     "mtime": 1788794601.14414,
-    "seen": 1788898534.0983837,
+    "seen": 1788940821.645393,
     "ast_hash": "932830cc8186ce52baaac3faf471bf89",
     "semantic_hash": ""
   },
   "RHIS/src/main/resources/reports/burger-king-logo.svg": {
     "mtime": 1788794601.14414,
-    "seen": 1788898534.0984,
+    "seen": 1788940821.6454153,
     "ast_hash": "932830cc8186ce52baaac3faf471bf89",
     "semantic_hash": ""
   },
   "docs/plans/2026-09-07-pdf-reference-layout.md": {
     "mtime": 1788812784.1760256,
-    "seen": 1788898534.098349,
+    "seen": 1788940821.6453385,
     "ast_hash": "04fc9bff17bde22527728ebc346b879c",
     "semantic_hash": ""
   },
   "docs/research/2026-09-07-pdf-reference-layout.md": {
     "mtime": 1788810604.3318343,
-    "seen": 1788898534.098367,
+    "seen": 1788940821.645368,
     "ast_hash": "cb7e6f56fa086da1371cb459fe6b63de",
     "semantic_hash": ""
   },
   "RHIS/src/main/resources/reports/burger-king-footer.svg": {
     "mtime": 1788811174.1615746,
-    "seen": 1788898534.0983975,
+    "seen": 1788940821.6454115,
     "ast_hash": "d19ff4134500184d0bb9b06164bf71d8",
     "semantic_hash": ""
   },
   "output/pdf/rapport-burger-king-reference.pdf": {
     "mtime": 1788811595.691023,
-    "seen": 1788898534.0983808,
+    "seen": 1788940821.6453888,
     "ast_hash": "faed58e9f523cfa93c3d3e668aa38c38",
     "semantic_hash": ""
   },
   "RHIS/docs/migrations/2026-09-08-catalogue-metier.sql": {
     "mtime": 1788863672.658258,
-    "seen": 1788898534.097205,
+    "seen": 1788940821.6436362,
     "ast_hash": "ccc3cdf17d76f69f8624e1dfa33d7950",
     "semantic_hash": ""
   },
   "RHIS/src/test/java/RHIS/com/RHIS/bot/BotReportPlannerLiveTest.java": {
     "mtime": 1788895379.7507174,
-    "seen": 1788898534.0978959,
+    "seen": 1788940821.6445835,
     "ast_hash": "d6559379559d20542d6d695e2de674ea",
     "semantic_hash": ""
   },
   "RHIS/src/test/java/RHIS/com/RHIS/dataset/CatalogMetadataPostgresIntegrationTest.java": {
     "mtime": 1788898361.2053385,
-    "seen": 1788898534.0979102,
+    "seen": 1788940821.6446068,
     "ast_hash": "eacef551872a688a78364a44899a9233",
     "semantic_hash": ""
   },
   "output/catalogue-preview.cjs": {
     "mtime": 1788865327.0920382,
-    "seen": 1788898534.097954,
+    "seen": 1788940821.6446776,
     "ast_hash": "65fbc2fa077708d39ca2ce855256058b",
     "semantic_hash": ""
   },
   "RHIS/docs/migrations/README.md": {
     "mtime": 1788864707.1734188,
-    "seen": 1788898534.0981762,
+    "seen": 1788940821.6449356,
     "ast_hash": "be06682eb0b94891fe365775163ea741",
     "semantic_hash": ""
   },
   "RHIS/docs/superpowers/plans/2026-09-08-assistant-catalogue-metier.md": {
-    "mtime": 1788898310.486482,
-    "seen": 1788898534.098236,
-    "ast_hash": "f1a6d8f01794c9b566a7d25cfd8ef76d",
+    "mtime": 1788898551.5027597,
+    "seen": 1788940821.6450248,
+    "ast_hash": "b25390d3bd52d35c8db61c31f3efdf98",
     "semantic_hash": ""
   },
   "RHIS/docs/superpowers/research/2026-09-08-assistant-catalogue-metier.md": {
     "mtime": 1788862947.8899224,
-    "seen": 1788898534.0982773,
+    "seen": 1788940821.6451983,
     "ast_hash": "df44c73e1e6475161c7c4ac6a6d2a17a",
     "semantic_hash": ""
   },
   "output/pdf/rapport-10-lignes-par-page.pdf": {
     "mtime": 1788812674.9412487,
-    "seen": 1788898534.0983782,
+    "seen": 1788940821.6453848,
     "ast_hash": "7ac0adf7679293cb448f3b28116a4996",
     "semantic_hash": ""
   },
   "RHIS/src/main/java/RHIS/com/RHIS/dataset/bootstrap/CatalogMetadataSeeder.java": {
     "mtime": 1788898318.4482048,
-    "seen": 1788898534.097637,
+    "seen": 1788940821.6439471,
     "ast_hash": "39543601e1ba7cae2e655edca8c2c7af",
     "semantic_hash": ""
   },
   "RHIS/src/main/resources/db/catalog-metadata-seed.sql": {
     "mtime": 1788898322.8239605,
-    "seen": 1788898534.0978885,
+    "seen": 1788940821.6445732,
     "ast_hash": "3527a4c535b4736aef0dc9c9f058880d",
     "semantic_hash": ""
   }

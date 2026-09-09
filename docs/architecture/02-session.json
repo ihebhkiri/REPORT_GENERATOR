@@ -1,0 +1,130 @@
+{
+  "schema_version": 1,
+  "diagram_type": "sequence",
+  "meta": {
+    "title": "RHIS · Connexion et session",
+    "quality_profile": "showcase",
+    "column_fit": "spread",
+    "viewBox": [
+      1080,
+      660
+    ]
+  },
+  "participants": [
+    {
+      "id": "ui",
+      "type": "frontend",
+      "label": "Angular",
+      "sublabel": "Formulaire / interceptor"
+    },
+    {
+      "id": "auth",
+      "type": "security",
+      "label": "Authentification",
+      "sublabel": "Spring Security"
+    },
+    {
+      "id": "store",
+      "type": "database",
+      "label": "Identités",
+      "sublabel": "Utilisateurs / refresh"
+    }
+  ],
+  "messages": [
+    {
+      "from": "ui",
+      "to": "auth",
+      "label": "POST /api/v1/auth/login",
+      "y": 160
+    },
+    {
+      "from": "auth",
+      "to": "store",
+      "label": "Compte, rôles et mot de passe",
+      "y": 192
+    },
+    {
+      "from": "store",
+      "to": "auth",
+      "label": "Identité vérifiée",
+      "y": 224,
+      "variant": "return"
+    },
+    {
+      "from": "auth",
+      "to": "ui",
+      "label": "204 + cookies HttpOnly",
+      "y": 256,
+      "variant": "return"
+    },
+    {
+      "from": "ui",
+      "to": "auth",
+      "label": "GET /api/v1/auth/me",
+      "y": 288
+    },
+    {
+      "from": "auth",
+      "to": "ui",
+      "label": "Profil et rôles",
+      "y": 320,
+      "variant": "return"
+    },
+    {
+      "from": "ui",
+      "to": "auth",
+      "label": "Requête protégée : JWT expiré",
+      "y": 352
+    },
+    {
+      "from": "auth",
+      "to": "ui",
+      "label": "401",
+      "y": 384,
+      "variant": "return"
+    },
+    {
+      "from": "ui",
+      "to": "auth",
+      "label": "POST /api/v1/auth/refresh",
+      "y": 416
+    },
+    {
+      "from": "auth",
+      "to": "store",
+      "label": "Rotation du refresh token",
+      "y": 448
+    },
+    {
+      "from": "auth",
+      "to": "ui",
+      "label": "Nouveaux cookies",
+      "y": 480,
+      "variant": "return"
+    },
+    {
+      "from": "ui",
+      "to": "auth",
+      "label": "Rejouer la requête initiale",
+      "y": 512
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "Session côté navigateur",
+      "items": [
+        "Cookies envoyés avec les requêtes API ; rôle utilisé par les guards.",
+        "Un 401 déclenche le refresh, hors login/refresh/logout."
+      ]
+    },
+    {
+      "dot": "cyan",
+      "title": "Échec et déconnexion",
+      "items": [
+        "Si le refresh échoue, l’erreur est propagée.",
+        "Le logout efface les cookies ; aucune révocation serveur observée."
+      ]
+    }
+  ]
+}

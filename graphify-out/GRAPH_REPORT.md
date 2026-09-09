@@ -1,7 +1,7 @@
-# Graph Report - RHIS  (2026-09-08)
+# Graph Report - RHIS  (2026-09-09)
 
 ## Corpus Check
-- 369 files · ~217,087 words
+- 369 files · ~217,381 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
@@ -10,7 +10,7 @@
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `00841737`
+- Built from commit: `61f05ae4`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -948,7 +948,7 @@ Cohesion: 0.22
 Nodes (8): Acceptance criteria, Burger King PDF branding design, Design, Error handling, Implementation boundary, Objective, Scope, Verification
 
 ### Community 201 - "org.springframework.stereotype.Component"
-Cohesion: 0.18
+Cohesion: 0.17
 Nodes (9): com.fasterxml.jackson.databind.ObjectMapper, org.slf4j.Logger, org.springframework.scheduling.annotation.Scheduled, org.springframework.stereotype.Component, ReportDefinitionUnavailableException, UnavailableReportElement, ReportExportWorker, ReportJobCleanupService (+1 more)
 
 ### Community 202 - "Rendre les demandes de rapports accessibles aux clients non techniques"

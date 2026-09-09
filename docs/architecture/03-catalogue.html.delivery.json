@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "ok": true,
+  "command": "deliver",
+  "type": "sequence",
+  "input": "C:\\Users\\Surface Pro\\Downloads\\RHIS\\docs\\architecture\\03-catalogue.json",
+  "output": "C:\\Users\\Surface Pro\\Downloads\\RHIS\\docs\\architecture\\03-catalogue.html",
+  "specification": {
+    "sha256": "974b07abb5fa75bd2c37d15730d611d63beb56929ffb7a7d8f2f2569f482dbee",
+    "bytes": 2716
+  },
+  "artifact": {
+    "sha256": "12b6068933751029ea20f9586267c1a3d7e53c88531f7f0447816074415d5feb",
+    "bytes": 707646
+  },
+  "validation": {
+    "checksPassed": 9,
+    "checkCount": 9,
+    "compositionProfile": "showcase",
+    "compositionStatus": "pass",
+    "errors": 0,
+    "warnings": 0
+  }
+}

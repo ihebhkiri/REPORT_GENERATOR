@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "ok": true,
+  "command": "deliver",
+  "type": "sequence",
+  "input": "C:\\Users\\Surface Pro\\Downloads\\RHIS\\docs\\architecture\\02-session.json",
+  "output": "C:\\Users\\Surface Pro\\Downloads\\RHIS\\docs\\architecture\\02-session.html",
+  "specification": {
+    "sha256": "3ad5ae3f0266e20b833125c343883090441cea430b2bd254707e176f78bcb64d",
+    "bytes": 2748
+  },
+  "artifact": {
+    "sha256": "a5c3a34a33b8904ceadb09bf850ff1a4a7db4c620490a82a4768699c3c2fb988",
+    "bytes": 706339
+  },
+  "validation": {
+    "checksPassed": 9,
+    "checkCount": 9,
+    "compositionProfile": "showcase",
+    "compositionStatus": "pass",
+    "errors": 0,
+    "warnings": 0
+  }
+}

@@ -1,0 +1,32 @@
+
+> rhis-report-gen@0.0.0 test
+> ng test --watch=false --browsers=ChromeHeadless --include=src/app/features/auth/pages/login/login.component.spec.ts
+
+> Building...
+√ Building...
+Initial chunk files          | Names                     |  Raw size
+chunk-K322CDUC.js            | -                         |   2.53 MB | 
+polyfills.js                 | polyfills                 |   1.04 MB | 
+spec-login.component.spec.js | spec-login.component.spec | 607.56 kB | 
+jasmine-cleanup-1.js         | jasmine-cleanup-1         |  67.20 kB | 
+styles.css                   | styles                    |  49.55 kB | 
+test_main.js                 | test_main                 |  21.79 kB | 
+chunk-3FMBEB3S.js            | -                         |   2.13 kB | 
+jasmine-cleanup-0.js         | jasmine-cleanup-0         | 519 bytes | 
+
+                             | Initial total             |   4.32 MB
+
+Application bundle generation complete. [35.418 seconds] - 2026-09-09T07:58:13.403Z
+
+09 09 2026 09:58:15.386:INFO [karma-server]: Karma v6.4.4 server started at http://localhost:9876/
+09 09 2026 09:58:15.414:INFO [launcher]: Launching browsers ChromeHeadless with concurrency unlimited
+09 09 2026 09:58:15.520:INFO [launcher]: Starting browser ChromeHeadless
+09 09 2026 09:58:18.550:INFO [Chrome Headless 153.0.0.0 (Windows 10)]: Connected on socket D0wsY-CR0Dre4Xv_AAAB with id 68856704
+Chrome Headless 153.0.0.0 (Windows 10): Executed 0 of 3[32m SUCCESS[39m (0 secs / 0 secs)
+[1A[2KChrome Headless 153.0.0.0 (Windows 10): Executed 1 of 3[32m SUCCESS[39m (0 secs / 0.495 secs)
+[1A[2KChrome Headless 153.0.0.0 (Windows 10): Executed 2 of 3[32m SUCCESS[39m (0 secs / 0.545 secs)
+[1A[2KChrome Headless 153.0.0.0 (Windows 10): Executed 3 of 3[32m SUCCESS[39m (0 secs / 0.581 secs)
+[1A[2KChrome Headless 153.0.0.0 (Windows 10): Executed 3 of 3[32m SUCCESS[39m (0.622 secs / 0.581 secs)
+[32mTOTAL: 3 SUCCESS[39m
+09 09 2026 09:58:25.686:WARN [launcher]: ChromeHeadless was not killed in 2000 ms, sending SIGKILL.
+09 09 2026 09:58:27.708:WARN [launcher]: ChromeHeadless was not killed by SIGKILL in 2000 ms, continuing.

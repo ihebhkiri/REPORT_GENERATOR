@@ -1,0 +1,172 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "RHIS · Architecture globale",
+    "quality_profile": "showcase",
+    "viewBox": [
+      1380,
+      740
+    ]
+  },
+  "components": [
+    {
+      "id": "web",
+      "type": "frontend",
+      "label": "Application Angular",
+      "sublabel": "Connexion · rapports · admin",
+      "pos": [
+        40,
+        290
+      ],
+      "size": [
+        230,
+        80
+      ]
+    },
+    {
+      "id": "security",
+      "type": "security",
+      "label": "Spring Security",
+      "sublabel": "Cookies JWT · rôle ADMIN",
+      "pos": [
+        390,
+        290
+      ],
+      "size": [
+        230,
+        80
+      ]
+    },
+    {
+      "id": "services",
+      "type": "backend",
+      "label": "Services Spring Boot",
+      "sublabel": "Catalogue · bot · rapports",
+      "pos": [
+        740,
+        290
+      ],
+      "size": [
+        230,
+        80
+      ]
+    },
+    {
+      "id": "postgres",
+      "type": "database",
+      "label": "PostgreSQL",
+      "sublabel": "Métier · catalogue · jobs",
+      "pos": [
+        1090,
+        290
+      ],
+      "size": [
+        240,
+        80
+      ]
+    },
+    {
+      "id": "llm",
+      "type": "external",
+      "label": "Fournisseur IA",
+      "sublabel": "Plan structuré via Spring AI",
+      "pos": [
+        740,
+        60
+      ],
+      "size": [
+        230,
+        80
+      ]
+    },
+    {
+      "id": "workers",
+      "type": "backend",
+      "label": "Workers internes",
+      "sublabel": "Pool de tâches dans la JVM",
+      "pos": [
+        740,
+        540
+      ],
+      "size": [
+        230,
+        80
+      ]
+    },
+    {
+      "id": "files",
+      "type": "database",
+      "label": "Fichiers locaux",
+      "sublabel": "Snapshot gzip · PDF · XLSX",
+      "pos": [
+        1090,
+        540
+      ],
+      "size": [
+        240,
+        80
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "from": "web",
+      "to": "security",
+      "label": "HTTP / JSON"
+    },
+    {
+      "from": "security",
+      "to": "services",
+      "label": "Accès contrôlé"
+    },
+    {
+      "from": "services",
+      "to": "postgres",
+      "label": "JPA / JDBC"
+    },
+    {
+      "from": "services",
+      "to": "llm",
+      "label": "Phrase + catalogue"
+    },
+    {
+      "from": "services",
+      "to": "workers",
+      "label": "Après commit",
+      "variant": "dashed",
+      "labelDy": 90
+    },
+    {
+      "from": "workers",
+      "to": "files",
+      "label": "Lecture / écriture"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "Deux entrées, un moteur",
+      "items": [
+        "Rapport configuré à la main ou proposé par l’IA.",
+        "Le serveur valide les champs, filtres et relations."
+      ]
+    },
+    {
+      "dot": "emerald",
+      "title": "Traitement différé",
+      "items": [
+        "Jobs persistés ; exécution dans le processus Spring.",
+        "L’interface consulte la progression puis télécharge."
+      ]
+    },
+    {
+      "dot": "rose",
+      "title": "Périmètre constaté",
+      "items": [
+        "Métadonnées exposées transmises à l’IA, pas les lignes métier.",
+        "Architecture du code local, pas une topologie cloud déployée."
+      ]
+    }
+  ]
+}
